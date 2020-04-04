@@ -1,4 +1,4 @@
-package com.example.liquid
+package com.tsquaredapplications.liquid
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
