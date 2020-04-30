@@ -6,22 +6,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.tsquaredapplications.liquid.databinding.FragmentHomeBinding
+import com.tsquaredapplications.liquid.databinding.FragmentSelectDrinkTypeBinding
 
-class HomeFragment : Fragment() {
+/**
+ * A simple [Fragment] subclass.
+ */
+class SelectDrinkTypeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentSelectDrinkTypeBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentSelectDrinkTypeBinding.inflate(layoutInflater, container, false)
         val view = binding.root
-        binding.addDrinkButton.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeFragmentToSelectDrinkTypeFragment()
+        binding.drinkSelectedButton.setOnClickListener {
+            val action =
+                SelectDrinkTypeFragmentDirections.actionSelectDrinkTypeFragmentToDrinkAmountFragment()
             view.findNavController().navigate(action)
         }
         return binding.root
