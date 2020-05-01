@@ -4,20 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.tsquaredapplications.liquid.databinding.FragmentDrinkAmountBinding
+import com.tsquaredapplications.liquid.databinding.FragmentHistoryBinding
 
-class DrinkAmountFragment : BaseFragment<FragmentDrinkAmountBinding>() {
+class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
 
     override fun setBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentDrinkAmountBinding = FragmentDrinkAmountBinding.inflate(inflater, container, false)
+    ): FragmentHistoryBinding = FragmentHistoryBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.addButton.setOnClickListener {
-            val action = DrinkAmountFragmentDirections.actionDrinkAmountFragmentToHomeFragment()
+        super.onViewCreated(view, savedInstanceState)
+        binding.dayCardButton.setOnClickListener {
+            val action = HistoryFragmentDirections.actionHistoryFragmentToDayHistoryFragment()
             view.findNavController().navigate(action)
         }
     }

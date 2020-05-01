@@ -8,9 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.tsquaredapplications.liquid.databinding.FragmentAddPresetBinding
 
-/**
- * A simple [Fragment] subclass.
- */
 class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
 
     override fun setBinding(

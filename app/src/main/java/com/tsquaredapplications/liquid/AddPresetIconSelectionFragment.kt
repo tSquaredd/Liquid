@@ -8,9 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.tsquaredapplications.liquid.databinding.FragmentAddPresetIconSelectionBinding
 
-/**
- * A simple [Fragment] subclass.
- */
 class AddPresetIconSelectionFragment : BaseFragment<FragmentAddPresetIconSelectionBinding>() {
 
     override fun setBinding(

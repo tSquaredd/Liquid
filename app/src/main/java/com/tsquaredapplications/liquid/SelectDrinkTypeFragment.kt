@@ -8,9 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.tsquaredapplications.liquid.databinding.FragmentSelectDrinkTypeBinding
 
-/**
- * A simple [Fragment] subclass.
- */
 class SelectDrinkTypeFragment : BaseFragment<FragmentSelectDrinkTypeBinding>() {
 
     override fun setBinding(
