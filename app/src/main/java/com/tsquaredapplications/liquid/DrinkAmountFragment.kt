@@ -11,26 +11,17 @@ import com.tsquaredapplications.liquid.databinding.FragmentDrinkAmountBinding
 /**
  * A simple [Fragment] subclass.
  */
-class DrinkAmountFragment : Fragment() {
+class DrinkAmountFragment : BaseFragment<FragmentDrinkAmountBinding>() {
 
-    private var _binding: FragmentDrinkAmountBinding? = null
-    private val binding get() = _binding!!
+    override fun setBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentDrinkAmountBinding = FragmentDrinkAmountBinding.inflate(inflater, container, false)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentDrinkAmountBinding.inflate(layoutInflater, container, false)
-        val view = binding.root
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.addButton.setOnClickListener {
             val action = DrinkAmountFragmentDirections.actionDrinkAmountFragmentToHomeFragment()
             view.findNavController().navigate(action)
         }
-        return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

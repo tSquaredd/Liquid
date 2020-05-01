@@ -6,23 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.tsquaredapplications.liquid.databinding.FragmentSelectDrinkTypeBinding
+import com.tsquaredapplications.liquid.databinding.FragmentAddPresetIconSelectionBinding
 
 /**
  * A simple [Fragment] subclass.
  */
-class SelectDrinkTypeFragment : BaseFragment<FragmentSelectDrinkTypeBinding>() {
+class AddPresetIconSelectionFragment : BaseFragment<FragmentAddPresetIconSelectionBinding>() {
 
     override fun setBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentSelectDrinkTypeBinding =
-        FragmentSelectDrinkTypeBinding.inflate(inflater, container, false)
+    ): FragmentAddPresetIconSelectionBinding =
+        FragmentAddPresetIconSelectionBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.drinkSelectedButton.setOnClickListener {
+        super.onViewCreated(view, savedInstanceState)
+        binding.iconSelectedButton.setOnClickListener {
             val action =
-                SelectDrinkTypeFragmentDirections.actionSelectDrinkTypeFragmentToDrinkAmountFragment()
+                AddPresetIconSelectionFragmentDirections.actionAddPresetIconSelectionFragmentToAddPresetFragment()
             view.findNavController().navigate(action)
         }
     }

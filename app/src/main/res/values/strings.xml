@@ -16,6 +16,5 @@
     <!-- region drink amount screen -->
     <string name="add">Add</string>
     <!-- endregion -->
-
-    <string name="temp">Temp Button</string>
+    
 </resources>

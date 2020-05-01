@@ -28,7 +28,11 @@
         android:id="@+id/presetsFragment"
         android:name="com.tsquaredapplications.liquid.PresetsFragment"
         android:label="@string/presets"
-        tools:layout="@layout/fragment_presets" />
+        tools:layout="@layout/fragment_presets">
+        <action
+            android:id="@+id/action_presetsFragment_to_addPresetFragment"
+            app:destination="@id/addPresetFragment" />
+    </fragment>
     <fragment
         android:id="@+id/selectDrinkTypeFragment"
         android:name="com.tsquaredapplications.liquid.SelectDrinkTypeFragment"
@@ -47,5 +51,41 @@
             android:id="@+id/action_drinkAmountFragment_to_homeFragment"
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPresetFragment"
+        android:name="com.tsquaredapplications.liquid.AddPresetFragment"
+        android:label="@string/presets"
+        tools:layout="@layout/fragment_add_preset">
+        <action
+            android:id="@+id/action_addPresetFragment_to_addPresetTypeSelectionFragment"
+            app:destination="@id/addPresetTypeSelectionFragment" />
+        <action
+            android:id="@+id/action_addPresetFragment_to_addPresetIconSelectionFragment"
+            app:destination="@id/addPresetIconSelectionFragment" />
+        <action
+            android:id="@+id/action_addPresetFragment_to_presetsFragment"
+            app:destination="@id/presetsFragment"
+            app:popUpTo="@id/presetsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPresetTypeSelectionFragment"
+        android:name="com.tsquaredapplications.liquid.AddPresetTypeSelectionFragment"
+        android:label="@string/presets"
+        tools:layout="@layout/fragment_add_preset_type_selection">
+        <action
+            android:id="@+id/action_addPresetTypeSelectionFragment_to_addPresetFragment"
+            app:destination="@id/addPresetFragment"
+            app:popUpTo="@id/addPresetFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPresetIconSelectionFragment"
+        android:name="com.tsquaredapplications.liquid.AddPresetIconSelectionFragment"
+        android:label="fragment_add_preset_icon_selection"
+        tools:layout="@layout/fragment_add_preset_icon_selection">
+        <action
+            android:id="@+id/action_addPresetIconSelectionFragment_to_addPresetFragment"
+            app:destination="@id/addPresetFragment"
+            app:popUpTo="@id/addPresetFragment" />
     </fragment>
 </navigation>
