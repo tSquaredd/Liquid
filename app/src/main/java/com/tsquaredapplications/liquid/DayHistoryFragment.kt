@@ -5,18 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
-import com.tsquaredapplications.liquid.databinding.FragmentPresetsBinding
+import com.tsquaredapplications.liquid.databinding.FragmentDayHistoryBinding
 
-class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
+class DayHistoryFragment : BaseFragment<FragmentDayHistoryBinding>() {
 
     override fun setBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentPresetsBinding = FragmentPresetsBinding.inflate(inflater, container, false)
+    ): FragmentDayHistoryBinding = FragmentDayHistoryBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.createPresetFab.setOnClickListener {
-            val action = PresetsFragmentDirections.actionPresetsFragmentToAddPresetFragment()
+        binding.entryButton.setOnClickListener {
+            val action =
+                DayHistoryFragmentDirections.actionDayHistoryFragmentToUpdateEntryFragment()
             view.findNavController().navigate(action)
         }
     }

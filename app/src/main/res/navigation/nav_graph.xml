@@ -9,7 +9,11 @@
         android:id="@+id/homeFragment"
         android:name="com.tsquaredapplications.liquid.HomeFragment"
         android:label="@string/home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_selectDrinkTypeFragment"
+            app:destination="@id/selectDrinkTypeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/statsFragment"
         android:name="com.tsquaredapplications.liquid.StatsFragment"
@@ -24,5 +28,97 @@
         android:id="@+id/presetsFragment"
         android:name="com.tsquaredapplications.liquid.PresetsFragment"
         android:label="@string/presets"
-        tools:layout="@layout/fragment_presets" />
+        tools:layout="@layout/fragment_presets">
+        <action
+            android:id="@+id/action_presetsFragment_to_addPresetFragment"
+            app:destination="@id/addPresetFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectDrinkTypeFragment"
+        android:name="com.tsquaredapplications.liquid.SelectDrinkTypeFragment"
+        android:label="@string/select_a_drink"
+        tools:layout="@layout/fragment_select_drink_type">
+        <action
+            android:id="@+id/action_selectDrinkTypeFragment_to_drinkAmountFragment"
+            app:destination="@id/drinkAmountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/drinkAmountFragment"
+        android:name="com.tsquaredapplications.liquid.DrinkAmountFragment"
+        android:label="@string/drink_amount"
+        tools:layout="@layout/fragment_drink_amount">
+        <action
+            android:id="@+id/action_drinkAmountFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPresetFragment"
+        android:name="com.tsquaredapplications.liquid.AddPresetFragment"
+        android:label="@string/presets"
+        tools:layout="@layout/fragment_add_preset">
+        <action
+            android:id="@+id/action_addPresetFragment_to_addPresetTypeSelectionFragment"
+            app:destination="@id/addPresetTypeSelectionFragment" />
+        <action
+            android:id="@+id/action_addPresetFragment_to_addPresetIconSelectionFragment"
+            app:destination="@id/addPresetIconSelectionFragment" />
+        <action
+            android:id="@+id/action_addPresetFragment_to_presetsFragment"
+            app:destination="@id/presetsFragment"
+            app:popUpTo="@id/presetsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPresetTypeSelectionFragment"
+        android:name="com.tsquaredapplications.liquid.AddPresetTypeSelectionFragment"
+        android:label="@string/presets"
+        tools:layout="@layout/fragment_add_preset_type_selection">
+        <action
+            android:id="@+id/action_addPresetTypeSelectionFragment_to_addPresetFragment"
+            app:destination="@id/addPresetFragment"
+            app:popUpTo="@id/addPresetFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPresetIconSelectionFragment"
+        android:name="com.tsquaredapplications.liquid.AddPresetIconSelectionFragment"
+        android:label="@string/presets"
+        tools:layout="@layout/fragment_add_preset_icon_selection">
+        <action
+            android:id="@+id/action_addPresetIconSelectionFragment_to_addPresetFragment"
+            app:destination="@id/addPresetFragment"
+            app:popUpTo="@id/addPresetFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.tsquaredapplications.liquid.HistoryFragment"
+        android:label="@string/history"
+        tools:layout="@layout/fragment_history">
+        <action
+            android:id="@+id/action_historyFragment_to_dayHistoryFragment"
+            app:destination="@id/dayHistoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dayHistoryFragment"
+        android:name="com.tsquaredapplications.liquid.DayHistoryFragment"
+        android:label="May 1st"
+        tools:layout="@layout/fragment_day_history">
+        <action
+            android:id="@+id/action_dayHistoryFragment_to_updateEntryFragment"
+            app:destination="@id/updateEntryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateEntryFragment"
+        android:name="com.tsquaredapplications.liquid.UpdateEntryFragment"
+        android:label=""
+        tools:layout="@layout/fragment_update_entry">
+        <action
+            android:id="@+id/action_updateEntryFragment_to_dayHistoryFragment"
+            app:destination="@id/dayHistoryFragment"
+            app:popUpTo="@id/dayHistoryFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
