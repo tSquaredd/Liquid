@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "235872250486",
+    "firebase_url": "https://liquid-74590.firebaseio.com",
+    "project_id": "liquid-74590",
+    "storage_bucket": "liquid-74590.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:235872250486:android:03e64768aa4f7596330d57",
+        "android_client_info": {
+          "package_name": "com.tsquaredapplications.liquid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "235872250486-7jn2jcj4h8ml16jr7n7h51v305j2i8i8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tsquaredapplications.liquid",
+            "certificate_hash": "597c4a81e02f4cc00b67192d5457b4896ffbf17d"
+          }
+        },
+        {
+          "client_id": "235872250486-fe2inuu54gectp5oioumoknirfrbsj48.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCVtzWDIgxpJUwMS_6sHsJi-5B_RSxTzGQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "235872250486-fe2inuu54gectp5oioumoknirfrbsj48.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

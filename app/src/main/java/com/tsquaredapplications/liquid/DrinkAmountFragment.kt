@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import com.tsquaredapplications.liquid.DrinkAmountFragmentDirections.Companion.toHomeFragment
 import com.tsquaredapplications.liquid.databinding.FragmentDrinkAmountBinding
+import com.tsquaredapplications.liquid.ext.navigate
 
 class DrinkAmountFragment : BaseFragment<FragmentDrinkAmountBinding>() {
 
@@ -17,8 +17,7 @@ class DrinkAmountFragment : BaseFragment<FragmentDrinkAmountBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.addButton.setOnClickListener {
-            val action = DrinkAmountFragmentDirections.actionDrinkAmountFragmentToHomeFragment()
-            view.findNavController().navigate(action)
+            navigate(toHomeFragment())
         }
     }
 }

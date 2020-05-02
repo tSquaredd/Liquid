@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import com.tsquaredapplications.liquid.AddPresetFragmentDirections.Companion.toAddPresetIconSelectionFramgent
+import com.tsquaredapplications.liquid.AddPresetFragmentDirections.Companion.toAddPresetTypeSelectionFragment
+import com.tsquaredapplications.liquid.AddPresetFragmentDirections.Companion.toPresetsFragment
 import com.tsquaredapplications.liquid.databinding.FragmentAddPresetBinding
+import com.tsquaredapplications.liquid.ext.navigate
 
 class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
 
@@ -19,20 +21,15 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.addPresetButton.setOnClickListener {
-            val action = AddPresetFragmentDirections.actionAddPresetFragmentToPresetsFragment()
-            view.findNavController().navigate(action)
+            navigate(toPresetsFragment())
         }
 
         binding.selectTypeButton.setOnClickListener {
-            val action =
-                AddPresetFragmentDirections.actionAddPresetFragmentToAddPresetTypeSelectionFragment()
-            view.findNavController().navigate(action)
+            navigate(toAddPresetTypeSelectionFragment())
         }
 
         binding.selectIconButton.setOnClickListener {
-            val action =
-                AddPresetFragmentDirections.actionAddPresetFragmentToAddPresetIconSelectionFragment()
-            view.findNavController().navigate(action)
+            navigate(toAddPresetIconSelectionFramgent())
         }
     }
 }
