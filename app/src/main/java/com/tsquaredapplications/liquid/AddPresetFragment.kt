@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import com.tsquaredapplications.liquid.AddPresetFragmentDirections.Companion.toAddPresetIconSelectionFramgent
 import com.tsquaredapplications.liquid.AddPresetFragmentDirections.Companion.toAddPresetTypeSelectionFragment
 import com.tsquaredapplications.liquid.AddPresetFragmentDirections.Companion.toPresetsFragment
+import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentAddPresetBinding
 import com.tsquaredapplications.liquid.ext.navigate
 

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.tsquaredapplications.liquid.DrinkAmountFragmentDirections.Companion.toHomeFragment
+import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentDrinkAmountBinding
 import com.tsquaredapplications.liquid.ext.navigate
 

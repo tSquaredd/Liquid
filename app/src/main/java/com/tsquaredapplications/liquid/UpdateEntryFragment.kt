@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.tsquaredapplications.liquid.UpdateEntryFragmentDirections.Companion.toDayHistoryFragment
+import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentUpdateEntryBinding
 import com.tsquaredapplications.liquid.ext.navigate
 

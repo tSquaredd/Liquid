@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid
+package com.tsquaredapplications.liquid.splash
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

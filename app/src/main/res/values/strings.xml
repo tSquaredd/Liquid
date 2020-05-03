@@ -23,13 +23,18 @@
     <string name="update">Update</string>
     <!-- endregion -->
 
-    <!-- region login screen -->
+    <!-- region email login screen -->
     <string name="sign_up">Sign Up</string>
     <string name="login">Login</string>
     <string name="email">Email</string>
+    <string name="email_input_error_msg">Invalid email address</string>
     <string name="password">Password</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="welcome">Welcome</string>
     <!-- endregion -->
+
+    <!-- TEMP -->
+    <string name="google">Google</string>
+    <string name="apple">Apple</string>
 
 </resources>
