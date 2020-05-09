@@ -11,4 +11,8 @@ class LoginModule {
     @Provides
     fun providesEmailLoginResourceWrapper(impl: EmailLoginResourceWrapperImpl)
             : EmailLoginResourceWrapper = impl
+
+    @Provides
+    fun providesEmailSignUpResourceWrapper(impl: EmailSignUpResourceWrapperImpl)
+            : EmailSignUpResourceWrapper = impl
 }

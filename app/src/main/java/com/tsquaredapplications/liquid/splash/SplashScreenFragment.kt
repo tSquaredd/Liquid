@@ -3,33 +3,30 @@ package com.tsquaredapplications.liquid.splash
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
-import android.os.Bundle
+import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.ktx.initialize
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentSplashScreenBinding
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.splash.SplashScreenFragmentDirections.Companion.toLoginActivity
 import com.tsquaredapplications.liquid.splash.SplashScreenFragmentDirections.Companion.toMainActivity
+import javax.inject.Inject
 
 class SplashScreenFragment : BaseFragment<FragmentSplashScreenBinding>() {
 
-    private lateinit var auth: FirebaseAuth
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     override fun setBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentSplashScreenBinding = FragmentSplashScreenBinding.inflate(inflater, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        Firebase.initialize(requireContext())
-        auth = Firebase.auth
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (activity as AuthCheckActivity).authCheckComponent.inject(this)
     }
 
     override fun onStart() {

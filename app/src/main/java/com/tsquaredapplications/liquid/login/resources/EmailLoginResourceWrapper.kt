@@ -1,5 +1,8 @@
 package com.tsquaredapplications.liquid.login.resources
 
 interface EmailLoginResourceWrapper {
-    fun getEmailInputErrorText(): String
+
+    fun getFailedLoginErrorMessage(): String
+
+    fun getFailedLoginErrorDismissButtonText(): String
 }

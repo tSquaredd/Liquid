@@ -1,29 +1,49 @@
 package com.tsquaredapplications.liquid.ext
 
-
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
-import org.junit.Test
+import com.tsquaredapplications.liquid.login.PasswordValidation
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
 class CharSequenceExtTests {
 
     @Test
+    fun testNoDomain() {
+        assertFalse { "derp".isValidEmail() }
+    }
+
+    @Test
+    fun testOnlyDomain() {
+        assertFalse { "@gmail.com".isValidEmail() }
+    }
+
+    @Test
     fun testValidEmail() {
-        assertTrue("test@aol.com".validateEmail())
+        assertTrue { "derptaties@bob.com".isValidEmail() }
     }
 
     @Test
-    fun testDoubleDotDomain() {
-        assertTrue("test@secon.first.org".validateEmail())
+    fun testEmptyPassword() {
+        assertTrue { "".isValidPassword() == PasswordValidation.InvalidTooShort }
     }
 
     @Test
-    fun testInvalidEmail() {
-        assertFalse("notValid".validateEmail())
+    fun testShortPassword() {
+        assertTrue { "short".isValidPassword() == PasswordValidation.InvalidTooShort }
     }
 
     @Test
-    fun testInvalidTwo() {
-        assertFalse("almostValidgmail.com".validateEmail())
+    fun testLongPassword() {
+        assertTrue { "thispasswordiswaywaywaytooooooooolong".isValidPassword() == PasswordValidation.InvalidTooLong }
+    }
+
+    @Test
+    fun testNoUpperCase() {
+        assertTrue { "nouppercase!".isValidPassword() == PasswordValidation.InvalidNoUpperCase }
+    }
+
+    @Test
+    fun testValidPassword() {
+        assertTrue { "ValidPassw0rd!".isValidPassword() == PasswordValidation.Valid }
     }
 }

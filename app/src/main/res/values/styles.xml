@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
     </style>
 
     <style name="AppThemeNoActionBar" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -13,6 +14,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorBackground</item>
     </style>
 
     <style name="PrimaryButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
@@ -22,7 +24,7 @@
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:textSize">16sp</item>
         <item name="cornerRadius">10dp</item>
-        <item name="strokeColor">@color/button_stroke</item>
+        <item name="strokeColor">@color/colorAccent</item>
         <item name="strokeWidth">2dp</item>
     </style>
 
@@ -41,5 +43,9 @@
         <item name="android:textColorHint">@color/text_input_hint</item>
         <item name="boxStrokeColor">@color/text_input_color</item>
         <item name="hintTextColor">@color/colorWhite</item>
+    </style>
+
+    <style name="ErrorDialogStyle" parent="Theme.MaterialComponents.Dialog.Alert" >
+        <item name="android:windowBackground">@drawable/rounded_dialog_background</item>
     </style>
 </resources>

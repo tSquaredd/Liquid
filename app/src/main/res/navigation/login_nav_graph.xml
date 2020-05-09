@@ -13,6 +13,9 @@
             android:id="@+id/toMainActivity"
             app:destination="@id/mainActivity"
             app:launchSingleTop="true" />
+        <action
+            android:id="@+id/toEmailSignupFragment"
+            app:destination="@id/emailSignupFragment" />
     </fragment>
     <activity
         android:id="@+id/mainActivity"
@@ -27,5 +30,32 @@
         <action
             android:id="@+id/toEmailLoginFragment"
             app:destination="@id/emailLoginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailSignupFragment"
+        android:name="com.tsquaredapplications.liquid.EmailSignupFragment"
+        android:label="fragment_email_signup"
+        tools:layout="@layout/fragment_email_signup">
+        <action
+            android:id="@+id/toUserInformationFragment"
+            app:destination="@id/userInformationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userInformationFragment"
+        android:name="com.tsquaredapplications.liquid.UserInformationFragment"
+        android:label="fragment_user_information"
+        tools:layout="@layout/fragment_user_information">
+        <action
+            android:id="@+id/toDailyGoalDisplayFragment"
+            app:destination="@id/dailyGoalDisplayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dailyGoalDisplayFragment"
+        android:name="com.tsquaredapplications.liquid.DailyGoalDisplayFragment"
+        android:label="fragment_daily_goal_display"
+        tools:layout="@layout/fragment_daily_goal_display">
+        <action
+            android:id="@+id/toMainActivity"
+            app:destination="@id/mainActivity" />
     </fragment>
 </navigation>
