@@ -9,11 +9,12 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.auth.FirebaseAuth
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.ErrorDialogFragment
 import com.tsquaredapplications.liquid.databinding.FragmentEmailLoginBinding
 import com.tsquaredapplications.liquid.ext.navigate
+import com.tsquaredapplications.liquid.ext.setAsGone
+import com.tsquaredapplications.liquid.ext.setAsVisibile
 import com.tsquaredapplications.liquid.login.EmailLoginFragmentDirections.Companion.toEmailSignupFragment
 import com.tsquaredapplications.liquid.login.EmailLoginFragmentDirections.Companion.toMainActivity
 import javax.inject.Inject
@@ -22,9 +23,6 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    @Inject
-    lateinit var auth: FirebaseAuth
 
     private val viewModel: EmailLoginViewModel by viewModels { viewModelFactory }
 
@@ -75,25 +73,15 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
 
     private fun onStateChange(state: EmailLoginState?) {
         when (state) {
-            is EmailLoginState.AttemptLogin -> attemptLogin(state)
             is EmailLoginState.SuccessFulLogin -> onSuccessfulLogin()
             is EmailLoginState.FailedLogin -> onFailedLogin(state)
+            is EmailLoginState.ShowProgressBar -> showProgressBar()
+            is EmailLoginState.HideProgressBar -> hideProgressBar()
         }
     }
 
     private fun onLoginButtonEnabledStateChange(it: Boolean) {
         binding.loginButton.isEnabled = it
-    }
-
-    private fun attemptLogin(state: EmailLoginState.AttemptLogin) {
-        auth.signInWithEmailAndPassword(state.email, state.password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    viewModel.onSuccessfulLogin()
-                } else {
-                    viewModel.onFailedLogin()
-                }
-            }
     }
 
     private fun onSuccessfulLogin() {
@@ -103,5 +91,15 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
     private fun onFailedLogin(state: EmailLoginState.FailedLogin) {
         ErrorDialogFragment(state.errorMessage, state.dismissButtonText)
             .show(parentFragmentManager, null)
+    }
+
+    private fun showProgressBar() {
+        binding.progressBar.setAsVisibile()
+        binding.loadingMask.setAsVisibile()
+    }
+
+    private fun hideProgressBar() {
+        binding.progressBar.setAsGone()
+        binding.loadingMask.setAsGone()
     }
 }

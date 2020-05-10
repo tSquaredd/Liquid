@@ -6,4 +6,11 @@ interface EmailSignUpResourceWrapper {
     fun getPasswordGenericErrorMessage(): String
 
     fun getPasswordTooLongErrorMessage(): String
+
+    fun getSignUpGenericErrorMessage(): String
+
+    fun getSignUpUserCollisionErrorMessage(): String
+
+    fun getSignUpErrorDismissButtonText(): String
+
 }

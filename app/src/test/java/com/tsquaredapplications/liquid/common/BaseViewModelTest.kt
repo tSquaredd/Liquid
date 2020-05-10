@@ -6,7 +6,7 @@ import org.junit.Rule
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(InstantExecutorExtension::class)
-open class BaseViewModelTest {
+open class BaseViewModelTest : BaseTest() {
     @get:Rule
     val rule = InstantTaskExecutorRule()
 }

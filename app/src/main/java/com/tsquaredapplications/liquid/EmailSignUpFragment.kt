@@ -10,12 +10,13 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthUserCollisionException
-import com.tsquaredapplications.liquid.EmailSignupFragmentDirections.Companion.toUserInformationFragment
+import com.tsquaredapplications.liquid.EmailSignUpFragmentDirections.Companion.toUserInformationFragment
 import com.tsquaredapplications.liquid.common.BaseFragment
+import com.tsquaredapplications.liquid.common.ErrorDialogFragment
 import com.tsquaredapplications.liquid.databinding.FragmentEmailSignupBinding
 import com.tsquaredapplications.liquid.ext.navigate
+import com.tsquaredapplications.liquid.ext.setAsGone
+import com.tsquaredapplications.liquid.ext.setAsVisibile
 import com.tsquaredapplications.liquid.login.EmailSignUpState
 import com.tsquaredapplications.liquid.login.EmailSignUpViewModel
 import com.tsquaredapplications.liquid.login.EmailValidationState
@@ -23,13 +24,10 @@ import com.tsquaredapplications.liquid.login.LoginActivity
 import com.tsquaredapplications.liquid.login.PasswordValidationState
 import javax.inject.Inject
 
-class EmailSignupFragment : BaseFragment<FragmentEmailSignupBinding>() {
+class EmailSignUpFragment : BaseFragment<FragmentEmailSignupBinding>() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    @Inject
-    lateinit var auth: FirebaseAuth
 
     private val viewModel: EmailSignUpViewModel by viewModels { viewModelFactory }
 
@@ -91,29 +89,33 @@ class EmailSignupFragment : BaseFragment<FragmentEmailSignupBinding>() {
 
     private fun onStateChange(state: EmailSignUpState) {
         when (state) {
-            is EmailSignUpState.AttemptSignUp -> attemptSignUp(state.email, state.password)
             is EmailSignUpState.SuccessfulSignUp -> onSuccessfulSignUp()
+            is EmailSignUpState.FailedSignUp -> onFailedSignUp(
+                state.errorMessage,
+                state.dismissButtonText
+            )
+            is EmailSignUpState.ShowProgressBar -> showProgressBar()
+            is EmailSignUpState.HideProgressBar -> hideProgressBar()
         }
-    }
-
-    private fun attemptSignUp(email: String, password: String) {
-        auth.createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    viewModel.onSignUpSuccess()
-                } else {
-                    // TODO
-                    if (task.exception is FirebaseAuthUserCollisionException) {
-                        // TODO USER EXISTS
-                    } else {
-                        // TODO GENERIC ERROR
-                    }
-                }
-            }
     }
 
     private fun onSuccessfulSignUp() {
         navigate(toUserInformationFragment())
+    }
+
+    private fun onFailedSignUp(errorMessage: String, dismissButtonText: String) {
+        ErrorDialogFragment(errorMessage, dismissButtonText)
+            .show(parentFragmentManager, null)
+    }
+
+    private fun showProgressBar() {
+        binding.progressBar.setAsVisibile()
+        binding.loadingMask.setAsVisibile()
+    }
+
+    private fun hideProgressBar() {
+        binding.progressBar.setAsGone()
+        binding.loadingMask.setAsGone()
     }
 
     // region Email Validation

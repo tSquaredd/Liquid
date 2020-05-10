@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/emailSignupFragment"
-        android:name="com.tsquaredapplications.liquid.EmailSignupFragment"
+        android:name="com.tsquaredapplications.liquid.EmailSignUpFragment"
         android:label="fragment_email_signup"
         tools:layout="@layout/fragment_email_signup">
         <action
