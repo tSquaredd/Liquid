@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid.login.resources
+package com.tsquaredapplications.liquid.login.login.resources
 
 import android.content.Context
 import com.tsquaredapplications.liquid.R

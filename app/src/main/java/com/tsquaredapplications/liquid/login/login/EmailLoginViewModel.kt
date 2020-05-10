@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid.login
+package com.tsquaredapplications.liquid.login.login
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
@@ -9,7 +9,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
 import com.tsquaredapplications.liquid.ext.isValidEmail
 import com.tsquaredapplications.liquid.ext.isValidPassword
-import com.tsquaredapplications.liquid.login.resources.EmailLoginResourceWrapper
+import com.tsquaredapplications.liquid.login.common.PasswordValidation
+import com.tsquaredapplications.liquid.login.login.resources.EmailLoginResourceWrapper
 import javax.inject.Inject
 
 class EmailLoginViewModel
@@ -31,7 +32,8 @@ class EmailLoginViewModel
         if (!email.isValidEmail() || password.isValidPassword() != PasswordValidation.Valid) {
             onFailedLogin()
         } else {
-            stateLiveData.value = EmailLoginState.ShowProgressBar
+            stateLiveData.value =
+                EmailLoginState.ShowProgressBar
             auth.signInWithEmailAndPassword(email.toString(), password.toString())
                 .addOnCompleteListener { task ->
                     onSignInResult(task)
@@ -41,7 +43,8 @@ class EmailLoginViewModel
 
     @VisibleForTesting
     fun onSignInResult(task: Task<AuthResult>) {
-        stateLiveData.value = EmailLoginState.HideProgressBar
+        stateLiveData.value =
+            EmailLoginState.HideProgressBar
         if (task.isSuccessful) {
             onSuccessfulLogin()
         } else {
@@ -50,14 +53,16 @@ class EmailLoginViewModel
     }
 
     private fun onSuccessfulLogin() {
-        stateLiveData.value = EmailLoginState.SuccessFulLogin
+        stateLiveData.value =
+            EmailLoginState.SuccessFulLogin
     }
 
     private fun onFailedLogin() {
-        stateLiveData.value = EmailLoginState.FailedLogin(
-            errorMessage = resourceWrapper.getFailedLoginErrorMessage(),
-            dismissButtonText = resourceWrapper.getFailedLoginErrorDismissButtonText()
-        )
+        stateLiveData.value =
+            EmailLoginState.FailedLogin(
+                errorMessage = resourceWrapper.getFailedLoginErrorMessage(),
+                dismissButtonText = resourceWrapper.getFailedLoginErrorDismissButtonText()
+            )
     }
 
     fun emailUpdated(email: String) {

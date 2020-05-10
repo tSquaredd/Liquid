@@ -6,6 +6,11 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.tsquaredapplications.liquid.common.BaseViewModelTest
+import com.tsquaredapplications.liquid.login.common.EmailValidationState
+import com.tsquaredapplications.liquid.login.common.PasswordValidationState
+import com.tsquaredapplications.liquid.login.signup.EmailSignUpState
+import com.tsquaredapplications.liquid.login.signup.EmailSignUpViewModel
+import com.tsquaredapplications.liquid.login.signup.resources.EmailSignUpResourceWrapper
 import io.mockk.MockKAnnotations
 import io.mockk.clearMocks
 import io.mockk.every
@@ -62,7 +67,10 @@ class EmailSignUpViewModelTest : BaseViewModelTest() {
         emailValidationStateSlot.clear()
         passwordValidationStateSlot.clear()
 
-        viewModel = EmailSignUpViewModel(auth, resourceWrapper).apply {
+        viewModel = EmailSignUpViewModel(
+            auth,
+            resourceWrapper
+        ).apply {
             getStateLiveData().observeForever(stateObserver)
             getPasswordValidationLiveData().observeForever(passwordValidationStateObserver)
             getEmailValidationLiveData().observeForever(emailValidationStateObserver)

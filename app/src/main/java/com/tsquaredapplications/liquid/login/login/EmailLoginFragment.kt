@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid.login
+package com.tsquaredapplications.liquid.login.login
 
 import android.content.Context
 import android.os.Bundle
@@ -15,8 +15,9 @@ import com.tsquaredapplications.liquid.databinding.FragmentEmailLoginBinding
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.ext.setAsGone
 import com.tsquaredapplications.liquid.ext.setAsVisibile
-import com.tsquaredapplications.liquid.login.EmailLoginFragmentDirections.Companion.toEmailSignupFragment
-import com.tsquaredapplications.liquid.login.EmailLoginFragmentDirections.Companion.toMainActivity
+import com.tsquaredapplications.liquid.login.LoginActivity
+import com.tsquaredapplications.liquid.login.login.EmailLoginFragmentDirections.Companion.toEmailSignupFragment
+import com.tsquaredapplications.liquid.login.login.EmailLoginFragmentDirections.Companion.toMainActivity
 import javax.inject.Inject
 
 class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {

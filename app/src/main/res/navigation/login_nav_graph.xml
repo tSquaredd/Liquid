@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login_nav_graph"
-    app:startDestination="@id/signInOptionsFragment">
+    tools:ignore="InvalidNavigation">
 
     <fragment
         android:id="@+id/emailLoginFragment"
-        android:name="com.tsquaredapplications.liquid.login.EmailLoginFragment"
+        android:name="com.tsquaredapplications.liquid.login.login.EmailLoginFragment"
         tools:layout="@layout/fragment_email_login">
         <action
             android:id="@+id/toMainActivity"
@@ -23,17 +23,16 @@
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
     <fragment
-        android:id="@+id/signInOptionsFragment"
-        android:name="com.tsquaredapplications.liquid.login.SignInOptionsFragment"
-        android:label="fragment_sign_in_options"
-        tools:layout="@layout/fragment_sign_in_options">
+        android:id="@+id/welcomeFragment"
+        android:name="com.tsquaredapplications.liquid.login.WelcomeFragment"
+        tools:layout="@layout/fragment_welcome">
         <action
             android:id="@+id/toEmailLoginFragment"
             app:destination="@id/emailLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/emailSignupFragment"
-        android:name="com.tsquaredapplications.liquid.EmailSignUpFragment"
+        android:name="com.tsquaredapplications.liquid.login.signup.EmailSignUpFragment"
         android:label="fragment_email_signup"
         tools:layout="@layout/fragment_email_signup">
         <action

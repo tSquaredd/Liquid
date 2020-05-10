@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid.login
+package com.tsquaredapplications.liquid.login.signup
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
@@ -10,6 +10,10 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
 import com.tsquaredapplications.liquid.ext.isValidEmail
 import com.tsquaredapplications.liquid.ext.isValidPassword
+import com.tsquaredapplications.liquid.login.signup.resources.EmailSignUpResourceWrapper
+import com.tsquaredapplications.liquid.login.common.EmailValidationState
+import com.tsquaredapplications.liquid.login.common.PasswordValidation
+import com.tsquaredapplications.liquid.login.common.PasswordValidationState
 import javax.inject.Inject
 
 class EmailSignUpViewModel
@@ -33,16 +37,24 @@ class EmailSignUpViewModel
         emailValidationLiveData.value = if (email.isValidEmail()) {
             EmailValidationState.Valid
         } else {
-            EmailValidationState.Invalid(resourceWrapper.getEmailErrorMessage())
+            EmailValidationState.Invalid(
+                resourceWrapper.getEmailErrorMessage()
+            )
         }
     }
 
     fun validatePassword(password: CharSequence) {
         passwordValidationLiveData.value = when (password.isValidPassword()) {
             PasswordValidation.Valid -> PasswordValidationState.Valid
-            PasswordValidation.InvalidTooShort -> PasswordValidationState.Invalid(resourceWrapper.getPasswordGenericErrorMessage())
-            PasswordValidation.InvalidTooLong -> PasswordValidationState.Invalid(resourceWrapper.getPasswordTooLongErrorMessage())
-            PasswordValidation.InvalidNoUpperCase -> PasswordValidationState.Invalid(resourceWrapper.getPasswordGenericErrorMessage())
+            PasswordValidation.InvalidTooShort -> PasswordValidationState.Invalid(
+                resourceWrapper.getPasswordGenericErrorMessage()
+            )
+            PasswordValidation.InvalidTooLong -> PasswordValidationState.Invalid(
+                resourceWrapper.getPasswordTooLongErrorMessage()
+            )
+            PasswordValidation.InvalidNoUpperCase -> PasswordValidationState.Invalid(
+                resourceWrapper.getPasswordGenericErrorMessage()
+            )
         }
     }
 
