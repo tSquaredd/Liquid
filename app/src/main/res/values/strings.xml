@@ -1,4 +1,8 @@
 <resources>
+    <!-- region common -->
+    <string name="ok">OK</string>
+    <!-- endregion -->
+
     <!-- region screen titles -->
     <string name="app_name">Liquid</string>
     <string name="home">Home</string>
@@ -22,5 +26,34 @@
     <string name="delete">Delete</string>
     <string name="update">Update</string>
     <!-- endregion -->
+
+    <!-- region email login screen -->
+    <string name="login">Login</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="welcome">Welcome</string>
+    <string name="failed_login_error_message">Oops, something went wrong! Your email and/or password does not match our records. Please try again!</string>
+    <string name="sign_up_prompt">Don\'t have an account?</string>
+    <string name="sign_up_cta">Sign me up!</string>
+    <!-- endregion -->
+
+    <!-- region email sign up screen -->
+    <string name="sign_up">Sign Up</string>
+    <string name="email_input_error_msg">Invalid email address</string>
+    <string name="password_rules">Password must be a minimum of 8 characters\nPassword must contain one upper case</string>
+    <string name="password_generic_error_msg">Invalid Password</string>
+    <string name="password_too_long_error_msg">Must be less than 30 characters</string>
+    <string name="sign_up_generic_error_message">Oops, something went wrong! We are having trouble creating your account. Please check your email and password and try again.</string>
+    <string name="sign_up_user_collision_error_message">Oops, looks like an account already exists with that email address</string>
+    <!--endregion-->
+
+    <!-- TEMP -->
+    <string name="google">Google</string>
+    <string name="apple">Apple</string>
+    <string name="question_mark">\?</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

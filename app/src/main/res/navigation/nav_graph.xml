@@ -11,7 +11,7 @@
         android:label="@string/home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_selectDrinkTypeFragment"
+            android:id="@+id/toDrinkTypeFragment"
             app:destination="@id/selectDrinkTypeFragment" />
     </fragment>
     <fragment
@@ -30,7 +30,7 @@
         android:label="@string/presets"
         tools:layout="@layout/fragment_presets">
         <action
-            android:id="@+id/action_presetsFragment_to_addPresetFragment"
+            android:id="@+id/toAddPresetFragment"
             app:destination="@id/addPresetFragment" />
     </fragment>
     <fragment
@@ -39,7 +39,7 @@
         android:label="@string/select_a_drink"
         tools:layout="@layout/fragment_select_drink_type">
         <action
-            android:id="@+id/action_selectDrinkTypeFragment_to_drinkAmountFragment"
+            android:id="@+id/toDrinkAmountFragment"
             app:destination="@id/drinkAmountFragment" />
     </fragment>
     <fragment
@@ -48,7 +48,7 @@
         android:label="@string/drink_amount"
         tools:layout="@layout/fragment_drink_amount">
         <action
-            android:id="@+id/action_drinkAmountFragment_to_homeFragment"
+            android:id="@+id/toHomeFragment"
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
@@ -59,13 +59,13 @@
         android:label="@string/presets"
         tools:layout="@layout/fragment_add_preset">
         <action
-            android:id="@+id/action_addPresetFragment_to_addPresetTypeSelectionFragment"
+            android:id="@+id/toAddPresetTypeSelectionFragment"
             app:destination="@id/addPresetTypeSelectionFragment" />
         <action
-            android:id="@+id/action_addPresetFragment_to_addPresetIconSelectionFragment"
+            android:id="@+id/toAddPresetIconSelectionFramgent"
             app:destination="@id/addPresetIconSelectionFragment" />
         <action
-            android:id="@+id/action_addPresetFragment_to_presetsFragment"
+            android:id="@+id/toPresetsFragment"
             app:destination="@id/presetsFragment"
             app:popUpTo="@id/presetsFragment"
             app:popUpToInclusive="true" />
@@ -76,7 +76,7 @@
         android:label="@string/presets"
         tools:layout="@layout/fragment_add_preset_type_selection">
         <action
-            android:id="@+id/action_addPresetTypeSelectionFragment_to_addPresetFragment"
+            android:id="@+id/toAddPresetFragment"
             app:destination="@id/addPresetFragment"
             app:popUpTo="@id/addPresetFragment"
             app:popUpToInclusive="true" />
@@ -87,7 +87,7 @@
         android:label="@string/presets"
         tools:layout="@layout/fragment_add_preset_icon_selection">
         <action
-            android:id="@+id/action_addPresetIconSelectionFragment_to_addPresetFragment"
+            android:id="@+id/toAddPresetFragment"
             app:destination="@id/addPresetFragment"
             app:popUpTo="@id/addPresetFragment"
             app:popUpToInclusive="true" />
@@ -98,7 +98,7 @@
         android:label="@string/history"
         tools:layout="@layout/fragment_history">
         <action
-            android:id="@+id/action_historyFragment_to_dayHistoryFragment"
+            android:id="@+id/toDayHistoryFragment"
             app:destination="@id/dayHistoryFragment" />
     </fragment>
     <fragment
@@ -107,7 +107,7 @@
         android:label="May 1st"
         tools:layout="@layout/fragment_day_history">
         <action
-            android:id="@+id/action_dayHistoryFragment_to_updateEntryFragment"
+            android:id="@+id/toUpdateEntryFragment"
             app:destination="@id/updateEntryFragment" />
     </fragment>
     <fragment
@@ -116,7 +116,7 @@
         android:label=""
         tools:layout="@layout/fragment_update_entry">
         <action
-            android:id="@+id/action_updateEntryFragment_to_dayHistoryFragment"
+            android:id="@+id/toDayHistoryFragment"
             app:destination="@id/dayHistoryFragment"
             app:popUpTo="@id/dayHistoryFragment"
             app:popUpToInclusive="true" />

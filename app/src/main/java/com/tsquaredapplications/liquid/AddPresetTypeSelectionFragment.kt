@@ -4,9 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import com.tsquaredapplications.liquid.AddPresetTypeSelectionFragmentDirections.Companion.toAddPresetFragment
+import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentAddPresetTypeSelectionBinding
+import com.tsquaredapplications.liquid.ext.navigate
 
 class AddPresetTypeSelectionFragment : BaseFragment<FragmentAddPresetTypeSelectionBinding>() {
 
@@ -19,9 +20,7 @@ class AddPresetTypeSelectionFragment : BaseFragment<FragmentAddPresetTypeSelecti
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.typeSelectionMadeButton.setOnClickListener {
-            val action =
-                AddPresetTypeSelectionFragmentDirections.actionAddPresetTypeSelectionFragmentToAddPresetFragment()
-            view.findNavController().navigate(action)
+            navigate(toAddPresetFragment())
         }
     }
 }

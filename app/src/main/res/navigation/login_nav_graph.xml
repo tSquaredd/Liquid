@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_nav_graph"
+    app:startDestination="@id/signInOptionsFragment">
+
+    <fragment
+        android:id="@+id/emailLoginFragment"
+        android:name="com.tsquaredapplications.liquid.login.EmailLoginFragment"
+        tools:layout="@layout/fragment_email_login">
+        <action
+            android:id="@+id/toMainActivity"
+            app:destination="@id/mainActivity"
+            app:launchSingleTop="true" />
+        <action
+            android:id="@+id/toEmailSignupFragment"
+            app:destination="@id/emailSignupFragment" />
+    </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.tsquaredapplications.liquid.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/signInOptionsFragment"
+        android:name="com.tsquaredapplications.liquid.login.SignInOptionsFragment"
+        android:label="fragment_sign_in_options"
+        tools:layout="@layout/fragment_sign_in_options">
+        <action
+            android:id="@+id/toEmailLoginFragment"
+            app:destination="@id/emailLoginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailSignupFragment"
+        android:name="com.tsquaredapplications.liquid.EmailSignUpFragment"
+        android:label="fragment_email_signup"
+        tools:layout="@layout/fragment_email_signup">
+        <action
+            android:id="@+id/toUserInformationFragment"
+            app:destination="@id/userInformationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userInformationFragment"
+        android:name="com.tsquaredapplications.liquid.UserInformationFragment"
+        android:label="fragment_user_information"
+        tools:layout="@layout/fragment_user_information">
+        <action
+            android:id="@+id/toDailyGoalDisplayFragment"
+            app:destination="@id/dailyGoalDisplayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dailyGoalDisplayFragment"
+        android:name="com.tsquaredapplications.liquid.DailyGoalDisplayFragment"
+        android:label="fragment_daily_goal_display"
+        tools:layout="@layout/fragment_daily_goal_display">
+        <action
+            android:id="@+id/toMainActivity"
+            app:destination="@id/mainActivity" />
+    </fragment>
+</navigation>

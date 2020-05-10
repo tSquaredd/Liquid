@@ -4,9 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
+import com.tsquaredapplications.liquid.SelectDrinkTypeFragmentDirections.Companion.toDrinkAmountFragment
+import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentSelectDrinkTypeBinding
+import com.tsquaredapplications.liquid.ext.navigate
 
 class SelectDrinkTypeFragment : BaseFragment<FragmentSelectDrinkTypeBinding>() {
 
@@ -18,9 +19,7 @@ class SelectDrinkTypeFragment : BaseFragment<FragmentSelectDrinkTypeBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.drinkSelectedButton.setOnClickListener {
-            val action =
-                SelectDrinkTypeFragmentDirections.actionSelectDrinkTypeFragmentToDrinkAmountFragment()
-            view.findNavController().navigate(action)
+            navigate(toDrinkAmountFragment())
         }
     }
 }
