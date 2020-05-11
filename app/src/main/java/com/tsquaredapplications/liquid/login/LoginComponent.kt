@@ -1,7 +1,8 @@
 package com.tsquaredapplications.liquid.login
 
-import com.tsquaredapplications.liquid.EmailSignUpFragment
+import com.tsquaredapplications.liquid.login.signup.EmailSignUpFragment
 import com.tsquaredapplications.liquid.di.ActivityScope
+import com.tsquaredapplications.liquid.login.login.EmailLoginFragment
 import dagger.Subcomponent
 
 @ActivityScope
@@ -14,7 +15,7 @@ interface LoginComponent {
     }
 
     fun inject(loginActivity: LoginActivity)
-    fun inject(signInOptionsFragment: SignInOptionsFragment)
+    fun inject(welcomeFragment: WelcomeFragment)
     fun inject(emailLoginFragment: EmailLoginFragment)
     fun inject(emailSignUpFragment: EmailSignUpFragment)
 }

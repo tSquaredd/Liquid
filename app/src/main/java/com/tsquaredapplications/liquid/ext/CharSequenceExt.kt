@@ -1,6 +1,6 @@
 package com.tsquaredapplications.liquid.ext
 
-import com.tsquaredapplications.liquid.login.PasswordValidation
+import com.tsquaredapplications.liquid.login.common.PasswordValidation
 import java.util.regex.Pattern
 
 fun CharSequence.isValidEmail(): Boolean {

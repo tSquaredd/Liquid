@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid
+package com.tsquaredapplications.liquid.login.signup
 
 import android.content.Context
 import android.os.Bundle
@@ -10,18 +10,16 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.tsquaredapplications.liquid.EmailSignUpFragmentDirections.Companion.toUserInformationFragment
+import com.tsquaredapplications.liquid.login.signup.EmailSignUpFragmentDirections.Companion.toUserInformationFragment
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.ErrorDialogFragment
 import com.tsquaredapplications.liquid.databinding.FragmentEmailSignupBinding
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.ext.setAsGone
 import com.tsquaredapplications.liquid.ext.setAsVisibile
-import com.tsquaredapplications.liquid.login.EmailSignUpState
-import com.tsquaredapplications.liquid.login.EmailSignUpViewModel
-import com.tsquaredapplications.liquid.login.EmailValidationState
+import com.tsquaredapplications.liquid.login.common.EmailValidationState
 import com.tsquaredapplications.liquid.login.LoginActivity
-import com.tsquaredapplications.liquid.login.PasswordValidationState
+import com.tsquaredapplications.liquid.login.common.PasswordValidationState
 import javax.inject.Inject
 
 class EmailSignUpFragment : BaseFragment<FragmentEmailSignupBinding>() {

@@ -1,6 +1,6 @@
 package com.tsquaredapplications.liquid.ext
 
-import com.tsquaredapplications.liquid.login.PasswordValidation
+import com.tsquaredapplications.liquid.login.common.PasswordValidation
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test

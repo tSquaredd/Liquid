@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid.login.resources
+package com.tsquaredapplications.liquid.login.login.resources
 
 interface EmailLoginResourceWrapper {
 

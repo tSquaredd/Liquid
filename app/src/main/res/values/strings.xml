@@ -27,6 +27,11 @@
     <string name="update">Update</string>
     <!-- endregion -->
 
+    <!-- region welcome screen -->
+    <string name="lets_get_started">Lets Get Started!</string>
+    <string name="welcome_message">Welcome!\nLiquid is an app focused on keeping you hydrated!</string>
+    <!-- endregion -->
+
     <!-- region email login screen -->
     <string name="login">Login</string>
     <string name="email">Email</string>
@@ -55,5 +60,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    
+    <string name="preference_file_key">liquid-app-prefs</string>
 
 </resources>

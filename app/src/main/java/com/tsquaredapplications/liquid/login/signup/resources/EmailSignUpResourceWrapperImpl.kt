@@ -1,11 +1,13 @@
-package com.tsquaredapplications.liquid.login
+package com.tsquaredapplications.liquid.login.signup.resources
 
 import android.content.Context
 import com.tsquaredapplications.liquid.R
+import com.tsquaredapplications.liquid.login.signup.resources.EmailSignUpResourceWrapper
 import javax.inject.Inject
 
 class EmailSignUpResourceWrapperImpl
-@Inject constructor(val context: Context) : EmailSignUpResourceWrapper {
+@Inject constructor(val context: Context) :
+    EmailSignUpResourceWrapper {
     override fun getEmailErrorMessage() = context.getString(R.string.email_input_error_msg)
 
     override fun getPasswordGenericErrorMessage() =

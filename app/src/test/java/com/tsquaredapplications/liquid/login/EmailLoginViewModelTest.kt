@@ -6,7 +6,10 @@ import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.tsquaredapplications.liquid.common.BaseViewModelTest
 import com.tsquaredapplications.liquid.ext.assertOneState
-import com.tsquaredapplications.liquid.login.resources.EmailLoginResourceWrapper
+import com.tsquaredapplications.liquid.login.common.EmailValidationState
+import com.tsquaredapplications.liquid.login.login.EmailLoginState
+import com.tsquaredapplications.liquid.login.login.EmailLoginViewModel
+import com.tsquaredapplications.liquid.login.login.resources.EmailLoginResourceWrapper
 import io.mockk.MockKAnnotations
 import io.mockk.clearMocks
 import io.mockk.every
@@ -58,7 +61,10 @@ class EmailLoginViewModelTest : BaseViewModelTest() {
         buttonStateSlot.clear()
         emailValidationStateList.clear()
 
-        viewModel = EmailLoginViewModel(auth, resourceWrapper).apply {
+        viewModel = EmailLoginViewModel(
+            auth,
+            resourceWrapper
+        ).apply {
             getStateLiveData().observeForever(stateObserver)
             getLoginButtonEnabledLiveData().observeForever(buttonEnabledObserver)
         }

@@ -45,7 +45,7 @@
         <item name="hintTextColor">@color/colorWhite</item>
     </style>
 
-    <style name="ErrorDialogStyle" parent="Theme.MaterialComponents.Dialog.Alert" >
+    <style name="ErrorDialogStyle" parent="Theme.MaterialComponents.Dialog.Alert">
         <item name="android:windowBackground">@drawable/rounded_dialog_background</item>
     </style>
 </resources>

@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid.login
+package com.tsquaredapplications.liquid.login.signup.resources
 
 interface EmailSignUpResourceWrapper {
     fun getEmailErrorMessage(): String

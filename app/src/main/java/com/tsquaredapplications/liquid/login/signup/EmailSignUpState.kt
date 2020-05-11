@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid.login
+package com.tsquaredapplications.liquid.login.signup
 
 sealed class EmailSignUpState {
     object SuccessfulSignUp : EmailSignUpState()

@@ -1,7 +1,9 @@
 package com.tsquaredapplications.liquid.login
 
-import com.tsquaredapplications.liquid.login.resources.EmailLoginResourceWrapper
-import com.tsquaredapplications.liquid.login.resources.EmailLoginResourceWrapperImpl
+import com.tsquaredapplications.liquid.login.login.resources.EmailLoginResourceWrapper
+import com.tsquaredapplications.liquid.login.login.resources.EmailLoginResourceWrapperImpl
+import com.tsquaredapplications.liquid.login.signup.resources.EmailSignUpResourceWrapper
+import com.tsquaredapplications.liquid.login.signup.resources.EmailSignUpResourceWrapperImpl
 import dagger.Module
 import dagger.Provides
 
