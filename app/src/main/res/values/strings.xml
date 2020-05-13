@@ -53,6 +53,17 @@
     <string name="sign_up_user_collision_error_message">Oops, looks like an account already exists with that email address</string>
     <!--endregion-->
 
+    <!-- region user information screen -->
+    <string name="user_information_screen_description">Hello! Please Answer a few questions to help us determine the amount of liquids you should be consuming to stay hydrated!</string>
+    <string name="weight_prompt">What is your weight?</string>
+    <string name="weight_input_hint">lbs</string>
+    <string name="create_profile">Create Profile</string>
+    <string name="unit_prompt">What is your desired unit of measurement?</string>
+    <string name="continue_button_text">Continue</string>
+    <string name="oz">oz</string>
+    <string name="ml">ml</string>
+    <!-- endregion -->
+
     <!-- TEMP -->
     <string name="google">Google</string>
     <string name="apple">Apple</string>
@@ -60,7 +71,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    
-    <string name="preference_file_key">liquid-app-prefs</string>
 
+    <string name="preference_file_key" translatable="false">liquid-app-prefs</string>
 </resources>

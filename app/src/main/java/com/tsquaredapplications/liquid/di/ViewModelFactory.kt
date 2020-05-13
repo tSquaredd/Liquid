@@ -2,6 +2,7 @@ package com.tsquaredapplications.liquid.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.tsquaredapplications.liquid.UserInformationViewModel
 import com.tsquaredapplications.liquid.login.login.EmailLoginViewModel
 import com.tsquaredapplications.liquid.login.signup.EmailSignUpViewModel
 import dagger.Binds
@@ -45,6 +46,11 @@ class ViewModelFactory
         @IntoMap
         @ViewModelKey(EmailSignUpViewModel::class)
         internal abstract fun bindEmailSignUpViewModel(viewModel: EmailSignUpViewModel): ViewModel
+
+        @Binds
+        @IntoMap
+        @ViewModelKey(UserInformationViewModel::class)
+        internal abstract fun bindUserInformationViewModel(viewModel: UserInformationViewModel): ViewModel
 
         //Add more ViewModels here
     }
