@@ -62,6 +62,7 @@
     <string name="continue_button_text">Continue</string>
     <string name="oz">oz</string>
     <string name="ml">ml</string>
+    <string name="weight_error_message">Please enter your weight</string>
     <!-- endregion -->
 
     <!-- TEMP -->

@@ -5,19 +5,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.tsquaredapplications.liquid.UserInformationFragmentDirections.Companion.toDailyGoalDisplayFragment
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentUserInformationBinding
+import com.tsquaredapplications.liquid.ext.navigate
+import com.tsquaredapplications.liquid.login.LiquidUnit
 import com.tsquaredapplications.liquid.login.LoginActivity
-import com.tsquaredapplications.liquid.login.UnitChoiceState
 import javax.inject.Inject
 
-/**
- * A simple [Fragment] subclass.
- */
 class UserInformationFragment : BaseFragment<FragmentUserInformationBinding>() {
 
     @Inject
@@ -39,25 +38,66 @@ class UserInformationFragment : BaseFragment<FragmentUserInformationBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getUnitChoiceLiveData().observe(viewLifecycleOwner, Observer {
+        viewModel.unitStateLiveData.observe(viewLifecycleOwner, Observer {
             onUnitChoiceStateChanged(it)
         })
 
+        viewModel.stateLiveData.observe(viewLifecycleOwner, Observer {
+            onStateChanged(it)
+        })
+
         binding.ozButton.setOnClickListener {
-            viewModel.onUnitSelected(UnitChoiceState.OZ)
+            viewModel.onUnitSelected(LiquidUnit.OZ)
         }
 
         binding.mlButton.setOnClickListener {
-            viewModel.onUnitSelected(UnitChoiceState.ML)
+            viewModel.onUnitSelected(LiquidUnit.ML)
+        }
+
+        binding.continueButton.setOnClickListener {
+            viewModel.onContinueClicked(binding.weightEditText.text)
         }
 
         viewModel.start()
     }
 
-    private fun onUnitChoiceStateChanged(state: UnitChoiceState) {
+    private fun onStateChanged(state: UserInformationState) {
         when (state) {
-            UnitChoiceState.OZ -> setOzChecked()
-            UnitChoiceState.ML -> setMlChecked()
+            is UserInformationState.InvalidWeight -> {
+                showWeightError(state.errorMessage)
+            }
+            is UserInformationState.Continue -> {
+                navigate(toDailyGoalDisplayFragment(state.weight, state.unitChoiceState))
+            }
+        }
+    }
+
+    private fun showWeightError(errorMessage: String) {
+        binding.weightTextInputLayout.error = errorMessage
+        binding.weightEditText.hint = ""
+
+        setWeightTextWatcher(errorMessage)
+    }
+
+    private fun setWeightTextWatcher(errorMessage: String) {
+        binding.weightEditText.addTextChangedListener {
+            if (it.isNullOrBlank()) {
+                binding.weightTextInputLayout.error = errorMessage
+                binding.weightEditText.hint = ""
+            } else {
+                removeWeightError()
+            }
+        }
+    }
+
+    private fun removeWeightError() {
+        binding.weightTextInputLayout.error = null
+    }
+
+    private fun onUnitChoiceStateChanged(state: LiquidUnit) {
+        when (state) {
+            LiquidUnit.OZ -> setOzChecked()
+            LiquidUnit.ML -> setMlChecked()
         }
     }
 
