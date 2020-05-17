@@ -9,6 +9,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.textfield.TextInputEditText
 import com.tsquaredapplications.liquid.UserInformationFragmentDirections.Companion.toDailyGoalDisplayFragment
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentUserInformationBinding
@@ -56,6 +57,14 @@ class UserInformationFragment : BaseFragment<FragmentUserInformationBinding>() {
 
         binding.continueButton.setOnClickListener {
             viewModel.onContinueClicked(binding.weightEditText.text)
+        }
+
+        binding.weightEditText.setOnFocusChangeListener { weightEditText, hasFocus ->
+            if (hasFocus) {
+                (weightEditText as TextInputEditText).hint = ""
+            } else {
+                (weightEditText as TextInputEditText).hint = getString(R.string.weight_input_hint)
+            }
         }
 
         viewModel.start()
