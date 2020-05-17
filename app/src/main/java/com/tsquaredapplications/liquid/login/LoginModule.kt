@@ -1,7 +1,7 @@
 package com.tsquaredapplications.liquid.login
 
-import com.tsquaredapplications.liquid.UserInformationResourceWrapper
-import com.tsquaredapplications.liquid.UserInformationResourceWrapperImpl
+import com.tsquaredapplications.liquid.login.information.resources.UserInformationResourceWrapper
+import com.tsquaredapplications.liquid.login.information.resources.UserInformationResourceWrapperImpl
 import com.tsquaredapplications.liquid.login.login.resources.EmailLoginResourceWrapper
 import com.tsquaredapplications.liquid.login.login.resources.EmailLoginResourceWrapperImpl
 import com.tsquaredapplications.liquid.login.signup.resources.EmailSignUpResourceWrapper

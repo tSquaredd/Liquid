@@ -1,6 +1,6 @@
 package com.tsquaredapplications.liquid.login
 
-import com.tsquaredapplications.liquid.UserInformationFragment
+import com.tsquaredapplications.liquid.login.information.UserInformationFragment
 import com.tsquaredapplications.liquid.di.ActivityScope
 import com.tsquaredapplications.liquid.login.login.EmailLoginFragment
 import com.tsquaredapplications.liquid.login.signup.EmailSignUpFragment

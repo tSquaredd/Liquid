@@ -1,9 +1,10 @@
-package com.tsquaredapplications.liquid
+package com.tsquaredapplications.liquid.login.information
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
 import com.tsquaredapplications.liquid.login.LiquidUnit
+import com.tsquaredapplications.liquid.login.information.resources.UserInformationResourceWrapper
 import javax.inject.Inject
 
 class UserInformationViewModel
@@ -28,9 +29,16 @@ class UserInformationViewModel
     fun onContinueClicked(weightInput: String?) {
         val weight = weightInput?.toIntOrNull()
         if (weight == null) {
-            state.value = UserInformationState.InvalidWeight(resourceWrapper.weightErrorMessage)
+            state.value =
+                UserInformationState.InvalidWeight(
+                    resourceWrapper.weightErrorMessage
+                )
         } else {
-            state.value = UserInformationState.Continue(weight, unitChoiceState.value!!)
+            state.value =
+                UserInformationState.Continue(
+                    weight,
+                    unitChoiceState.value!!
+                )
         }
     }
 }

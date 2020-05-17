@@ -3,6 +3,9 @@ package com.tsquaredapplications.liquid
 import androidx.lifecycle.Observer
 import com.tsquaredapplications.liquid.common.BaseViewModelTest
 import com.tsquaredapplications.liquid.login.LiquidUnit
+import com.tsquaredapplications.liquid.login.information.UserInformationState
+import com.tsquaredapplications.liquid.login.information.UserInformationViewModel
+import com.tsquaredapplications.liquid.login.information.resources.UserInformationResourceWrapper
 import io.mockk.MockKAnnotations
 import io.mockk.clearMocks
 import io.mockk.every
@@ -46,7 +49,9 @@ class UserInformationViewModelTest: BaseViewModelTest() {
         clearMocks(stateObserver, unitObserver)
         stateSlot.clear()
         unitSlot.clear()
-        viewModel = UserInformationViewModel(resourceWrapper).apply {
+        viewModel = UserInformationViewModel(
+            resourceWrapper
+        ).apply {
             stateLiveData.observeForever(stateObserver)
             unitStateLiveData.observeForever(unitObserver)
         }

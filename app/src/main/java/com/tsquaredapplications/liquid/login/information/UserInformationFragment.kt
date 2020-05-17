@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid
+package com.tsquaredapplications.liquid.login.information
 
 import android.content.Context
 import android.os.Bundle
@@ -10,7 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputEditText
-import com.tsquaredapplications.liquid.UserInformationFragmentDirections.Companion.toDailyGoalDisplayFragment
+import com.tsquaredapplications.liquid.R
+import com.tsquaredapplications.liquid.login.information.UserInformationFragmentDirections.Companion.toDailyGoalDisplayFragment
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentUserInformationBinding
 import com.tsquaredapplications.liquid.ext.navigate
