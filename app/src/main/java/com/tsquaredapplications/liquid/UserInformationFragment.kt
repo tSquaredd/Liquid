@@ -56,7 +56,7 @@ class UserInformationFragment : BaseFragment<FragmentUserInformationBinding>() {
         }
 
         binding.continueButton.setOnClickListener {
-            viewModel.onContinueClicked(binding.weightEditText.text)
+            viewModel.onContinueClicked(binding.weightEditText.text.toString())
         }
 
         binding.weightEditText.setOnFocusChangeListener { weightEditText, hasFocus ->
