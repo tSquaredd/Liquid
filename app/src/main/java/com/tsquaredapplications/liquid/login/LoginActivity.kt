@@ -33,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
             }
             navGraph.startDestination = R.id.welcomeFragment
         } else {
-            navGraph.startDestination = R.id.emailLoginFragment
+            navGraph.startDestination = R.id.userInformationFragment
         }
         navController.graph = navGraph
     }
