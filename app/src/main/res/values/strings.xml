@@ -1,6 +1,8 @@
 <resources>
     <!-- region common -->
     <string name="ok">OK</string>
+    <string name="oz">oz</string>
+    <string name="ml">ml</string>
     <!-- endregion -->
 
     <!-- region screen titles -->
@@ -60,8 +62,6 @@
     <string name="create_profile">Create Profile</string>
     <string name="unit_prompt">What is your desired unit of measurement?</string>
     <string name="continue_button_text">Continue</string>
-    <string name="oz">oz</string>
-    <string name="ml">ml</string>
     <string name="weight_error_message">Please enter your weight</string>
     <!-- endregion -->
 
@@ -69,6 +69,7 @@
     <string name="daily_goal_header">Your Daily Goal is …</string>
     <string name="goal_disclaimer">Note: This is the minimum recommended daily intake of hydrating liquds for most healthy individuals. Hydrate accordingly while sweating and during excersize.\n\nPlease consult your doctor if you have any questions or concerns.\n\nYour daily goal can be adjusted in settings.</string>
     <string name="finish">Finish!</string>
+    <string name="data_upload_error_message">Well this is embarrassing, it seems we are having trouble wrapping up creating your account.\n\nPlease try again.</string>
     <!-- endregion -->
 
     <!-- TEMP -->

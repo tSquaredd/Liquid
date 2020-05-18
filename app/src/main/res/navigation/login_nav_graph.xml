@@ -50,9 +50,9 @@
     </fragment>
     <fragment
         android:id="@+id/dailyGoalDisplayFragment"
-        android:name="com.tsquaredapplications.liquid.DailyGoalDisplayFragment"
+        android:name="com.tsquaredapplications.liquid.login.goal.GoalDisplayFragment"
         android:label="fragment_daily_goal_display"
-        tools:layout="@layout/fragment_daily_goal_display">
+        tools:layout="@layout/fragment_goal_display">
         <action
             android:id="@+id/toMainActivity"
             app:destination="@id/mainActivity" />
