@@ -2,8 +2,6 @@ package com.tsquaredapplications.liquid.login
 
 import com.tsquaredapplications.liquid.login.information.resources.UserInformationResourceWrapper
 import com.tsquaredapplications.liquid.login.information.resources.UserInformationResourceWrapperImpl
-import com.tsquaredapplications.liquid.UserInformationResourceWrapper
-import com.tsquaredapplications.liquid.UserInformationResourceWrapperImpl
 import com.tsquaredapplications.liquid.login.goal.resources.GoalDisplayResourceWrapper
 import com.tsquaredapplications.liquid.login.goal.resources.GoalDisplayResourceWrapperImpl
 import com.tsquaredapplications.liquid.login.login.resources.EmailLoginResourceWrapper

@@ -2,9 +2,8 @@ package com.tsquaredapplications.liquid.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.tsquaredapplications.liquid.login.information.UserInformationViewModel
-import com.tsquaredapplications.liquid.login.information.UserInformationViewModel
 import com.tsquaredapplications.liquid.login.goal.GoalDisplayViewModel
+import com.tsquaredapplications.liquid.login.information.UserInformationViewModel
 import com.tsquaredapplications.liquid.login.login.EmailLoginViewModel
 import com.tsquaredapplications.liquid.login.signup.EmailSignUpViewModel
 import dagger.Binds
