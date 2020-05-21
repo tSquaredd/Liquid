@@ -11,5 +11,5 @@ class GoalDisplayResourceWrapperImpl
         get() = context.getString(R.string.data_upload_error_message)
 
     override val dismissErrorText: String
-        get() = context.getString(R.string.ok)
+        get() = context.getString(R.string.got_it)
 }

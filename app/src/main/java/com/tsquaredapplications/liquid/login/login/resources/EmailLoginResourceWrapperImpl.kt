@@ -10,5 +10,5 @@ class EmailLoginResourceWrapperImpl
     override fun getFailedLoginErrorMessage() =
         context.getString(R.string.failed_login_error_message)
 
-    override fun getFailedLoginErrorDismissButtonText() = context.getString(R.string.ok)
+    override fun getFailedLoginErrorDismissButtonText() = context.getString(R.string.got_it)
 }

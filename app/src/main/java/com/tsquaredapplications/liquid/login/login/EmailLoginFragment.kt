@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.ErrorDialogFragment
+import com.tsquaredapplications.liquid.common.auth.AuthManager
 import com.tsquaredapplications.liquid.databinding.FragmentEmailLoginBinding
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.ext.setAsGone
@@ -18,6 +19,11 @@ import com.tsquaredapplications.liquid.ext.setAsVisibile
 import com.tsquaredapplications.liquid.login.LoginActivity
 import com.tsquaredapplications.liquid.login.login.EmailLoginFragmentDirections.Companion.toEmailSignupFragment
 import com.tsquaredapplications.liquid.login.login.EmailLoginFragmentDirections.Companion.toMainActivity
+import com.tsquaredapplications.liquid.login.login.EmailLoginState.FailedLogin
+import com.tsquaredapplications.liquid.login.login.EmailLoginState.ForgotPassword
+import com.tsquaredapplications.liquid.login.login.EmailLoginState.HideProgressBar
+import com.tsquaredapplications.liquid.login.login.EmailLoginState.ShowProgressBar
+import com.tsquaredapplications.liquid.login.login.EmailLoginState.SuccessFulLogin
 import javax.inject.Inject
 
 class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
@@ -52,7 +58,7 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
         }
 
         binding.forgotPasswordButton.setOnClickListener {
-            // TODO NEED PASSWORD RESET DIALOG
+            viewModel.forgotPasswordClicked()
         }
 
         binding.emailEditText.addTextChangedListener {
@@ -67,17 +73,18 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
             onLoginButtonEnabledStateChange(it)
         })
 
-        viewModel.getStateLiveData().observe(viewLifecycleOwner, Observer {
+        viewModel.stateLiveData.observe(viewLifecycleOwner, Observer {
             onStateChange(it)
         })
     }
 
     private fun onStateChange(state: EmailLoginState?) {
         when (state) {
-            is EmailLoginState.SuccessFulLogin -> onSuccessfulLogin()
-            is EmailLoginState.FailedLogin -> onFailedLogin(state)
-            is EmailLoginState.ShowProgressBar -> showProgressBar()
-            is EmailLoginState.HideProgressBar -> hideProgressBar()
+            is SuccessFulLogin -> onSuccessfulLogin()
+            is FailedLogin -> onFailedLogin(state)
+            is ForgotPassword -> showForgotPasswordDialog(state.authManager)
+            is ShowProgressBar -> showProgressBar()
+            is HideProgressBar -> hideProgressBar()
         }
     }
 
@@ -89,8 +96,13 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
         navigate(toMainActivity())
     }
 
-    private fun onFailedLogin(state: EmailLoginState.FailedLogin) {
+    private fun onFailedLogin(state: FailedLogin) {
         ErrorDialogFragment(state.errorMessage, state.dismissButtonText)
+            .show(parentFragmentManager, null)
+    }
+
+    private fun showForgotPasswordDialog(authManager: AuthManager) {
+        ForgotPasswordDialog(authManager)
             .show(parentFragmentManager, null)
     }
 

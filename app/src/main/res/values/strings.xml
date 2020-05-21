@@ -1,8 +1,8 @@
 <resources>
     <!-- region common -->
-    <string name="ok">OK</string>
     <string name="oz">oz</string>
     <string name="ml">ml</string>
+    <string name="got_it">GOT IT!</string>
     <!-- endregion -->
 
     <!-- region screen titles -->
@@ -81,4 +81,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="preference_file_key" translatable="false">liquid-app-prefs</string>
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="forgot_password_instructions">No worries! Just enter your registered email below for reset instruction.</string>
+    <string name="send">Send</string>
+    <string name="cancel">Cancel</string>
 </resources>

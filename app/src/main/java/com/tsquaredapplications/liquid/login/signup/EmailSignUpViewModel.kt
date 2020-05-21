@@ -1,24 +1,22 @@
 package com.tsquaredapplications.liquid.login.signup
 
-import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
+import com.tsquaredapplications.liquid.common.auth.AuthManager
 import com.tsquaredapplications.liquid.ext.isValidEmail
 import com.tsquaredapplications.liquid.ext.isValidPassword
-import com.tsquaredapplications.liquid.login.signup.resources.EmailSignUpResourceWrapper
 import com.tsquaredapplications.liquid.login.common.EmailValidationState
 import com.tsquaredapplications.liquid.login.common.PasswordValidation
 import com.tsquaredapplications.liquid.login.common.PasswordValidationState
+import com.tsquaredapplications.liquid.login.signup.EmailSignUpState.HideProgressBar
+import com.tsquaredapplications.liquid.login.signup.resources.EmailSignUpResourceWrapper
 import javax.inject.Inject
 
 class EmailSignUpViewModel
 @Inject constructor(
-    private val auth: FirebaseAuth,
+    private val authManager: AuthManager,
     private val resourceWrapper: EmailSignUpResourceWrapper
 ) : ViewModel() {
 
@@ -66,21 +64,22 @@ class EmailSignUpViewModel
             passwordValidationLiveData.value == PasswordValidationState.Valid
         ) {
             stateLiveData.value = EmailSignUpState.ShowProgressBar
-            auth.createUserWithEmailAndPassword(email.toString(), password.toString())
-                .addOnCompleteListener { task ->
-                    onCreateUserResult(task)
-                }
+
+            authManager.signUpWith(email.toString(), password.toString(),
+                onComplete = {
+                    onSignUpComplete()
+                },
+                onSuccess = {
+                    onSignUpSuccess()
+                },
+                onFailure = { exception ->
+                    onFailedSignUp(exception)
+                })
         }
     }
 
-    @VisibleForTesting
-    fun onCreateUserResult(task: Task<AuthResult>) {
-        stateLiveData.value = EmailSignUpState.HideProgressBar
-        if (task.isSuccessful) {
-            onSignUpSuccess()
-        } else {
-            onFailedSignUp(task.exception)
-        }
+    private fun onSignUpComplete() {
+        stateLiveData.value = HideProgressBar
     }
 
     private fun onSignUpSuccess() {
