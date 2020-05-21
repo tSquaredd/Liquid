@@ -10,16 +10,16 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.tsquaredapplications.liquid.login.signup.EmailSignUpFragmentDirections.Companion.toUserInformationFragment
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.ErrorDialogFragment
 import com.tsquaredapplications.liquid.databinding.FragmentEmailSignupBinding
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.ext.setAsGone
 import com.tsquaredapplications.liquid.ext.setAsVisibile
-import com.tsquaredapplications.liquid.login.common.EmailValidationState
 import com.tsquaredapplications.liquid.login.LoginActivity
+import com.tsquaredapplications.liquid.login.common.EmailValidationState
 import com.tsquaredapplications.liquid.login.common.PasswordValidationState
+import com.tsquaredapplications.liquid.login.signup.EmailSignUpFragmentDirections.Companion.toUserInformationFragment
 import javax.inject.Inject
 
 class EmailSignUpFragment : BaseFragment<FragmentEmailSignupBinding>() {
@@ -72,15 +72,15 @@ class EmailSignUpFragment : BaseFragment<FragmentEmailSignupBinding>() {
 
         binding.emailTextInputLayout.isEndIconVisible = false
 
-        viewModel.getEmailValidationLiveData().observe(viewLifecycleOwner, Observer {
+        viewModel.emailValidationLiveData.observe(viewLifecycleOwner, Observer {
             onEmailValidationStateChange(it)
         })
 
-        viewModel.getPasswordValidationLiveData().observe(viewLifecycleOwner, Observer {
+        viewModel.passwordValidationLiveData.observe(viewLifecycleOwner, Observer {
             onPasswordValidationStateChange(it)
         })
 
-        viewModel.getStateLiveData().observe(viewLifecycleOwner, Observer {
+        viewModel.stateLiveData.observe(viewLifecycleOwner, Observer {
             onStateChange(it)
         })
     }

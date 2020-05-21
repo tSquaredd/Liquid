@@ -69,7 +69,7 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
             viewModel.passwordUpdated(it.toString())
         }
 
-        viewModel.getLoginButtonEnabledLiveData().observe(viewLifecycleOwner, Observer {
+        viewModel.loginButtonEnabledLiveData.observe(viewLifecycleOwner, Observer {
             onLoginButtonEnabledStateChange(it)
         })
 

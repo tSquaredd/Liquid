@@ -1,5 +1,6 @@
 package com.tsquaredapplications.liquid.login.login
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
@@ -25,8 +26,9 @@ class EmailLoginViewModel
     val stateLiveData: LiveData<EmailLoginState>
         get() = state
 
-    private val loginButtonEnabledLiveData = SingleEventLiveData<Boolean>().apply { value = false }
-    fun getLoginButtonEnabledLiveData(): LiveData<Boolean> = loginButtonEnabledLiveData
+    private val loginButtonEnabledState = SingleEventLiveData<Boolean>().apply { value = false }
+    val loginButtonEnabledLiveData: LiveData<Boolean>
+        get() = loginButtonEnabledState
 
     private var emailEntered = false
     private var passwordEntered = false
@@ -51,16 +53,19 @@ class EmailLoginViewModel
         }
     }
 
-    private fun onSignInComplete() {
+    @VisibleForTesting
+    fun onSignInComplete() {
         state.value = HideProgressBar
     }
 
-    private fun onSuccessfulLogin() {
+    @VisibleForTesting
+    fun onSuccessfulLogin() {
         state.value =
             SuccessFulLogin
     }
 
-    private fun onFailedLogin() {
+    @VisibleForTesting
+    fun onFailedLogin() {
         state.value = FailedLogin(
             errorMessage = resourceWrapper.getFailedLoginErrorMessage(),
             dismissButtonText = resourceWrapper.getFailedLoginErrorDismissButtonText()
@@ -78,7 +83,7 @@ class EmailLoginViewModel
     }
 
     private fun checkToEnableSignInButton() {
-        loginButtonEnabledLiveData.value = emailEntered && passwordEntered
+        loginButtonEnabledState.value = emailEntered && passwordEntered
     }
 
     fun forgotPasswordClicked() {
