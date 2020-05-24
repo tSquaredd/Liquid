@@ -9,4 +9,10 @@ interface UserDatabaseManager {
         onFail: () -> Unit,
         onSuccess: () -> Unit
     )
+
+    fun getUser(
+        userId: String,
+        onFail: () -> Unit,
+        onSuccess: (UserInformation) -> Unit
+    )
 }

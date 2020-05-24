@@ -2,6 +2,7 @@ package com.tsquaredapplications.liquid.common.db
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 import com.tsquaredapplications.liquid.common.USERS
 import com.tsquaredapplications.liquid.common.UserInformation
 import com.tsquaredapplications.liquid.common.database.UserDatabaseManager
@@ -31,5 +32,24 @@ class UserDatabaseManagerImpl
                     onFail()
                 }
         }
+    }
+
+    override fun getUser(
+        userId: String,
+        onFail: () -> Unit,
+        onSuccess: (UserInformation) -> Unit
+    ) {
+        val userRef = db.collection(USERS).document(userId)
+        userRef.get()
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    val userInformation = it.result?.toObject<UserInformation>()
+                    if (userInformation != null) {
+                        onSuccess(userInformation)
+                        return@addOnCompleteListener
+                    }
+                }
+                onFail()
+            }
     }
 }

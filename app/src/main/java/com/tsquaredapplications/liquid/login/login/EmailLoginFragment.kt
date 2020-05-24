@@ -19,6 +19,8 @@ import com.tsquaredapplications.liquid.ext.setAsVisibile
 import com.tsquaredapplications.liquid.login.LoginActivity
 import com.tsquaredapplications.liquid.login.login.EmailLoginFragmentDirections.Companion.toEmailSignupFragment
 import com.tsquaredapplications.liquid.login.login.EmailLoginFragmentDirections.Companion.toMainActivity
+import com.tsquaredapplications.liquid.login.login.EmailLoginFragmentDirections.Companion.toUserInformationFragment
+import com.tsquaredapplications.liquid.login.login.EmailLoginState.AbandonedSignUp
 import com.tsquaredapplications.liquid.login.login.EmailLoginState.FailedLogin
 import com.tsquaredapplications.liquid.login.login.EmailLoginState.ForgotPassword
 import com.tsquaredapplications.liquid.login.login.EmailLoginState.HideProgressBar
@@ -46,7 +48,6 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.loginButton.setOnClickListener {
             val email = binding.emailEditText.text ?: ""
             val password = binding.passwordEditText.text ?: ""
@@ -83,6 +84,7 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
             is SuccessFulLogin -> onSuccessfulLogin()
             is FailedLogin -> onFailedLogin(state)
             is ForgotPassword -> showForgotPasswordDialog(state.authManager)
+            is AbandonedSignUp -> navigate(toUserInformationFragment())
             is ShowProgressBar -> showProgressBar()
             is HideProgressBar -> hideProgressBar()
         }

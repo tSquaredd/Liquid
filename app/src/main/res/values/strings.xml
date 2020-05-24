@@ -72,6 +72,13 @@
     <string name="data_upload_error_message">Well this is embarrassing, it seems we are having trouble wrapping up creating your account.\n\nPlease try again.</string>
     <!-- endregion -->
 
+    <!-- region forgot password -->
+    <string name="forgot_your_password">Forgot your password?</string>
+    <string name="forgot_password_instructions">No worries! Just enter your registered email below for reset instruction.</string>
+    <string name="send">Send</string>
+    <string name="cancel">Cancel</string>
+    <!-- endregion -->
+
     <!-- TEMP -->
     <string name="google">Google</string>
     <string name="apple">Apple</string>
@@ -81,8 +88,4 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="preference_file_key" translatable="false">liquid-app-prefs</string>
-    <string name="forgot_your_password">Forgot your password?</string>
-    <string name="forgot_password_instructions">No worries! Just enter your registered email below for reset instruction.</string>
-    <string name="send">Send</string>
-    <string name="cancel">Cancel</string>
 </resources>

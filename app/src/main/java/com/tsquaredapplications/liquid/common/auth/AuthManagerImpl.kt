@@ -3,6 +3,7 @@ package com.tsquaredapplications.liquid.common.auth
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import javax.inject.Inject
 
 class AuthManagerImpl
@@ -64,4 +65,6 @@ class AuthManagerImpl
 
             }
     }
+
+    override fun getCurrentUser(): FirebaseUser? = auth.currentUser
 }

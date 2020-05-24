@@ -5,9 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
 import com.tsquaredapplications.liquid.common.auth.AuthManager
+import com.tsquaredapplications.liquid.common.database.UserDatabaseManager
 import com.tsquaredapplications.liquid.ext.isValidEmail
 import com.tsquaredapplications.liquid.ext.isValidPassword
 import com.tsquaredapplications.liquid.login.common.PasswordValidation
+import com.tsquaredapplications.liquid.login.login.EmailLoginState.AbandonedSignUp
 import com.tsquaredapplications.liquid.login.login.EmailLoginState.FailedLogin
 import com.tsquaredapplications.liquid.login.login.EmailLoginState.ForgotPassword
 import com.tsquaredapplications.liquid.login.login.EmailLoginState.HideProgressBar
@@ -19,6 +21,7 @@ import javax.inject.Inject
 class EmailLoginViewModel
 @Inject constructor(
     private val authManager: AuthManager,
+    private val userDatabaseManager: UserDatabaseManager,
     private val resourceWrapper: EmailLoginResourceWrapper
 ) : ViewModel() {
 
@@ -41,11 +44,8 @@ class EmailLoginViewModel
             authManager.loginWith(
                 email = email.toString(),
                 password = password.toString(),
-                onComplete = {
-                    onSignInComplete()
-                },
                 onSuccess = {
-                    onSuccessfulLogin()
+                    getUserInformation()
                 },
                 onFailure = {
                     onFailedLogin()
@@ -58,14 +58,30 @@ class EmailLoginViewModel
         state.value = HideProgressBar
     }
 
+    private fun getUserInformation() {
+        authManager.getCurrentUser()?.let {
+            userDatabaseManager.getUser(it.uid,
+                onSuccess = {
+                    onSuccessfulLogin()
+                },
+                onFail = {
+                    handleAbandonedSignUp()
+                })
+        } ?: run { onFailedLogin() }
+    }
+
+    private fun handleAbandonedSignUp() {
+        state.value = AbandonedSignUp
+    }
+
     @VisibleForTesting
     fun onSuccessfulLogin() {
-        state.value =
-            SuccessFulLogin
+        state.value = SuccessFulLogin
     }
 
     @VisibleForTesting
     fun onFailedLogin() {
+        state.value = HideProgressBar
         state.value = FailedLogin(
             errorMessage = resourceWrapper.getFailedLoginErrorMessage(),
             dismissButtonText = resourceWrapper.getFailedLoginErrorDismissButtonText()

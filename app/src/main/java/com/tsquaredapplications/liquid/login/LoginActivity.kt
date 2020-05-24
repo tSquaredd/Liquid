@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import androidx.navigation.navArgs
 import com.tsquaredapplications.liquid.LiquidApplication
 import com.tsquaredapplications.liquid.R
 import com.tsquaredapplications.liquid.databinding.ActivityLoginBinding
@@ -12,6 +13,7 @@ class LoginActivity : AppCompatActivity() {
 
     lateinit var loginComponent: LoginComponent
     private lateinit var binding: ActivityLoginBinding
+    private val loginActivityArgs: LoginActivityArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         loginComponent = (applicationContext as LiquidApplication)
@@ -25,17 +27,27 @@ class LoginActivity : AppCompatActivity() {
         val navController = findNavController(R.id.hostFragment)
         val navGraph = navController.navInflater.inflate(R.navigation.login_nav_graph)
 
+        navGraph.startDestination =
+            when {
+                abandonedSignUp() -> R.id.userInformationFragment
+                shouldShowWelcomeFragment() -> R.id.welcomeFragment
+                else -> R.id.emailLoginFragment
+            }
+        navController.graph = navGraph
+    }
+
+    private fun abandonedSignUp() = loginActivityArgs.abandonedSignUp
+
+    private fun shouldShowWelcomeFragment(): Boolean {
         val sharedPref = getPreferences(Context.MODE_PRIVATE)
-        if (sharedPref.getBoolean(WELCOME_SCREEN_TOGGLE_KEY, true)) {
+        val shouldShowWelcomeScreen = sharedPref.getBoolean(WELCOME_SCREEN_TOGGLE_KEY, true)
+        if (shouldShowWelcomeScreen) {
             with(sharedPref.edit()) {
                 putBoolean(WELCOME_SCREEN_TOGGLE_KEY, false)
                 commit()
             }
-            navGraph.startDestination = R.id.welcomeFragment
-        } else {
-            navGraph.startDestination = R.id.emailLoginFragment
         }
-        navController.graph = navGraph
+        return shouldShowWelcomeScreen
     }
 
     override fun onSupportNavigateUp() =
