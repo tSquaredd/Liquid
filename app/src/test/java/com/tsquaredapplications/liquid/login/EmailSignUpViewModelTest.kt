@@ -1,14 +1,17 @@
 package com.tsquaredapplications.liquid.login
 
 import androidx.lifecycle.Observer
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.tsquaredapplications.liquid.common.BaseViewModelTest
+import com.tsquaredapplications.liquid.common.auth.AuthManager
+import com.tsquaredapplications.liquid.ext.assertStateOrder
 import com.tsquaredapplications.liquid.login.common.EmailValidationState
 import com.tsquaredapplications.liquid.login.common.PasswordValidationState
 import com.tsquaredapplications.liquid.login.signup.EmailSignUpState
+import com.tsquaredapplications.liquid.login.signup.EmailSignUpState.FailedSignUp
+import com.tsquaredapplications.liquid.login.signup.EmailSignUpState.HideProgressBar
+import com.tsquaredapplications.liquid.login.signup.EmailSignUpState.ShowProgressBar
+import com.tsquaredapplications.liquid.login.signup.EmailSignUpState.SuccessfulSignUp
 import com.tsquaredapplications.liquid.login.signup.EmailSignUpViewModel
 import com.tsquaredapplications.liquid.login.signup.resources.EmailSignUpResourceWrapper
 import io.mockk.MockKAnnotations
@@ -33,7 +36,7 @@ class EmailSignUpViewModelTest : BaseViewModelTest() {
     lateinit var resourceWrapper: EmailSignUpResourceWrapper
 
     @MockK
-    lateinit var auth: FirebaseAuth
+    lateinit var authManager: AuthManager
 
     @RelaxedMockK
     lateinit var stateObserver: Observer<EmailSignUpState>
@@ -45,7 +48,7 @@ class EmailSignUpViewModelTest : BaseViewModelTest() {
     lateinit var passwordValidationStateObserver: Observer<PasswordValidationState>
 
     private lateinit var viewModel: EmailSignUpViewModel
-    private var stateSlot = slot<EmailSignUpState>()
+    private var stateList = mutableListOf<EmailSignUpState>()
     private var emailValidationStateSlot = slot<EmailValidationState>()
     private var passwordValidationStateSlot = slot<PasswordValidationState>()
 
@@ -63,17 +66,17 @@ class EmailSignUpViewModelTest : BaseViewModelTest() {
     @BeforeEach
     fun setup() {
         clearMocks(stateObserver, emailValidationStateObserver, passwordValidationStateObserver)
-        stateSlot.clear()
+        stateList.clear()
         emailValidationStateSlot.clear()
         passwordValidationStateSlot.clear()
 
         viewModel = EmailSignUpViewModel(
-            auth,
+            authManager,
             resourceWrapper
         ).apply {
-            getStateLiveData().observeForever(stateObserver)
-            getPasswordValidationLiveData().observeForever(passwordValidationStateObserver)
-            getEmailValidationLiveData().observeForever(emailValidationStateObserver)
+            stateLiveData.observeForever(stateObserver)
+            passwordValidationLiveData.observeForever(passwordValidationStateObserver)
+            emailValidationLiveData.observeForever(emailValidationStateObserver)
         }
     }
 
@@ -146,69 +149,114 @@ class EmailSignUpViewModelTest : BaseViewModelTest() {
     inner class SignUpTests {
 
         @Test
-        fun `when email is invalid then firebase auth is not called`() {
+        fun `when email is invalid return invalid state`() {
             viewModel.onSignUpCLicked(INVALID, VALID_PASSWORD)
-
-            verify(exactly = 0) { auth.createUserWithEmailAndPassword(any(), any()) }
-        }
-
-        @Test
-        fun `when password is invalid then firebase auth is not called`() {
-            viewModel.onSignUpCLicked(VALID_EMAIL, INVALID)
-
-            verify(exactly = 0) { auth.createUserWithEmailAndPassword(any(), any()) }
-        }
-    }
-
-    @Nested
-    @DisplayName("Given firebase auth returns from attempting to create user")
-    inner class FirebaseAuthResult {
-
-        @Test
-        fun `when task was success return successful sign up state`() {
-            val authTask = mockk<Task<AuthResult>> {
-                every { isSuccessful } returns true
+            verify(exactly = 1) {
+                emailValidationStateObserver.onChanged(
+                    capture(
+                        emailValidationStateSlot
+                    )
+                )
             }
+        }
 
-            viewModel.onCreateUserResult(authTask)
-            verify { stateObserver.onChanged(capture(stateSlot)) }
-            assertTrue { stateSlot.captured is EmailSignUpState.SuccessfulSignUp }
+        @Test
+        fun `when password is invalid return invalid state`() {
+            viewModel.onSignUpCLicked(VALID_EMAIL, INVALID)
+            verify(exactly = 1) {
+                passwordValidationStateObserver.onChanged(
+                    capture(
+                        passwordValidationStateSlot
+                    )
+                )
+            }
         }
 
         @Nested
-        @DisplayName("When task fails")
-        inner class FailedAccountCreation {
+        @DisplayName("when email and password are valid and sign up is successful")
+        inner class ValidEmailPassword {
 
             @Test
-            fun `because user already exists, return fail state with specific error message`() {
-                val authTask = mockk<Task<AuthResult>>() {
-                    every { isSuccessful } returns false
-                    every { exception } returns mockk<FirebaseAuthUserCollisionException>()
+            fun `if sign up succeeds send successful state`() {
+                every {
+                    authManager.signUpWith(
+                        VALID_EMAIL,
+                        VALID_PASSWORD,
+                        any(),
+                        any(),
+                        any()
+                    )
+                } answers {
+                    viewModel.onSignUpComplete()
+                    viewModel.onSignUpSuccess()
                 }
 
-                viewModel.onCreateUserResult(authTask)
-
-                verify { stateObserver.onChanged(capture(stateSlot)) }
-                val state = stateSlot.captured as EmailSignUpState.FailedSignUp
-                assertEquals(SIGN_UP_USER_COLLISION_ERROR_MESSAGE, state.errorMessage)
-                assertEquals(SIGN_UP_ERROR_DISMISS_BUTTON_TEXT, state.dismissButtonText)
+                viewModel.onSignUpCLicked(VALID_EMAIL, VALID_PASSWORD)
+                verify(exactly = 3) { stateObserver.onChanged(capture(stateList)) }
+                stateList.assertStateOrder(
+                    ShowProgressBar::class,
+                    HideProgressBar::class,
+                    SuccessfulSignUp::class
+                )
             }
 
             @Test
-            fun `for generic reason, return fail state with generic error message`() {
-                val authTask = mockk<Task<AuthResult>>() {
-                    every { isSuccessful } returns false
-                    every { exception } returns mockk()
+            fun `if sign up fails becuase user exists send user failed state with collision message`() {
+                every {
+                    authManager.signUpWith(
+                        VALID_EMAIL,
+                        VALID_PASSWORD,
+                        any(),
+                        any(),
+                        any()
+                    )
+                } answers {
+                    viewModel.onSignUpComplete()
+                    viewModel.onFailedSignUp(mockk<FirebaseAuthUserCollisionException>())
                 }
 
-                viewModel.onCreateUserResult(authTask)
+                viewModel.onSignUpCLicked(VALID_EMAIL, VALID_PASSWORD)
+                verify(exactly = 3) { stateObserver.onChanged(capture(stateList)) }
+                stateList.assertStateOrder(
+                    ShowProgressBar::class,
+                    HideProgressBar::class,
+                    FailedSignUp::class
+                )
 
-                verify { stateObserver.onChanged(capture(stateSlot)) }
-                val state = stateSlot.captured as EmailSignUpState.FailedSignUp
-                assertEquals(SIGN_UP_GENERIC_ERROR_MESSAGE, state.errorMessage)
-                assertEquals(SIGN_UP_ERROR_DISMISS_BUTTON_TEXT, state.dismissButtonText)
+                val failedSignUpState = stateList[2] as FailedSignUp
+                assertEquals(SIGN_UP_USER_COLLISION_ERROR_MESSAGE, failedSignUpState.errorMessage)
+                assertEquals(SIGN_UP_ERROR_DISMISS_BUTTON_TEXT, failedSignUpState.dismissButtonText)
+            }
+
+            @Test
+            fun `if sign up fails for unknown reason send failed state with generic message`() {
+                every {
+                    authManager.signUpWith(
+                        VALID_EMAIL,
+                        VALID_PASSWORD,
+                        any(),
+                        any(),
+                        any()
+                    )
+                } answers {
+                    viewModel.onSignUpComplete()
+                    viewModel.onFailedSignUp(mockk())
+                }
+
+                viewModel.onSignUpCLicked(VALID_EMAIL, VALID_PASSWORD)
+                verify(exactly = 3) { stateObserver.onChanged(capture(stateList)) }
+                stateList.assertStateOrder(
+                    ShowProgressBar::class,
+                    HideProgressBar::class,
+                    FailedSignUp::class
+                )
+
+                val failedSignUpState = stateList[2] as FailedSignUp
+                assertEquals(SIGN_UP_GENERIC_ERROR_MESSAGE, failedSignUpState.errorMessage)
+                assertEquals(SIGN_UP_ERROR_DISMISS_BUTTON_TEXT, failedSignUpState.dismissButtonText)
             }
         }
+
     }
 
     companion object {

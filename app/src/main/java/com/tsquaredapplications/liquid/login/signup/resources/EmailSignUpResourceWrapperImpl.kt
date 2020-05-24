@@ -2,7 +2,6 @@ package com.tsquaredapplications.liquid.login.signup.resources
 
 import android.content.Context
 import com.tsquaredapplications.liquid.R
-import com.tsquaredapplications.liquid.login.signup.resources.EmailSignUpResourceWrapper
 import javax.inject.Inject
 
 class EmailSignUpResourceWrapperImpl
@@ -22,5 +21,5 @@ class EmailSignUpResourceWrapperImpl
     override fun getSignUpUserCollisionErrorMessage() =
         context.getString(R.string.sign_up_user_collision_error_message)
 
-    override fun getSignUpErrorDismissButtonText() = context.getString(R.string.ok)
+    override fun getSignUpErrorDismissButtonText() = context.getString(R.string.got_it)
 }

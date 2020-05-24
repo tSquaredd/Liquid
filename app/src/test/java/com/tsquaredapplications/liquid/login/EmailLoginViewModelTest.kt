@@ -1,13 +1,17 @@
 package com.tsquaredapplications.liquid.login
 
 import androidx.lifecycle.Observer
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
-import com.google.firebase.auth.FirebaseAuth
 import com.tsquaredapplications.liquid.common.BaseViewModelTest
+import com.tsquaredapplications.liquid.common.auth.AuthManager
 import com.tsquaredapplications.liquid.ext.assertOneState
+import com.tsquaredapplications.liquid.ext.assertStateOrder
 import com.tsquaredapplications.liquid.login.common.EmailValidationState
 import com.tsquaredapplications.liquid.login.login.EmailLoginState
+import com.tsquaredapplications.liquid.login.login.EmailLoginState.FailedLogin
+import com.tsquaredapplications.liquid.login.login.EmailLoginState.ForgotPassword
+import com.tsquaredapplications.liquid.login.login.EmailLoginState.HideProgressBar
+import com.tsquaredapplications.liquid.login.login.EmailLoginState.ShowProgressBar
+import com.tsquaredapplications.liquid.login.login.EmailLoginState.SuccessFulLogin
 import com.tsquaredapplications.liquid.login.login.EmailLoginViewModel
 import com.tsquaredapplications.liquid.login.login.resources.EmailLoginResourceWrapper
 import io.mockk.MockKAnnotations
@@ -15,7 +19,6 @@ import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
-import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -34,7 +37,7 @@ class EmailLoginViewModelTest : BaseViewModelTest() {
     lateinit var resourceWrapper: EmailLoginResourceWrapper
 
     @MockK
-    lateinit var auth: FirebaseAuth
+    lateinit var authManager: AuthManager
 
     @RelaxedMockK
     lateinit var stateObserver: Observer<EmailLoginState>
@@ -62,11 +65,11 @@ class EmailLoginViewModelTest : BaseViewModelTest() {
         emailValidationStateList.clear()
 
         viewModel = EmailLoginViewModel(
-            auth,
+            authManager,
             resourceWrapper
         ).apply {
-            getStateLiveData().observeForever(stateObserver)
-            getLoginButtonEnabledLiveData().observeForever(buttonEnabledObserver)
+            stateLiveData.observeForever(stateObserver)
+            loginButtonEnabledLiveData.observeForever(buttonEnabledObserver)
         }
     }
 
@@ -81,7 +84,7 @@ class EmailLoginViewModelTest : BaseViewModelTest() {
 
             verify { stateObserver.onChanged(capture(stateList)) }
             stateList.assertOneState()
-            assertTrue { stateList[0] is EmailLoginState.FailedLogin }
+            assertTrue { stateList[0] is FailedLogin }
         }
 
         @Test
@@ -91,7 +94,7 @@ class EmailLoginViewModelTest : BaseViewModelTest() {
 
             verify { stateObserver.onChanged(capture(stateList)) }
             stateList.assertOneState()
-            assertTrue { stateList[0] is EmailLoginState.FailedLogin }
+            assertTrue { stateList[0] is FailedLogin }
         }
 
         @Test
@@ -101,38 +104,62 @@ class EmailLoginViewModelTest : BaseViewModelTest() {
 
             verify { stateObserver.onChanged(capture(stateList)) }
             stateList.assertOneState()
-            assertTrue { stateList[0] is EmailLoginState.FailedLogin }
-        }
-    }
-
-    @Nested
-    @DisplayName("Given firebase auth returns from attempting to sign in")
-    inner class FirebaseAuthResult {
-
-        @Test
-        fun `when task was successful return success state`() {
-            val authResult = mockk<Task<AuthResult>> {
-                every { isSuccessful } returns true
-            }
-
-            viewModel.onSignInResult(authResult)
-
-            verify { stateObserver.onChanged(capture(stateList)) }
-            assertTrue { stateList.first() is EmailLoginState.HideProgressBar }
-            assertTrue { stateList[1] is EmailLoginState.SuccessFulLogin }
+            assertTrue { stateList[0] is FailedLogin }
         }
 
-        @Test
-        fun `when task failed return failed state`() {
-            val authResult = mockk<Task<AuthResult>> {
-                every { isSuccessful } returns false
+        @Nested
+        @DisplayName("when email and password are valid")
+        inner class ValidEmailPassword {
+
+            @Test
+            fun `when login is successful send successful login state`() {
+                every {
+                    authManager.loginWith(
+                        VALID_EMAIL,
+                        VALID_PASSWORD,
+                        any(),
+                        any(),
+                        any()
+                    )
+                } answers {
+                    viewModel.onSignInComplete()
+                    viewModel.onSuccessfulLogin()
+                }
+
+                viewModel.onLoginClicked(VALID_EMAIL, VALID_PASSWORD)
+
+                verify(exactly = 3) { stateObserver.onChanged(capture(stateList)) }
+                stateList.assertStateOrder(
+                    ShowProgressBar::class,
+                    HideProgressBar::class,
+                    SuccessFulLogin::class
+                )
             }
 
-            viewModel.onSignInResult(authResult)
+            @Test
+            fun `when login fails send failed login state`() {
+                every {
+                    authManager.loginWith(
+                        VALID_EMAIL,
+                        VALID_PASSWORD,
+                        any(),
+                        any(),
+                        any()
+                    )
+                } answers {
+                    viewModel.onSignInComplete()
+                    viewModel.onFailedLogin()
+                }
 
-            verify { stateObserver.onChanged(capture(stateList)) }
-            assertTrue { stateList.first() is EmailLoginState.HideProgressBar }
-            assertTrue { stateList[1] is EmailLoginState.FailedLogin }
+                viewModel.onLoginClicked(VALID_EMAIL, VALID_PASSWORD)
+
+                verify(exactly = 3) { stateObserver.onChanged(capture(stateList)) }
+                stateList.assertStateOrder(
+                    ShowProgressBar::class,
+                    HideProgressBar::class,
+                    FailedLogin::class
+                )
+            }
         }
     }
 
@@ -200,6 +227,17 @@ class EmailLoginViewModelTest : BaseViewModelTest() {
             assertTrue { buttonStateSlot[1] }
             assertFalse { buttonStateSlot[2] }
         }
+    }
+
+    @Test
+    fun `given forgot password is clicked then return forgot password state`() {
+        viewModel.forgotPasswordClicked()
+
+        verify { stateObserver.onChanged(capture(stateList)) }
+        stateList.assertOneState()
+        val state = stateList.first()
+        assertTrue { state is ForgotPassword }
+        assertEquals(authManager, (state as ForgotPassword).authManager)
     }
 
     companion object {
