@@ -3,10 +3,12 @@ package com.tsquaredapplications.liquid.login
 import androidx.lifecycle.Observer
 import com.tsquaredapplications.liquid.common.BaseViewModelTest
 import com.tsquaredapplications.liquid.common.auth.AuthManager
+import com.tsquaredapplications.liquid.common.database.UserDatabaseManager
 import com.tsquaredapplications.liquid.ext.assertOneState
 import com.tsquaredapplications.liquid.ext.assertStateOrder
 import com.tsquaredapplications.liquid.login.common.EmailValidationState
 import com.tsquaredapplications.liquid.login.login.EmailLoginState
+import com.tsquaredapplications.liquid.login.login.EmailLoginState.AbandonedSignUp
 import com.tsquaredapplications.liquid.login.login.EmailLoginState.FailedLogin
 import com.tsquaredapplications.liquid.login.login.EmailLoginState.ForgotPassword
 import com.tsquaredapplications.liquid.login.login.EmailLoginState.HideProgressBar
@@ -19,6 +21,7 @@ import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
+import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -38,6 +41,9 @@ class EmailLoginViewModelTest : BaseViewModelTest() {
 
     @MockK
     lateinit var authManager: AuthManager
+
+    @MockK
+    lateinit var userDatabaseManager: UserDatabaseManager
 
     @RelaxedMockK
     lateinit var stateObserver: Observer<EmailLoginState>
@@ -66,6 +72,7 @@ class EmailLoginViewModelTest : BaseViewModelTest() {
 
         viewModel = EmailLoginViewModel(
             authManager,
+            userDatabaseManager,
             resourceWrapper
         ).apply {
             stateLiveData.observeForever(stateObserver)
@@ -83,8 +90,7 @@ class EmailLoginViewModelTest : BaseViewModelTest() {
             viewModel.onLoginClicked(INVALID_EMAIL, VALID_PASSWORD)
 
             verify { stateObserver.onChanged(capture(stateList)) }
-            stateList.assertOneState()
-            assertTrue { stateList[0] is FailedLogin }
+            assertFailedLogin()
         }
 
         @Test
@@ -93,8 +99,7 @@ class EmailLoginViewModelTest : BaseViewModelTest() {
             viewModel.onLoginClicked(VALID_EMAIL, INVALID_PASSWORD)
 
             verify { stateObserver.onChanged(capture(stateList)) }
-            stateList.assertOneState()
-            assertTrue { stateList[0] is FailedLogin }
+            assertFailedLogin()
         }
 
         @Test
@@ -103,38 +108,22 @@ class EmailLoginViewModelTest : BaseViewModelTest() {
             viewModel.onLoginClicked(INVALID_EMAIL, INVALID_PASSWORD)
 
             verify { stateObserver.onChanged(capture(stateList)) }
-            stateList.assertOneState()
-            assertTrue { stateList[0] is FailedLogin }
+            assertFailedLogin()
+        }
+
+        private fun assertFailedLogin() {
+            stateList.assertStateOrder(
+                HideProgressBar::class,
+                FailedLogin::class
+            )
+            val failedLoginState = stateList[1] as FailedLogin
+            assertEquals(FAILED_LOGIN_ERROR_MESSAGE, failedLoginState.errorMessage)
+            assertEquals(FAILED_LOGIN_DISMISS_BUTTON_TEXT, failedLoginState.dismissButtonText)
         }
 
         @Nested
         @DisplayName("when email and password are valid")
         inner class ValidEmailPassword {
-
-            @Test
-            fun `when login is successful send successful login state`() {
-                every {
-                    authManager.loginWith(
-                        VALID_EMAIL,
-                        VALID_PASSWORD,
-                        any(),
-                        any(),
-                        any()
-                    )
-                } answers {
-                    viewModel.onSignInComplete()
-                    viewModel.onSuccessfulLogin()
-                }
-
-                viewModel.onLoginClicked(VALID_EMAIL, VALID_PASSWORD)
-
-                verify(exactly = 3) { stateObserver.onChanged(capture(stateList)) }
-                stateList.assertStateOrder(
-                    ShowProgressBar::class,
-                    HideProgressBar::class,
-                    SuccessFulLogin::class
-                )
-            }
 
             @Test
             fun `when login fails send failed login state`() {
@@ -147,7 +136,6 @@ class EmailLoginViewModelTest : BaseViewModelTest() {
                         any()
                     )
                 } answers {
-                    viewModel.onSignInComplete()
                     viewModel.onFailedLogin()
                 }
 
@@ -159,6 +147,59 @@ class EmailLoginViewModelTest : BaseViewModelTest() {
                     HideProgressBar::class,
                     FailedLogin::class
                 )
+            }
+
+            @Nested
+            @DisplayName("given login is successful")
+            inner class SuccessfulLogin {
+                @BeforeEach
+                fun beforeEach() {
+                    every {
+                        authManager.loginWith(
+                            VALID_EMAIL,
+                            VALID_PASSWORD,
+                            any(),
+                            any(),
+                            any()
+                        )
+                    } answers {
+                        viewModel.getUserInformation()
+                    }
+
+                    every { authManager.getCurrentUser() } returns mockk {
+                        every { uid } returns USER_ID
+                    }
+                }
+
+                @Test
+                fun `when user does not exist in database send abandoned sign up state`() {
+                    every { userDatabaseManager.getUser(any(), any(), any()) } answers {
+                        viewModel.handleAbandonedSignUp()
+                    }
+
+                    viewModel.onLoginClicked(VALID_EMAIL, VALID_PASSWORD)
+
+                    verify(exactly = 2) { stateObserver.onChanged(capture(stateList)) }
+                    stateList.assertStateOrder(
+                        ShowProgressBar::class,
+                        AbandonedSignUp::class
+                    )
+                }
+
+                @Test
+                fun `when user exists in database send successful login state`() {
+                    every { userDatabaseManager.getUser(any(), any(), any()) } answers {
+                        viewModel.onSuccessfulLogin()
+                    }
+
+                    viewModel.onLoginClicked(VALID_EMAIL, VALID_PASSWORD)
+
+                    verify(exactly = 2) { stateObserver.onChanged(capture(stateList)) }
+                    stateList.assertStateOrder(
+                        ShowProgressBar::class,
+                        SuccessFulLogin::class
+                    )
+                }
             }
         }
     }
@@ -249,5 +290,7 @@ class EmailLoginViewModelTest : BaseViewModelTest() {
 
         const val FAILED_LOGIN_ERROR_MESSAGE = "FAILED_LOGIN_ERROR_MESSAGE"
         const val FAILED_LOGIN_DISMISS_BUTTON_TEXT = "FAILED_LOGIN_DISMISS_BUTTON_TEXT"
+
+        const val USER_ID = "USER_ID"
     }
 }

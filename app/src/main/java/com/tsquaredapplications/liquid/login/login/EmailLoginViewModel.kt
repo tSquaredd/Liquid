@@ -54,11 +54,7 @@ class EmailLoginViewModel
     }
 
     @VisibleForTesting
-    fun onSignInComplete() {
-        state.value = HideProgressBar
-    }
-
-    private fun getUserInformation() {
+    fun getUserInformation() {
         authManager.getCurrentUser()?.let {
             userDatabaseManager.getUser(it.uid,
                 onSuccess = {
@@ -70,7 +66,8 @@ class EmailLoginViewModel
         } ?: run { onFailedLogin() }
     }
 
-    private fun handleAbandonedSignUp() {
+    @VisibleForTesting
+    fun handleAbandonedSignUp() {
         state.value = AbandonedSignUp
     }
 
