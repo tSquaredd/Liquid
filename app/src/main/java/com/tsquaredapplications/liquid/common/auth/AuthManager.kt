@@ -2,6 +2,7 @@ package com.tsquaredapplications.liquid.common.auth
 
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseUser
 
 interface AuthManager {
     fun loginWith(
@@ -26,4 +27,6 @@ interface AuthManager {
         onSuccess: () -> Unit,
         onFailure: (Exception) -> Unit
     )
+
+    fun getCurrentUser(): FirebaseUser?
 }

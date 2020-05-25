@@ -16,6 +16,9 @@
         <action
             android:id="@+id/toEmailSignupFragment"
             app:destination="@id/emailSignupFragment" />
+        <action
+            android:id="@+id/toUserInformationFragment"
+            app:destination="@id/userInformationFragment" />
     </fragment>
     <activity
         android:id="@+id/mainActivity"

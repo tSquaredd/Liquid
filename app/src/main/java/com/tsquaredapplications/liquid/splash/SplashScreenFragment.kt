@@ -6,8 +6,9 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.google.firebase.auth.FirebaseAuth
 import com.tsquaredapplications.liquid.common.BaseFragment
+import com.tsquaredapplications.liquid.common.auth.AuthManager
+import com.tsquaredapplications.liquid.common.database.UserDatabaseManager
 import com.tsquaredapplications.liquid.databinding.FragmentSplashScreenBinding
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.splash.SplashScreenFragmentDirections.Companion.toLoginActivity
@@ -17,7 +18,10 @@ import javax.inject.Inject
 class SplashScreenFragment : BaseFragment<FragmentSplashScreenBinding>() {
 
     @Inject
-    lateinit var auth: FirebaseAuth
+    lateinit var authManager: AuthManager
+
+    @Inject
+    lateinit var userDbManager: UserDatabaseManager
 
     override fun setBinding(
         inflater: LayoutInflater,
@@ -40,9 +44,17 @@ class SplashScreenFragment : BaseFragment<FragmentSplashScreenBinding>() {
             }
             addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator?) {
-                    when (auth.currentUser) {
+                    when (val user = authManager.getCurrentUser()) {
                         null -> navigate(toLoginActivity())
-                        else -> navigate(toMainActivity())
+                        else -> {
+                            userDbManager.getUser(user.uid,
+                                onSuccess = {
+                                    navigate(toMainActivity())
+                                },
+                                onFail = {
+                                    navigate(toLoginActivity(abandonedSignUp = true))
+                                })
+                        }
                     }
                 }
             })
