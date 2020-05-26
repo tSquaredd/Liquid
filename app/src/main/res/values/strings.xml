@@ -67,9 +67,9 @@
 
     <!--region goal display screen -->
     <string name="daily_goal_header">Your Daily Goal is …</string>
-    <string name="goal_disclaimer">Note: This is the minimum recommended daily intake of hydrating liquds for most healthy individuals. Hydrate accordingly while sweating and during excersize.\n\nPlease consult your doctor if you have any questions or concerns.\n\nYour daily goal can be adjusted in settings.</string>
+    <string name="goal_disclaimer">Note: This is the minimum recommended daily intake of hydrating liquids for most healthy individuals. Hydrate accordingly while sweating and during excersize.\n\nPlease consult your doctor if you have any questions or concerns.\n\nYour daily goal can be adjusted in settings.</string>
     <string name="finish">Finish!</string>
-    <string name="data_upload_error_message">Well this is embarrassing, it seems we are having trouble wrapping up creating your account.\n\nPlease try again.</string>
+    <string name="data_upload_error_message">Oops, something went wrong!\nThere was an error creating your account. Please try again!</string>
     <!-- endregion -->
 
     <!-- region forgot password -->
