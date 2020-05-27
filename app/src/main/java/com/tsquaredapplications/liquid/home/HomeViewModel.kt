@@ -1,5 +1,6 @@
 package com.tsquaredapplications.liquid.home
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
@@ -19,23 +20,25 @@ class HomeViewModel
     val stateLiveData: LiveData<HomeState>
         get() = state
 
-    var userInformation: UserInformation? = null
-
     fun start() {
         userDatabaseManager.getUser(
             onFail = {
                 // TODO LIQ-121
             },
             onSuccess = {
-                userInformation = it
-                state.value = HomeState.Initialized(
-                    goalProgress = resourceWrapper.getGoalProgressText(
-                        progress = 0,
-                        goal = it.dailyGoal,
-                        unit = it.unitPreference
-                    )
-                )
+                updateProgress(it)
             }
+        )
+    }
+
+    @VisibleForTesting
+    fun updateProgress(userInformation: UserInformation) {
+        state.value = HomeState.Initialized(
+            goalProgress = resourceWrapper.getGoalProgressText(
+                progress = 0,
+                goal = userInformation.dailyGoal,
+                unit = userInformation.unitPreference
+            )
         )
     }
 }

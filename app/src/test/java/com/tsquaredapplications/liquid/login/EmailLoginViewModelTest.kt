@@ -173,7 +173,7 @@ class EmailLoginViewModelTest : BaseViewModelTest() {
 
                 @Test
                 fun `when user does not exist in database send abandoned sign up state`() {
-                    every { userDatabaseManager.getUser(any(), any(), any()) } answers {
+                    every { userDatabaseManager.getUser(any(), any()) } answers {
                         viewModel.handleAbandonedSignUp()
                     }
 
@@ -188,7 +188,7 @@ class EmailLoginViewModelTest : BaseViewModelTest() {
 
                 @Test
                 fun `when user exists in database send successful login state`() {
-                    every { userDatabaseManager.getUser(any(), any(), any()) } answers {
+                    every { userDatabaseManager.getUser(any(), any()) } answers {
                         viewModel.onSuccessfulLogin()
                     }
 
