@@ -35,21 +35,22 @@ class UserDatabaseManagerImpl
     }
 
     override fun getUser(
-        userId: String,
         onFail: () -> Unit,
         onSuccess: (UserInformation) -> Unit
     ) {
-        val userRef = db.collection(USERS).document(userId)
-        userRef.get()
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    val userInformation = it.result?.toObject<UserInformation>()
-                    if (userInformation != null) {
-                        onSuccess(userInformation)
-                        return@addOnCompleteListener
+        auth.currentUser?.uid?.let { userId ->
+            val userRef = db.collection(USERS).document(userId)
+            userRef.get()
+                .addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        val userInformation = it.result?.toObject<UserInformation>()
+                        if (userInformation != null) {
+                            onSuccess(userInformation)
+                            return@addOnCompleteListener
+                        }
                     }
+                    onFail()
                 }
-                onFail()
-            }
+        } ?: run { onFail() }
     }
 }

@@ -11,7 +11,6 @@ interface UserDatabaseManager {
     )
 
     fun getUser(
-        userId: String,
         onFail: () -> Unit,
         onSuccess: (UserInformation) -> Unit
     )

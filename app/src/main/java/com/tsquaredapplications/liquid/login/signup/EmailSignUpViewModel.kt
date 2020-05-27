@@ -58,7 +58,7 @@ class EmailSignUpViewModel
         }
     }
 
-    fun onSignUpCLicked(email: CharSequence, password: CharSequence) {
+    fun onSignUpClicked(email: CharSequence, password: CharSequence) {
         validateEmail(email)
         validatePassword(password)
 

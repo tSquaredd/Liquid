@@ -2,6 +2,7 @@ package com.tsquaredapplications.liquid.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.tsquaredapplications.liquid.home.HomeViewModel
 import com.tsquaredapplications.liquid.login.goal.GoalDisplayViewModel
 import com.tsquaredapplications.liquid.login.information.UserInformationViewModel
 import com.tsquaredapplications.liquid.login.login.EmailLoginViewModel
@@ -57,6 +58,11 @@ class ViewModelFactory
         @IntoMap
         @ViewModelKey(GoalDisplayViewModel::class)
         internal abstract fun bindGoalDisplayViewModel(viewModel: GoalDisplayViewModel): ViewModel
-        //Add more ViewModels here
+
+
+        @Binds
+        @IntoMap
+        @ViewModelKey(HomeViewModel::class)
+        internal abstract fun bindHomeViewModel(viewModel: HomeViewModel): ViewModel
     }
 }

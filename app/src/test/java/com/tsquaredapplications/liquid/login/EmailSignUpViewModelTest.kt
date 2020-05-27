@@ -150,7 +150,7 @@ class EmailSignUpViewModelTest : BaseViewModelTest() {
 
         @Test
         fun `when email is invalid return invalid state`() {
-            viewModel.onSignUpCLicked(INVALID, VALID_PASSWORD)
+            viewModel.onSignUpClicked(INVALID, VALID_PASSWORD)
             verify(exactly = 1) {
                 emailValidationStateObserver.onChanged(
                     capture(
@@ -162,7 +162,7 @@ class EmailSignUpViewModelTest : BaseViewModelTest() {
 
         @Test
         fun `when password is invalid return invalid state`() {
-            viewModel.onSignUpCLicked(VALID_EMAIL, INVALID)
+            viewModel.onSignUpClicked(VALID_EMAIL, INVALID)
             verify(exactly = 1) {
                 passwordValidationStateObserver.onChanged(
                     capture(
@@ -191,7 +191,7 @@ class EmailSignUpViewModelTest : BaseViewModelTest() {
                     viewModel.onSignUpSuccess()
                 }
 
-                viewModel.onSignUpCLicked(VALID_EMAIL, VALID_PASSWORD)
+                viewModel.onSignUpClicked(VALID_EMAIL, VALID_PASSWORD)
                 verify(exactly = 3) { stateObserver.onChanged(capture(stateList)) }
                 stateList.assertStateOrder(
                     ShowProgressBar::class,
@@ -215,7 +215,7 @@ class EmailSignUpViewModelTest : BaseViewModelTest() {
                     viewModel.onFailedSignUp(mockk<FirebaseAuthUserCollisionException>())
                 }
 
-                viewModel.onSignUpCLicked(VALID_EMAIL, VALID_PASSWORD)
+                viewModel.onSignUpClicked(VALID_EMAIL, VALID_PASSWORD)
                 verify(exactly = 3) { stateObserver.onChanged(capture(stateList)) }
                 stateList.assertStateOrder(
                     ShowProgressBar::class,
@@ -243,7 +243,7 @@ class EmailSignUpViewModelTest : BaseViewModelTest() {
                     viewModel.onFailedSignUp(mockk())
                 }
 
-                viewModel.onSignUpCLicked(VALID_EMAIL, VALID_PASSWORD)
+                viewModel.onSignUpClicked(VALID_EMAIL, VALID_PASSWORD)
                 verify(exactly = 3) { stateObserver.onChanged(capture(stateList)) }
                 stateList.assertStateOrder(
                     ShowProgressBar::class,

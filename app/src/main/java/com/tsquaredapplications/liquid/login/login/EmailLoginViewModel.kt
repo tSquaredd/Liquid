@@ -56,7 +56,7 @@ class EmailLoginViewModel
     @VisibleForTesting
     fun getUserInformation() {
         authManager.getCurrentUser()?.let {
-            userDatabaseManager.getUser(it.uid,
+            userDatabaseManager.getUser(
                 onSuccess = {
                     onSuccessfulLogin()
                 },

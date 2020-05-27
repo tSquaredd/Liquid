@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.tsquaredapplications.liquid.HomeFragment"
+        android:name="com.tsquaredapplications.liquid.home.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home">
         <action
