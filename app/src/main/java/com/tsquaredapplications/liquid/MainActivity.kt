@@ -9,9 +9,14 @@ import com.tsquaredapplications.liquid.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    lateinit var mainComponent: MainComponent
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        mainComponent = (applicationContext as LiquidApplication)
+            .appComponent.mainComponent().create()
+        mainComponent.inject(this)
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

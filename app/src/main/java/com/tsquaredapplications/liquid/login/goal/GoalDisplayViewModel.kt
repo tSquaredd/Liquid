@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
 import com.tsquaredapplications.liquid.common.UserInformation
 import com.tsquaredapplications.liquid.common.database.UserDatabaseManager
-import com.tsquaredapplications.liquid.ext.dailyGoal
 import com.tsquaredapplications.liquid.login.LiquidUnit
+import com.tsquaredapplications.liquid.login.calculateDailyGoal
 import com.tsquaredapplications.liquid.login.goal.GoalDisplayState.DataFail
 import com.tsquaredapplications.liquid.login.goal.GoalDisplayState.DataSuccess
 import com.tsquaredapplications.liquid.login.goal.GoalDisplayState.HideProgressBar
@@ -33,7 +33,7 @@ class GoalDisplayViewModel
         userInformation = UserInformation(
             weight = weight,
             unitPreference = unit,
-            dailyGoalOz = calculateDailyGoalInOz(weight)
+            dailyGoal = calculateDailyGoal(unit, weight)
         )
 
         state.value = Initialized("${userInformation.dailyGoal} ${userInformation.unitPreference}")
@@ -64,7 +64,4 @@ class GoalDisplayViewModel
     fun onSetUserSuccess() {
         state.value = DataSuccess
     }
-
-    private fun calculateDailyGoalInOz(weight: Int) = weight / 2
-
 }

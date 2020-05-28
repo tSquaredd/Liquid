@@ -35,7 +35,7 @@ class AuthManagerImpl
         onSuccess: (AuthResult) -> Unit,
         onFailure: (Exception) -> Unit
     ) {
-        auth.signInWithEmailAndPassword(email, password)
+        auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 onComplete(task)
             }

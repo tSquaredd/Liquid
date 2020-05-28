@@ -64,7 +64,7 @@ class EmailSignUpFragment : BaseFragment<FragmentEmailSignupBinding>() {
         }
 
         binding.signUpButton.setOnClickListener {
-            viewModel.onSignUpCLicked(
+            viewModel.onSignUpClicked(
                 binding.emailEditText.text ?: "",
                 binding.passwordEditText.text ?: ""
             )

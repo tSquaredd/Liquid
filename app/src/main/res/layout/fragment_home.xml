@@ -4,17 +4,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".home.HomeFragment">
 
     <TextView
+        android:id="@+id/headerTextView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/home" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/your_progress"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="36dp"
+        app:layout_constraintBottom_toTopOf="@id/progressImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:ignore="SpUsage" />
 
-    <Button
-        android:id="@+id/addDrinkButton"
+    <ImageView
+        android:id="@+id/progressImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:contentDescription="@string/accessibility_logo_description"
+        android:src="@drawable/liquid_icon_xlarge"
+        app:layout_constraintBottom_toTopOf="@id/progressTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerTextView" />
+
+    <TextView
+        android:id="@+id/progressTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:textAlignment="center"
+        android:textColor="@color/colorWhite"
+        android:textSize="36dp"
+        app:layout_constraintBottom_toTopOf="@id/addDrinkButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/progressImage"
+        tools:ignore="SpUsage"
+        tools:text="0 of 75 oz" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addDrinkButton"
+        style="@style/PrimaryButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
         android:text="@string/add_a_drink"
         app:layout_constraintBottom_toBottomOf="parent"
