@@ -89,6 +89,13 @@
     <string name="thirsty_camel_content_description">image of a thirsty camel</string>
     <!-- endregion -->
 
+    <!-- region add preset -->
+    <string name="add_preset_name_hint">Title your Drink!</string>
+    <string name="drink_type">Drink Type</string>
+    <string name="add_preset">Add Preset</string>
+    <string name="preset_icon_content_description">icon used for new preset</string>
+    <!-- endregion -->
+
     <!-- TEMP -->
     <string name="google">Google</string>
     <string name="apple">Apple</string>

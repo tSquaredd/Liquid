@@ -4,41 +4,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddPresetFragment">
+    tools:context=".presets.main.AddPresetFragment">
 
-    <TextView
-        android:id="@+id/textView2"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nameTextLayout"
+        style="@style/PrimaryTextInputLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Add preset screen" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/add_preset_name_hint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/addPresetButton"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/typeSelectionTextLayout"
+        style="@style/PrimaryTextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:hint="@string/drink_type"
+        app:layout_constraintEnd_toStartOf="@id/amountSelectionTextLayout"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintHorizontal_weight="1.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nameTextLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/typeSelectionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/amountSelectionTextLayout"
+        style="@style/PrimaryTextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/typeSelectionTextLayout"
+        app:layout_constraintTop_toBottomOf="@id/nameTextLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/amountSelectionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/presetIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:contentDescription="@string/preset_icon_content_description"
+        android:src="@drawable/add_preset_placeholder"
+        app:layout_constraintBottom_toTopOf="@id/addButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/amountSelectionTextLayout" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addButton"
+        style="@style/PrimaryButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/add"
+        android:enabled="false"
+        android:text="@string/add_preset"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/selectTypeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Select Type"
-        app:layout_constraintBottom_toTopOf="@+id/addPresetButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/selectIconButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:text="Select Icon"
-        app:layout_constraintBottom_toTopOf="@+id/selectTypeButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
