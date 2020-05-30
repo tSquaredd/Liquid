@@ -2,8 +2,8 @@ package com.tsquaredapplications.liquid.login.goal
 
 import androidx.lifecycle.Observer
 import com.tsquaredapplications.liquid.common.BaseViewModelTest
-import com.tsquaredapplications.liquid.common.UserInformation
-import com.tsquaredapplications.liquid.common.database.UserDatabaseManager
+import com.tsquaredapplications.liquid.common.database.users.UserDatabaseManager
+import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.ext.assertStateOrder
 import com.tsquaredapplications.liquid.login.LiquidUnit
 import com.tsquaredapplications.liquid.login.goal.GoalDisplayState.DataFail

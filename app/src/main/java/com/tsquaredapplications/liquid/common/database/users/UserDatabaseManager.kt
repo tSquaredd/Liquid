@@ -1,6 +1,4 @@
-package com.tsquaredapplications.liquid.common.database
-
-import com.tsquaredapplications.liquid.common.UserInformation
+package com.tsquaredapplications.liquid.common.database.users
 
 interface UserDatabaseManager {
     fun setUser(

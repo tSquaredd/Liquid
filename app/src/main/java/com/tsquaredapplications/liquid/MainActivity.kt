@@ -6,9 +6,14 @@ import androidx.navigation.findNavController
 import androidx.navigation.navArgs
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.tsquaredapplications.liquid.common.database.types.TypeDatabaseManager
 import com.tsquaredapplications.liquid.databinding.ActivityMainBinding
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var typeDatabaseManager: TypeDatabaseManager
 
     lateinit var mainComponent: MainComponent
     private lateinit var binding: ActivityMainBinding
@@ -29,6 +34,19 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.hostFragment)
         setupWithNavController(binding.bottomNavigationView, navController)
         setupActionBarWithNavController(navController)
+
+        getTypes()
+    }
+
+    private fun getTypes() {
+        typeDatabaseManager.getTypes(
+            onSuccess = { typeList ->
+                (applicationContext as LiquidApplication).mainModule.types = typeList
+            },
+            onFailure = {
+                // TODO HANDLE TYPE LOAD FAILURE LIQ-124
+            }
+        )
     }
 
     override fun onSupportNavigateUp() =

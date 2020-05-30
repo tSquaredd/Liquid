@@ -1,7 +1,7 @@
 package com.tsquaredapplications.liquid
 
 import android.app.Application
-import com.tsquaredapplications.liquid.common.UserInformation
+import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.di.AppModule
 import com.tsquaredapplications.liquid.di.DaggerAppComponent
 

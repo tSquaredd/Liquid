@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid.common
+package com.tsquaredapplications.liquid.common.database.users
 
 import android.os.Parcelable
 import com.google.firebase.firestore.IgnoreExtraProperties

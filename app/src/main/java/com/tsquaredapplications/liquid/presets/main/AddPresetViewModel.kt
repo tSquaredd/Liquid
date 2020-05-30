@@ -3,7 +3,7 @@ package com.tsquaredapplications.liquid.presets.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
-import com.tsquaredapplications.liquid.common.UserInformation
+import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState
 import javax.inject.Inject
 
