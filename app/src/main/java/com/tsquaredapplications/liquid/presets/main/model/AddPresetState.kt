@@ -4,5 +4,4 @@ import com.tsquaredapplications.liquid.login.LiquidUnit
 
 sealed class AddPresetState {
     class Initialized(val unit: LiquidUnit) : AddPresetState()
-    object UserDataFail : AddPresetState()
 }

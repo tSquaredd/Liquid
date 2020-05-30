@@ -3,6 +3,7 @@ package com.tsquaredapplications.liquid
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import androidx.navigation.navArgs
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.tsquaredapplications.liquid.databinding.ActivityMainBinding
@@ -11,10 +12,14 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var mainComponent: MainComponent
     private lateinit var binding: ActivityMainBinding
+    private val args by navArgs<MainActivityArgs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        mainComponent = (applicationContext as LiquidApplication)
-            .appComponent.mainComponent().create()
+        with(applicationContext as LiquidApplication) {
+            mainComponent = appComponent.mainComponent().create()
+            setUserInformation(args.userInformation)
+        }
+
         mainComponent.inject(this)
 
         super.onCreate(savedInstanceState)

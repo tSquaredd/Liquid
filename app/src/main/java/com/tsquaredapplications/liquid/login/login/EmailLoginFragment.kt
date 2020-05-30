@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.ErrorDialogFragment
+import com.tsquaredapplications.liquid.common.UserInformation
 import com.tsquaredapplications.liquid.common.auth.AuthManager
 import com.tsquaredapplications.liquid.databinding.FragmentEmailLoginBinding
 import com.tsquaredapplications.liquid.ext.navigate
@@ -81,7 +82,7 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
 
     private fun onStateChange(state: EmailLoginState?) {
         when (state) {
-            is SuccessFulLogin -> onSuccessfulLogin()
+            is SuccessFulLogin -> onSuccessfulLogin(state.userInformation)
             is FailedLogin -> onFailedLogin(state)
             is ForgotPassword -> showForgotPasswordDialog(state.authManager)
             is AbandonedSignUp -> navigate(toUserInformationFragment())
@@ -94,8 +95,8 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
         binding.loginButton.isEnabled = it
     }
 
-    private fun onSuccessfulLogin() {
-        navigate(toMainActivity())
+    private fun onSuccessfulLogin(userInformation: UserInformation) {
+        navigate(toMainActivity(userInformation))
     }
 
     private fun onFailedLogin(state: FailedLogin) {

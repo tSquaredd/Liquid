@@ -1,8 +1,10 @@
 package com.tsquaredapplications.liquid.login.goal
 
+import com.tsquaredapplications.liquid.common.UserInformation
+
 sealed class GoalDisplayState {
     class Initialized(val goal: String) : GoalDisplayState()
-    object DataSuccess : GoalDisplayState()
+    class DataSuccess(val userInformation: UserInformation) : GoalDisplayState()
     class DataFail(val errorMessage: String, val dismissText: String) : GoalDisplayState()
     object ShowProgressBar : GoalDisplayState()
     object HideProgressBar : GoalDisplayState()

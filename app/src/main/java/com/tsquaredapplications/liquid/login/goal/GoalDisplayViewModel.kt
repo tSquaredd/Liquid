@@ -61,7 +61,7 @@ class GoalDisplayViewModel
     }
 
     @VisibleForTesting
-    fun onSetUserSuccess() {
-        state.value = DataSuccess
+    fun onSetUserSuccess(userInformation: UserInformation) {
+        state.value = DataSuccess(userInformation)
     }
 }

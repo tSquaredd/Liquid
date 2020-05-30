@@ -13,6 +13,7 @@ import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentAddPresetBinding
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.presets.main.AddPresetFragmentDirections.Companion.toAddPresetIconSelectionFramgent
+import com.tsquaredapplications.liquid.presets.main.AddPresetFragmentDirections.Companion.toAddPresetTypeSelectionFragment
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.Initialized
 import javax.inject.Inject
@@ -34,6 +35,13 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
 
         binding.presetIcon.setOnClickListener {
             navigate(toAddPresetIconSelectionFramgent())
+        }
+
+        with(binding.typeSelectionEditText) {
+            setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) navigate(toAddPresetTypeSelectionFragment())
+            }
+            showSoftInputOnFocus = false
         }
 
         viewModel.stateLiveData.observe(viewLifecycleOwner, Observer { state ->

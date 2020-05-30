@@ -22,7 +22,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nameEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -44,7 +45,8 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/typeSelectionEditText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -65,7 +67,8 @@
             android:id="@+id/amountSelectionEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number" />
+            android:inputType="number"
+            android:textColor="@color/colorWhite" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
