@@ -8,6 +8,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import com.tsquaredapplications.liquid.common.auth.AuthManager
 import com.tsquaredapplications.liquid.common.auth.AuthManagerImpl
 import com.tsquaredapplications.liquid.common.database.types.TypeDatabaseManager
@@ -42,6 +44,10 @@ class AppModule(private val application: Application) {
     @Provides
     @Singleton
     fun providesFirebaseDatabase(): FirebaseFirestore = Firebase.firestore
+
+    @Provides
+    @Singleton
+    fun providesFirebaseStorage(): FirebaseStorage = Firebase.storage
 
     @Provides
     @Singleton

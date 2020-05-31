@@ -6,7 +6,9 @@ import com.tsquaredapplications.liquid.common.TYPES
 import javax.inject.Inject
 
 class TypeDatabaseManagerImpl
-@Inject constructor(private val db: FirebaseFirestore) : TypeDatabaseManager {
+@Inject constructor(
+    private val db: FirebaseFirestore
+) : TypeDatabaseManager {
     override fun getTypes(onSuccess: (List<Type>) -> Unit, onFailure: (Exception) -> Unit) {
         db.collection(TYPES).get()
             .addOnSuccessListener { querySnapshot ->
