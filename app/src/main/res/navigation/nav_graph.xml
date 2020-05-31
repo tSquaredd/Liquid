@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/addPresetFragment"
-        android:name="com.tsquaredapplications.liquid.AddPresetFragment"
+        android:name="com.tsquaredapplications.liquid.presets.main.AddPresetFragment"
         android:label="@string/presets"
         tools:layout="@layout/fragment_add_preset">
         <action
@@ -72,7 +72,7 @@
     </fragment>
     <fragment
         android:id="@+id/addPresetTypeSelectionFragment"
-        android:name="com.tsquaredapplications.liquid.AddPresetTypeSelectionFragment"
+        android:name="com.tsquaredapplications.liquid.presets.type.AddPresetTypeSelectionFragment"
         android:label="@string/presets"
         tools:layout="@layout/fragment_add_preset_type_selection">
         <action
@@ -83,7 +83,7 @@
     </fragment>
     <fragment
         android:id="@+id/addPresetIconSelectionFragment"
-        android:name="com.tsquaredapplications.liquid.AddPresetIconSelectionFragment"
+        android:name="com.tsquaredapplications.liquid.presets.icon.AddPresetIconSelectionFragment"
         android:label="@string/presets"
         tools:layout="@layout/fragment_add_preset_icon_selection">
         <action

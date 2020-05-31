@@ -4,6 +4,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
+import com.tsquaredapplications.liquid.common.UserInformation
 import com.tsquaredapplications.liquid.common.auth.AuthManager
 import com.tsquaredapplications.liquid.common.database.UserDatabaseManager
 import com.tsquaredapplications.liquid.ext.isValidEmail
@@ -57,8 +58,8 @@ class EmailLoginViewModel
     fun getUserInformation() {
         authManager.getCurrentUser()?.let {
             userDatabaseManager.getUser(
-                onSuccess = {
-                    onSuccessfulLogin()
+                onSuccess = { userInformation ->
+                    onSuccessfulLogin(userInformation)
                 },
                 onFail = {
                     handleAbandonedSignUp()
@@ -72,8 +73,8 @@ class EmailLoginViewModel
     }
 
     @VisibleForTesting
-    fun onSuccessfulLogin() {
-        state.value = SuccessFulLogin
+    fun onSuccessfulLogin(userInformation: UserInformation) {
+        state.value = SuccessFulLogin(userInformation)
     }
 
     @VisibleForTesting

@@ -2,6 +2,7 @@ package com.tsquaredapplications.liquid.login
 
 import androidx.lifecycle.Observer
 import com.tsquaredapplications.liquid.common.BaseViewModelTest
+import com.tsquaredapplications.liquid.common.UserInformation
 import com.tsquaredapplications.liquid.common.auth.AuthManager
 import com.tsquaredapplications.liquid.common.database.UserDatabaseManager
 import com.tsquaredapplications.liquid.ext.assertOneState
@@ -188,8 +189,10 @@ class EmailLoginViewModelTest : BaseViewModelTest() {
 
                 @Test
                 fun `when user exists in database send successful login state`() {
+                    val userInformation = mockk<UserInformation>()
+
                     every { userDatabaseManager.getUser(any(), any()) } answers {
-                        viewModel.onSuccessfulLogin()
+                        viewModel.onSuccessfulLogin(userInformation)
                     }
 
                     viewModel.onLoginClicked(VALID_EMAIL, VALID_PASSWORD)
@@ -199,6 +202,9 @@ class EmailLoginViewModelTest : BaseViewModelTest() {
                         ShowProgressBar::class,
                         SuccessFulLogin::class
                     )
+
+                    val successFulLoginState = stateList[1] as SuccessFulLogin
+                    assertEquals(userInformation, successFulLoginState.userInformation)
                 }
             }
         }

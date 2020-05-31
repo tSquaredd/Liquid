@@ -60,7 +60,7 @@ class GoalDisplayFragment : BaseFragment<FragmentGoalDisplayBinding>() {
     private fun onStateChanged(state: GoalDisplayState) {
         when (state) {
             is Initialized -> displayGoal(state.goal)
-            is DataSuccess -> navigate(toMainActivity())
+            is DataSuccess -> navigate(toMainActivity(state.userInformation))
             is DataFail -> onDatabaseFail(state)
             is ShowProgressBar -> showProgressBar()
             is HideProgressBar -> hideProgressBar()

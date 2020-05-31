@@ -7,7 +7,7 @@ interface UserDatabaseManager {
         userInformation: UserInformation,
         onCompletion: () -> Unit,
         onFail: () -> Unit,
-        onSuccess: () -> Unit
+        onSuccess: (UserInformation) -> Unit
     )
 
     fun getUser(

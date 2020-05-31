@@ -5,14 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
 import com.tsquaredapplications.liquid.common.UserInformation
-import com.tsquaredapplications.liquid.common.database.UserDatabaseManager
 import com.tsquaredapplications.liquid.home.model.HomeState
 import com.tsquaredapplications.liquid.home.resources.HomeResourceWrapper
 import javax.inject.Inject
 
 class HomeViewModel
 @Inject constructor(
-    private val userDatabaseManager: UserDatabaseManager,
+    private val userInformation: UserInformation,
     private val resourceWrapper: HomeResourceWrapper
 ) : ViewModel() {
 
@@ -21,18 +20,11 @@ class HomeViewModel
         get() = state
 
     fun start() {
-        userDatabaseManager.getUser(
-            onFail = {
-                // TODO LIQ-121
-            },
-            onSuccess = {
-                updateProgress(it)
-            }
-        )
+        updateProgress()
     }
 
     @VisibleForTesting
-    fun updateProgress(userInformation: UserInformation) {
+    fun updateProgress() {
         state.value = HomeState.Initialized(
             goalProgress = resourceWrapper.getGoalProgressText(
                 progress = 0,

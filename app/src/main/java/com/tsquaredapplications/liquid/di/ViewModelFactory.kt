@@ -7,6 +7,7 @@ import com.tsquaredapplications.liquid.login.goal.GoalDisplayViewModel
 import com.tsquaredapplications.liquid.login.information.UserInformationViewModel
 import com.tsquaredapplications.liquid.login.login.EmailLoginViewModel
 import com.tsquaredapplications.liquid.login.signup.EmailSignUpViewModel
+import com.tsquaredapplications.liquid.presets.main.AddPresetViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -64,5 +65,10 @@ class ViewModelFactory
         @IntoMap
         @ViewModelKey(HomeViewModel::class)
         internal abstract fun bindHomeViewModel(viewModel: HomeViewModel): ViewModel
+
+        @Binds
+        @IntoMap
+        @ViewModelKey(AddPresetViewModel::class)
+        internal abstract fun bindAddPresetViewModel(viewModel: AddPresetViewModel): ViewModel
     }
 }

@@ -19,7 +19,6 @@ import org.junit.jupiter.api.TestInstance
 internal class HomeViewModelTest : BaseViewModelTest() {
 
 
-    private val userDatabaseManager = mockk<UserDatabaseManager>()
     private val resourceWrapper = mockk<HomeResourceWrapper>()
     private val userInformation = mockk<UserInformation> {
         every { weight } returns WEIGHT
@@ -34,7 +33,7 @@ internal class HomeViewModelTest : BaseViewModelTest() {
 
     @BeforeEach
     fun beforeEach() {
-        viewModel = HomeViewModel(userDatabaseManager, resourceWrapper)
+        viewModel = HomeViewModel(userInformation, resourceWrapper)
         viewModel.stateLiveData.observeForever(stateObserver)
     }
 
@@ -47,11 +46,7 @@ internal class HomeViewModelTest : BaseViewModelTest() {
                 unit = any()
             )
         } returns EMPTY_PROGRESS_TEXT
-
-        every { userDatabaseManager.getUser(any(), any()) } answers {
-            viewModel.updateProgress(userInformation)
-        }
-
+        
         viewModel.start()
 
         verify(exactly = 1) { stateObserver.onChanged(capture(stateList)) }

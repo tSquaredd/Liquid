@@ -48,8 +48,8 @@ class SplashScreenFragment : BaseFragment<FragmentSplashScreenBinding>() {
                         null -> navigate(toLoginActivity())
                         else -> {
                             userDbManager.getUser(
-                                onSuccess = {
-                                    navigate(toMainActivity())
+                                onSuccess = { userInformation ->
+                                    navigate(toMainActivity(userInformation))
                                 },
                                 onFail = {
                                     navigate(toLoginActivity(abandonedSignUp = true))

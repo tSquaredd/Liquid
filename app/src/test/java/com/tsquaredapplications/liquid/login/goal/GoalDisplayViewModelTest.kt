@@ -2,6 +2,7 @@ package com.tsquaredapplications.liquid.login.goal
 
 import androidx.lifecycle.Observer
 import com.tsquaredapplications.liquid.common.BaseViewModelTest
+import com.tsquaredapplications.liquid.common.UserInformation
 import com.tsquaredapplications.liquid.common.database.UserDatabaseManager
 import com.tsquaredapplications.liquid.ext.assertStateOrder
 import com.tsquaredapplications.liquid.login.LiquidUnit
@@ -16,6 +17,7 @@ import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
+import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll
@@ -76,9 +78,11 @@ internal class GoalDisplayViewModelTest : BaseViewModelTest() {
 
         @Test
         fun `when db succeeds then send data success state`() {
+            val userInformation = mockk<UserInformation>()
+
             every { userDatabaseManager.setUser(any(), any(), any(), any()) } answers {
                 viewModel.onSetUserComplete()
-                viewModel.onSetUserSuccess()
+                viewModel.onSetUserSuccess(userInformation)
             }
 
             viewModel.onFinishClick()
@@ -90,6 +94,9 @@ internal class GoalDisplayViewModelTest : BaseViewModelTest() {
                 HideProgressBar::class,
                 DataSuccess::class
             )
+
+            val dataSuccessState = stateList[3] as DataSuccess
+            assertEquals(userInformation, dataSuccessState.userInformation)
         }
 
         @Test

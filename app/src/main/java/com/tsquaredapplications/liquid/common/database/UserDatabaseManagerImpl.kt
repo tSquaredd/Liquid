@@ -15,7 +15,7 @@ class UserDatabaseManagerImpl
         userInformation: UserInformation,
         onCompletion: () -> Unit,
         onFail: () -> Unit,
-        onSuccess: () -> Unit
+        onSuccess: (UserInformation) -> Unit
     ) {
         val userId = auth.uid
         if (userId.isNullOrEmpty()) {
@@ -26,7 +26,7 @@ class UserDatabaseManagerImpl
                     onCompletion()
                 }
                 .addOnSuccessListener {
-                    onSuccess()
+                    onSuccess(userInformation)
                 }
                 .addOnFailureListener {
                     onFail()
