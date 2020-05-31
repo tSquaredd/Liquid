@@ -19,7 +19,7 @@ class PresetTypeSelectionViewModel
     fun start() {
         val typeItems = types.map { type ->
             TypeItem(type)
-        }
+        }.sortedBy { it.typeModel.name }
 
         state.value = Initialized(typeItems)
     }
