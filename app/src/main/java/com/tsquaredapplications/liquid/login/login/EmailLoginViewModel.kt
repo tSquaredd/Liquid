@@ -4,9 +4,9 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
-import com.tsquaredapplications.liquid.common.UserInformation
 import com.tsquaredapplications.liquid.common.auth.AuthManager
-import com.tsquaredapplications.liquid.common.database.UserDatabaseManager
+import com.tsquaredapplications.liquid.common.database.users.UserDatabaseManager
+import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.ext.isValidEmail
 import com.tsquaredapplications.liquid.ext.isValidPassword
 import com.tsquaredapplications.liquid.login.common.PasswordValidation

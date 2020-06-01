@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.auth.AuthManager
-import com.tsquaredapplications.liquid.common.database.UserDatabaseManager
+import com.tsquaredapplications.liquid.common.database.users.UserDatabaseManager
 import com.tsquaredapplications.liquid.databinding.FragmentSplashScreenBinding
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.splash.SplashScreenFragmentDirections.Companion.toLoginActivity

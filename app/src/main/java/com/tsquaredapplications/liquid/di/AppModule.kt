@@ -8,10 +8,14 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import com.tsquaredapplications.liquid.common.auth.AuthManager
 import com.tsquaredapplications.liquid.common.auth.AuthManagerImpl
-import com.tsquaredapplications.liquid.common.database.UserDatabaseManager
-import com.tsquaredapplications.liquid.common.db.UserDatabaseManagerImpl
+import com.tsquaredapplications.liquid.common.database.types.TypeDatabaseManager
+import com.tsquaredapplications.liquid.common.database.types.TypeDatabaseManagerImpl
+import com.tsquaredapplications.liquid.common.database.users.UserDatabaseManager
+import com.tsquaredapplications.liquid.common.database.users.UserDatabaseManagerImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -43,9 +47,19 @@ class AppModule(private val application: Application) {
 
     @Provides
     @Singleton
+    fun providesFirebaseStorage(): FirebaseStorage = Firebase.storage
+
+    @Provides
+    @Singleton
     fun provideUserDatabaseManager(
         impl: UserDatabaseManagerImpl
     ): UserDatabaseManager = impl
+
+    @Provides
+    @Singleton
+    fun provideTypeDatabaseManager(
+        impl: TypeDatabaseManagerImpl
+    ): TypeDatabaseManager = impl
 
     @Provides
     @Singleton

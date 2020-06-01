@@ -1,7 +1,7 @@
 package com.tsquaredapplications.liquid.login.login
 
-import com.tsquaredapplications.liquid.common.UserInformation
 import com.tsquaredapplications.liquid.common.auth.AuthManager
+import com.tsquaredapplications.liquid.common.database.users.UserInformation
 
 sealed class EmailLoginState {
     class SuccessFulLogin(val userInformation: UserInformation) : EmailLoginState()

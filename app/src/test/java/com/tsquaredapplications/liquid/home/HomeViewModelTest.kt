@@ -2,8 +2,7 @@ package com.tsquaredapplications.liquid.home
 
 import androidx.lifecycle.Observer
 import com.tsquaredapplications.liquid.common.BaseViewModelTest
-import com.tsquaredapplications.liquid.common.UserInformation
-import com.tsquaredapplications.liquid.common.database.UserDatabaseManager
+import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.home.model.HomeState
 import com.tsquaredapplications.liquid.home.resources.HomeResourceWrapper
 import com.tsquaredapplications.liquid.login.LiquidUnit
@@ -46,7 +45,7 @@ internal class HomeViewModelTest : BaseViewModelTest() {
                 unit = any()
             )
         } returns EMPTY_PROGRESS_TEXT
-        
+
         viewModel.start()
 
         verify(exactly = 1) { stateObserver.onChanged(capture(stateList)) }

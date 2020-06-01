@@ -27,7 +27,7 @@
         tools:layout="@layout/activity_main">
         <argument
             android:name="userInformation"
-            app:argType="com.tsquaredapplications.liquid.common.UserInformation" />
+            app:argType="com.tsquaredapplications.liquid.common.database.users.UserInformation" />
     </activity>
     <fragment
         android:id="@+id/welcomeFragment"

@@ -8,13 +8,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.common.BaseFragment
+import com.tsquaredapplications.liquid.common.database.types.Type
 import com.tsquaredapplications.liquid.databinding.FragmentAddPresetBinding
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.presets.main.AddPresetFragmentDirections.Companion.toAddPresetIconSelectionFramgent
 import com.tsquaredapplications.liquid.presets.main.AddPresetFragmentDirections.Companion.toAddPresetTypeSelectionFragment
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState
+import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.DrinkTypeSelected
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.Initialized
 import javax.inject.Inject
 
@@ -48,6 +51,13 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
             onStateChange(state)
         })
 
+
+        findNavController().currentBackStackEntry?.savedStateHandle
+            ?.getLiveData<Type>(DRINK_TYPE_SELECTION_KEY)
+            ?.observe(viewLifecycleOwner, Observer { selectedDrinkType ->
+                selectedDrinkType?.let { viewModel.drinkTypeSelected(it) }
+            })
+
         viewModel.start()
     }
 
@@ -59,10 +69,19 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
     private fun onStateChange(state: AddPresetState) {
         when (state) {
             is Initialized -> onInitializedState(state)
+            is DrinkTypeSelected -> onDrinkTypeSelected(state)
         }
     }
 
     private fun onInitializedState(state: Initialized) {
         binding.amountSelectionTextLayout.hint = state.unit.name
+    }
+
+    private fun onDrinkTypeSelected(state: DrinkTypeSelected) {
+        binding.typeSelectionEditText.setText(state.drinkType.name)
+    }
+
+    companion object {
+        const val DRINK_TYPE_SELECTION_KEY = "drinkTypeSelectionKey"
     }
 }

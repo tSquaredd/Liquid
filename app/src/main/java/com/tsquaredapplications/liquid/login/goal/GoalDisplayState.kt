@@ -1,6 +1,6 @@
 package com.tsquaredapplications.liquid.login.goal
 
-import com.tsquaredapplications.liquid.common.UserInformation
+import com.tsquaredapplications.liquid.common.database.users.UserInformation
 
 sealed class GoalDisplayState {
     class Initialized(val goal: String) : GoalDisplayState()

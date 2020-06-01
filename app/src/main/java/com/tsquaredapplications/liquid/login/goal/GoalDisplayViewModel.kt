@@ -4,8 +4,8 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
-import com.tsquaredapplications.liquid.common.UserInformation
-import com.tsquaredapplications.liquid.common.database.UserDatabaseManager
+import com.tsquaredapplications.liquid.common.database.users.UserDatabaseManager
+import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.login.LiquidUnit
 import com.tsquaredapplications.liquid.login.calculateDailyGoal
 import com.tsquaredapplications.liquid.login.goal.GoalDisplayState.DataFail
@@ -30,11 +30,12 @@ class GoalDisplayViewModel
     private lateinit var userInformation: UserInformation
 
     fun start(weight: Int, unit: LiquidUnit) {
-        userInformation = UserInformation(
-            weight = weight,
-            unitPreference = unit,
-            dailyGoal = calculateDailyGoal(unit, weight)
-        )
+        userInformation =
+            UserInformation(
+                weight = weight,
+                unitPreference = unit,
+                dailyGoal = calculateDailyGoal(unit, weight)
+            )
 
         state.value = Initialized("${userInformation.dailyGoal} ${userInformation.unitPreference}")
     }

@@ -11,8 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.ErrorDialogFragment
-import com.tsquaredapplications.liquid.common.UserInformation
 import com.tsquaredapplications.liquid.common.auth.AuthManager
+import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.databinding.FragmentEmailLoginBinding
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.ext.setAsGone

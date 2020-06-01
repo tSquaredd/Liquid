@@ -1,11 +1,9 @@
-package com.tsquaredapplications.liquid.common.db
+package com.tsquaredapplications.liquid.common.database.users
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
 import com.tsquaredapplications.liquid.common.USERS
-import com.tsquaredapplications.liquid.common.UserInformation
-import com.tsquaredapplications.liquid.common.database.UserDatabaseManager
 import javax.inject.Inject
 
 class UserDatabaseManagerImpl
