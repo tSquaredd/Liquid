@@ -18,7 +18,7 @@ class TypeItem(val typeModel: Type) : AbstractBindingItem<PresetTypeSelectionIte
     override fun bindView(binding: PresetTypeSelectionItemBinding, payloads: List<Any>) {
         binding.name.text = typeModel.name
 
-        val storageReference = Firebase.storage.reference.child(typeModel.iconName)
+        val storageReference = Firebase.storage.reference.child(typeModel.iconPath)
 
         GlideApp.with(binding.icon.context)
             .load(storageReference)
