@@ -26,19 +26,19 @@ internal class PresetTypeSelectionViewModelTest : BaseViewModelTest() {
 
     private val waterTypeMock = mockk<Type> {
         every { name } returns WATER_NAME
-        every { iconName } returns WATER_ICON_NAME
+        every { iconPath } returns WATER_ICON_NAME
         every { hydration } returns WATER_HYDRATION
     }
 
     private val beerTypeMock = mockk<Type> {
         every { name } returns BEER_NAME
-        every { iconName } returns BEER_ICON_NAME
+        every { iconPath } returns BEER_ICON_NAME
         every { hydration } returns BEER_HYDRATION
     }
 
     private val spiritTypeMock = mockk<Type> {
         every { name } returns SPIRIT_NAME
-        every { iconName } returns SPIRIT_ICON_NAME
+        every { iconPath } returns SPIRIT_ICON_NAME
         every { hydration } returns SPIRIT_HYDRATION
     }
 
