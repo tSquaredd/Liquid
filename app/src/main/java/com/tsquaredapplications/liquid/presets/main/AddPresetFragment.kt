@@ -9,22 +9,31 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.firebase.storage.FirebaseStorage
 import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.common.BaseFragment
+import com.tsquaredapplications.liquid.common.GlideApp
+import com.tsquaredapplications.liquid.common.database.icons.Icon
 import com.tsquaredapplications.liquid.common.database.types.Type
 import com.tsquaredapplications.liquid.databinding.FragmentAddPresetBinding
 import com.tsquaredapplications.liquid.ext.navigate
+import com.tsquaredapplications.liquid.ext.setAsGone
+import com.tsquaredapplications.liquid.ext.setAsVisibile
 import com.tsquaredapplications.liquid.presets.main.AddPresetFragmentDirections.Companion.toAddPresetIconSelectionFramgent
 import com.tsquaredapplications.liquid.presets.main.AddPresetFragmentDirections.Companion.toAddPresetTypeSelectionFragment
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.DrinkTypeSelected
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.Initialized
+import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.PresetIconSelected
 import javax.inject.Inject
 
 class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var storage: FirebaseStorage
 
     private val viewModel: AddPresetViewModel by viewModels { viewModelFactory }
 
@@ -40,6 +49,10 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
             navigate(toAddPresetIconSelectionFramgent())
         }
 
+        binding.placeholderPresetIcon.setOnClickListener {
+            navigate(toAddPresetIconSelectionFramgent())
+        }
+
         with(binding.typeSelectionEditText) {
             setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) navigate(toAddPresetTypeSelectionFragment())
@@ -51,6 +64,17 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
             onStateChange(state)
         })
 
+        findNavController().currentBackStackEntry?.savedStateHandle?.let { savedStateHandle ->
+            savedStateHandle.getLiveData<Type>(DRINK_TYPE_SELECTION_KEY)
+                .observe(viewLifecycleOwner, Observer { selectedDrinkType ->
+                    selectedDrinkType?.let { viewModel.drinkTypeSelected(it) }
+                })
+
+            savedStateHandle.getLiveData<Icon>(PRESET_ICON_SELECTION_KEY)
+                .observe(viewLifecycleOwner, Observer { selectedPresetIcon ->
+                    selectedPresetIcon?.let { viewModel.presetIconSelected(it) }
+                })
+        }
 
         findNavController().currentBackStackEntry?.savedStateHandle
             ?.getLiveData<Type>(DRINK_TYPE_SELECTION_KEY)
@@ -70,6 +94,7 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
         when (state) {
             is Initialized -> onInitializedState(state)
             is DrinkTypeSelected -> onDrinkTypeSelected(state)
+            is PresetIconSelected -> onPresetIconSelected(state)
         }
     }
 
@@ -81,7 +106,21 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
         binding.typeSelectionEditText.setText(state.drinkType.name)
     }
 
+    private fun onPresetIconSelected(state: PresetIconSelected) {
+        binding.placeholderPresetIcon.setAsGone()
+        val storageReference = storage.reference.child(state.icon.largeIconPath)
+
+        GlideApp.with(binding.presetIcon.context)
+            .load(storageReference)
+            .fitCenter()
+            .into(binding.presetIcon)
+
+        binding.circularBackground.setAsVisibile()
+        binding.presetIcon.setAsVisibile()
+    }
+
     companion object {
         const val DRINK_TYPE_SELECTION_KEY = "drinkTypeSelectionKey"
+        const val PRESET_ICON_SELECTION_KEY = "presetIconSelectionKey"
     }
 }

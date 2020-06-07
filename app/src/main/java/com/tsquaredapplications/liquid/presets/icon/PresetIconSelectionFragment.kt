@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid.presets.type
+package com.tsquaredapplications.liquid.presets.icon
 
 import android.content.Context
 import android.os.Bundle
@@ -14,28 +14,28 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.common.BaseFragment
-import com.tsquaredapplications.liquid.databinding.FragmentPresetTypeSelectionBinding
-import com.tsquaredapplications.liquid.presets.main.AddPresetFragment.Companion.DRINK_TYPE_SELECTION_KEY
-import com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionState.Initialized
-import com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionState.TypeSelected
-import com.tsquaredapplications.liquid.presets.type.adapter.TypeItem
+import com.tsquaredapplications.liquid.databinding.FragmentPresetIconSelectionBinding
+import com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionState.IconSelected
+import com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionState.Initialized
+import com.tsquaredapplications.liquid.presets.icon.adapter.PresetIconItem
+import com.tsquaredapplications.liquid.presets.main.AddPresetFragment.Companion.PRESET_ICON_SELECTION_KEY
 import javax.inject.Inject
 
-class PresetTypeSelectionFragment : BaseFragment<FragmentPresetTypeSelectionBinding>() {
+class PresetIconSelectionFragment : BaseFragment<FragmentPresetIconSelectionBinding>() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel: PresetTypeSelectionViewModel by viewModels { viewModelFactory }
+    private val viewModel: PresetIconSelectionViewModel by viewModels { viewModelFactory }
 
-    private val itemAdapter = ItemAdapter<TypeItem>()
+    private val itemAdapter = ItemAdapter<PresetIconItem>()
     private val fastAdapter = FastAdapter.with(itemAdapter)
 
     override fun setBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentPresetTypeSelectionBinding =
-        FragmentPresetTypeSelectionBinding.inflate(inflater, container, false)
+    ): FragmentPresetIconSelectionBinding =
+        FragmentPresetIconSelectionBinding.inflate(inflater, container, false)
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -60,16 +60,17 @@ class PresetTypeSelectionFragment : BaseFragment<FragmentPresetTypeSelectionBind
             adapter = fastAdapter
             layoutManager = GridLayoutManager(context, 3)
         }
+
         fastAdapter.onClickListener = { _, _, item, _ ->
             viewModel.onItemClick(item)
             false
         }
     }
 
-    private fun onStateChange(state: PresetTypeSelectionState) {
+    private fun onStateChange(state: PresetIconSelectionState) {
         when (state) {
             is Initialized -> onInitialized(state)
-            is TypeSelected -> onTypeSelected(state)
+            is IconSelected -> onIconSelected(state)
         }
     }
 
@@ -77,11 +78,11 @@ class PresetTypeSelectionFragment : BaseFragment<FragmentPresetTypeSelectionBind
         itemAdapter.add(state.typeItems)
     }
 
-    private fun onTypeSelected(state: TypeSelected) {
+    private fun onIconSelected(state: IconSelected) {
         with(findNavController()) {
             previousBackStackEntry?.savedStateHandle?.set(
-                DRINK_TYPE_SELECTION_KEY,
-                state.type
+                PRESET_ICON_SELECTION_KEY,
+                state.icon
             )
             popBackStack()
         }

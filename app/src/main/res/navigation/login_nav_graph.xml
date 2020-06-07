@@ -12,7 +12,9 @@
         <action
             android:id="@+id/toMainActivity"
             app:destination="@id/mainActivity"
-            app:launchSingleTop="true" />
+            app:launchSingleTop="true"
+            app:popUpTo="@id/welcomeFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/toEmailSignupFragment"
             app:destination="@id/emailSignupFragment" />
@@ -62,7 +64,10 @@
         tools:layout="@layout/fragment_goal_display">
         <action
             android:id="@+id/toMainActivity"
-            app:destination="@id/mainActivity" />
+            app:destination="@id/mainActivity"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/welcomeFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="weight"
             android:defaultValue="200"
