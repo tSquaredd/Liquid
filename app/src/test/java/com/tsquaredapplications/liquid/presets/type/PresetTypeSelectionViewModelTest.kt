@@ -26,19 +26,28 @@ internal class PresetTypeSelectionViewModelTest : BaseViewModelTest() {
 
     private val waterTypeMock = mockk<Type> {
         every { name } returns WATER_NAME
-        every { iconPath } returns WATER_ICON_NAME
+        every { icon } returns mockk {
+            every { iconPath } returns WATER_ICON_PATH
+            every { largeIconPath } returns WATER_LARGE_ICON_PATH
+        }
         every { hydration } returns WATER_HYDRATION
     }
 
     private val beerTypeMock = mockk<Type> {
         every { name } returns BEER_NAME
-        every { iconPath } returns BEER_ICON_NAME
+        every { icon } returns mockk {
+            every { iconPath } returns BEER_ICON_PATH
+            every { largeIconPath } returns BEER_LARGE_ICON_PATH
+        }
         every { hydration } returns BEER_HYDRATION
     }
 
     private val spiritTypeMock = mockk<Type> {
         every { name } returns SPIRIT_NAME
-        every { iconPath } returns SPIRIT_ICON_NAME
+        every { icon } returns mockk {
+            every { iconPath } returns SPIRIT_ICON_PATH
+            every { largeIconPath } returns SPIRIT_LARGE_ICON_PATH
+        }
         every { hydration } returns SPIRIT_HYDRATION
     }
 
@@ -77,16 +86,18 @@ internal class PresetTypeSelectionViewModelTest : BaseViewModelTest() {
 
     companion object {
         const val WATER_NAME = "WATER_NAME"
-        const val WATER_ICON_NAME = "WATER_ICON_NAME"
+        const val WATER_ICON_PATH = "WATER_ICON_PATH"
+        const val WATER_LARGE_ICON_PATH = "WATER_LARGE_ICON_PATH"
         const val WATER_HYDRATION = 1.0
 
         const val BEER_NAME = "BEER_NAME"
-        const val BEER_ICON_NAME = "BEER_ICON_NAME"
+        const val BEER_ICON_PATH = "BEER_ICON_PATH"
+        const val BEER_LARGE_ICON_PATH = "BEER_LARGE_ICON_PATH"
         const val BEER_HYDRATION = -1.0
 
         const val SPIRIT_NAME = "SPIRIT_NAME"
-        const val SPIRIT_ICON_NAME = "SPIRIT_ICON_NAME"
+        const val SPIRIT_ICON_PATH = "SPIRIT_ICON_PATH"
+        const val SPIRIT_LARGE_ICON_PATH = "SPIRIT_LARGE_ICON_PATH"
         const val SPIRIT_HYDRATION = -8.0
-
     }
 }

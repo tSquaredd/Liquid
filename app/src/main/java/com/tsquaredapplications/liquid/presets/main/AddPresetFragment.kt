@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -22,9 +23,16 @@ import com.tsquaredapplications.liquid.ext.setAsVisibile
 import com.tsquaredapplications.liquid.presets.main.AddPresetFragmentDirections.Companion.toAddPresetIconSelectionFramgent
 import com.tsquaredapplications.liquid.presets.main.AddPresetFragmentDirections.Companion.toAddPresetTypeSelectionFragment
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState
+import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.AddPresetFailed
+import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.AddPresetSuccess
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.DrinkTypeSelected
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.Initialized
+import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidAmount
+import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidIcon
+import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidName
+import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidType
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.PresetIconSelected
+import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.ShowProgressBar
 import javax.inject.Inject
 
 class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
@@ -53,9 +61,30 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
             navigate(toAddPresetIconSelectionFramgent())
         }
 
+        binding.addButton.setOnClickListener {
+            viewModel.onAddClicked()
+        }
+
+        binding.nameEditText.addTextChangedListener {
+            it?.let {
+                viewModel.onNameChanged(it.toString())
+                binding.nameTextLayout.error = ""
+            }
+        }
+
+        binding.amountSelectionEditText.addTextChangedListener {
+            it?.let {
+                viewModel.onAmountChanged(it.toString())
+                binding.amountSelectionTextLayout.error = ""
+            }
+        }
+
         with(binding.typeSelectionEditText) {
             setOnFocusChangeListener { _, hasFocus ->
-                if (hasFocus) navigate(toAddPresetTypeSelectionFragment())
+                if (hasFocus) {
+                    navigate(toAddPresetTypeSelectionFragment())
+                    binding.typeSelectionTextLayout.error = ""
+                }
             }
             showSoftInputOnFocus = false
         }
@@ -76,12 +105,6 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
                 })
         }
 
-        findNavController().currentBackStackEntry?.savedStateHandle
-            ?.getLiveData<Type>(DRINK_TYPE_SELECTION_KEY)
-            ?.observe(viewLifecycleOwner, Observer { selectedDrinkType ->
-                selectedDrinkType?.let { viewModel.drinkTypeSelected(it) }
-            })
-
         viewModel.start()
     }
 
@@ -95,6 +118,13 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
             is Initialized -> onInitializedState(state)
             is DrinkTypeSelected -> onDrinkTypeSelected(state)
             is PresetIconSelected -> onPresetIconSelected(state)
+            is InvalidName -> onInvalidName(state)
+            is InvalidIcon -> onInvalidIcon()
+            is InvalidType -> onInvalidType(state)
+            is InvalidAmount -> onInvalidAmount(state)
+            is AddPresetSuccess -> onAddPresetSuccess(state)
+            is AddPresetFailed -> onAddPresetFailed()
+            is ShowProgressBar -> showProgressBar()
         }
     }
 
@@ -117,6 +147,39 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
 
         binding.circularBackground.setAsVisibile()
         binding.presetIcon.setAsVisibile()
+    }
+
+    private fun onInvalidName(state: InvalidName) {
+        binding.nameTextLayout.error = state.errorMessage
+    }
+
+    private fun onInvalidIcon() {
+        // TODO LIQ-130
+    }
+
+    private fun onInvalidType(state: InvalidType) {
+        binding.typeSelectionTextLayout.error = state.errorMessage
+    }
+
+    private fun onInvalidAmount(state: InvalidAmount) {
+        binding.amountSelectionTextLayout.error = state.errorMessage
+    }
+
+    private fun onAddPresetSuccess(state: AddPresetSuccess) {
+        (activity as MainActivity).addPreset(state.preset)
+        findNavController().popBackStack()
+    }
+
+    private fun onAddPresetFailed() {
+        binding.progressBar.setAsGone()
+        binding.loadingMask.setAsGone()
+
+        // TODO LIQ-130 - add error modal
+    }
+
+    private fun showProgressBar() {
+        binding.progressBar.setAsVisibile()
+        binding.loadingMask.setAsVisibile()
     }
 
     companion object {
