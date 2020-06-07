@@ -8,13 +8,13 @@ import javax.inject.Inject
 class PresetIconDatabaseManagerImpl
 @Inject constructor(private val db: FirebaseFirestore) : PresetIconDatabaseManager {
     override fun getPresetIcons(
-        onSuccess: (List<PresetIcon>) -> Unit,
+        onSuccess: (List<Icon>) -> Unit,
         onFailure: (Exception) -> Unit
     ) {
         db.collection(PRESET_ICONS).get()
             .addOnSuccessListener { querySnapshot ->
                 val presetIcons = querySnapshot.documents.mapNotNull { documentSnapshot ->
-                    documentSnapshot?.toObject<PresetIcon>()
+                    documentSnapshot?.toObject<Icon>()
                 }
                 onSuccess(presetIcons)
             }

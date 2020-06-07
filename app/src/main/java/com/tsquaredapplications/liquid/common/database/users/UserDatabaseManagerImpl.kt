@@ -39,16 +39,15 @@ class UserDatabaseManagerImpl
         auth.currentUser?.uid?.let { userId ->
             val userRef = db.collection(USERS).document(userId)
             userRef.get()
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        val userInformation = it.result?.toObject<UserInformation>()
-                        if (userInformation != null) {
-                            onSuccess(userInformation)
-                            return@addOnCompleteListener
-                        }
+                .addOnSuccessListener { documentSnapshot ->
+                    val userInformation = documentSnapshot.toObject<UserInformation>()
+                    if (userInformation != null) {
+                        onSuccess(userInformation)
                     }
+                }
+                .addOnFailureListener {
                     onFail()
                 }
-        } ?: run { onFail() }
+        }
     }
 }

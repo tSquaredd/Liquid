@@ -7,17 +7,17 @@ import com.google.firebase.storage.ktx.storage
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 import com.tsquaredapplications.liquid.common.GlideApp
 import com.tsquaredapplications.liquid.common.adapter.PRESET_ICON_SELECTION_ID
-import com.tsquaredapplications.liquid.common.database.icons.PresetIcon
+import com.tsquaredapplications.liquid.common.database.icons.Icon
 import com.tsquaredapplications.liquid.databinding.PresetIconSelectionItemBinding
 
-class PresetIconItem(val presetIconModel: PresetIcon) :
+class PresetIconItem(val iconModel: Icon) :
     AbstractBindingItem<PresetIconSelectionItemBinding>() {
 
     override val type: Int
         get() = PRESET_ICON_SELECTION_ID
 
     override fun bindView(binding: PresetIconSelectionItemBinding, payloads: List<Any>) {
-        val storageReference = Firebase.storage.reference.child(presetIconModel.iconPath)
+        val storageReference = Firebase.storage.reference.child(iconModel.iconPath)
 
         GlideApp.with(binding.icon.context)
             .load(storageReference)

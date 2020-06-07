@@ -13,7 +13,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.GlideApp
-import com.tsquaredapplications.liquid.common.database.icons.PresetIcon
+import com.tsquaredapplications.liquid.common.database.icons.Icon
 import com.tsquaredapplications.liquid.common.database.types.Type
 import com.tsquaredapplications.liquid.databinding.FragmentAddPresetBinding
 import com.tsquaredapplications.liquid.ext.navigate
@@ -70,7 +70,7 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
                     selectedDrinkType?.let { viewModel.drinkTypeSelected(it) }
                 })
 
-            savedStateHandle.getLiveData<PresetIcon>(PRESET_ICON_SELECTION_KEY)
+            savedStateHandle.getLiveData<Icon>(PRESET_ICON_SELECTION_KEY)
                 .observe(viewLifecycleOwner, Observer { selectedPresetIcon ->
                     selectedPresetIcon?.let { viewModel.presetIconSelected(it) }
                 })
@@ -108,7 +108,7 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
 
     private fun onPresetIconSelected(state: PresetIconSelected) {
         binding.placeholderPresetIcon.setAsGone()
-        val storageReference = storage.reference.child(state.presetIcon.largeIconPath)
+        val storageReference = storage.reference.child(state.icon.largeIconPath)
 
         GlideApp.with(binding.presetIcon.context)
             .load(storageReference)

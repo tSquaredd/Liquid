@@ -1,6 +1,6 @@
 package com.tsquaredapplications.liquid
 
-import com.tsquaredapplications.liquid.common.database.icons.PresetIcon
+import com.tsquaredapplications.liquid.common.database.icons.Icon
 import com.tsquaredapplications.liquid.common.database.types.Type
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.home.resources.HomeResourceWrapper
@@ -13,7 +13,7 @@ class MainModule() {
 
     lateinit var userInformation: UserInformation
     var types: List<Type> = emptyList()
-    var presetIcons: List<PresetIcon> = emptyList()
+    var presetIcons: List<Icon> = emptyList()
 
     @Provides
     fun provideHomeResourceWrapper(impl: HomeResourceWrapperImpl): HomeResourceWrapper = impl
@@ -25,6 +25,6 @@ class MainModule() {
     fun provideTypes(): List<Type> = types
 
     @Provides
-    fun providePresetIcons(): List<PresetIcon> = presetIcons
+    fun providePresetIcons(): List<Icon> = presetIcons
 
 }

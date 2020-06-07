@@ -4,7 +4,7 @@ import java.lang.Exception
 
 interface PresetIconDatabaseManager {
     fun getPresetIcons(
-        onSuccess: (List<PresetIcon>) -> Unit,
+        onSuccess: (List<Icon>) -> Unit,
         onFailure: (Exception) -> Unit
     )
 }

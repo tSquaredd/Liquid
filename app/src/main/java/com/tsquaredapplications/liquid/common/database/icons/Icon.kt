@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class PresetIcon(
+data class Icon(
     val iconPath: String = "",
     val largeIconPath: String = ""
 ) : Parcelable

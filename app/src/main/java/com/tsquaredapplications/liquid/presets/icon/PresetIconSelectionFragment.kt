@@ -82,7 +82,7 @@ class PresetIconSelectionFragment : BaseFragment<FragmentPresetIconSelectionBind
         with(findNavController()) {
             previousBackStackEntry?.savedStateHandle?.set(
                 PRESET_ICON_SELECTION_KEY,
-                state.presetIcon
+                state.icon
             )
             popBackStack()
         }
