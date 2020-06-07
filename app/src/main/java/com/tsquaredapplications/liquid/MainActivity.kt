@@ -7,6 +7,7 @@ import androidx.navigation.navArgs
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.tsquaredapplications.liquid.common.database.icons.PresetIconDatabaseManager
+import com.tsquaredapplications.liquid.common.database.presets.Preset
 import com.tsquaredapplications.liquid.common.database.types.TypeDatabaseManager
 import com.tsquaredapplications.liquid.databinding.ActivityMainBinding
 import javax.inject.Inject
@@ -63,6 +64,10 @@ class MainActivity : AppCompatActivity() {
                 // TODO HANDLE PRESET ICON LOAD FAILURE LIQ-124
             }
         )
+    }
+
+    fun addPreset(preset: Preset) {
+        (applicationContext as LiquidApplication).mainModule.addPreset(preset)
     }
 
     override fun onSupportNavigateUp() =

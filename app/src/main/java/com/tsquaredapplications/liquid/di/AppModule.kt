@@ -14,6 +14,8 @@ import com.tsquaredapplications.liquid.common.auth.AuthManager
 import com.tsquaredapplications.liquid.common.auth.AuthManagerImpl
 import com.tsquaredapplications.liquid.common.database.icons.PresetIconDatabaseManager
 import com.tsquaredapplications.liquid.common.database.icons.PresetIconDatabaseManagerImpl
+import com.tsquaredapplications.liquid.common.database.presets.PresetDatabaseManager
+import com.tsquaredapplications.liquid.common.database.presets.PresetDatabaseManagerImpl
 import com.tsquaredapplications.liquid.common.database.types.TypeDatabaseManager
 import com.tsquaredapplications.liquid.common.database.types.TypeDatabaseManagerImpl
 import com.tsquaredapplications.liquid.common.database.users.UserDatabaseManager
@@ -68,6 +70,12 @@ class AppModule(private val application: Application) {
     fun providePresetIconDatabaseManager(
         impl: PresetIconDatabaseManagerImpl
     ): PresetIconDatabaseManager = impl
+
+    @Provides
+    @Singleton
+    fun providePresetDatabaseManager(
+        impl: PresetDatabaseManagerImpl
+    ): PresetDatabaseManager = impl
 
     @Provides
     @Singleton

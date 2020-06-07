@@ -1,22 +1,35 @@
 package com.tsquaredapplications.liquid
 
 import com.tsquaredapplications.liquid.common.database.icons.Icon
+import com.tsquaredapplications.liquid.common.database.presets.Preset
 import com.tsquaredapplications.liquid.common.database.types.Type
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.home.resources.HomeResourceWrapper
 import com.tsquaredapplications.liquid.home.resources.HomeResourceWrapperImpl
+import com.tsquaredapplications.liquid.presets.main.resources.AddPresetResourceWrapper
+import com.tsquaredapplications.liquid.presets.main.resources.AddPresetResourceWrapperImpl
 import dagger.Module
 import dagger.Provides
 
 @Module(subcomponents = [MainComponent::class])
-class MainModule() {
+class MainModule {
 
     lateinit var userInformation: UserInformation
     var types: List<Type> = emptyList()
     var presetIcons: List<Icon> = emptyList()
+    private var presets: MutableList<Preset> = mutableListOf()
+
+    fun addPreset(preset: Preset) {
+        presets.add(preset)
+        presets.sortBy { it.name }
+    }
 
     @Provides
     fun provideHomeResourceWrapper(impl: HomeResourceWrapperImpl): HomeResourceWrapper = impl
+
+    @Provides
+    fun provideAddPresetResourceWrapper(impl: AddPresetResourceWrapperImpl)
+            : AddPresetResourceWrapper = impl
 
     @Provides
     fun provideUserInformation(): UserInformation = userInformation

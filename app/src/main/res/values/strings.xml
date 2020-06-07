@@ -94,6 +94,9 @@
     <string name="drink_type">Drink Type</string>
     <string name="add_preset">Add Preset</string>
     <string name="preset_icon_content_description">icon used for new preset</string>
+    <string name="name_error_message">Enter a name</string>
+    <string name="type_error_message">Select a drink type</string>
+    <string name="size_error_message">Enter an amount</string>
     <!-- endregion -->
 
     <!-- region preset type selection -->
