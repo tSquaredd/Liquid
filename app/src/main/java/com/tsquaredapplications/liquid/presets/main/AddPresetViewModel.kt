@@ -3,10 +3,12 @@ package com.tsquaredapplications.liquid.presets.main
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
+import com.tsquaredapplications.liquid.common.database.icons.PresetIcon
 import com.tsquaredapplications.liquid.common.database.types.Type
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.DrinkTypeSelected
+import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.PresetIconSelected
 import javax.inject.Inject
 
 class AddPresetViewModel
@@ -17,6 +19,7 @@ class AddPresetViewModel
         get() = state
 
     private var selectedDrinkType: Type? = null
+    private var selectedPresetIcon: PresetIcon? = null
 
     fun start() {
         state.value = AddPresetState.Initialized(userInformation.unitPreference)
@@ -25,5 +28,10 @@ class AddPresetViewModel
     fun drinkTypeSelected(selectedDrinkType: Type) {
         this.selectedDrinkType = selectedDrinkType
         state.value = DrinkTypeSelected(selectedDrinkType)
+    }
+
+    fun presetIconSelected(selectedPresetIcon: PresetIcon) {
+        this.selectedPresetIcon = selectedPresetIcon
+        state.value = PresetIconSelected(selectedPresetIcon)
     }
 }

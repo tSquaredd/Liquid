@@ -12,6 +12,8 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import com.tsquaredapplications.liquid.common.auth.AuthManager
 import com.tsquaredapplications.liquid.common.auth.AuthManagerImpl
+import com.tsquaredapplications.liquid.common.database.icons.PresetIconDatabaseManager
+import com.tsquaredapplications.liquid.common.database.icons.PresetIconDatabaseManagerImpl
 import com.tsquaredapplications.liquid.common.database.types.TypeDatabaseManager
 import com.tsquaredapplications.liquid.common.database.types.TypeDatabaseManagerImpl
 import com.tsquaredapplications.liquid.common.database.users.UserDatabaseManager
@@ -60,6 +62,12 @@ class AppModule(private val application: Application) {
     fun provideTypeDatabaseManager(
         impl: TypeDatabaseManagerImpl
     ): TypeDatabaseManager = impl
+
+    @Provides
+    @Singleton
+    fun providePresetIconDatabaseManager(
+        impl: PresetIconDatabaseManagerImpl
+    ): PresetIconDatabaseManager = impl
 
     @Provides
     @Singleton

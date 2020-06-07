@@ -72,16 +72,42 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <View
+        android:id="@+id/circularBackground"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:background="@drawable/type_background_with_border"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@id/addButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/amountSelectionTextLayout"
+        tools:visibility="visible" />
+
     <ImageView
         android:id="@+id/presetIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="40dp"
+        android:contentDescription="@string/preset_icon_content_description"
+        android:src="@drawable/add_preset_placeholder"
+        app:layout_constraintBottom_toBottomOf="@id/circularBackground"
+        app:layout_constraintEnd_toEndOf="@id/circularBackground"
+        app:layout_constraintStart_toStartOf="@id/circularBackground"
+        app:layout_constraintTop_toTopOf="@id/circularBackground"
+        tools:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/placeholderPresetIcon"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:contentDescription="@string/preset_icon_content_description"
         android:src="@drawable/add_preset_placeholder"
         app:layout_constraintBottom_toTopOf="@id/addButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/amountSelectionTextLayout" />
+        app:layout_constraintTop_toBottomOf="@id/amountSelectionTextLayout"
+        tools:visibility="invisible" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/addButton"

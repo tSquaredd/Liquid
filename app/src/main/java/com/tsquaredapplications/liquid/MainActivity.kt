@@ -6,6 +6,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.navArgs
 import androidx.navigation.ui.NavigationUI.setupWithNavController
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.tsquaredapplications.liquid.common.database.icons.PresetIconDatabaseManager
 import com.tsquaredapplications.liquid.common.database.types.TypeDatabaseManager
 import com.tsquaredapplications.liquid.databinding.ActivityMainBinding
 import javax.inject.Inject
@@ -14,6 +15,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var typeDatabaseManager: TypeDatabaseManager
+
+    @Inject
+    lateinit var presetIconDatabaseManager: PresetIconDatabaseManager
 
     lateinit var mainComponent: MainComponent
     private lateinit var binding: ActivityMainBinding
@@ -36,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController)
 
         getTypes()
+        getPresetIcons()
     }
 
     private fun getTypes() {
@@ -45,6 +50,17 @@ class MainActivity : AppCompatActivity() {
             },
             onFailure = {
                 // TODO HANDLE TYPE LOAD FAILURE LIQ-124
+            }
+        )
+    }
+
+    private fun getPresetIcons() {
+        presetIconDatabaseManager.getPresetIcons(
+            onSuccess = { presetIconList ->
+                (applicationContext as LiquidApplication).mainModule.presetIcons = presetIconList
+            },
+            onFailure = {
+                // TODO HANDLE PRESET ICON LOAD FAILURE LIQ-124
             }
         )
     }

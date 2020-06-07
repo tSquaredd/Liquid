@@ -82,9 +82,9 @@
         tools:layout="@layout/fragment_preset_type_selection" />
     <fragment
         android:id="@+id/addPresetIconSelectionFragment"
-        android:name="com.tsquaredapplications.liquid.presets.icon.AddPresetIconSelectionFragment"
+        android:name="com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionFragment"
         android:label="@string/presets"
-        tools:layout="@layout/fragment_add_preset_icon_selection">
+        tools:layout="@layout/fragment_preset_icon_selection">
         <action
             android:id="@+id/toAddPresetFragment"
             app:destination="@id/addPresetFragment"
