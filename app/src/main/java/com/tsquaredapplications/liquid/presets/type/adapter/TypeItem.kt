@@ -7,18 +7,18 @@ import com.google.firebase.storage.ktx.storage
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 import com.tsquaredapplications.liquid.common.GlideApp
 import com.tsquaredapplications.liquid.common.adapter.PRESET_TYPE_SELECTION_ID
-import com.tsquaredapplications.liquid.common.database.types.Type
+import com.tsquaredapplications.liquid.common.database.types.DrinkType
 import com.tsquaredapplications.liquid.databinding.PresetTypeSelectionItemBinding
 
-class TypeItem(val typeModel: Type) : AbstractBindingItem<PresetTypeSelectionItemBinding>() {
+class TypeItem(val drinkType: DrinkType) : AbstractBindingItem<PresetTypeSelectionItemBinding>() {
 
     override val type: Int
         get() = PRESET_TYPE_SELECTION_ID
 
     override fun bindView(binding: PresetTypeSelectionItemBinding, payloads: List<Any>) {
-        binding.name.text = typeModel.name
+        binding.name.text = drinkType.name
 
-        val storageReference = Firebase.storage.reference.child(typeModel.icon.iconPath)
+        val storageReference = Firebase.storage.reference.child(drinkType.icon.iconPath)
 
         GlideApp.with(binding.icon.context)
             .load(storageReference)

@@ -15,7 +15,7 @@ import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.GlideApp
 import com.tsquaredapplications.liquid.common.database.icons.Icon
-import com.tsquaredapplications.liquid.common.database.types.Type
+import com.tsquaredapplications.liquid.common.database.types.DrinkType
 import com.tsquaredapplications.liquid.databinding.FragmentAddPresetBinding
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.ext.setAsGone
@@ -30,7 +30,7 @@ import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.Initial
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidAmount
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidIcon
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidName
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidType
+import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidDrinkType
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.PresetIconSelected
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.ShowProgressBar
 import javax.inject.Inject
@@ -94,7 +94,7 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
         })
 
         findNavController().currentBackStackEntry?.savedStateHandle?.let { savedStateHandle ->
-            savedStateHandle.getLiveData<Type>(DRINK_TYPE_SELECTION_KEY)
+            savedStateHandle.getLiveData<DrinkType>(DRINK_TYPE_SELECTION_KEY)
                 .observe(viewLifecycleOwner, Observer { selectedDrinkType ->
                     selectedDrinkType?.let { viewModel.drinkTypeSelected(it) }
                 })
@@ -120,7 +120,7 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
             is PresetIconSelected -> onPresetIconSelected(state)
             is InvalidName -> onInvalidName(state)
             is InvalidIcon -> onInvalidIcon()
-            is InvalidType -> onInvalidType(state)
+            is InvalidDrinkType -> onInvalidType(state)
             is InvalidAmount -> onInvalidAmount(state)
             is AddPresetSuccess -> onAddPresetSuccess(state)
             is AddPresetFailed -> onAddPresetFailed()
@@ -157,7 +157,7 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
         // TODO LIQ-130
     }
 
-    private fun onInvalidType(state: InvalidType) {
+    private fun onInvalidType(state: InvalidDrinkType) {
         binding.typeSelectionTextLayout.error = state.errorMessage
     }
 

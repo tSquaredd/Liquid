@@ -9,11 +9,11 @@ class TypeDatabaseManagerImpl
 @Inject constructor(
     private val db: FirebaseFirestore
 ) : TypeDatabaseManager {
-    override fun getTypes(onSuccess: (List<Type>) -> Unit, onFailure: (Exception) -> Unit) {
+    override fun getTypes(onSuccess: (List<DrinkType>) -> Unit, onFailure: (Exception) -> Unit) {
         db.collection(TYPES).get()
             .addOnSuccessListener { querySnapshot ->
                 val types = querySnapshot.documents.mapNotNull { documentSnapshot ->
-                    documentSnapshot.toObject<Type>()
+                    documentSnapshot.toObject<DrinkType>()
                 }
                 onSuccess(types)
             }

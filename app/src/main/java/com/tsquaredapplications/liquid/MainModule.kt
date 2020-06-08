@@ -2,7 +2,7 @@ package com.tsquaredapplications.liquid
 
 import com.tsquaredapplications.liquid.common.database.icons.Icon
 import com.tsquaredapplications.liquid.common.database.presets.Preset
-import com.tsquaredapplications.liquid.common.database.types.Type
+import com.tsquaredapplications.liquid.common.database.types.DrinkType
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.home.resources.HomeResourceWrapper
 import com.tsquaredapplications.liquid.home.resources.HomeResourceWrapperImpl
@@ -15,7 +15,7 @@ import dagger.Provides
 class MainModule {
 
     lateinit var userInformation: UserInformation
-    var types: List<Type> = emptyList()
+    var drinkTypes: List<DrinkType> = emptyList()
     var presetIcons: List<Icon> = emptyList()
     private var presets: MutableList<Preset> = mutableListOf()
 
@@ -35,7 +35,7 @@ class MainModule {
     fun provideUserInformation(): UserInformation = userInformation
 
     @Provides
-    fun provideTypes(): List<Type> = types
+    fun provideTypes(): List<DrinkType> = drinkTypes
 
     @Provides
     fun providePresetIcons(): List<Icon> = presetIcons

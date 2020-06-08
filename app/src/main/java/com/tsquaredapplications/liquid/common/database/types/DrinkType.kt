@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 
 @IgnoreExtraProperties
 @Parcelize
-data class Type(
+data class DrinkType(
     val name: String = "",
     val hydration: Double = 1.0,
     val icon: Icon = Icon()

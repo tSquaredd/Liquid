@@ -1,12 +1,13 @@
 package com.tsquaredapplications.liquid.presets.main
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
 import com.tsquaredapplications.liquid.common.database.icons.Icon
 import com.tsquaredapplications.liquid.common.database.presets.Preset
 import com.tsquaredapplications.liquid.common.database.presets.PresetDatabaseManager
-import com.tsquaredapplications.liquid.common.database.types.Type
+import com.tsquaredapplications.liquid.common.database.types.DrinkType
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.AddPresetFailed
@@ -15,7 +16,7 @@ import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.DrinkTy
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidAmount
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidIcon
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidName
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidType
+import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidDrinkType
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.PresetIconSelected
 import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.ShowProgressBar
 import com.tsquaredapplications.liquid.presets.main.resources.AddPresetResourceWrapper
@@ -32,7 +33,7 @@ class AddPresetViewModel
     val stateLiveData: LiveData<AddPresetState>
         get() = state
 
-    private var selectedDrinkType: Type? = null
+    private var selectedDrinkType: DrinkType? = null
     private var selectedPresetIcon: Icon? = null
     private var selectedName = ""
     private var selectedAmount = 0.0
@@ -41,9 +42,9 @@ class AddPresetViewModel
         state.value = AddPresetState.Initialized(userInformation.unitPreference)
     }
 
-    fun drinkTypeSelected(type: Type) {
-        selectedDrinkType = type
-        state.value = DrinkTypeSelected(type)
+    fun drinkTypeSelected(drinkType: DrinkType) {
+        selectedDrinkType = drinkType
+        state.value = DrinkTypeSelected(drinkType)
     }
 
     fun presetIconSelected(icon: Icon) {
@@ -69,7 +70,7 @@ class AddPresetViewModel
         }
 
         if (selectedDrinkType == null) {
-            state.value = InvalidType(resourceWrapper.typeErrorMessage)
+            state.value = InvalidDrinkType(resourceWrapper.typeErrorMessage)
             allValidationsPassed = false
         }
 
@@ -79,7 +80,7 @@ class AddPresetViewModel
         }
 
         if (selectedAmount <= 0) {
-            state.value = InvalidAmount(resourceWrapper.sizeErrorMessage)
+            state.value = InvalidAmount(resourceWrapper.amountErrorMessage)
             allValidationsPassed = false
         }
 
@@ -95,12 +96,22 @@ class AddPresetViewModel
             presetDatabaseManager.addPreset(
                 preset,
                 onSuccess = {
-                    state.value = AddPresetSuccess(preset)
+                    onAddPresetSuccess(preset)
                 },
                 onFailure = {
-                    state.value = AddPresetFailed
+                    onAddPresetFailed()
                 }
             )
         }
+    }
+
+    @VisibleForTesting
+    fun onAddPresetSuccess(preset: Preset) {
+        state.value = AddPresetSuccess(preset)
+    }
+
+    @VisibleForTesting
+    fun onAddPresetFailed() {
+        state.value = AddPresetFailed
     }
 }
