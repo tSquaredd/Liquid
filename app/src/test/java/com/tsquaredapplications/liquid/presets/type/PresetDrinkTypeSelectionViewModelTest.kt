@@ -2,7 +2,7 @@ package com.tsquaredapplications.liquid.presets.type
 
 import androidx.lifecycle.Observer
 import com.tsquaredapplications.liquid.common.BaseViewModelTest
-import com.tsquaredapplications.liquid.common.database.types.Type
+import com.tsquaredapplications.liquid.common.database.types.DrinkType
 import com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionState.Initialized
 import com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionState.TypeSelected
 import com.tsquaredapplications.liquid.presets.type.adapter.TypeItem
@@ -17,14 +17,14 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-internal class PresetTypeSelectionViewModelTest : BaseViewModelTest() {
+internal class PresetDrinkTypeSelectionViewModelTest : BaseViewModelTest() {
 
     private val stateObserver = mockk<Observer<PresetTypeSelectionState>>(relaxed = true)
     private val stateSlot = slot<PresetTypeSelectionState>()
 
     private lateinit var viewModel: PresetTypeSelectionViewModel
 
-    private val waterTypeMock = mockk<Type> {
+    private val waterTypeMock = mockk<DrinkType> {
         every { name } returns WATER_NAME
         every { icon } returns mockk {
             every { iconPath } returns WATER_ICON_PATH
@@ -33,7 +33,7 @@ internal class PresetTypeSelectionViewModelTest : BaseViewModelTest() {
         every { hydration } returns WATER_HYDRATION
     }
 
-    private val beerTypeMock = mockk<Type> {
+    private val beerTypeMock = mockk<DrinkType> {
         every { name } returns BEER_NAME
         every { icon } returns mockk {
             every { iconPath } returns BEER_ICON_PATH
@@ -42,7 +42,7 @@ internal class PresetTypeSelectionViewModelTest : BaseViewModelTest() {
         every { hydration } returns BEER_HYDRATION
     }
 
-    private val spiritTypeMock = mockk<Type> {
+    private val spiritTypeMock = mockk<DrinkType> {
         every { name } returns SPIRIT_NAME
         every { icon } returns mockk {
             every { iconPath } returns SPIRIT_ICON_PATH
@@ -66,22 +66,22 @@ internal class PresetTypeSelectionViewModelTest : BaseViewModelTest() {
 
         verify(exactly = 1) { stateObserver.onChanged(capture(stateSlot)) }
         with(stateSlot.captured as Initialized) {
-            assertEquals(beerTypeMock, typeItems[0].typeModel)
-            assertEquals(spiritTypeMock, typeItems[1].typeModel)
-            assertEquals(waterTypeMock, typeItems[2].typeModel)
+            assertEquals(beerTypeMock, typeItems[0].drinkType)
+            assertEquals(spiritTypeMock, typeItems[1].drinkType)
+            assertEquals(waterTypeMock, typeItems[2].drinkType)
         }
     }
 
     @Test
     fun `when type item clicked then set type selected state with the type selected`() {
         val waterTypeItem = mockk<TypeItem> {
-            every { typeModel } returns waterTypeMock
+            every { drinkType } returns waterTypeMock
         }
         viewModel.onItemClick(waterTypeItem)
 
         verify(exactly = 1) { stateObserver.onChanged(capture(stateSlot)) }
         val typeSelectedState = stateSlot.captured as TypeSelected
-        assertEquals(waterTypeMock, typeSelectedState.type)
+        assertEquals(waterTypeMock, typeSelectedState.drinkType)
     }
 
     companion object {

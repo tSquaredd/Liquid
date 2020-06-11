@@ -81,7 +81,7 @@ class PresetTypeSelectionFragment : BaseFragment<FragmentPresetTypeSelectionBind
         with(findNavController()) {
             previousBackStackEntry?.savedStateHandle?.set(
                 DRINK_TYPE_SELECTION_KEY,
-                state.type
+                state.drinkType
             )
             popBackStack()
         }

@@ -2,7 +2,7 @@ package com.tsquaredapplications.liquid.common.database.types
 
 interface TypeDatabaseManager {
     fun getTypes(
-        onSuccess: (List<Type>) -> Unit,
+        onSuccess: (List<DrinkType>) -> Unit,
         onFailure: (Exception) -> Unit
     )
 }

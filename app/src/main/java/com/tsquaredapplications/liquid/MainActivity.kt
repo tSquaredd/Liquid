@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     private fun getTypes() {
         typeDatabaseManager.getTypes(
             onSuccess = { typeList ->
-                (applicationContext as LiquidApplication).mainModule.types = typeList
+                (applicationContext as LiquidApplication).mainModule.drinkTypes = typeList
             },
             onFailure = {
                 // TODO HANDLE TYPE LOAD FAILURE LIQ-124

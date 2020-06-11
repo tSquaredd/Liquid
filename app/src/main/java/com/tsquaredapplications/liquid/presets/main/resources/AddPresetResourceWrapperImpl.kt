@@ -13,6 +13,6 @@ class AddPresetResourceWrapperImpl
     override val typeErrorMessage: String
         get() = context.getString(R.string.type_error_message)
 
-    override val sizeErrorMessage: String
+    override val amountErrorMessage: String
         get() = context.getString(R.string.size_error_message)
 }
