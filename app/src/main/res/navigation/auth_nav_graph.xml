@@ -32,9 +32,5 @@
         android:id="@+id/mainActivity"
         android:name="com.tsquaredapplications.liquid.MainActivity"
         android:label="activity_main"
-        tools:layout="@layout/activity_main">
-        <argument
-            android:name="userInformation"
-            app:argType="com.tsquaredapplications.liquid.common.database.users.UserInformation" />
-    </activity>
+        tools:layout="@layout/activity_main" />
 </navigation>

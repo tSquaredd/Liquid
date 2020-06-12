@@ -6,8 +6,8 @@ import com.tsquaredapplications.liquid.common.database.types.DrinkType
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.home.resources.HomeResourceWrapper
 import com.tsquaredapplications.liquid.home.resources.HomeResourceWrapperImpl
-import com.tsquaredapplications.liquid.presets.main.resources.AddPresetResourceWrapper
-import com.tsquaredapplications.liquid.presets.main.resources.AddPresetResourceWrapperImpl
+import com.tsquaredapplications.liquid.presets.add.resources.AddPresetResourceWrapper
+import com.tsquaredapplications.liquid.presets.add.resources.AddPresetResourceWrapperImpl
 import dagger.Module
 import dagger.Provides
 
@@ -20,8 +20,17 @@ class MainModule {
     private var presets: MutableList<Preset> = mutableListOf()
 
     fun addPreset(preset: Preset) {
-        presets.add(preset)
-        presets.sortBy { it.name }
+        with(presets) {
+            add(preset)
+            sortBy { it.name }
+        }
+    }
+
+    fun initializePresets(presetsList: List<Preset>) {
+        with(presets) {
+            clear()
+            addAll(presetsList)
+        }
     }
 
     @Provides
@@ -39,5 +48,8 @@ class MainModule {
 
     @Provides
     fun providePresetIcons(): List<Icon> = presetIcons
+
+    @Provides
+    fun providesPresets(): List<Preset> = presets
 
 }

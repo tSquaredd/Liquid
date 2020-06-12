@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presets.main.AddPresetFragment">
+    tools:context=".presets.add.AddPresetFragment">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameTextLayout"
@@ -92,7 +92,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="40dp"
-        android:contentDescription="@string/preset_icon_content_description"
+        android:contentDescription="@string/new_preset_icon_content_description"
         android:src="@drawable/add_preset_placeholder"
         app:layout_constraintBottom_toBottomOf="@id/circularBackground"
         app:layout_constraintEnd_toEndOf="@id/circularBackground"
@@ -104,7 +104,7 @@
         android:id="@+id/placeholderPresetIcon"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:contentDescription="@string/preset_icon_content_description"
+        android:contentDescription="@string/new_preset_icon_content_description"
         android:src="@drawable/add_preset_placeholder"
         app:layout_constraintBottom_toTopOf="@id/addButton"
         app:layout_constraintEnd_toEndOf="parent"

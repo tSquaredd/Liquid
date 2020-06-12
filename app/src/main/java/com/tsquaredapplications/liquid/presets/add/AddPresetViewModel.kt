@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid.presets.main
+package com.tsquaredapplications.liquid.presets.add
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
@@ -9,17 +9,17 @@ import com.tsquaredapplications.liquid.common.database.presets.Preset
 import com.tsquaredapplications.liquid.common.database.presets.PresetDatabaseManager
 import com.tsquaredapplications.liquid.common.database.types.DrinkType
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.AddPresetFailed
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.AddPresetSuccess
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.DrinkTypeSelected
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidAmount
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidIcon
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidName
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidDrinkType
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.PresetIconSelected
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.ShowProgressBar
-import com.tsquaredapplications.liquid.presets.main.resources.AddPresetResourceWrapper
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.AddPresetFailed
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.AddPresetSuccess
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.DrinkTypeSelected
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidAmount
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidIcon
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidName
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidDrinkType
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.PresetIconSelected
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.ShowProgressBar
+import com.tsquaredapplications.liquid.presets.add.resources.AddPresetResourceWrapper
 import javax.inject.Inject
 
 class AddPresetViewModel

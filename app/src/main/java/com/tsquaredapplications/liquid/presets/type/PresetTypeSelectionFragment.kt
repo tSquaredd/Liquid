@@ -15,7 +15,7 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentPresetTypeSelectionBinding
-import com.tsquaredapplications.liquid.presets.main.AddPresetFragment.Companion.DRINK_TYPE_SELECTION_KEY
+import com.tsquaredapplications.liquid.presets.add.AddPresetFragment.Companion.DRINK_TYPE_SELECTION_KEY
 import com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionState.Initialized
 import com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionState.TypeSelected
 import com.tsquaredapplications.liquid.presets.type.adapter.TypeItem

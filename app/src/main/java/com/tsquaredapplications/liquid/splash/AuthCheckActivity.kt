@@ -3,6 +3,7 @@ package com.tsquaredapplications.liquid.splash
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.tsquaredapplications.liquid.LiquidApplication
+import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.databinding.ActivityAuthCheckBinding
 
 class AuthCheckActivity : AppCompatActivity() {
@@ -20,4 +21,7 @@ class AuthCheckActivity : AppCompatActivity() {
         setContentView(binding.root)
     }
 
+    fun saveUserInformation(userInformation: UserInformation) {
+        (applicationContext as LiquidApplication).mainModule.userInformation = userInformation
+    }
 }

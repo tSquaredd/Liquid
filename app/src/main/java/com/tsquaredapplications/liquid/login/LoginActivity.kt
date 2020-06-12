@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.navArgs
 import com.tsquaredapplications.liquid.LiquidApplication
 import com.tsquaredapplications.liquid.R
+import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -52,6 +53,10 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp() =
         findNavController(R.id.hostFragment).navigateUp()
+
+    fun setUserInformation(userInformation: UserInformation) {
+        (applicationContext as LiquidApplication).mainModule.userInformation = userInformation
+    }
 
     companion object {
         const val WELCOME_SCREEN_TOGGLE_KEY = "shouldShowWelcomeScreen"

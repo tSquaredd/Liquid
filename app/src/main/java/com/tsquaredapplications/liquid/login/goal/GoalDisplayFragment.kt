@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.ErrorDialogFragment
+import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.databinding.FragmentGoalDisplayBinding
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.ext.setAsGone
@@ -60,7 +61,7 @@ class GoalDisplayFragment : BaseFragment<FragmentGoalDisplayBinding>() {
     private fun onStateChanged(state: GoalDisplayState) {
         when (state) {
             is Initialized -> displayGoal(state.goal)
-            is DataSuccess -> navigate(toMainActivity(state.userInformation))
+            is DataSuccess -> onDatabaseSuccess(state.userInformation)
             is DataFail -> onDatabaseFail(state)
             is ShowProgressBar -> showProgressBar()
             is HideProgressBar -> hideProgressBar()
@@ -70,6 +71,11 @@ class GoalDisplayFragment : BaseFragment<FragmentGoalDisplayBinding>() {
     private fun onDatabaseFail(state: DataFail) {
         ErrorDialogFragment(state.errorMessage, state.dismissText)
             .show(parentFragmentManager, null)
+    }
+
+    private fun onDatabaseSuccess(userInformation: UserInformation) {
+        (activity as LoginActivity).setUserInformation(userInformation)
+        navigate(toMainActivity())
     }
 
     private fun hideProgressBar() {

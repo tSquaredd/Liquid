@@ -1,11 +1,12 @@
-package com.tsquaredapplications.liquid.presets.main.resources
+package com.tsquaredapplications.liquid.presets.add.resources
 
 import android.content.Context
 import com.tsquaredapplications.liquid.R
 import javax.inject.Inject
 
 class AddPresetResourceWrapperImpl
-@Inject constructor(val context: Context) : AddPresetResourceWrapper {
+@Inject constructor(val context: Context) :
+    AddPresetResourceWrapper {
 
     override val nameErrorMessage: String
         get() = context.getString(R.string.name_error_message)
