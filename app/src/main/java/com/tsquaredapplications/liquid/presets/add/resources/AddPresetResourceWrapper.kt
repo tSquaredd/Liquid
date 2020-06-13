@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid.presets.main.resources
+package com.tsquaredapplications.liquid.presets.add.resources
 
 interface AddPresetResourceWrapper {
     val nameErrorMessage: String

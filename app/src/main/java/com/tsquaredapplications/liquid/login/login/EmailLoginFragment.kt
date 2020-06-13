@@ -96,7 +96,8 @@ class EmailLoginFragment : BaseFragment<FragmentEmailLoginBinding>() {
     }
 
     private fun onSuccessfulLogin(userInformation: UserInformation) {
-        navigate(toMainActivity(userInformation))
+        (activity as LoginActivity).setUserInformation(userInformation)
+        navigate(toMainActivity())
     }
 
     private fun onFailedLogin(state: FailedLogin) {

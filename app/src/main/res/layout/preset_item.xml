@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/circularIconBackground"
+        android:layout_width="95dp"
+        android:layout_height="95dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/type_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/preset_icon_content_description"
+        android:scaleType="center"
+        android:scaleX=".8"
+        android:scaleY=".8"
+        app:layout_constraintBottom_toBottomOf="@id/circularIconBackground"
+        app:layout_constraintEnd_toEndOf="@id/circularIconBackground"
+        app:layout_constraintStart_toStartOf="@id/circularIconBackground"
+        app:layout_constraintTop_toTopOf="@id/circularIconBackground" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/colorWhite"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toTopOf="@id/drinkType"
+        app:layout_constraintEnd_toStartOf="@id/amount"
+        app:layout_constraintStart_toEndOf="@id/circularIconBackground"
+        app:layout_constraintTop_toTopOf="@id/circularIconBackground"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:ignore="SpUsage"
+        tools:text="My super awesome custom preset drink" />
+
+    <TextView
+        android:id="@+id/drinkType"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="14dp"
+        app:layout_constraintBottom_toBottomOf="@id/circularIconBackground"
+        app:layout_constraintEnd_toStartOf="@id/amount"
+        app:layout_constraintStart_toEndOf="@id/circularIconBackground"
+        app:layout_constraintTop_toBottomOf="@id/name"
+        tools:ignore="SpUsage"
+        tools:text="Water" />
+
+    <TextView
+        android:id="@+id/amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpUsage"
+        tools:text="64 oz" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/dividerLine"
+        app:layout_constraintTop_toBottomOf="@id/circularIconBackground" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

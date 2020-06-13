@@ -12,5 +12,6 @@
     <color name="colorAccent30">#4DFF6861</color>
     <color name="colorAccent85">#D9FF6861</color>
 
-    <color name="textInputLine">#1B5096</color>"
+    <color name="textInputLine">#1B5096</color>
+    <color name="dividerLine">#1B5096</color>
 </resources>

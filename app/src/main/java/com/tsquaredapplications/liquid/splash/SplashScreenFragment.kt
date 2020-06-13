@@ -49,7 +49,10 @@ class SplashScreenFragment : BaseFragment<FragmentSplashScreenBinding>() {
                         else -> {
                             userDbManager.getUser(
                                 onSuccess = { userInformation ->
-                                    navigate(toMainActivity(userInformation))
+                                    (activity as AuthCheckActivity).saveUserInformation(
+                                        userInformation
+                                    )
+                                    navigate(toMainActivity())
                                 },
                                 onFail = {
                                     navigate(toLoginActivity(abandonedSignUp = true))

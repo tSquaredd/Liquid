@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid.presets.main
+package com.tsquaredapplications.liquid.presets.add
 
 import android.content.Context
 import android.os.Bundle
@@ -20,19 +20,19 @@ import com.tsquaredapplications.liquid.databinding.FragmentAddPresetBinding
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.ext.setAsGone
 import com.tsquaredapplications.liquid.ext.setAsVisibile
-import com.tsquaredapplications.liquid.presets.main.AddPresetFragmentDirections.Companion.toAddPresetIconSelectionFramgent
-import com.tsquaredapplications.liquid.presets.main.AddPresetFragmentDirections.Companion.toAddPresetTypeSelectionFragment
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.AddPresetFailed
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.AddPresetSuccess
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.DrinkTypeSelected
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.Initialized
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidAmount
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidIcon
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidName
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.InvalidDrinkType
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.PresetIconSelected
-import com.tsquaredapplications.liquid.presets.main.model.AddPresetState.ShowProgressBar
+import com.tsquaredapplications.liquid.presets.add.AddPresetFragmentDirections.Companion.toAddPresetIconSelectionFramgent
+import com.tsquaredapplications.liquid.presets.add.AddPresetFragmentDirections.Companion.toAddPresetTypeSelectionFragment
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.AddPresetFailed
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.AddPresetSuccess
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.DrinkTypeSelected
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.Initialized
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidAmount
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidIcon
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidName
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidDrinkType
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.PresetIconSelected
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.ShowProgressBar
 import javax.inject.Inject
 
 class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {

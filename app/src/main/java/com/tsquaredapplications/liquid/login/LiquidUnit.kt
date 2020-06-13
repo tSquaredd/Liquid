@@ -8,3 +8,5 @@ enum class LiquidUnit {
 
 fun calculateDailyGoal(unit: LiquidUnit, weight: Int) = if (unit == LiquidUnit.OZ) weight / 2
 else ((weight / 2) * 29.5375).roundToInt()
+
+fun convertOzToMl(oz: Double) = oz * 29.5375

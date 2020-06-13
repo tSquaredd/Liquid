@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid.presets.main.model
+package com.tsquaredapplications.liquid.presets.add.model
 
 import com.tsquaredapplications.liquid.common.database.icons.Icon
 import com.tsquaredapplications.liquid.common.database.presets.Preset
