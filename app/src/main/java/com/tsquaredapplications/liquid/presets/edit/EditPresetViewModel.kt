@@ -2,29 +2,28 @@ package com.tsquaredapplications.liquid.presets.edit
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
 import com.tsquaredapplications.liquid.common.database.icons.Icon
 import com.tsquaredapplications.liquid.common.database.presets.Preset
-import com.tsquaredapplications.liquid.common.database.presets.PresetDatabaseManager
+import com.tsquaredapplications.liquid.common.database.presets.PresetDataWrapper
+import com.tsquaredapplications.liquid.common.database.presets.RoomPresetRepository
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.login.LiquidUnit
 import com.tsquaredapplications.liquid.login.convertMlToOz
+import com.tsquaredapplications.liquid.login.convertOzToMl
 import com.tsquaredapplications.liquid.presets.edit.EditPresetState.AmountInvalid
-import com.tsquaredapplications.liquid.presets.edit.EditPresetState.DeleteFailure
-import com.tsquaredapplications.liquid.presets.edit.EditPresetState.DeleteSuccess
-import com.tsquaredapplications.liquid.presets.edit.EditPresetState.HideProgressBar
-import com.tsquaredapplications.liquid.presets.edit.EditPresetState.IconUpdated
+import com.tsquaredapplications.liquid.presets.edit.EditPresetState.Deleted
 import com.tsquaredapplications.liquid.presets.edit.EditPresetState.Initialized
-import com.tsquaredapplications.liquid.presets.edit.EditPresetState.ShowProgressBar
-import com.tsquaredapplications.liquid.presets.edit.EditPresetState.UpdateSuccess
-import com.tsquaredapplications.liquid.presets.edit.EditPresetState.UpdatedFailure
+import com.tsquaredapplications.liquid.presets.edit.EditPresetState.Updated
 import com.tsquaredapplications.liquid.presets.edit.resources.EditPresetResourceWrapper
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class EditPresetViewModel
 @Inject constructor(
     private val userInformation: UserInformation,
-    private val presetDatabaseManager: PresetDatabaseManager,
+    private val roomPresetRepository: RoomPresetRepository,
     private val resourceWrapper: EditPresetResourceWrapper
 ) : ViewModel() {
 
@@ -33,43 +32,35 @@ class EditPresetViewModel
         get() = state
 
     lateinit var preset: Preset
-    lateinit var originalPreset: Preset
+    private lateinit var originalPreset: Preset
     private var updatedAmountInOz: Double? = null
     private var updatedName: String? = null
     private var updatedIcon: Icon? = null
 
-    fun start(preset: Preset) {
-        this.preset = preset
-        originalPreset = preset.copy()
+    fun start(presetDataWrapper: PresetDataWrapper) {
+        this.preset = presetDataWrapper.preset
+        originalPreset = presetDataWrapper.preset.copy()
         updatedAmountInOz = preset.sizeInOz
         updatedName = preset.name
-        updatedIcon = preset.icon
+        updatedIcon = presetDataWrapper.icon
         state.value = Initialized(
             preset.name,
-            preset.icon.largeIconPath,
+            presetDataWrapper.icon.largeIconResource,
             preset.createAmountString(userInformation.unitPreference),
             userInformation.unitPreference.toString()
         )
     }
 
     fun deletePreset() {
-        presetDatabaseManager.delete(preset,
-            onSuccess = {
-                state.value = DeleteSuccess(it)
-            },
-            onFailure = {
-                state.value = HideProgressBar
-                state.value = DeleteFailure(
-                    resourceWrapper.deleteFailureMessage,
-                    resourceWrapper.failureDismissText
-                )
-                start(originalPreset)
-            })
+        viewModelScope.launch {
+            roomPresetRepository.delete(originalPreset)
+        }
+        state.value = Deleted
     }
 
     fun presetIconSelected(icon: Icon) {
         this.updatedIcon = icon
-        state.value = IconUpdated(icon.largeIconPath)
+//        state.value = IconUpdated(icon.largeIconPath)
     }
 
     fun onAmountChanged(amountString: String) {
@@ -98,25 +89,19 @@ class EditPresetViewModel
         }
 
         if (allValidationsPassed) {
-            state.value = ShowProgressBar
-            presetDatabaseManager.update(
-                preset = preset.apply {
-                    icon = updatedIcon!!
+            viewModelScope.launch {
+                roomPresetRepository.update(preset.apply {
                     name = updatedName!!
-                    sizeInOz = updatedAmountInOz!!
-                },
-                onSuccess = {
-                    state.value = HideProgressBar
-                    state.value = UpdateSuccess(it)
-                },
-                onFailure = {
-                    state.value = HideProgressBar
-                    state.value = UpdatedFailure(
-                        resourceWrapper.updateFailureMessage,
-                        resourceWrapper.failureDismissText
-                    )
-                    start(originalPreset)
+                    sizeInOz = if (userInformation.unitPreference == LiquidUnit.OZ) {
+                        updatedAmountInOz!!
+                    } else {
+                        convertOzToMl(updatedAmountInOz!!)
+                    }
+                    iconUid = updatedIcon?.iconUid ?: originalPreset.iconUid
                 })
+            }
+
+            state.value = Updated
         }
     }
 }

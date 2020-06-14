@@ -23,16 +23,14 @@ import com.tsquaredapplications.liquid.ext.setAsVisibile
 import com.tsquaredapplications.liquid.presets.add.AddPresetFragmentDirections.Companion.toAddPresetIconSelectionFragment
 import com.tsquaredapplications.liquid.presets.add.AddPresetFragmentDirections.Companion.toAddPresetTypeSelectionFragment
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState
-import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.AddPresetFailed
-import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.AddPresetSuccess
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.DrinkTypeSelected
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.Initialized
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidAmount
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidDrinkType
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidIcon
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidName
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.PresetAdded
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.PresetIconSelected
-import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.ShowProgressBar
 import com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionFragment.Companion.PRESET_ICON_SELECTION_KEY
 import javax.inject.Inject
 
@@ -123,9 +121,7 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
             is InvalidIcon -> onInvalidIcon()
             is InvalidDrinkType -> onInvalidType(state)
             is InvalidAmount -> onInvalidAmount(state)
-            is AddPresetSuccess -> onAddPresetSuccess(state)
-            is AddPresetFailed -> onAddPresetFailed()
-            is ShowProgressBar -> showProgressBar()
+            is PresetAdded -> onPresetAdded()
         }
     }
 
@@ -139,10 +135,9 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
 
     private fun onPresetIconSelected(state: PresetIconSelected) {
         binding.placeholderPresetIcon.setAsGone()
-        val storageReference = storage.reference.child(state.icon.largeIconPath)
 
         GlideApp.with(binding.presetIcon.context)
-            .load(storageReference)
+            .load(state.icon.largeIconResource)
             .fitCenter()
             .into(binding.presetIcon)
 
@@ -166,21 +161,8 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
         binding.amountSelectionTextLayout.error = state.errorMessage
     }
 
-    private fun onAddPresetSuccess(state: AddPresetSuccess) {
-        (activity as MainActivity).addPreset(state.preset)
+    private fun onPresetAdded() {
         findNavController().popBackStack()
-    }
-
-    private fun onAddPresetFailed() {
-        binding.progressBar.setAsGone()
-        binding.loadingMask.setAsGone()
-
-        // TODO LIQ-130 - add error modal
-    }
-
-    private fun showProgressBar() {
-        binding.progressBar.setAsVisibile()
-        binding.loadingMask.setAsVisibile()
     }
 
     companion object {

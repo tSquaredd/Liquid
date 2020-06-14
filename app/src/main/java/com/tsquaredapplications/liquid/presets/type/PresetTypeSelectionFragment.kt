@@ -51,7 +51,10 @@ class PresetTypeSelectionFragment : BaseFragment<FragmentPresetTypeSelectionBind
             stateLiveData.observe(viewLifecycleOwner, Observer {
                 onStateChange(it)
             })
-            start()
+
+            getDrinkTypes().observe(viewLifecycleOwner, Observer {
+                itemAdapter.add(it)
+            })
         }
     }
 

@@ -50,17 +50,18 @@ class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
             onStateChange(it)
         })
 
-        viewModel.start()
+        viewModel.getPresets().observe(viewLifecycleOwner, Observer {
+            if (it.isEmpty()) {
+                showPlaceholder()
+            } else {
+                showPresets(it)
+            }
+        })
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (activity as MainActivity).mainComponent.inject(this)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.refresh()
     }
 
     private fun recyclerViewSetup() {
@@ -70,10 +71,25 @@ class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
         }
 
         fastAdapter.onClickListener = { _, _, item, _ ->
-            navigate(toEditPresetFragment(item.preset))
+            navigate(toEditPresetFragment(item.presetDataWrapper))
             false
         }
     }
+
+    private fun showPlaceholder() {
+        binding.presetsRecyclerView.setAsGone()
+        binding.emptyHeader.setAsVisibile()
+        binding.emptyImage.setAsVisibile()
+    }
+
+    private fun showPresets(presets: List<PresetItem>) {
+        itemAdapter.clear()
+        itemAdapter.add(presets)
+        binding.emptyHeader.setAsGone()
+        binding.emptyImage.setAsGone()
+        binding.presetsRecyclerView.setAsVisibile()
+    }
+
 
     private fun onStateChange(state: PresetState) {
         when (state) {

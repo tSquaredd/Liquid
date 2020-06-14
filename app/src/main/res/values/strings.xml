@@ -109,6 +109,24 @@
     <string name="update_preset_failure">Uh-oh! Something went wrong with updating your preset. Please try again.</string>
     <!-- endregion -->
 
+    <!-- Drink Types -->
+    <string name="beer">Beer</string>
+    <string name="cocktail">Cocktail</string>
+    <string name="coffee">Coffee</string>
+    <string name="energy_drink">Energy Drink</string>
+    <string name="iced_tea">Iced Tea</string>
+    <string name="juice">Juice</string>
+    <string name="milk">Milk</string>
+    <string name="smoothie">Smoothie</string>
+    <string name="soda">Soda</string>
+    <string name="sparkling_water">Sparkling Water</string>
+    <string name="spirit">Spirit</string>
+    <string name="sports_drink">Sports Drink</string>
+    <string name="tea">Tea</string>
+    <string name="water">Water</string>
+    <string name="wine">Wine</string>
+    <!-- endregion -->
+
     <!-- TEMP -->
     <string name="google">Google</string>
     <string name="apple">Apple</string>

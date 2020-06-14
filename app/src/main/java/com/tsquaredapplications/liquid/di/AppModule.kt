@@ -12,12 +12,16 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import com.tsquaredapplications.liquid.common.auth.AuthManager
 import com.tsquaredapplications.liquid.common.auth.AuthManagerImpl
-import com.tsquaredapplications.liquid.common.database.icons.PresetIconDatabaseManager
-import com.tsquaredapplications.liquid.common.database.icons.PresetIconDatabaseManagerImpl
-import com.tsquaredapplications.liquid.common.database.presets.PresetDatabaseManager
-import com.tsquaredapplications.liquid.common.database.presets.PresetDatabaseManagerImpl
-import com.tsquaredapplications.liquid.common.database.types.TypeDatabaseManager
-import com.tsquaredapplications.liquid.common.database.types.TypeDatabaseManagerImpl
+import com.tsquaredapplications.liquid.common.database.AppDatabase
+import com.tsquaredapplications.liquid.common.database.icons.IconDao
+import com.tsquaredapplications.liquid.common.database.icons.IconRepository
+import com.tsquaredapplications.liquid.common.database.icons.RoomIconRepository
+import com.tsquaredapplications.liquid.common.database.presets.PresetDao
+import com.tsquaredapplications.liquid.common.database.presets.PresetRepository
+import com.tsquaredapplications.liquid.common.database.presets.RoomPresetRepository
+import com.tsquaredapplications.liquid.common.database.types.DrinkTypeDao
+import com.tsquaredapplications.liquid.common.database.types.RoomTypeRepository
+import com.tsquaredapplications.liquid.common.database.types.TypeRepository
 import com.tsquaredapplications.liquid.common.database.users.UserDatabaseManager
 import com.tsquaredapplications.liquid.common.database.users.UserDatabaseManagerImpl
 import dagger.Module
@@ -47,11 +51,35 @@ class AppModule(private val application: Application) {
 
     @Provides
     @Singleton
-    fun providesFirebaseDatabase(): FirebaseFirestore = Firebase.firestore
+    fun providesFirebaseDatabase(): FirebaseFirestore = Firebase.firestore // TODO REMOVE
 
     @Provides
     @Singleton
-    fun providesFirebaseStorage(): FirebaseStorage = Firebase.storage
+    fun provideAppDatabase(): AppDatabase = AppDatabase.getInstance(application)
+
+    @Provides
+    @Singleton
+    fun provideIconDao(appDatabase: AppDatabase): IconDao = appDatabase.iconDao()
+
+    @Provides
+    @Singleton
+    fun provideIconRepository(impl: RoomIconRepository): IconRepository = impl
+
+    @Provides
+    @Singleton
+    fun provideDrinkTypeDao(appDatabase: AppDatabase): DrinkTypeDao = appDatabase.drinkTypeDao()
+
+    @Provides
+    @Singleton
+    fun provideDrinkRepository(impl: RoomTypeRepository): TypeRepository = impl
+
+    @Provides
+    @Singleton
+    fun providePresetDao(appDatabase: AppDatabase): PresetDao = appDatabase.presetDao()
+
+    @Provides
+    @Singleton
+    fun providePresetRepository(impl: RoomPresetRepository): PresetRepository = impl
 
     @Provides
     @Singleton
@@ -61,21 +89,7 @@ class AppModule(private val application: Application) {
 
     @Provides
     @Singleton
-    fun provideTypeDatabaseManager(
-        impl: TypeDatabaseManagerImpl
-    ): TypeDatabaseManager = impl
-
-    @Provides
-    @Singleton
-    fun providePresetIconDatabaseManager(
-        impl: PresetIconDatabaseManagerImpl
-    ): PresetIconDatabaseManager = impl
-
-    @Provides
-    @Singleton
-    fun providePresetDatabaseManager(
-        impl: PresetDatabaseManagerImpl
-    ): PresetDatabaseManager = impl
+    fun providesFirebaseStorage(): FirebaseStorage = Firebase.storage
 
     @Provides
     @Singleton

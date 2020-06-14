@@ -1,14 +1,15 @@
 package com.tsquaredapplications.liquid.common.database.types
 
 import android.os.Parcelable
-import com.google.firebase.firestore.IgnoreExtraProperties
-import com.tsquaredapplications.liquid.common.database.icons.Icon
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
-@IgnoreExtraProperties
 @Parcelize
-data class DrinkType(
-    val name: String = "",
-    val hydration: Double = 1.0,
-    val icon: Icon = Icon()
+@Entity
+class DrinkType(
+    @PrimaryKey val drinkTypeUid: Int,
+    val name: String,
+    val hydration: Double,
+    val iconUid: Int
 ) : Parcelable
