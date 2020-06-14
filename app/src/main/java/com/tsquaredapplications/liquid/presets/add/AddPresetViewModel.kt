@@ -36,7 +36,7 @@ class AddPresetViewModel
     private var selectedDrinkType: DrinkType? = null
     private var selectedPresetIcon: Icon? = null
     private var selectedName = ""
-    private var selectedAmount = 0.0
+    private var selectedAmount: Double? = null
 
     fun start() {
         state.value = AddPresetState.Initialized(userInformation.unitPreference)
@@ -79,24 +79,21 @@ class AddPresetViewModel
             allValidationsPassed = false
         }
 
-        if (selectedAmount <= 0) {
+        if (selectedAmount == null || selectedAmount!! <= 0) {
             state.value = InvalidAmount(resourceWrapper.amountErrorMessage)
             allValidationsPassed = false
         }
 
         if (allValidationsPassed) {
             state.value = ShowProgressBar
-            val preset = Preset(
-                selectedName,
-                selectedAmount,
-                selectedDrinkType!!,
-                selectedPresetIcon!!
-            )
 
             presetDatabaseManager.addPreset(
-                preset,
+                selectedName,
+                selectedAmount!!,
+                selectedDrinkType!!,
+                selectedPresetIcon!!,
                 onSuccess = {
-                    onAddPresetSuccess(preset)
+                    onAddPresetSuccess(it)
                 },
                 onFailure = {
                     onAddPresetFailed()

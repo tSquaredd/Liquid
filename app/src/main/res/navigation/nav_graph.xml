@@ -32,6 +32,9 @@
         <action
             android:id="@+id/toAddPresetFragment"
             app:destination="@id/addPresetFragment" />
+        <action
+            android:id="@+id/toEditPresetFragment"
+            app:destination="@id/editPresetFragment" />
     </fragment>
     <fragment
         android:id="@+id/selectDrinkTypeFragment"
@@ -60,10 +63,10 @@
         tools:layout="@layout/fragment_add_preset">
         <action
             android:id="@+id/toAddPresetTypeSelectionFragment"
-            app:destination="@id/addPresetTypeSelectionFragment" />
+            app:destination="@id/presetTypeSelectionFragment" />
         <action
-            android:id="@+id/toAddPresetIconSelectionFramgent"
-            app:destination="@id/addPresetIconSelectionFragment" />
+            android:id="@+id/toAddPresetIconSelectionFragment"
+            app:destination="@id/presetIconSelectionFragment" />
         <action
             android:id="@+id/toPresetsFragment"
             app:destination="@id/presetsFragment"
@@ -71,21 +74,15 @@
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/addPresetTypeSelectionFragment"
+        android:id="@+id/presetTypeSelectionFragment"
         android:name="com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionFragment"
         android:label="@string/presets"
         tools:layout="@layout/fragment_preset_type_selection" />
     <fragment
-        android:id="@+id/addPresetIconSelectionFragment"
+        android:id="@+id/presetIconSelectionFragment"
         android:name="com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionFragment"
         android:label="@string/presets"
-        tools:layout="@layout/fragment_preset_icon_selection">
-        <action
-            android:id="@+id/toAddPresetFragment"
-            app:destination="@id/addPresetFragment"
-            app:popUpTo="@id/addPresetFragment"
-            app:popUpToInclusive="false" />
-    </fragment>
+        tools:layout="@layout/fragment_preset_icon_selection" />
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.tsquaredapplications.liquid.HistoryFragment"
@@ -114,5 +111,17 @@
             app:destination="@id/dayHistoryFragment"
             app:popUpTo="@id/dayHistoryFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/editPresetFragment"
+        android:name="com.tsquaredapplications.liquid.presets.edit.EditPresetFragment"
+        android:label="@string/edit_preset"
+        tools:layout="@layout/fragment_edit_preset">
+        <argument
+            android:name="selectedPreset"
+            app:argType="com.tsquaredapplications.liquid.common.database.presets.Preset" />
+        <action
+            android:id="@+id/toPresetIconSelectionFragment"
+            app:destination="@id/presetIconSelectionFragment" />
     </fragment>
 </navigation>

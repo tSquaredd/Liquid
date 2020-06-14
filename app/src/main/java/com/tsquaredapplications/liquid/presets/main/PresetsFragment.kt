@@ -12,15 +12,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.tsquaredapplications.liquid.MainActivity
-import com.tsquaredapplications.liquid.presets.main.PresetState.Initialized
-import com.tsquaredapplications.liquid.presets.main.PresetState.Refresh
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentPresetsBinding
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.ext.setAsGone
 import com.tsquaredapplications.liquid.ext.setAsVisibile
 import com.tsquaredapplications.liquid.presets.add.adapter.PresetItem
+import com.tsquaredapplications.liquid.presets.main.PresetState.Initialized
+import com.tsquaredapplications.liquid.presets.main.PresetState.Refresh
 import com.tsquaredapplications.liquid.presets.main.PresetsFragmentDirections.Companion.toAddPresetFragment
+import com.tsquaredapplications.liquid.presets.main.PresetsFragmentDirections.Companion.toEditPresetFragment
 import javax.inject.Inject
 
 class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
@@ -69,7 +70,7 @@ class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
         }
 
         fastAdapter.onClickListener = { _, _, item, _ ->
-            // TODO LIQ-80 LAUNCH EDIT FRAGMENT
+            navigate(toEditPresetFragment(item.preset))
             false
         }
     }

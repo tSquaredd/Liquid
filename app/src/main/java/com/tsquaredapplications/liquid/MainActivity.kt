@@ -83,6 +83,14 @@ class MainActivity : AppCompatActivity() {
         (applicationContext as LiquidApplication).mainModule.addPreset(preset)
     }
 
+    fun updatePreset(preset: Preset) {
+        (applicationContext as LiquidApplication).mainModule.updatePreset(preset)
+    }
+
+    fun deletePreset(preset: Preset) {
+        (applicationContext as LiquidApplication).mainModule.deletePreset(preset)
+    }
+
     override fun onSupportNavigateUp() =
         findNavController(R.id.hostFragment).navigateUp()
 }

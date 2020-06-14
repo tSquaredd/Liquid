@@ -20,7 +20,7 @@ import com.tsquaredapplications.liquid.databinding.FragmentAddPresetBinding
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.ext.setAsGone
 import com.tsquaredapplications.liquid.ext.setAsVisibile
-import com.tsquaredapplications.liquid.presets.add.AddPresetFragmentDirections.Companion.toAddPresetIconSelectionFramgent
+import com.tsquaredapplications.liquid.presets.add.AddPresetFragmentDirections.Companion.toAddPresetIconSelectionFragment
 import com.tsquaredapplications.liquid.presets.add.AddPresetFragmentDirections.Companion.toAddPresetTypeSelectionFragment
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.AddPresetFailed
@@ -28,11 +28,12 @@ import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.AddPrese
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.DrinkTypeSelected
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.Initialized
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidAmount
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidDrinkType
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidIcon
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidName
-import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidDrinkType
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.PresetIconSelected
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.ShowProgressBar
+import com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionFragment.Companion.PRESET_ICON_SELECTION_KEY
 import javax.inject.Inject
 
 class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
@@ -54,11 +55,11 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.presetIcon.setOnClickListener {
-            navigate(toAddPresetIconSelectionFramgent())
+            navigate(toAddPresetIconSelectionFragment())
         }
 
         binding.placeholderPresetIcon.setOnClickListener {
-            navigate(toAddPresetIconSelectionFramgent())
+            navigate(toAddPresetIconSelectionFragment())
         }
 
         binding.addButton.setOnClickListener {
@@ -184,6 +185,5 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
 
     companion object {
         const val DRINK_TYPE_SELECTION_KEY = "drinkTypeSelectionKey"
-        const val PRESET_ICON_SELECTION_KEY = "presetIconSelectionKey"
     }
 }
