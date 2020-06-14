@@ -7,6 +7,6 @@ import com.tsquaredapplications.liquid.common.database.icons.Icon
 data class DrinkTypeAndIcon(
     @Embedded
     val drinkType: DrinkType,
-    @Relation(parentColumn = "drinkTypeUid", entityColumn = "iconUid")
+    @Relation(parentColumn = "iconUid", entityColumn = "iconUid")
     val icon: Icon
 )
