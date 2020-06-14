@@ -8,6 +8,8 @@ import com.tsquaredapplications.liquid.home.resources.HomeResourceWrapper
 import com.tsquaredapplications.liquid.home.resources.HomeResourceWrapperImpl
 import com.tsquaredapplications.liquid.presets.add.resources.AddPresetResourceWrapper
 import com.tsquaredapplications.liquid.presets.add.resources.AddPresetResourceWrapperImpl
+import com.tsquaredapplications.liquid.presets.edit.resources.EditPresetResourceWrapper
+import com.tsquaredapplications.liquid.presets.edit.resources.EditPresetResourceWrapperImpl
 import dagger.Module
 import dagger.Provides
 
@@ -19,13 +21,6 @@ class MainModule {
     var presetIcons: List<Icon> = emptyList()
     private var presets: MutableList<Preset> = mutableListOf()
 
-    fun addPreset(preset: Preset) {
-        with(presets) {
-            add(preset)
-            sortBy { it.name }
-        }
-    }
-
     fun initializePresets(presetsList: List<Preset>) {
         with(presets) {
             clear()
@@ -33,12 +28,21 @@ class MainModule {
         }
     }
 
-    @Provides
-    fun provideHomeResourceWrapper(impl: HomeResourceWrapperImpl): HomeResourceWrapper = impl
+    fun addPreset(preset: Preset) {
+        with(presets) {
+            add(preset)
+            sortBy { it.name }
+        }
+    }
 
-    @Provides
-    fun provideAddPresetResourceWrapper(impl: AddPresetResourceWrapperImpl)
-            : AddPresetResourceWrapper = impl
+    fun updatePreset(preset: Preset) {
+        val index = presets.indexOfFirst { it.dbKey == preset.dbKey }
+        presets[index] = preset
+    }
+
+    fun deletePreset(preset: Preset) {
+        presets.remove(preset)
+    }
 
     @Provides
     fun provideUserInformation(): UserInformation = userInformation
@@ -52,4 +56,14 @@ class MainModule {
     @Provides
     fun providesPresets(): List<Preset> = presets
 
+    @Provides
+    fun provideHomeResourceWrapper(impl: HomeResourceWrapperImpl): HomeResourceWrapper = impl
+
+    @Provides
+    fun provideAddPresetResourceWrapper(impl: AddPresetResourceWrapperImpl)
+            : AddPresetResourceWrapper = impl
+
+    @Provides
+    fun provideEditPresetResourceWrapper(impl: EditPresetResourceWrapperImpl)
+            : EditPresetResourceWrapper = impl
 }

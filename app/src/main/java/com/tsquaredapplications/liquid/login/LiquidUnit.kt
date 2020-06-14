@@ -10,3 +10,5 @@ fun calculateDailyGoal(unit: LiquidUnit, weight: Int) = if (unit == LiquidUnit.O
 else ((weight / 2) * 29.5375).roundToInt()
 
 fun convertOzToMl(oz: Double) = oz * 29.5375
+
+fun convertMlToOz(ml: Double) = ml / 29.5375

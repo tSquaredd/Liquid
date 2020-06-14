@@ -18,7 +18,6 @@ import com.tsquaredapplications.liquid.databinding.FragmentPresetIconSelectionBi
 import com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionState.IconSelected
 import com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionState.Initialized
 import com.tsquaredapplications.liquid.presets.icon.adapter.PresetIconItem
-import com.tsquaredapplications.liquid.presets.add.AddPresetFragment.Companion.PRESET_ICON_SELECTION_KEY
 import javax.inject.Inject
 
 class PresetIconSelectionFragment : BaseFragment<FragmentPresetIconSelectionBinding>() {
@@ -86,5 +85,9 @@ class PresetIconSelectionFragment : BaseFragment<FragmentPresetIconSelectionBind
             )
             popBackStack()
         }
+    }
+
+    companion object {
+        const val PRESET_ICON_SELECTION_KEY = "presetIconSelectionKey"
     }
 }

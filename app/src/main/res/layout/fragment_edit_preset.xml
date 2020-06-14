@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presets.edit.EditPresetFragment">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nameTextLayout"
+        style="@style/PrimaryTextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/add_preset_name_hint"
+        app:errorIconDrawable="@drawable/text_field_error"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/circularBackground"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:background="@drawable/type_background_with_border"
+        app:layout_constraintBottom_toTopOf="@id/amountSelectionTextLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nameTextLayout" />
+
+    <ImageView
+        android:id="@+id/presetIcon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="40dp"
+        android:contentDescription="@string/new_preset_icon_content_description"
+        android:src="@drawable/add_preset_placeholder"
+        app:layout_constraintBottom_toBottomOf="@id/circularBackground"
+        app:layout_constraintEnd_toEndOf="@id/circularBackground"
+        app:layout_constraintStart_toStartOf="@id/circularBackground"
+        app:layout_constraintTop_toTopOf="@id/circularBackground"
+        tools:visibility="invisible" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/amountSelectionTextLayout"
+        style="@style/PrimaryTextInputLayout"
+        android:layout_width="124dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        app:errorIconDrawable="@drawable/text_field_error"
+        app:layout_constraintBottom_toTopOf="@id/deleteButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/circularBackground">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/amountSelectionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:textColor="@color/colorWhite" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/deleteButton"
+        style="@style/SecondaryButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/updateButton"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/updateButton"
+        style="@style/PrimaryButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/update"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@id/deleteButton" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:translationZ="1dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/loadingMask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground50"
+        android:visibility="gone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

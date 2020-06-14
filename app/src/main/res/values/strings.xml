@@ -3,6 +3,9 @@
     <string name="oz">oz</string>
     <string name="ml">ml</string>
     <string name="got_it">GOT IT!</string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
+    <string name="go_back">Go Back</string>
     <!-- endregion -->
 
     <!-- region screen titles -->
@@ -14,6 +17,7 @@
     <string name="settings">Settings</string>
     <string name="select_a_drink">Select a Drink</string>
     <string name="drink_amount">Drink Amount</string>
+    <string name="edit_preset">Edit Preset</string>
     <!-- endregion -->
 
     <!-- region home screen -->
@@ -22,11 +26,6 @@
 
     <!-- region drink amount screen -->
     <string name="add">Add</string>
-    <!-- endregion -->
-
-    <!-- region update entry screen -->
-    <string name="delete">Delete</string>
-    <string name="update">Update</string>
     <!-- endregion -->
 
     <!-- region welcome screen -->
@@ -102,6 +101,13 @@
 
     <!-- region preset type selection -->
     <string name="drink_type_icon_content_description">Drink Type Icon</string>
+    <!-- endregion -->
+
+    <!-- edit preset -->
+    <string name="delete_preset_warning">Are you sure you want to delete your preset? You cannot undo this process!</string>
+    <string name="delete_preset_failure">Uh-oh! Something went wrong with deleting your preset. Please try again.</string>
+    <string name="update_preset_failure">Uh-oh! Something went wrong with updating your preset. Please try again.</string>
+    <!-- endregion -->
 
     <!-- TEMP -->
     <string name="google">Google</string>
