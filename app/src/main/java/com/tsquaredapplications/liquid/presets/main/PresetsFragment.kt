@@ -50,13 +50,7 @@ class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
             onStateChange(it)
         })
 
-        viewModel.getPresets().observe(viewLifecycleOwner, Observer {
-            if (it.isEmpty()) {
-                showPlaceholder()
-            } else {
-                showPresets(it)
-            }
-        })
+       viewModel.getPresets()
     }
 
     override fun onAttach(context: Context) {
@@ -80,6 +74,8 @@ class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
         binding.presetsRecyclerView.setAsGone()
         binding.emptyHeader.setAsVisibile()
         binding.emptyImage.setAsVisibile()
+        binding.createPresetFab.setAsVisibile()
+        hideProgressBar()
     }
 
     private fun showPresets(presets: List<PresetItem>) {
@@ -88,6 +84,13 @@ class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
         binding.emptyHeader.setAsGone()
         binding.emptyImage.setAsGone()
         binding.presetsRecyclerView.setAsVisibile()
+        binding.createPresetFab.setAsVisibile()
+        hideProgressBar()
+    }
+
+    private fun hideProgressBar() {
+        binding.loadingMask.setAsGone()
+        binding.progressBar.setAsGone()
     }
 
 
@@ -99,11 +102,10 @@ class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
     }
 
     private fun onInitializedState(presets: List<PresetItem>) {
-        if (presets.isNotEmpty()) {
-            itemAdapter.add(presets)
-            binding.emptyHeader.setAsGone()
-            binding.emptyImage.setAsGone()
-            binding.presetsRecyclerView.setAsVisibile()
+        if (presets.isEmpty()) {
+            showPlaceholder()
+        } else {
+            showPresets(presets)
         }
     }
 

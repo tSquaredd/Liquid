@@ -10,6 +10,7 @@
         android:id="@+id/emptyHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:text="@string/presets_empty_header"
@@ -25,6 +26,7 @@
     <ImageView
         android:id="@+id/emptyImage"
         android:layout_width="wrap_content"
+        android:visibility="gone"
         android:layout_height="wrap_content"
         android:contentDescription="@string/thirsty_camel_content_description"
         android:src="@drawable/thirsty_camel"
@@ -45,6 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
+        android:visibility="gone"
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/colorAccent"
         android:src="@drawable/ic_add_black_48dp"
@@ -52,5 +55,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:maxImageSize="32dp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:translationZ="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/loadingMask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBackground50" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

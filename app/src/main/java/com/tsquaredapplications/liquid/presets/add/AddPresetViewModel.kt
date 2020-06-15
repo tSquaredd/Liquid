@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
 import com.tsquaredapplications.liquid.common.database.icons.Icon
 import com.tsquaredapplications.liquid.common.database.presets.Preset
-import com.tsquaredapplications.liquid.common.database.presets.PresetDao
+import com.tsquaredapplications.liquid.common.database.presets.PresetRepository
 import com.tsquaredapplications.liquid.common.database.types.DrinkType
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState
@@ -23,7 +23,7 @@ import javax.inject.Inject
 class AddPresetViewModel
 @Inject constructor(
     private val userInformation: UserInformation,
-    private val presetDao: PresetDao,
+    private val presetRepository: PresetRepository,
     private val resourceWrapper: AddPresetResourceWrapper
 ) : ViewModel() {
 
@@ -84,7 +84,7 @@ class AddPresetViewModel
 
         if (allValidationsPassed) {
             viewModelScope.launch {
-                presetDao.insert(
+                presetRepository.insert(
                     Preset(
                         name = selectedName,
                         sizeInOz = selectedAmount!!,
@@ -92,8 +92,12 @@ class AddPresetViewModel
                         iconUid = selectedPresetIcon!!.iconUid
                     )
                 )
+                insertFinished()
             }
-            state.value = AddPresetState.PresetAdded
         }
+    }
+
+    private fun insertFinished() {
+        state.value = AddPresetState.PresetAdded
     }
 }
