@@ -1,6 +1,5 @@
 package com.tsquaredapplications.liquid.common.database.presets
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -12,7 +11,7 @@ import androidx.room.Update
 interface PresetDao {
     @Transaction
     @Query("SELECT * FROM preset")
-    fun getAllPresets(): LiveData<List<PresetDataWrapper>>
+    suspend fun getAllPresets(): List<PresetDataWrapper>
 
     @Transaction
     @Insert
