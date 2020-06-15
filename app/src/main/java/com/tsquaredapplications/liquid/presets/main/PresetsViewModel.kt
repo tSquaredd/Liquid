@@ -1,12 +1,14 @@
 package com.tsquaredapplications.liquid.presets.main
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
+import com.tsquaredapplications.liquid.common.database.presets.PresetDataWrapper
 import com.tsquaredapplications.liquid.common.database.presets.PresetRepository
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.presets.add.adapter.PresetItem
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PresetsViewModel
@@ -19,13 +21,16 @@ class PresetsViewModel
     val stateLiveData: LiveData<PresetState>
         get() = state
 
-    fun getPresets(): LiveData<List<PresetItem>> =
-        Transformations.map(presetRepository.getAllPresets()) {
-            it.map { presetAndIcon ->
-                PresetItem(
-                    presetAndIcon,
-                    presetAndIcon.preset.createAmountString(userInformation.unitPreference)
-                )
-            }
+    fun getPresets() {
+        viewModelScope.launch {
+            val presets = presetRepository.getAllPresets()
+            onPresetsRetrieved(presets)
         }
+    }
+
+    private fun onPresetsRetrieved(presets: List<PresetDataWrapper>) {
+        state.value = PresetState.Initialized(presets.map {
+            PresetItem(it, it.preset.createAmountString(userInformation.unitPreference))
+        })
+    }
 }
