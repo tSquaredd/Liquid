@@ -50,17 +50,12 @@ class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
             onStateChange(it)
         })
 
-        viewModel.start()
+       viewModel.getPresets()
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (activity as MainActivity).mainComponent.inject(this)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.refresh()
     }
 
     private fun recyclerViewSetup() {
@@ -70,10 +65,34 @@ class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
         }
 
         fastAdapter.onClickListener = { _, _, item, _ ->
-            navigate(toEditPresetFragment(item.preset))
+            navigate(toEditPresetFragment(item.presetDataWrapper))
             false
         }
     }
+
+    private fun showPlaceholder() {
+        binding.presetsRecyclerView.setAsGone()
+        binding.emptyHeader.setAsVisibile()
+        binding.emptyImage.setAsVisibile()
+        binding.createPresetFab.setAsVisibile()
+        hideProgressBar()
+    }
+
+    private fun showPresets(presets: List<PresetItem>) {
+        itemAdapter.clear()
+        itemAdapter.add(presets)
+        binding.emptyHeader.setAsGone()
+        binding.emptyImage.setAsGone()
+        binding.presetsRecyclerView.setAsVisibile()
+        binding.createPresetFab.setAsVisibile()
+        hideProgressBar()
+    }
+
+    private fun hideProgressBar() {
+        binding.loadingMask.setAsGone()
+        binding.progressBar.setAsGone()
+    }
+
 
     private fun onStateChange(state: PresetState) {
         when (state) {
@@ -83,11 +102,10 @@ class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
     }
 
     private fun onInitializedState(presets: List<PresetItem>) {
-        if (presets.isNotEmpty()) {
-            itemAdapter.add(presets)
-            binding.emptyHeader.setAsGone()
-            binding.emptyImage.setAsGone()
-            binding.presetsRecyclerView.setAsVisibile()
+        if (presets.isEmpty()) {
+            showPlaceholder()
+        } else {
+            showPresets(presets)
         }
     }
 

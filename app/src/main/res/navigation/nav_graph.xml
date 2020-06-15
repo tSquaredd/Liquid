@@ -119,7 +119,7 @@
         tools:layout="@layout/fragment_edit_preset">
         <argument
             android:name="selectedPreset"
-            app:argType="com.tsquaredapplications.liquid.common.database.presets.Preset" />
+            app:argType="com.tsquaredapplications.liquid.common.database.presets.PresetDataWrapper" />
         <action
             android:id="@+id/toPresetIconSelectionFragment"
             app:destination="@id/presetIconSelectionFragment" />

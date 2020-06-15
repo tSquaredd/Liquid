@@ -3,16 +3,13 @@ package com.tsquaredapplications.liquid.presets.main
 import androidx.lifecycle.Observer
 import com.tsquaredapplications.liquid.common.BaseViewModelTest
 import com.tsquaredapplications.liquid.common.database.icons.Icon
-import com.tsquaredapplications.liquid.common.database.presets.Preset
-import com.tsquaredapplications.liquid.common.database.presets.PresetDatabaseManager
+import com.tsquaredapplications.liquid.common.database.presets.PresetRepository
 import com.tsquaredapplications.liquid.common.database.types.DrinkType
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.ext.assertStateOrder
 import com.tsquaredapplications.liquid.login.LiquidUnit
 import com.tsquaredapplications.liquid.presets.add.AddPresetViewModel
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState
-import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.AddPresetFailed
-import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.AddPresetSuccess
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.DrinkTypeSelected
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.Initialized
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidAmount
@@ -20,25 +17,32 @@ import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidD
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidIcon
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidName
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.PresetIconSelected
-import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.ShowProgressBar
 import com.tsquaredapplications.liquid.presets.add.resources.AddPresetResourceWrapper
 import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.newSingleThreadContext
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
+import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.TestInstance
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class AddPresetViewModelTest : BaseViewModelTest() {
 
     private val userInformation = mockk<UserInformation> {
         every { unitPreference } returns expectedUnitPreference
     }
 
-    private val presetDatabaseManager = mockk<PresetDatabaseManager>()
+    private val presetRepository = mockk<PresetRepository>()
     private val resourceWrapper = mockk<AddPresetResourceWrapper> {
         every { nameErrorMessage } returns NAME_ERROR_MESSAGE
         every { typeErrorMessage } returns DRINK_TYPE_ERROR_MESSAGE
@@ -50,6 +54,19 @@ internal class AddPresetViewModelTest : BaseViewModelTest() {
     private var stateList = mutableListOf<AddPresetState>()
     private val stateObserver = mockk<Observer<AddPresetState>>(relaxed = true)
 
+    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
+
+    @AfterAll
+    fun afterAll() {
+        Dispatchers.resetMain() // reset main dispatcher to the original Main dispatcher
+        mainThreadSurrogate.close()
+    }
+
+    @BeforeAll
+    fun beforeAll() {
+        Dispatchers.setMain(mainThreadSurrogate)
+    }
+
     @BeforeEach
     fun beforeEach() {
         clearMocks(stateObserver)
@@ -57,7 +74,7 @@ internal class AddPresetViewModelTest : BaseViewModelTest() {
         viewModel =
             AddPresetViewModel(
                 userInformation,
-                presetDatabaseManager,
+                presetRepository,
                 resourceWrapper
             )
         viewModel.stateLiveData.observeForever(stateObserver)
@@ -101,8 +118,12 @@ internal class AddPresetViewModelTest : BaseViewModelTest() {
     @DisplayName("Given Add Preset is clicked")
     inner class OnAddPresetClicked {
         private val name = "Water Bottle"
-        private val drinkType = mockk<DrinkType>()
-        private val iconSelected = mockk<Icon>()
+        private val drinkType = mockk<DrinkType> {
+            every { drinkTypeUid } returns DRINK_TYPE_UID
+        }
+        private val iconSelected = mockk<Icon> {
+            every { iconUid } returns ICON_UID
+        }
         private val amount = 20.0
 
 
@@ -201,55 +222,6 @@ internal class AddPresetViewModelTest : BaseViewModelTest() {
             )
         }
 
-        @Test
-        fun `when all inputs are valid and add is successful return success state`() {
-            mockInteractions(
-                name = name,
-                drinkType = drinkType,
-                iconSelected = iconSelected,
-                amount = amount
-            )
-            val preset = mockk<Preset>()
-
-            every { presetDatabaseManager.addPreset(any(), any(), any()) } answers {
-                viewModel.onAddPresetSuccess(preset)
-            }
-
-            viewModel.onAddClicked()
-            verify(exactly = 4) { stateObserver.onChanged(capture(stateList)) }
-            stateList.assertStateOrder(
-                DrinkTypeSelected::class,
-                PresetIconSelected::class,
-                ShowProgressBar::class,
-                AddPresetSuccess::class
-            )
-            with(stateList[3] as AddPresetSuccess) {
-                assertEquals(this.preset, preset)
-            }
-        }
-
-        @Test
-        fun `when all inputs are valid and add fails return failed state`() {
-            mockInteractions(
-                name = name,
-                drinkType = drinkType,
-                iconSelected = iconSelected,
-                amount = amount
-            )
-            every { presetDatabaseManager.addPreset(any(), any(), any()) } answers {
-                viewModel.onAddPresetFailed()
-            }
-
-            viewModel.onAddClicked()
-            verify(exactly = 4) { stateObserver.onChanged(capture(stateList)) }
-            stateList.assertStateOrder(
-                DrinkTypeSelected::class,
-                PresetIconSelected::class,
-                ShowProgressBar::class,
-                AddPresetFailed::class
-            )
-        }
-
         private fun mockInteractions(
             name: String? = null,
             amount: Double? = null,
@@ -271,7 +243,7 @@ internal class AddPresetViewModelTest : BaseViewModelTest() {
         const val NAME_ERROR_MESSAGE = "NAME_ERROR_MESSAGE"
         const val DRINK_TYPE_ERROR_MESSAGE = "DRINK_TYPE_ERROR_MESSAGE"
         const val AMOUNT_ERROR_MESSAGE = "AMOUNT_ERROR_MESSAGE"
+        const val DRINK_TYPE_UID = 1
+        const val ICON_UID = 2
     }
-
 }
-// TODO

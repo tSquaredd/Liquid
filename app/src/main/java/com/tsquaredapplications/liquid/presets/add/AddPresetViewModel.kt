@@ -1,31 +1,29 @@
 package com.tsquaredapplications.liquid.presets.add
 
-import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
 import com.tsquaredapplications.liquid.common.database.icons.Icon
 import com.tsquaredapplications.liquid.common.database.presets.Preset
-import com.tsquaredapplications.liquid.common.database.presets.PresetDatabaseManager
+import com.tsquaredapplications.liquid.common.database.presets.PresetRepository
 import com.tsquaredapplications.liquid.common.database.types.DrinkType
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState
-import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.AddPresetFailed
-import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.AddPresetSuccess
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.DrinkTypeSelected
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidAmount
+import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidDrinkType
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidIcon
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidName
-import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidDrinkType
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.PresetIconSelected
-import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.ShowProgressBar
 import com.tsquaredapplications.liquid.presets.add.resources.AddPresetResourceWrapper
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AddPresetViewModel
 @Inject constructor(
     private val userInformation: UserInformation,
-    private val presetDatabaseManager: PresetDatabaseManager,
+    private val presetRepository: PresetRepository,
     private val resourceWrapper: AddPresetResourceWrapper
 ) : ViewModel() {
 
@@ -85,30 +83,21 @@ class AddPresetViewModel
         }
 
         if (allValidationsPassed) {
-            state.value = ShowProgressBar
-
-            presetDatabaseManager.addPreset(
-                selectedName,
-                selectedAmount!!,
-                selectedDrinkType!!,
-                selectedPresetIcon!!,
-                onSuccess = {
-                    onAddPresetSuccess(it)
-                },
-                onFailure = {
-                    onAddPresetFailed()
-                }
-            )
+            viewModelScope.launch {
+                presetRepository.insert(
+                    Preset(
+                        name = selectedName,
+                        sizeInOz = selectedAmount!!,
+                        drinkTypeUid = selectedDrinkType!!.drinkTypeUid,
+                        iconUid = selectedPresetIcon!!.iconUid
+                    )
+                )
+                insertFinished()
+            }
         }
     }
 
-    @VisibleForTesting
-    fun onAddPresetSuccess(preset: Preset) {
-        state.value = AddPresetSuccess(preset)
-    }
-
-    @VisibleForTesting
-    fun onAddPresetFailed() {
-        state.value = AddPresetFailed
+    private fun insertFinished() {
+        state.value = AddPresetState.PresetAdded
     }
 }

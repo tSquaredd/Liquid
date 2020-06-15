@@ -17,25 +17,17 @@ import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.R
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.DoubleConfirmDialog
-import com.tsquaredapplications.liquid.common.ErrorDialogFragment
 import com.tsquaredapplications.liquid.common.GlideApp
 import com.tsquaredapplications.liquid.common.database.icons.Icon
-import com.tsquaredapplications.liquid.common.database.presets.Preset
 import com.tsquaredapplications.liquid.databinding.FragmentEditPresetBinding
 import com.tsquaredapplications.liquid.ext.navigate
-import com.tsquaredapplications.liquid.ext.setAsGone
-import com.tsquaredapplications.liquid.ext.setAsVisibile
 import com.tsquaredapplications.liquid.presets.edit.EditPresetFragmentDirections.Companion.toPresetIconSelectionFragment
 import com.tsquaredapplications.liquid.presets.edit.EditPresetState.AmountInvalid
-import com.tsquaredapplications.liquid.presets.edit.EditPresetState.DeleteFailure
-import com.tsquaredapplications.liquid.presets.edit.EditPresetState.DeleteSuccess
-import com.tsquaredapplications.liquid.presets.edit.EditPresetState.HideProgressBar
+import com.tsquaredapplications.liquid.presets.edit.EditPresetState.Deleted
 import com.tsquaredapplications.liquid.presets.edit.EditPresetState.IconUpdated
 import com.tsquaredapplications.liquid.presets.edit.EditPresetState.Initialized
 import com.tsquaredapplications.liquid.presets.edit.EditPresetState.NameInvalid
-import com.tsquaredapplications.liquid.presets.edit.EditPresetState.ShowProgressBar
-import com.tsquaredapplications.liquid.presets.edit.EditPresetState.UpdateSuccess
-import com.tsquaredapplications.liquid.presets.edit.EditPresetState.UpdatedFailure
+import com.tsquaredapplications.liquid.presets.edit.EditPresetState.Updated
 import com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionFragment.Companion.PRESET_ICON_SELECTION_KEY
 import javax.inject.Inject
 
@@ -55,10 +47,6 @@ class EditPresetFragment : BaseFragment<FragmentEditPresetBinding>() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (activity as MainActivity).mainComponent.inject(this)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -112,14 +100,10 @@ class EditPresetFragment : BaseFragment<FragmentEditPresetBinding>() {
         when (state) {
             is Initialized -> onInitializedState(state)
             is IconUpdated -> onIconUpdated(state)
-            is UpdateSuccess -> onUpdateSuccess(state.updatedPreset)
-            is UpdatedFailure -> onUpdateFailure(state)
-            is DeleteSuccess -> onDeleteSuccess(state.deletedPreset)
-            is DeleteFailure -> onDeleteFailure(state)
+            is Updated -> findNavController().popBackStack()
+            is Deleted -> findNavController().popBackStack()
             is AmountInvalid -> onAmountInvalid(state.errorMessage)
             is NameInvalid -> onNameInvalid(state.errorMessage)
-            is ShowProgressBar -> showProgressBar()
-            is HideProgressBar -> hideProgressBar()
         }
     }
 
@@ -134,10 +118,9 @@ class EditPresetFragment : BaseFragment<FragmentEditPresetBinding>() {
             it.clear()
             it.insert(0, state.name)
         }
-        val storageReference = Firebase.storage.reference.child(state.iconPath)
 
         GlideApp.with(binding.presetIcon)
-            .load(storageReference)
+            .load(state.iconResource)
             .fitCenter()
             .into(binding.presetIcon)
     }
@@ -151,44 +134,11 @@ class EditPresetFragment : BaseFragment<FragmentEditPresetBinding>() {
             .into(binding.presetIcon)
     }
 
-    private fun onUpdateSuccess(preset: Preset) {
-        (activity as MainActivity).updatePreset(preset)
-        findNavController().popBackStack()
-    }
-
-    private fun onUpdateFailure(state: UpdatedFailure) {
-        showErrorFragment(state.failureMessage, state.dismissText)
-    }
-
-    private fun onDeleteSuccess(preset: Preset) {
-        (activity as MainActivity).deletePreset(preset)
-        findNavController().popBackStack()
-    }
-
-    private fun onDeleteFailure(state: DeleteFailure) {
-        showErrorFragment(state.failureMessage, state.dismissText)
-    }
-
-    private fun showErrorFragment(failureMessage: String, dismissText: String) {
-        ErrorDialogFragment(errorMessage = failureMessage, dismissButtonText = dismissText)
-            .show(parentFragmentManager, null)
-    }
-
     private fun onAmountInvalid(errorMessage: String) {
         binding.amountSelectionTextLayout.error = errorMessage
     }
 
     private fun onNameInvalid(errorMessage: String) {
         binding.nameTextLayout.error = errorMessage
-    }
-
-    private fun showProgressBar() {
-        binding.progressBar.setAsVisibile()
-        binding.loadingMask.setAsVisibile()
-    }
-
-    private fun hideProgressBar() {
-        binding.progressBar.setAsGone()
-        binding.loadingMask.setAsGone()
     }
 }
