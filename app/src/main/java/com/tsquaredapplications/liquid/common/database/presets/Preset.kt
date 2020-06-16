@@ -3,8 +3,8 @@ package com.tsquaredapplications.liquid.common.database.presets
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.tsquaredapplications.liquid.login.LiquidUnit
-import com.tsquaredapplications.liquid.login.convertOzToMl
+import com.tsquaredapplications.liquid.setup.LiquidUnit
+import com.tsquaredapplications.liquid.setup.convertOzToMl
 import kotlinx.android.parcel.Parcelize
 import java.text.DecimalFormat
 

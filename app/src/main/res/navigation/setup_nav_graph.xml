@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_nav_graph"
+    app:startDestination="@id/welcomeFragment"
+    tools:ignore="InvalidNavigation">
+
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.tsquaredapplications.liquid.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.tsquaredapplications.liquid.setup.WelcomeFragment"
+        tools:layout="@layout/fragment_welcome">
+        <action
+            android:id="@+id/toUserInformationFragment"
+            app:destination="@id/userInformationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userInformationFragment"
+        android:name="com.tsquaredapplications.liquid.setup.information.UserInformationFragment"
+        android:label="fragment_user_information"
+        tools:layout="@layout/fragment_user_information">
+        <action
+            android:id="@+id/toDailyGoalDisplayFragment"
+            app:destination="@id/dailyGoalDisplayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/dailyGoalDisplayFragment"
+        android:name="com.tsquaredapplications.liquid.setup.goal.GoalDisplayFragment"
+        android:label="fragment_daily_goal_display"
+        tools:layout="@layout/fragment_goal_display">
+        <action
+            android:id="@+id/toMainActivity"
+            app:destination="@id/mainActivity"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/welcomeFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="weight"
+            android:defaultValue="200"
+            app:argType="integer" />
+        <argument
+            android:name="unitChoice"
+            app:argType="com.tsquaredapplications.liquid.setup.LiquidUnit" />
+    </fragment>
+</navigation>

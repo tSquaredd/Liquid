@@ -2,7 +2,7 @@ package com.tsquaredapplications.liquid.home.resources
 
 import android.content.Context
 import com.tsquaredapplications.liquid.R
-import com.tsquaredapplications.liquid.login.LiquidUnit
+import com.tsquaredapplications.liquid.setup.LiquidUnit
 import javax.inject.Inject
 
 class HomeResourceWrapperImpl
