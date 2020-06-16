@@ -10,7 +10,7 @@ import com.tsquaredapplications.liquid.setup.goal.GoalDisplayState.Initialized
 import com.tsquaredapplications.liquid.setup.goal.GoalDisplayState.UserInformationSaved
 import io.mockk.MockKAnnotations
 import io.mockk.clearMocks
-import io.mockk.impl.annotations.MockK
+import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.mockk
 import io.mockk.verify
@@ -25,7 +25,7 @@ import org.junit.jupiter.api.TestInstance
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 internal class GoalDisplayViewModelTest : BaseViewModelTest() {
 
-    @MockK
+    @RelaxedMockK
     lateinit var userManager: UserManager
 
     @RelaxedMockK
@@ -69,13 +69,11 @@ internal class GoalDisplayViewModelTest : BaseViewModelTest() {
         @Test
         fun `when db succeeds then send data success state`() {
             val userInformation = mockk<UserInformation>()
+            every { userManager.setUser(userInformation) } returns Unit
             viewModel.onFinishClick()
 
-            verify(exactly = 4) { stateObserver.onChanged(capture(stateList)) }
+            verify(exactly = 2) { stateObserver.onChanged(capture(stateList)) }
             stateList.assertStateOrder(Initialized::class, UserInformationSaved::class)
-
-            val dataSuccessState = stateList[3] as UserInformationSaved
-            assertEquals(userInformation, dataSuccessState.userInformation)
         }
     }
 
