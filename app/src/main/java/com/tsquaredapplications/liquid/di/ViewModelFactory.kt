@@ -12,6 +12,7 @@ import com.tsquaredapplications.liquid.presets.edit.EditPresetViewModel
 import com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionViewModel
 import com.tsquaredapplications.liquid.presets.main.PresetsViewModel
 import com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionViewModel
+import com.tsquaredapplications.liquid.settings.SettingsViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -94,5 +95,10 @@ class ViewModelFactory
         @IntoMap
         @ViewModelKey(EditPresetViewModel::class)
         internal abstract fun bindEditPresetViewModel(viewModel: EditPresetViewModel): ViewModel
+
+        @Binds
+        @IntoMap
+        @ViewModelKey(SettingsViewModel::class)
+        internal abstract fun bindSettingsViewModel(viewModel: SettingsViewModel): ViewModel
     }
 }

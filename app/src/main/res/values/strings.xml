@@ -103,13 +103,13 @@
     <string name="drink_type_icon_content_description">Drink Type Icon</string>
     <!-- endregion -->
 
-    <!-- edit preset -->
+    <!-- region edit preset -->
     <string name="delete_preset_warning">Are you sure you want to delete your preset? You cannot undo this process!</string>
     <string name="delete_preset_failure">Uh-oh! Something went wrong with deleting your preset. Please try again.</string>
     <string name="update_preset_failure">Uh-oh! Something went wrong with updating your preset. Please try again.</string>
     <!-- endregion -->
 
-    <!-- Drink Types -->
+    <!-- region Drink Types -->
     <string name="beer">Beer</string>
     <string name="cocktail">Cocktail</string>
     <string name="coffee">Coffee</string>
@@ -125,6 +125,18 @@
     <string name="tea">Tea</string>
     <string name="water">Water</string>
     <string name="wine">Wine</string>
+    <!-- endregion -->
+
+    <!-- region Settings Screen -->
+    <string name="settings_option_arrow">Settings option arrow</string>
+    <string name="daily_goal">Daily Goal</string>
+    <string name="weight">Weight</string>
+    <string name="allow_reminders">Allow Reminders</string>
+    <string name="preferred_measurement">Preferred Measurement</string>
+    <string name="rate_this_app">Rate this App</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="lbs">Lbs</string>
     <!-- endregion -->
 
     <!-- TEMP -->
