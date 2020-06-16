@@ -21,9 +21,22 @@
         tools:layout="@layout/fragment_stats" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.tsquaredapplications.liquid.SettingsFragment"
+        android:name="com.tsquaredapplications.liquid.settings.SettingsFragment"
         android:label="@string/settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/toWeightSettingFragment"
+            app:destination="@id/weightSettingFragment" />
+        <action
+            android:id="@+id/toDailyGoalSettingFragment"
+            app:destination="@id/dailyGoalSettingFragment" />
+        <action
+            android:id="@+id/toLiquidUnitSettingFragment"
+            app:destination="@id/liquidUnitSettingFragment" />
+        <action
+            android:id="@+id/toNotificationSettingFragment"
+            app:destination="@id/notificationsSettingFragment" />
+    </fragment>
     <fragment
         android:id="@+id/presetsFragment"
         android:name="com.tsquaredapplications.liquid.presets.main.PresetsFragment"
@@ -124,4 +137,24 @@
             android:id="@+id/toPresetIconSelectionFragment"
             app:destination="@id/presetIconSelectionFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/weightSettingFragment"
+        android:name="com.tsquaredapplications.liquid.settings.weight.WeightSettingFragment"
+        android:label="fragment_weight_setting"
+        tools:layout="@layout/fragment_weight_setting" />
+    <fragment
+        android:id="@+id/dailyGoalSettingFragment"
+        android:name="com.tsquaredapplications.liquid.settings.goal.DailyGoalSettingFragment"
+        android:label="fragment_daily_goal_setting"
+        tools:layout="@layout/fragment_daily_goal_setting" />
+    <fragment
+        android:id="@+id/liquidUnitSettingFragment"
+        android:name="com.tsquaredapplications.liquid.settings.unit.LiquidUnitSettingFragment"
+        android:label="fragment_liquid_unit_setting"
+        tools:layout="@layout/fragment_liquid_unit_setting" />
+    <fragment
+        android:id="@+id/notificationsSettingFragment"
+        android:name="com.tsquaredapplications.liquid.settings.notifications.NotificationsSettingFragment"
+        android:label="fragment_notifications_setting"
+        tools:layout="@layout/fragment_notifications_setting" />
 </navigation>

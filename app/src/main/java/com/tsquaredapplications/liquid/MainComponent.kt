@@ -7,6 +7,7 @@ import com.tsquaredapplications.liquid.presets.edit.EditPresetFragment
 import com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionFragment
 import com.tsquaredapplications.liquid.presets.main.PresetsFragment
 import com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionFragment
+import com.tsquaredapplications.liquid.settings.SettingsFragment
 import dagger.Subcomponent
 
 @ActivityScope
@@ -25,4 +26,5 @@ interface MainComponent {
     fun inject(presetIconSelectionFragment: PresetIconSelectionFragment)
     fun inject(presetFragment: PresetsFragment)
     fun inject(editPresetFragment: EditPresetFragment)
+    fun inject(settingsFragment: SettingsFragment)
 }

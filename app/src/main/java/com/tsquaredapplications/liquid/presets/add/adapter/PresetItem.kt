@@ -15,19 +15,17 @@ class PresetItem(val presetDataWrapper: PresetDataWrapper, private val amountTex
     override val type: Int
         get() = PRESET_ID
 
+    override fun createBinding(inflater: LayoutInflater, parent: ViewGroup?): PresetItemBinding =
+        PresetItemBinding.inflate(inflater, parent, false)
+
     override fun bindView(binding: PresetItemBinding, payloads: List<Any>) {
         binding.name.text = presetDataWrapper.preset.name
         binding.amount.text = amountText.toLowerCase(Locale.getDefault())
         binding.drinkType.text = presetDataWrapper.drinkType.name
-
-//        val storageReference = Firebase.storage.reference.child(preset.icon.iconPath)
 
         GlideApp.with(binding.icon.context)
             .load(presetDataWrapper.icon.iconResource)
             .fitCenter()
             .into(binding.icon)
     }
-
-    override fun createBinding(inflater: LayoutInflater, parent: ViewGroup?): PresetItemBinding =
-        PresetItemBinding.inflate(inflater, parent, false)
 }
