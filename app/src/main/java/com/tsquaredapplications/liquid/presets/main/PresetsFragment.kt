@@ -16,7 +16,7 @@ import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentPresetsBinding
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.ext.setAsGone
-import com.tsquaredapplications.liquid.ext.setAsVisibile
+import com.tsquaredapplications.liquid.ext.setAsVisible
 import com.tsquaredapplications.liquid.presets.add.adapter.PresetItem
 import com.tsquaredapplications.liquid.presets.main.PresetState.Initialized
 import com.tsquaredapplications.liquid.presets.main.PresetState.Refresh
@@ -72,9 +72,9 @@ class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
 
     private fun showPlaceholder() {
         binding.presetsRecyclerView.setAsGone()
-        binding.emptyHeader.setAsVisibile()
-        binding.emptyImage.setAsVisibile()
-        binding.createPresetFab.setAsVisibile()
+        binding.emptyHeader.setAsVisible()
+        binding.emptyImage.setAsVisible()
+        binding.createPresetFab.setAsVisible()
         hideProgressBar()
     }
 
@@ -83,8 +83,8 @@ class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
         itemAdapter.add(presets)
         binding.emptyHeader.setAsGone()
         binding.emptyImage.setAsGone()
-        binding.presetsRecyclerView.setAsVisibile()
-        binding.createPresetFab.setAsVisibile()
+        binding.presetsRecyclerView.setAsVisible()
+        binding.createPresetFab.setAsVisible()
         hideProgressBar()
     }
 
@@ -115,11 +115,11 @@ class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
             itemAdapter.add(presets)
             binding.emptyHeader.setAsGone()
             binding.emptyImage.setAsGone()
-            binding.presetsRecyclerView.setAsVisibile()
+            binding.presetsRecyclerView.setAsVisible()
         } else {
             binding.presetsRecyclerView.setAsGone()
-            binding.emptyHeader.setAsVisibile()
-            binding.emptyImage.setAsVisibile()
+            binding.emptyHeader.setAsVisible()
+            binding.emptyImage.setAsVisible()
         }
     }
 }
