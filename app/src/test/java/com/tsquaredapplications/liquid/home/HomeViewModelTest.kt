@@ -5,7 +5,7 @@ import com.tsquaredapplications.liquid.common.BaseViewModelTest
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.home.model.HomeState
 import com.tsquaredapplications.liquid.home.resources.HomeResourceWrapper
-import com.tsquaredapplications.liquid.login.LiquidUnit
+import com.tsquaredapplications.liquid.setup.LiquidUnit
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify

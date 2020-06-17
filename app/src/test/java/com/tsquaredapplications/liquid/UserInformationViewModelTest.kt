@@ -2,10 +2,10 @@ package com.tsquaredapplications.liquid
 
 import androidx.lifecycle.Observer
 import com.tsquaredapplications.liquid.common.BaseViewModelTest
-import com.tsquaredapplications.liquid.login.LiquidUnit
-import com.tsquaredapplications.liquid.login.information.UserInformationState
-import com.tsquaredapplications.liquid.login.information.UserInformationViewModel
-import com.tsquaredapplications.liquid.login.information.resources.UserInformationResourceWrapper
+import com.tsquaredapplications.liquid.setup.LiquidUnit
+import com.tsquaredapplications.liquid.setup.information.UserInformationState
+import com.tsquaredapplications.liquid.setup.information.UserInformationViewModel
+import com.tsquaredapplications.liquid.setup.information.resources.UserInformationResourceWrapper
 import io.mockk.MockKAnnotations
 import io.mockk.clearMocks
 import io.mockk.every
@@ -13,7 +13,7 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.slot
 import io.mockk.verify
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class UserInformationViewModelTest: BaseViewModelTest() {
+class UserInformationViewModelTest : BaseViewModelTest() {
 
     @MockK
     lateinit var resourceWrapper: UserInformationResourceWrapper
@@ -100,7 +100,7 @@ class UserInformationViewModelTest: BaseViewModelTest() {
             assertInvalidWeighScenario()
         }
 
-        private fun assertInvalidWeighScenario(){
+        private fun assertInvalidWeighScenario() {
             verify(exactly = 1) { stateObserver.onChanged(capture(stateSlot)) }
             val state = stateSlot.captured as UserInformationState.InvalidWeight
             assertEquals(WEIGHT_ERROR_MESSAGE, state.errorMessage)

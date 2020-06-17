@@ -10,16 +10,16 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.google.firebase.storage.FirebaseStorage
 import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.GlideApp
 import com.tsquaredapplications.liquid.common.database.icons.Icon
 import com.tsquaredapplications.liquid.common.database.types.DrinkType
 import com.tsquaredapplications.liquid.databinding.FragmentAddPresetBinding
+import com.tsquaredapplications.liquid.ext.keyboardHidingFocusChangeListener
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.ext.setAsGone
-import com.tsquaredapplications.liquid.ext.setAsVisibile
+import com.tsquaredapplications.liquid.ext.setAsVisible
 import com.tsquaredapplications.liquid.presets.add.AddPresetFragmentDirections.Companion.toAddPresetIconSelectionFragment
 import com.tsquaredapplications.liquid.presets.add.AddPresetFragmentDirections.Companion.toAddPresetTypeSelectionFragment
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState
@@ -38,9 +38,6 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    @Inject
-    lateinit var storage: FirebaseStorage
 
     private val viewModel: AddPresetViewModel by viewModels { viewModelFactory }
 
@@ -64,18 +61,24 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
             viewModel.onAddClicked()
         }
 
-        binding.nameEditText.addTextChangedListener {
-            it?.let {
-                viewModel.onNameChanged(it.toString())
-                binding.nameTextLayout.error = ""
+        with(binding.nameEditText) {
+            addTextChangedListener {
+                it?.let {
+                    viewModel.onNameChanged(it.toString())
+                    binding.nameTextLayout.error = ""
+                }
             }
+            onFocusChangeListener = keyboardHidingFocusChangeListener
         }
 
-        binding.amountSelectionEditText.addTextChangedListener {
-            it?.let {
-                viewModel.onAmountChanged(it.toString())
-                binding.amountSelectionTextLayout.error = ""
+        with(binding.amountSelectionEditText) {
+            addTextChangedListener {
+                it?.let {
+                    viewModel.onAmountChanged(it.toString())
+                    binding.amountSelectionTextLayout.error = ""
+                }
             }
+            onFocusChangeListener = keyboardHidingFocusChangeListener
         }
 
         with(binding.typeSelectionEditText) {
@@ -141,8 +144,8 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
             .fitCenter()
             .into(binding.presetIcon)
 
-        binding.circularBackground.setAsVisibile()
-        binding.presetIcon.setAsVisibile()
+        binding.circularBackground.setAsVisible()
+        binding.presetIcon.setAsVisible()
     }
 
     private fun onInvalidName(state: InvalidName) {

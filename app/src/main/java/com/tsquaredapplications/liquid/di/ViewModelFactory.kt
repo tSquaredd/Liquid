@@ -3,16 +3,14 @@ package com.tsquaredapplications.liquid.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.tsquaredapplications.liquid.home.HomeViewModel
-import com.tsquaredapplications.liquid.login.goal.GoalDisplayViewModel
-import com.tsquaredapplications.liquid.login.information.UserInformationViewModel
-import com.tsquaredapplications.liquid.login.login.EmailLoginViewModel
-import com.tsquaredapplications.liquid.login.signup.EmailSignUpViewModel
 import com.tsquaredapplications.liquid.presets.add.AddPresetViewModel
 import com.tsquaredapplications.liquid.presets.edit.EditPresetViewModel
 import com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionViewModel
 import com.tsquaredapplications.liquid.presets.main.PresetsViewModel
 import com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionViewModel
 import com.tsquaredapplications.liquid.settings.SettingsViewModel
+import com.tsquaredapplications.liquid.setup.goal.GoalDisplayViewModel
+import com.tsquaredapplications.liquid.setup.information.UserInformationViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
@@ -44,16 +42,6 @@ class ViewModelFactory
 
         @Binds
         internal abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
-
-        @Binds
-        @IntoMap
-        @ViewModelKey(EmailLoginViewModel::class)
-        internal abstract fun bindEmailLoginViewModel(viewModel: EmailLoginViewModel): ViewModel
-
-        @Binds
-        @IntoMap
-        @ViewModelKey(EmailSignUpViewModel::class)
-        internal abstract fun bindEmailSignUpViewModel(viewModel: EmailSignUpViewModel): ViewModel
 
         @Binds
         @IntoMap

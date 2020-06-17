@@ -2,7 +2,7 @@ package com.tsquaredapplications.liquid.presets.add.model
 
 import com.tsquaredapplications.liquid.common.database.icons.Icon
 import com.tsquaredapplications.liquid.common.database.types.DrinkType
-import com.tsquaredapplications.liquid.login.LiquidUnit
+import com.tsquaredapplications.liquid.setup.LiquidUnit
 
 sealed class AddPresetState {
     class Initialized(val unit: LiquidUnit) : AddPresetState()

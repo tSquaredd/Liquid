@@ -11,8 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.R
 import com.tsquaredapplications.liquid.common.BaseFragment
@@ -126,10 +124,8 @@ class EditPresetFragment : BaseFragment<FragmentEditPresetBinding>() {
     }
 
     private fun onIconUpdated(state: IconUpdated) {
-        val storageReference = Firebase.storage.reference.child(state.iconPath)
-
         GlideApp.with(binding.presetIcon)
-            .load(storageReference)
+            .load(state.iconPath)
             .fitCenter()
             .into(binding.presetIcon)
     }

@@ -1,0 +1,20 @@
+package com.tsquaredapplications.liquid.setup
+
+import com.tsquaredapplications.liquid.setup.goal.resources.GoalDisplayResourceWrapper
+import com.tsquaredapplications.liquid.setup.goal.resources.GoalDisplayResourceWrapperImpl
+import com.tsquaredapplications.liquid.setup.information.resources.UserInformationResourceWrapper
+import com.tsquaredapplications.liquid.setup.information.resources.UserInformationResourceWrapperImpl
+import dagger.Module
+import dagger.Provides
+
+@Module(subcomponents = [SetupComponent::class])
+class SetupModule {
+
+    @Provides
+    fun providesUserInformationResourceWrapper(impl: UserInformationResourceWrapperImpl)
+            : UserInformationResourceWrapper = impl
+
+    @Provides
+    fun providesGoalDisplayResourceWrapper(impl: GoalDisplayResourceWrapperImpl)
+            : GoalDisplayResourceWrapper = impl
+}

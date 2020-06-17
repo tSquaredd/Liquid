@@ -7,7 +7,6 @@ import com.tsquaredapplications.liquid.common.database.presets.PresetRepository
 import com.tsquaredapplications.liquid.common.database.types.DrinkType
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.ext.assertStateOrder
-import com.tsquaredapplications.liquid.login.LiquidUnit
 import com.tsquaredapplications.liquid.presets.add.AddPresetViewModel
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.DrinkTypeSelected
@@ -18,6 +17,7 @@ import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidI
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidName
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.PresetIconSelected
 import com.tsquaredapplications.liquid.presets.add.resources.AddPresetResourceWrapper
+import com.tsquaredapplications.liquid.setup.LiquidUnit
 import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
