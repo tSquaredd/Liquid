@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentGoalSettingBinding
+import com.tsquaredapplications.liquid.ext.keyboardHidingFocusChangeListener
 import com.tsquaredapplications.liquid.settings.goal.GoalSettingState.Finished
 import com.tsquaredapplications.liquid.settings.goal.GoalSettingState.Initialized
 import com.tsquaredapplications.liquid.settings.goal.GoalSettingState.InvalidAmount
@@ -43,9 +44,13 @@ class GoalSettingFragment : BaseFragment<FragmentGoalSettingBinding>() {
             viewModel.update()
         }
 
-        binding.goalSelectionEditText.addTextChangedListener { editable ->
-            editable?.toString()?.let { viewModel.onGoalInputChanged(it) }
-            binding.goalSelectionTextLayout.error = ""
+        with(binding.goalSelectionEditText) {
+            addTextChangedListener { editable ->
+                editable?.toString()?.let { viewModel.onGoalInputChanged(it) }
+                binding.goalSelectionTextLayout.error = ""
+            }
+
+            onFocusChangeListener = keyboardHidingFocusChangeListener
         }
 
         viewModel.stateLiveData.observe(viewLifecycleOwner, Observer {
