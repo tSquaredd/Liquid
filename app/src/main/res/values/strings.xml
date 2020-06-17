@@ -96,7 +96,7 @@
     <string name="new_preset_icon_content_description">icon used for new preset</string>
     <string name="name_error_message">Enter a name</string>
     <string name="type_error_message">Select a drink type</string>
-    <string name="size_error_message">Enter an amount</string>
+    <string name="amount_error_message">Enter an amount</string>
     <!-- endregion -->
 
     <!-- region preset type selection -->
@@ -139,6 +139,11 @@
     <string name="lbs">Lbs</string>
     <!-- endregion -->
 
+    <!-- region Goal Settings -->
+    <string name="enter_your_daily_goal">Enter your Daily Goal!</string>
+    <string name="fish_content_description">Happy fish</string>
+    <!-- endregion -->
+
     <!-- TEMP -->
     <string name="google">Google</string>
     <string name="apple">Apple</string>
@@ -147,4 +152,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="preference_file_key" translatable="false">liquid-app-prefs</string>
+
+
 </resources>

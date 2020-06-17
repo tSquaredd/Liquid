@@ -144,9 +144,9 @@
         tools:layout="@layout/fragment_weight_setting" />
     <fragment
         android:id="@+id/dailyGoalSettingFragment"
-        android:name="com.tsquaredapplications.liquid.settings.goal.DailyGoalSettingFragment"
-        android:label="fragment_daily_goal_setting"
-        tools:layout="@layout/fragment_daily_goal_setting" />
+        android:name="com.tsquaredapplications.liquid.settings.goal.GoalSettingFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_goal_setting" />
     <fragment
         android:id="@+id/liquidUnitSettingFragment"
         android:name="com.tsquaredapplications.liquid.settings.unit.LiquidUnitSettingFragment"

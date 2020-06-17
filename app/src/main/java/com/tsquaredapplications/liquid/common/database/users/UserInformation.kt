@@ -6,8 +6,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class UserInformation(
-    val weight: Int = 150,
-    val unitPreference: LiquidUnit = LiquidUnit.OZ,
-    val dailyGoal: Int = 75,
-    val notifications: Boolean = true
+    var weight: Int = 150,
+    var unitPreference: LiquidUnit = LiquidUnit.OZ,
+    var dailyGoal: Int = 75,
+    var notifications: Boolean = true
 ) : Parcelable
