@@ -7,7 +7,7 @@ import javax.inject.Inject
 class EditPresetResourceWrapperImpl
 @Inject constructor(val context: Context) : EditPresetResourceWrapper {
     override val amountErrorMessage: String
-        get() = context.getString(R.string.size_error_message)
+        get() = context.getString(R.string.amount_error_message)
 
     override val nameErrorMessage: String
         get() = context.getString(R.string.name_error_message)

@@ -9,6 +9,7 @@ import com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionViewModel
 import com.tsquaredapplications.liquid.presets.main.PresetsViewModel
 import com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionViewModel
 import com.tsquaredapplications.liquid.settings.SettingsViewModel
+import com.tsquaredapplications.liquid.settings.goal.GoalSettingViewModel
 import com.tsquaredapplications.liquid.setup.goal.GoalDisplayViewModel
 import com.tsquaredapplications.liquid.setup.information.UserInformationViewModel
 import dagger.Binds
@@ -88,5 +89,10 @@ class ViewModelFactory
         @IntoMap
         @ViewModelKey(SettingsViewModel::class)
         internal abstract fun bindSettingsViewModel(viewModel: SettingsViewModel): ViewModel
+
+        @Binds
+        @IntoMap
+        @ViewModelKey(GoalSettingViewModel::class)
+        internal abstract fun bindGoalSettingViewModel(viewModel: GoalSettingViewModel): ViewModel
     }
 }

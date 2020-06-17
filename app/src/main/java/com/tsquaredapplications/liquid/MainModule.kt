@@ -7,6 +7,8 @@ import com.tsquaredapplications.liquid.presets.add.resources.AddPresetResourceWr
 import com.tsquaredapplications.liquid.presets.add.resources.AddPresetResourceWrapperImpl
 import com.tsquaredapplications.liquid.presets.edit.resources.EditPresetResourceWrapper
 import com.tsquaredapplications.liquid.presets.edit.resources.EditPresetResourceWrapperImpl
+import com.tsquaredapplications.liquid.settings.goal.resources.GoalSettingResourceWrapper
+import com.tsquaredapplications.liquid.settings.goal.resources.GoalSettingResourceWrapperImpl
 import com.tsquaredapplications.liquid.settings.resources.SettingsResourceWrapper
 import com.tsquaredapplications.liquid.settings.resources.SettingsResourceWrapperImpl
 import dagger.Module
@@ -34,4 +36,8 @@ class MainModule {
     @Provides
     fun provideSettingsResourceWrapper(impl: SettingsResourceWrapperImpl)
             : SettingsResourceWrapper = impl
+
+    @Provides
+    fun provideGoalSettingResourceWrapper(impl: GoalSettingResourceWrapperImpl)
+            : GoalSettingResourceWrapper = impl
 }
