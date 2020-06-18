@@ -9,7 +9,7 @@ import com.tsquaredapplications.liquid.common.database.presets.PresetDataWrapper
 import com.tsquaredapplications.liquid.databinding.PresetItemBinding
 import java.util.*
 
-class PresetItem(val presetDataWrapper: PresetDataWrapper, private val amountText: String) :
+class DetailedPresetItem(val presetDataWrapper: PresetDataWrapper, private val amountText: String) :
     AbstractBindingItem<PresetItemBinding>() {
 
     override val type: Int

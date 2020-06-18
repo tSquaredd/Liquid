@@ -17,7 +17,7 @@ import com.tsquaredapplications.liquid.databinding.FragmentPresetsBinding
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.ext.setAsGone
 import com.tsquaredapplications.liquid.ext.setAsVisible
-import com.tsquaredapplications.liquid.presets.add.adapter.PresetItem
+import com.tsquaredapplications.liquid.presets.add.adapter.DetailedPresetItem
 import com.tsquaredapplications.liquid.presets.main.PresetState.Initialized
 import com.tsquaredapplications.liquid.presets.main.PresetState.Refresh
 import com.tsquaredapplications.liquid.presets.main.PresetsFragmentDirections.Companion.toAddPresetFragment
@@ -31,7 +31,7 @@ class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
 
     private val viewModel: PresetsViewModel by viewModels { viewModelFactory }
 
-    private val itemAdapter = ItemAdapter<PresetItem>()
+    private val itemAdapter = ItemAdapter<DetailedPresetItem>()
     private val fastAdapter = FastAdapter.with(itemAdapter)
 
     override fun setBinding(
@@ -50,7 +50,7 @@ class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
             onStateChange(it)
         })
 
-       viewModel.getPresets()
+        viewModel.getPresets()
     }
 
     override fun onAttach(context: Context) {
@@ -78,9 +78,9 @@ class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
         hideProgressBar()
     }
 
-    private fun showPresets(presets: List<PresetItem>) {
+    private fun showPresets(detailedPresets: List<DetailedPresetItem>) {
         itemAdapter.clear()
-        itemAdapter.add(presets)
+        itemAdapter.add(detailedPresets)
         binding.emptyHeader.setAsGone()
         binding.emptyImage.setAsGone()
         binding.presetsRecyclerView.setAsVisible()
@@ -96,23 +96,23 @@ class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
 
     private fun onStateChange(state: PresetState) {
         when (state) {
-            is Initialized -> onInitializedState(state.presets)
-            is Refresh -> onRefreshedState(state.presets)
+            is Initialized -> onInitializedState(state.detailedPresets)
+            is Refresh -> onRefreshedState(state.detailedPresets)
         }
     }
 
-    private fun onInitializedState(presets: List<PresetItem>) {
-        if (presets.isEmpty()) {
+    private fun onInitializedState(detailedPresets: List<DetailedPresetItem>) {
+        if (detailedPresets.isEmpty()) {
             showPlaceholder()
         } else {
-            showPresets(presets)
+            showPresets(detailedPresets)
         }
     }
 
-    private fun onRefreshedState(presets: List<PresetItem>) {
+    private fun onRefreshedState(detailedPresets: List<DetailedPresetItem>) {
         itemAdapter.clear()
-        if (presets.isNotEmpty()) {
-            itemAdapter.add(presets)
+        if (detailedPresets.isNotEmpty()) {
+            itemAdapter.add(detailedPresets)
             binding.emptyHeader.setAsGone()
             binding.emptyImage.setAsGone()
             binding.presetsRecyclerView.setAsVisible()

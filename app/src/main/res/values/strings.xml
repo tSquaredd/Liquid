@@ -144,6 +144,10 @@
     <string name="fish_content_description">Happy fish</string>
     <!-- endregion -->
 
+    <!-- region select drink -->
+    <string name="no_presets_header">Add your most frequently consumed beverage in presets!</string>
+    <!-- endregion -->
+
     <!-- TEMP -->
     <string name="google">Google</string>
     <string name="apple">Apple</string>

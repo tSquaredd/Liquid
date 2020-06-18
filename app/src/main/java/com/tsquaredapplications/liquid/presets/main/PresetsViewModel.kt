@@ -7,7 +7,7 @@ import com.tsquaredapplications.liquid.common.SingleEventLiveData
 import com.tsquaredapplications.liquid.common.database.presets.PresetDataWrapper
 import com.tsquaredapplications.liquid.common.database.presets.PresetRepository
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
-import com.tsquaredapplications.liquid.presets.add.adapter.PresetItem
+import com.tsquaredapplications.liquid.presets.add.adapter.DetailedPresetItem
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,7 +30,7 @@ class PresetsViewModel
 
     private fun onPresetsRetrieved(presets: List<PresetDataWrapper>) {
         state.value = PresetState.Initialized(presets.map {
-            PresetItem(it, it.preset.createAmountString(userInformation.unitPreference))
+            DetailedPresetItem(it, it.preset.createAmountString(userInformation.unitPreference))
         })
     }
 }
