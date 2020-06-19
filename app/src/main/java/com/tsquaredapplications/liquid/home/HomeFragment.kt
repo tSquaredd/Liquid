@@ -12,7 +12,7 @@ import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentHomeBinding
 import com.tsquaredapplications.liquid.ext.navigate
-import com.tsquaredapplications.liquid.home.HomeFragmentDirections.Companion.toDrinkTypeFragment
+import com.tsquaredapplications.liquid.home.HomeFragmentDirections.Companion.toSelectDrinkFragment
 import com.tsquaredapplications.liquid.home.model.HomeState
 import com.tsquaredapplications.liquid.home.model.HomeState.Initialized
 import javax.inject.Inject
@@ -31,7 +31,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.addDrinkButton.setOnClickListener {
-            navigate(toDrinkTypeFragment())
+            navigate(toSelectDrinkFragment())
         }
 
         viewModel.stateLiveData.observe(viewLifecycleOwner, Observer {

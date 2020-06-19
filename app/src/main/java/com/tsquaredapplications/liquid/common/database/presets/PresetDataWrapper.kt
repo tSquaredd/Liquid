@@ -10,8 +10,11 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class PresetDataWrapper(
     @Embedded val preset: Preset,
-    @Relation(parentColumn = "iconUid", entityColumn = "iconUid")
+    @Relation(parentColumn = "iconUid", entityColumn = "iconUid", entity = Icon::class)
     val icon: Icon,
-    @Relation(parentColumn = "drinkTypeUid", entityColumn = "drinkTypeUid")
+    @Relation(parentColumn = "drinkTypeUid",
+        entityColumn = "drinkTypeUid",
+        entity = DrinkType::class
+    )
     val drinkType: DrinkType
 ) : Parcelable

@@ -14,11 +14,11 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.common.BaseFragment
+import com.tsquaredapplications.liquid.common.adapter.TypeItem
 import com.tsquaredapplications.liquid.databinding.FragmentPresetTypeSelectionBinding
 import com.tsquaredapplications.liquid.presets.add.AddPresetFragment.Companion.DRINK_TYPE_SELECTION_KEY
 import com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionState.Initialized
 import com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionState.TypeSelected
-import com.tsquaredapplications.liquid.presets.type.adapter.TypeItem
 import javax.inject.Inject
 
 class PresetTypeSelectionFragment : BaseFragment<FragmentPresetTypeSelectionBinding>() {
@@ -38,8 +38,8 @@ class PresetTypeSelectionFragment : BaseFragment<FragmentPresetTypeSelectionBind
         FragmentPresetTypeSelectionBinding.inflate(inflater, container, false)
 
     override fun onAttach(context: Context) {
-        super.onAttach(context)
         (activity as MainActivity).mainComponent.inject(this)
+        super.onAttach(context)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,9 +52,7 @@ class PresetTypeSelectionFragment : BaseFragment<FragmentPresetTypeSelectionBind
                 onStateChange(it)
             })
 
-            getDrinkTypes().observe(viewLifecycleOwner, Observer {
-                itemAdapter.add(it)
-            })
+            start()
         }
     }
 

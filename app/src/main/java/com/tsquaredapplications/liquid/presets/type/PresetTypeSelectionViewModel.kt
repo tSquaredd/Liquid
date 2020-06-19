@@ -1,27 +1,27 @@
 package com.tsquaredapplications.liquid.presets.type
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import com.tsquaredapplications.liquid.common.SingleEventLiveData
+import androidx.lifecycle.viewModelScope
+import com.tsquaredapplications.liquid.common.BaseViewModel
+import com.tsquaredapplications.liquid.common.adapter.TypeItem
 import com.tsquaredapplications.liquid.common.database.types.TypeRepository
+import com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionState.Initialized
 import com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionState.TypeSelected
-import com.tsquaredapplications.liquid.presets.type.adapter.TypeItem
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PresetTypeSelectionViewModel
-@Inject constructor(private val typeRepository: TypeRepository) : ViewModel() {
+@Inject constructor(private val typeRepository: TypeRepository) :
+    BaseViewModel<PresetTypeSelectionState>() {
 
-    private val state = SingleEventLiveData<PresetTypeSelectionState>()
-    val stateLiveData: LiveData<PresetTypeSelectionState>
-        get() = state
-
-    fun getDrinkTypes(): LiveData<List<TypeItem>> =
-        Transformations.map(typeRepository.getAllTypes()) {
-            it.map { drinkTypeAndIcon ->
-                TypeItem(drinkTypeAndIcon)
+    fun start() {
+        viewModelScope.launch {
+            val typeItems = typeRepository.getAllTypes().map {
+                TypeItem(it)
             }
+
+            state.value = Initialized(typeItems)
         }
+    }
 
     fun onItemClick(item: TypeItem) {
         state.value = TypeSelected(item.drinkTypeAndIcon.drinkType)

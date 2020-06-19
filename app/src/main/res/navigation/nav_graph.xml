@@ -11,8 +11,8 @@
         android:label="@string/home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/toDrinkTypeFragment"
-            app:destination="@id/selectDrinkTypeFragment" />
+            android:id="@+id/toSelectDrinkFragment"
+            app:destination="@id/selectDrinkFragment" />
     </fragment>
     <fragment
         android:id="@+id/statsFragment"
@@ -50,10 +50,10 @@
             app:destination="@id/editPresetFragment" />
     </fragment>
     <fragment
-        android:id="@+id/selectDrinkTypeFragment"
-        android:name="com.tsquaredapplications.liquid.SelectDrinkTypeFragment"
+        android:id="@+id/selectDrinkFragment"
+        android:name="com.tsquaredapplications.liquid.add.drink.SelectDrinkFragment"
         android:label="@string/select_a_drink"
-        tools:layout="@layout/fragment_select_drink_type">
+        tools:layout="@layout/fragment_select_drink">
         <action
             android:id="@+id/toDrinkAmountFragment"
             app:destination="@id/drinkAmountFragment" />
@@ -68,6 +68,9 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="drinkType"
+            app:argType="com.tsquaredapplications.liquid.common.database.types.DrinkTypeAndIcon" />
     </fragment>
     <fragment
         android:id="@+id/addPresetFragment"
