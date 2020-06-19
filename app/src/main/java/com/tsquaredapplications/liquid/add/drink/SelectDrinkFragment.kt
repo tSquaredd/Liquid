@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkFragmentDirections.Companion.toDrinkAmountFragment
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkState.Initialized
+import com.tsquaredapplications.liquid.add.drink.SelectDrinkState.PresetInserted
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.adapter.PresetItem
 import com.tsquaredapplications.liquid.common.adapter.TypeItem
@@ -62,7 +64,7 @@ class SelectDrinkFragment : BaseFragment<FragmentSelectDrinkBinding>() {
         }
 
         presetsAdapter.onClickListener = { _, _, item, _ ->
-            // TODO LIQ-138
+            viewModel.presetSelected(item.presetDataWrapper)
             false
         }
 
@@ -79,19 +81,26 @@ class SelectDrinkFragment : BaseFragment<FragmentSelectDrinkBinding>() {
 
     private fun onStateChanged(state: SelectDrinkState) {
         when (state) {
-            is Initialized -> {
-                if (state.presets.isNotEmpty()) {
-                    binding.noPresetsHeader.setAsGone()
-                    binding.presetsRecyclerView.setAsVisible()
-                    presetItemAdapter.clear()
-                    presetItemAdapter.add(state.presets)
-                } else {
-                    binding.noPresetsHeader.setAsVisible()
-                }
-
-                typeItemAdapter.clear()
-                typeItemAdapter.add(state.drinkTypes)
-            }
+            is Initialized -> onInitialized(state)
+            is PresetInserted -> onPresetInserted()
         }
+    }
+
+    private fun onInitialized(state: Initialized) {
+        if (state.presets.isNotEmpty()) {
+            binding.noPresetsHeader.setAsGone()
+            binding.presetsRecyclerView.setAsVisible()
+            presetItemAdapter.clear()
+            presetItemAdapter.add(state.presets)
+        } else {
+            binding.noPresetsHeader.setAsVisible()
+        }
+
+        typeItemAdapter.clear()
+        typeItemAdapter.add(state.drinkTypes)
+    }
+
+    private fun onPresetInserted() {
+        findNavController().popBackStack()
     }
 }

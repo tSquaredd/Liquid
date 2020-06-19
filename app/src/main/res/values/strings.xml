@@ -80,7 +80,7 @@
 
     <!-- region home screen -->
     <string name="your_progress">Your Progress</string>
-    <string name="progress">%d of %d %s</string>
+    <string name="progress">%s of %d %s</string>
     <!-- endregion-->
 
     <!-- region presets -->

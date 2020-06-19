@@ -6,4 +6,6 @@ import com.tsquaredapplications.liquid.common.adapter.TypeItem
 sealed class SelectDrinkState {
     class Initialized(val presets: List<PresetItem>, val drinkTypes: List<TypeItem>) :
         SelectDrinkState()
+
+    object PresetInserted : SelectDrinkState()
 }

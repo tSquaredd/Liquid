@@ -4,6 +4,9 @@ import android.app.Application
 import android.content.Context
 import com.google.firebase.FirebaseApp
 import com.tsquaredapplications.liquid.common.database.AppDatabase
+import com.tsquaredapplications.liquid.common.database.entry.EntryDao
+import com.tsquaredapplications.liquid.common.database.entry.EntryRepository
+import com.tsquaredapplications.liquid.common.database.entry.RoomEntryRepository
 import com.tsquaredapplications.liquid.common.database.icons.IconDao
 import com.tsquaredapplications.liquid.common.database.icons.IconRepository
 import com.tsquaredapplications.liquid.common.database.icons.RoomIconRepository
@@ -63,6 +66,14 @@ class AppModule(private val application: Application) {
     @Provides
     @Singleton
     fun providePresetRepository(impl: RoomPresetRepository): PresetRepository = impl
+
+    @Provides
+    @Singleton
+    fun provideEntryDao(appDatabase: AppDatabase): EntryDao = appDatabase.entryDao()
+
+    @Provides
+    @Singleton
+    fun provideEntryRepository(impl: RoomEntryRepository): EntryRepository = impl
 
     @Provides
     @Singleton
