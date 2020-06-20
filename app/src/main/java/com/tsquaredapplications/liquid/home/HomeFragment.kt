@@ -12,6 +12,8 @@ import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentHomeBinding
 import com.tsquaredapplications.liquid.ext.navigate
+import com.tsquaredapplications.liquid.ext.setAsGone
+import com.tsquaredapplications.liquid.ext.setAsVisible
 import com.tsquaredapplications.liquid.home.HomeFragmentDirections.Companion.toSelectDrinkFragment
 import com.tsquaredapplications.liquid.home.model.HomeState
 import com.tsquaredapplications.liquid.home.model.HomeState.Initialized
@@ -54,5 +56,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     private fun onInitialized(state: Initialized) {
         binding.progressTextView.text = state.goalProgress
+        if (state.isNegative) {
+            binding.progressImage.alpha = 0f
+            binding.negativeHydrationImage.setAsVisible()
+        } else {
+            binding.progressImage.alpha = 1f
+            binding.negativeHydrationImage.setAsGone()
+        }
     }
 }
