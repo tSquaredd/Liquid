@@ -1,5 +1,7 @@
 package com.tsquaredapplications.liquid
 
+import com.tsquaredapplications.liquid.add.amount.DrinkAmountResourceWrapper
+import com.tsquaredapplications.liquid.add.amount.DrinkAmountResourceWrapperImpl
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.home.resources.HomeResourceWrapper
 import com.tsquaredapplications.liquid.home.resources.HomeResourceWrapperImpl
@@ -40,4 +42,8 @@ class MainModule {
     @Provides
     fun provideGoalSettingResourceWrapper(impl: GoalSettingResourceWrapperImpl)
             : GoalSettingResourceWrapper = impl
+
+    @Provides
+    fun provideDrinkAmountResourceWrapper(impl: DrinkAmountResourceWrapperImpl)
+            : DrinkAmountResourceWrapper = impl
 }

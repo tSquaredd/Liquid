@@ -4,19 +4,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DrinkAmountFragment">
+    tools:context=".add.amount.DrinkAmountFragment">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/drink_amount" />
-
-    <Button
-        android:id="@+id/addButton"
+        android:id="@+id/drinkTypeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:textColor="@color/colorWhite"
+        android:textSize="36dp"
+        app:layout_constraintBottom_toBottomOf="@id/circularBackground"
+        app:layout_constraintEnd_toStartOf="@id/circularBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/circularBackground"
+        tools:ignore="SpUsage"
+        tools:text="Iced Tea" />
+
+    <View
+        android:id="@+id/circularBackground"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/type_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/drinkTypeName"
+        app:layout_constraintTop_toBottomOf="@id/drinkTypeName"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/presetIcon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="40dp"
+        android:contentDescription="@string/new_preset_icon_content_description"
+        android:src="@drawable/drink_type_placeholder_large"
+        app:layout_constraintBottom_toBottomOf="@id/circularBackground"
+        app:layout_constraintEnd_toEndOf="@id/circularBackground"
+        app:layout_constraintStart_toStartOf="@id/circularBackground"
+        app:layout_constraintTop_toTopOf="@id/circularBackground" />
+
+    <DatePicker
+        android:id="@+id/datePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        app:layout_constraintBottom_toTopOf="@id/amountSelectionTextLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/circularBackground" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/amountSelectionTextLayout"
+        style="@style/PrimaryTextInputLayout"
+        android:layout_width="124dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:text="drink amount entered"
+        app:errorIconDrawable="@drawable/text_field_error"
+        app:layout_constraintBottom_toTopOf="@id/addButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/datePicker">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/amountSelectionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:textColor="@color/colorWhite" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/addButton"
+        style="@style/PrimaryButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/add_preset"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
