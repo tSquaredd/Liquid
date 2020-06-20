@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.tsquaredapplications.liquid.MainActivity
+import com.tsquaredapplications.liquid.R
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.GlideApp
 import com.tsquaredapplications.liquid.common.database.icons.Icon
@@ -18,8 +19,6 @@ import com.tsquaredapplications.liquid.common.database.types.DrinkType
 import com.tsquaredapplications.liquid.databinding.FragmentAddPresetBinding
 import com.tsquaredapplications.liquid.ext.keyboardHidingFocusChangeListener
 import com.tsquaredapplications.liquid.ext.navigate
-import com.tsquaredapplications.liquid.ext.setAsGone
-import com.tsquaredapplications.liquid.ext.setAsVisible
 import com.tsquaredapplications.liquid.presets.add.AddPresetFragmentDirections.Companion.toAddPresetIconSelectionFragment
 import com.tsquaredapplications.liquid.presets.add.AddPresetFragmentDirections.Companion.toAddPresetTypeSelectionFragment
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState
@@ -50,10 +49,6 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.presetIcon.setOnClickListener {
-            navigate(toAddPresetIconSelectionFragment())
-        }
-
-        binding.placeholderPresetIcon.setOnClickListener {
             navigate(toAddPresetIconSelectionFragment())
         }
 
@@ -137,15 +132,12 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
     }
 
     private fun onPresetIconSelected(state: PresetIconSelected) {
-        binding.placeholderPresetIcon.setAsGone()
-
         GlideApp.with(binding.presetIcon.context)
             .load(state.icon.largeIconResource)
             .fitCenter()
             .into(binding.presetIcon)
 
-        binding.circularBackground.setAsVisible()
-        binding.presetIcon.setAsVisible()
+        binding.circularBackground.setBackgroundResource(R.drawable.type_background_with_border)
     }
 
     private fun onInvalidName(state: InvalidName) {
@@ -153,7 +145,7 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
     }
 
     private fun onInvalidIcon() {
-        // TODO LIQ-130
+        binding.circularBackground.setBackgroundResource(R.drawable.preset_icon_error_background)
     }
 
     private fun onInvalidType(state: InvalidDrinkType) {
