@@ -1,5 +1,6 @@
 package com.tsquaredapplications.liquid
 
+import com.tsquaredapplications.liquid.add.amount.DrinkAmountFragment
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkFragment
 import com.tsquaredapplications.liquid.di.ActivityScope
 import com.tsquaredapplications.liquid.home.HomeFragment
@@ -31,4 +32,5 @@ interface MainComponent {
     fun inject(settingsFragment: SettingsFragment)
     fun inject(goalSettingFragment: GoalSettingFragment)
     fun inject(selectDrinkFragment: SelectDrinkFragment)
+    fun inject(drinkAmountFragment: DrinkAmountFragment)
 }

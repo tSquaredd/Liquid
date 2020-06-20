@@ -2,6 +2,7 @@ package com.tsquaredapplications.liquid.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.tsquaredapplications.liquid.add.amount.DrinkAmountViewModel
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkViewModel
 import com.tsquaredapplications.liquid.home.HomeViewModel
 import com.tsquaredapplications.liquid.presets.add.AddPresetViewModel
@@ -100,5 +101,10 @@ class ViewModelFactory
         @IntoMap
         @ViewModelKey(SelectDrinkViewModel::class)
         internal abstract fun bindSelectDrinkViewModel(viewModel: SelectDrinkViewModel): ViewModel
+
+        @Binds
+        @IntoMap
+        @ViewModelKey(DrinkAmountViewModel::class)
+        internal abstract fun bindDrinkAmountViewModel(viewModel: DrinkAmountViewModel): ViewModel
     }
 }

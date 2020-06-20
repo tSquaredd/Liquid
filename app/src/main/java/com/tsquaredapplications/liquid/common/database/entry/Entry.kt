@@ -10,5 +10,5 @@ class Entry(
     val amountInOz: Double,
     val timestamp: Long,
     val drinkTypeUid: Int,
-    val presetUid: Int?
+    val presetUid: Int? = null
 )
