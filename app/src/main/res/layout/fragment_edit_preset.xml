@@ -44,12 +44,11 @@
         android:layout_height="0dp"
         android:layout_margin="40dp"
         android:contentDescription="@string/new_preset_icon_content_description"
-        android:src="@drawable/add_preset_placeholder"
         app:layout_constraintBottom_toBottomOf="@id/circularBackground"
         app:layout_constraintEnd_toEndOf="@id/circularBackground"
         app:layout_constraintStart_toStartOf="@id/circularBackground"
         app:layout_constraintTop_toTopOf="@id/circularBackground"
-        tools:visibility="invisible" />
+        tools:src="@drawable/drink_placeholder" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/amountSelectionTextLayout"
