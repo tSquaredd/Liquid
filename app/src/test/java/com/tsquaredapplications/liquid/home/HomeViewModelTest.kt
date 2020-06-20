@@ -2,16 +2,14 @@ package com.tsquaredapplications.liquid.home
 
 import androidx.lifecycle.Observer
 import com.tsquaredapplications.liquid.common.BaseViewModelTest
+import com.tsquaredapplications.liquid.common.database.entry.EntryRepository
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.home.model.HomeState
 import com.tsquaredapplications.liquid.home.resources.HomeResourceWrapper
 import com.tsquaredapplications.liquid.setup.LiquidUnit
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.verify
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -25,6 +23,8 @@ internal class HomeViewModelTest : BaseViewModelTest() {
         every { unitPreference } returns UNIT
     }
 
+    private val entryRepository = mockk<EntryRepository>()
+
     private val stateObserver = mockk<Observer<HomeState>>(relaxed = true)
     private val stateList = mutableListOf<HomeState>()
 
@@ -32,26 +32,10 @@ internal class HomeViewModelTest : BaseViewModelTest() {
 
     @BeforeEach
     fun beforeEach() {
-        viewModel = HomeViewModel(userInformation, resourceWrapper)
+        viewModel = HomeViewModel(userInformation, resourceWrapper, entryRepository)
         viewModel.stateLiveData.observeForever(stateObserver)
     }
 
-    @Test
-    fun `when initialized send initialized state`() {
-        every {
-            resourceWrapper.getGoalProgressText(
-                progress = any(),
-                goal = any(),
-                unit = any()
-            )
-        } returns EMPTY_PROGRESS_TEXT
-
-        viewModel.start()
-
-        verify(exactly = 1) { stateObserver.onChanged(capture(stateList)) }
-        val initState = stateList.first() as HomeState.Initialized
-        assertEquals(EMPTY_PROGRESS_TEXT, initState.goalProgress)
-    }
 
     companion object {
         private const val EMPTY_PROGRESS_TEXT = "0 of 100 oz"
