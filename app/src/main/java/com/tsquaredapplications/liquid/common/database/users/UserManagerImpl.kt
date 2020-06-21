@@ -4,6 +4,7 @@ import android.content.Context
 import com.tsquaredapplications.liquid.common.database.DAILY_GOAL
 import com.tsquaredapplications.liquid.common.database.NOTIFICATIONS
 import com.tsquaredapplications.liquid.common.database.PREFS_FILE
+import com.tsquaredapplications.liquid.common.database.SHOULD_SHOW_ALCOHOL_WARNING
 import com.tsquaredapplications.liquid.common.database.UNIT_PREFERENCE
 import com.tsquaredapplications.liquid.common.database.WEIGHT
 import com.tsquaredapplications.liquid.setup.LiquidUnit
@@ -40,5 +41,18 @@ class UserManagerImpl
         val notifications = notificationsInt == 0
 
         return UserInformation(weight, unitPreference, dailyGoal, notifications)
+    }
+
+    override fun shouldShowAlcoholWarning(): Boolean {
+        val sharedPrefs = context.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE)
+        return sharedPrefs.getBoolean(SHOULD_SHOW_ALCOHOL_WARNING, true)
+    }
+
+    override fun setDonNotShowAlcoholWarning() {
+        val sharedPrefs = context.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE)
+        with(sharedPrefs.edit()) {
+            putBoolean(SHOULD_SHOW_ALCOHOL_WARNING, false)
+            commit()
+        }
     }
 }

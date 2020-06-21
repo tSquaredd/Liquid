@@ -6,6 +6,8 @@
     <string name="delete">Delete</string>
     <string name="update">Update</string>
     <string name="go_back">Go Back</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="warning">Warning!</string>
     <!-- endregion -->
 
     <!-- region screen titles -->
@@ -147,6 +149,13 @@
 
     <!-- region select drink -->
     <string name="no_presets_header">Add your most frequently consumed beverage in presets!</string>
+    <!-- endregion -->
+
+    <!-- region alcohol warning -->
+    <string name="alcohol_warning_description">Alcohol is very dehydrating and as a result, any beverage containing alcohol will have a negative effect on your daily goal.</string>
+    <string name="alcohol_warning_calculations">16oz beer = -16oz off your daily goal\n6oz wine = -16oz off your daily goal\n2oz spirit = -16oz off your daily goal</string>
+    <string name="alcohol_warning_suggestion">Suggestion: To combat the dehydrating effects of alcohol, drink a 16oz glass of water with every alcoholic drink.</string>
+    <string name="do_not_show_again">Please do not show me this again.</string>
     <!-- endregion -->
 
     <!-- TEMP -->

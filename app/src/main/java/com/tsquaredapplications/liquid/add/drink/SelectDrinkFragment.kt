@@ -14,8 +14,10 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkFragmentDirections.Companion.toDrinkAmountFragment
+import com.tsquaredapplications.liquid.add.drink.SelectDrinkState.DrinkTypeSelected
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkState.Initialized
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkState.PresetInserted
+import com.tsquaredapplications.liquid.common.AlcoholWarningDialog
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.adapter.PresetItem
 import com.tsquaredapplications.liquid.common.adapter.TypeItem
@@ -74,7 +76,7 @@ class SelectDrinkFragment : BaseFragment<FragmentSelectDrinkBinding>() {
         }
 
         drinkTypeAdapter.onClickListener = { _, _, item, _ ->
-            navigate(toDrinkAmountFragment(item.drinkTypeAndIcon))
+            viewModel.onDrinkTypeSelected(item.drinkTypeAndIcon)
             false
         }
     }
@@ -82,7 +84,8 @@ class SelectDrinkFragment : BaseFragment<FragmentSelectDrinkBinding>() {
     private fun onStateChanged(state: SelectDrinkState) {
         when (state) {
             is Initialized -> onInitialized(state)
-            is PresetInserted -> onPresetInserted()
+            is PresetInserted -> onPresetInserted(state)
+            is DrinkTypeSelected -> onDrinkTypeSelected(state)
         }
     }
 
@@ -100,7 +103,25 @@ class SelectDrinkFragment : BaseFragment<FragmentSelectDrinkBinding>() {
         typeItemAdapter.add(state.drinkTypes)
     }
 
-    private fun onPresetInserted() {
-        findNavController().popBackStack()
+    private fun onPresetInserted(state: PresetInserted) {
+        if (state.showAlcoholWarning) {
+            AlcoholWarningDialog() {
+                viewModel.alcoholWarningDismissed(it)
+                findNavController().popBackStack()
+            }.show(parentFragmentManager, null)
+        } else {
+            findNavController().popBackStack()
+        }
+    }
+
+    private fun onDrinkTypeSelected(state: DrinkTypeSelected) {
+        if (state.showAlcoholWarning) {
+            AlcoholWarningDialog() {
+                viewModel.alcoholWarningDismissed(it)
+                navigate(toDrinkAmountFragment(state.drinkTypeAndIcon))
+            }.show(parentFragmentManager, null)
+        } else {
+            navigate(toDrinkAmountFragment(state.drinkTypeAndIcon))
+        }
     }
 }
