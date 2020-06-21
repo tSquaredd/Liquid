@@ -10,7 +10,9 @@ import com.tsquaredapplications.liquid.common.database.entry.Entry
 import com.tsquaredapplications.liquid.common.database.entry.EntryRepository
 import com.tsquaredapplications.liquid.common.database.presets.PresetDataWrapper
 import com.tsquaredapplications.liquid.common.database.presets.PresetRepository
+import com.tsquaredapplications.liquid.common.database.types.DrinkTypeAndIcon
 import com.tsquaredapplications.liquid.common.database.types.TypeRepository
+import com.tsquaredapplications.liquid.common.database.users.UserManager
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.util.*
@@ -20,7 +22,8 @@ class SelectDrinkViewModel
 @Inject constructor(
     private val typeRepository: TypeRepository,
     private val presetRepository: PresetRepository,
-    private val entryRepository: EntryRepository
+    private val entryRepository: EntryRepository,
+    private val userManager: UserManager
 ) :
     BaseViewModel<SelectDrinkState>() {
 
@@ -55,6 +58,19 @@ class SelectDrinkViewModel
     }
 
     private fun onPresetInserted() {
-        state.value = PresetInserted
+        state.value = PresetInserted(userManager.shouldShowAlcoholWarning())
+    }
+
+    fun onDrinkTypeSelected(drinkTypeAndIcon: DrinkTypeAndIcon) {
+        state.value = SelectDrinkState.DrinkTypeSelected(
+            drinkTypeAndIcon,
+            userManager.shouldShowAlcoholWarning()
+        )
+    }
+
+    fun alcoholWarningDismissed(dontShowAlcoholWarningAgain: Boolean) {
+        if (dontShowAlcoholWarningAgain) {
+            userManager.setDonNotShowAlcoholWarning()
+        }
     }
 }
