@@ -19,7 +19,7 @@ import com.tsquaredapplications.liquid.add.amount.DrinkAmountState.InvalidAmount
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.GlideApp
 import com.tsquaredapplications.liquid.databinding.FragmentDrinkAmountBinding
-import com.tsquaredapplications.liquid.ext.getStartAndEndTimeForToday
+import com.tsquaredapplications.liquid.ext.keyboardHidingFocusChangeListener
 import com.tsquaredapplications.liquid.ext.navigate
 import java.util.*
 import javax.inject.Inject
@@ -47,11 +47,15 @@ class DrinkAmountFragment : BaseFragment<FragmentDrinkAmountBinding>() {
             viewModel.onAddClicked()
         }
 
-        binding.amountSelectionEditText.addTextChangedListener {
-            it?.let {
-                viewModel.onAmountChanged(it.toString())
-                binding.amountSelectionTextLayout.error = ""
+        with(binding.amountSelectionEditText) {
+            addTextChangedListener {
+                it?.let {
+                    viewModel.onAmountChanged(it.toString())
+                    binding.amountSelectionTextLayout.error = ""
+                }
             }
+
+            onFocusChangeListener = keyboardHidingFocusChangeListener
         }
 
         viewModel.stateLiveData.observe(viewLifecycleOwner, Observer {

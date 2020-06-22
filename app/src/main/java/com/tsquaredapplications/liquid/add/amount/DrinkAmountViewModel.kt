@@ -42,7 +42,7 @@ class DrinkAmountViewModel
         viewModelScope.launch {
             entryRepository.insert(
                 Entry(
-                    amountInOz = amount!!,
+                    amount = amount!!,
                     timestamp = calendar.time.time,
                     drinkTypeUid = drinkType.drinkTypeUid
                 )

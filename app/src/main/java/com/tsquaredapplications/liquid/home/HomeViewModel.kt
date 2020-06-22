@@ -33,7 +33,7 @@ class HomeViewModel
         viewModelScope.launch {
             val (startTime, endTime) = getStartAndEndTimeForToday()
             val todayEntries = entryRepository.getAllInTimeRange(from = startTime, to = endTime)
-            val progress = todayEntries.map { it.entry.amountInOz * it.drinkType.hydration }.sum()
+            val progress = todayEntries.map { it.entry.amount * it.drinkType.hydration }.sum()
 
             state.value = HomeState.Initialized(
                 goalProgress = resourceWrapper.getGoalProgressText(

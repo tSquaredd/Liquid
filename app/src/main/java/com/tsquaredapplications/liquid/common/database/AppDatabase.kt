@@ -54,21 +54,21 @@ abstract class AppDatabase : RoomDatabase() {
 
         fun prePopulateDrinkTypes(context: Context) =
             listOf(
-                DrinkType(1, context.getString(R.string.beer), -1.0, 1),
-                DrinkType(2, context.getString(R.string.cocktail), -1.0, 2),
-                DrinkType(3, context.getString(R.string.coffee), 1.0, 3),
-                DrinkType(4, context.getString(R.string.energy_drink), 0.5, 4),
-                DrinkType(5, context.getString(R.string.iced_tea), 1.0, 5),
-                DrinkType(6, context.getString(R.string.juice), 1.0, 6),
-                DrinkType(7, context.getString(R.string.milk), 1.0, 7),
-                DrinkType(8, context.getString(R.string.smoothie), 1.0, 8),
-                DrinkType(9, context.getString(R.string.soda), 1.0, 9),
-                DrinkType(10, context.getString(R.string.sparkling_water), 1.0, 10),
-                DrinkType(11, context.getString(R.string.spirit), -8.0, 11),
-                DrinkType(12, context.getString(R.string.sports_drink), 1.0, 12),
-                DrinkType(13, context.getString(R.string.tea), 1.0, 13),
-                DrinkType(14, context.getString(R.string.water), 1.0, 14),
-                DrinkType(15, context.getString(R.string.wine), -2.66, 15)
+                DrinkType(1, context.getString(R.string.beer), -1.0, true, 1),
+                DrinkType(2, context.getString(R.string.cocktail), -1.0, true, 2),
+                DrinkType(3, context.getString(R.string.coffee), 1.0, false, 3),
+                DrinkType(4, context.getString(R.string.energy_drink), 0.5, false, 4),
+                DrinkType(5, context.getString(R.string.iced_tea), 1.0, false, 5),
+                DrinkType(6, context.getString(R.string.juice), 1.0, false, 6),
+                DrinkType(7, context.getString(R.string.milk), 1.0, false, 7),
+                DrinkType(8, context.getString(R.string.smoothie), 1.0, false, 8),
+                DrinkType(9, context.getString(R.string.soda), 1.0, false, 9),
+                DrinkType(10, context.getString(R.string.sparkling_water), 1.0, false, 10),
+                DrinkType(11, context.getString(R.string.spirit), -8.0, true, 11),
+                DrinkType(12, context.getString(R.string.sports_drink), 1.0, false, 12),
+                DrinkType(13, context.getString(R.string.tea), 1.0, false, 13),
+                DrinkType(14, context.getString(R.string.water), 1.0, false, 14),
+                DrinkType(15, context.getString(R.string.wine), -2.66, true, 15)
             )
 
         val PRE_POPULATED_ICON_TYPES = listOf(

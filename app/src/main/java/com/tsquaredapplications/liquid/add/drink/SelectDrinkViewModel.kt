@@ -12,6 +12,7 @@ import com.tsquaredapplications.liquid.common.database.presets.PresetDataWrapper
 import com.tsquaredapplications.liquid.common.database.presets.PresetRepository
 import com.tsquaredapplications.liquid.common.database.types.DrinkTypeAndIcon
 import com.tsquaredapplications.liquid.common.database.types.TypeRepository
+import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.common.database.users.UserManager
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -23,7 +24,9 @@ class SelectDrinkViewModel
     private val typeRepository: TypeRepository,
     private val presetRepository: PresetRepository,
     private val entryRepository: EntryRepository,
-    private val userManager: UserManager
+    private val userManager: UserManager,
+    private val userInformation: UserInformation,
+    private val resourceWrapper: SelectDrinkResourceWrapper
 ) :
     BaseViewModel<SelectDrinkState>() {
 
@@ -47,24 +50,30 @@ class SelectDrinkViewModel
         viewModelScope.launch {
             entryRepository.insert(
                 Entry(
-                    amountInOz = presetDataWrapper.preset.sizeInOz,
+                    amount = presetDataWrapper.preset.sizeInOz,
                     timestamp = Date().time,
                     drinkTypeUid = presetDataWrapper.drinkType.drinkTypeUid,
                     presetUid = presetDataWrapper.preset.presetUid
                 )
             )
-            onPresetInserted()
+            onPresetInserted(presetDataWrapper.drinkType.isAlcohol)
         }
     }
 
-    private fun onPresetInserted() {
-        state.value = PresetInserted(userManager.shouldShowAlcoholWarning())
+    private fun onPresetInserted(isAlcohol: Boolean) {
+        state.value = PresetInserted(
+            userManager.shouldShowAlcoholWarning() && isAlcohol,
+            resourceWrapper.getWarningCalculations(userInformation.unitPreference),
+            resourceWrapper.getSuggestion(userInformation.unitPreference)
+        )
     }
 
     fun onDrinkTypeSelected(drinkTypeAndIcon: DrinkTypeAndIcon) {
         state.value = SelectDrinkState.DrinkTypeSelected(
-            drinkTypeAndIcon,
-            userManager.shouldShowAlcoholWarning()
+            drinkTypeAndIcon = drinkTypeAndIcon,
+            showAlcoholWarning = userManager.shouldShowAlcoholWarning() && drinkTypeAndIcon.drinkType.isAlcohol,
+            alcoholCalculations = resourceWrapper.getWarningCalculations(userInformation.unitPreference),
+            alcoholSuggestion = resourceWrapper.getSuggestion(userInformation.unitPreference)
         )
     }
 

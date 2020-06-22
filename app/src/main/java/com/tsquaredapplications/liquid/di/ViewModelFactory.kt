@@ -12,6 +12,7 @@ import com.tsquaredapplications.liquid.presets.main.PresetsViewModel
 import com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionViewModel
 import com.tsquaredapplications.liquid.settings.SettingsViewModel
 import com.tsquaredapplications.liquid.settings.goal.GoalSettingViewModel
+import com.tsquaredapplications.liquid.settings.unit.LiquidUnitSettingViewModel
 import com.tsquaredapplications.liquid.setup.goal.GoalDisplayViewModel
 import com.tsquaredapplications.liquid.setup.information.UserInformationViewModel
 import dagger.Binds
@@ -106,5 +107,10 @@ class ViewModelFactory
         @IntoMap
         @ViewModelKey(DrinkAmountViewModel::class)
         internal abstract fun bindDrinkAmountViewModel(viewModel: DrinkAmountViewModel): ViewModel
+
+        @Binds
+        @IntoMap
+        @ViewModelKey(LiquidUnitSettingViewModel::class)
+        internal abstract fun bindLiquidUnitSettingViewModel(viewModel: LiquidUnitSettingViewModel): ViewModel
     }
 }
