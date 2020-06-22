@@ -13,6 +13,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.tsquaredapplications.liquid.R
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentUserInformationBinding
+import com.tsquaredapplications.liquid.ext.hideKeyboardFrom
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.setup.LiquidUnit
 import com.tsquaredapplications.liquid.setup.SetupActivity
@@ -65,6 +66,7 @@ class UserInformationFragment : BaseFragment<FragmentUserInformationBinding>() {
                 (weightEditText as TextInputEditText).hint = ""
             } else {
                 (weightEditText as TextInputEditText).hint = getString(R.string.weight_input_hint)
+                weightEditText.context.hideKeyboardFrom(view.windowToken)
             }
         }
 

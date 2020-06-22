@@ -8,9 +8,16 @@ sealed class SelectDrinkState {
     class Initialized(val presets: List<PresetItem>, val drinkTypes: List<TypeItem>) :
         SelectDrinkState()
 
-    class PresetInserted(val showAlcoholWarning: Boolean) : SelectDrinkState()
+    class PresetInserted(
+        val showAlcoholWarning: Boolean,
+        val alcoholCalculations: String,
+        val alcoholSuggestion: String
+    ) : SelectDrinkState()
+
     class DrinkTypeSelected(
         val drinkTypeAndIcon: DrinkTypeAndIcon,
-        val showAlcoholWarning: Boolean
+        val showAlcoholWarning: Boolean,
+        val alcoholCalculations: String,
+        val alcoholSuggestion: String
     ) : SelectDrinkState()
 }

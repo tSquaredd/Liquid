@@ -11,5 +11,6 @@ class DrinkType(
     @PrimaryKey val drinkTypeUid: Int,
     val name: String,
     val hydration: Double,
+    val isAlcohol: Boolean,
     val iconUid: Int
 ) : Parcelable

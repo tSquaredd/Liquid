@@ -12,4 +12,8 @@ class RoomEntryRepository
     override suspend fun insert(entry: Entry) {
         entryDao.insert(entry)
     }
+
+    override suspend fun insertAll(entries: List<Entry>) {
+        entryDao.insertAll(entries)
+    }
 }

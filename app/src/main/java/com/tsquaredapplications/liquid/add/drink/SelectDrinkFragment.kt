@@ -105,10 +105,14 @@ class SelectDrinkFragment : BaseFragment<FragmentSelectDrinkBinding>() {
 
     private fun onPresetInserted(state: PresetInserted) {
         if (state.showAlcoholWarning) {
-            AlcoholWarningDialog() {
-                viewModel.alcoholWarningDismissed(it)
-                findNavController().popBackStack()
-            }.show(parentFragmentManager, null)
+            AlcoholWarningDialog(
+                calculationsText = state.alcoholCalculations,
+                suggestionText = state.alcoholSuggestion,
+                onDismiss = {
+                    viewModel.alcoholWarningDismissed(it)
+                    findNavController().popBackStack()
+                }
+            ).show(parentFragmentManager, null)
         } else {
             findNavController().popBackStack()
         }
@@ -116,10 +120,14 @@ class SelectDrinkFragment : BaseFragment<FragmentSelectDrinkBinding>() {
 
     private fun onDrinkTypeSelected(state: DrinkTypeSelected) {
         if (state.showAlcoholWarning) {
-            AlcoholWarningDialog() {
-                viewModel.alcoholWarningDismissed(it)
-                navigate(toDrinkAmountFragment(state.drinkTypeAndIcon))
-            }.show(parentFragmentManager, null)
+            AlcoholWarningDialog(
+                calculationsText = state.alcoholCalculations,
+                suggestionText = state.alcoholSuggestion,
+                onDismiss = {
+                    viewModel.alcoholWarningDismissed(it)
+                    navigate(toDrinkAmountFragment(state.drinkTypeAndIcon))
+                }
+            ).show(parentFragmentManager, null)
         } else {
             navigate(toDrinkAmountFragment(state.drinkTypeAndIcon))
         }

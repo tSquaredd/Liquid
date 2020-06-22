@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 class Entry(
     @PrimaryKey(autoGenerate = true)
     val entryUid: Int = 0,
-    val amountInOz: Double,
+    var amount: Double,
     val timestamp: Long,
     val drinkTypeUid: Int,
     val presetUid: Int? = null

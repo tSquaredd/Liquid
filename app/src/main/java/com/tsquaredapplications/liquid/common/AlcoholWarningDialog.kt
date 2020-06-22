@@ -8,7 +8,11 @@ import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.tsquaredapplications.liquid.databinding.AlcoholWarningBinding
 
-class AlcoholWarningDialog(val onDismiss: (Boolean) -> Unit) : DialogFragment() {
+class AlcoholWarningDialog(
+    val calculationsText: String,
+    val suggestionText: String,
+    val onDismiss: (Boolean) -> Unit
+) : DialogFragment() {
     private var doNotShowAgain = false
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -24,6 +28,9 @@ class AlcoholWarningDialog(val onDismiss: (Boolean) -> Unit) : DialogFragment() 
                 dontShowAgainCheckBox.setOnCheckedChangeListener { _, isChecked ->
                     doNotShowAgain = isChecked
                 }
+
+                warningCalculations.text = calculationsText
+                warningSuggestion.text = suggestionText
 
                 builder.setView(root)
                 builder.create()
