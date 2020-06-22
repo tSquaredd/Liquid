@@ -15,6 +15,8 @@ import com.tsquaredapplications.liquid.settings.goal.resources.GoalSettingResour
 import com.tsquaredapplications.liquid.settings.goal.resources.GoalSettingResourceWrapperImpl
 import com.tsquaredapplications.liquid.settings.resources.SettingsResourceWrapper
 import com.tsquaredapplications.liquid.settings.resources.SettingsResourceWrapperImpl
+import com.tsquaredapplications.liquid.settings.weight.WeightSettingResourceWrapper
+import com.tsquaredapplications.liquid.settings.weight.WeightSettingResourceWrapperImpl
 import dagger.Module
 import dagger.Provides
 
@@ -52,4 +54,8 @@ class MainModule {
     @Provides
     fun provideSelectDrinkResourceWrapper(impl: SelectDrinkResourceWrapperImpl)
             : SelectDrinkResourceWrapper = impl
+
+    @Provides
+    fun provideWeightSettingResourceWrapper(impl: WeightSettingResourceWrapperImpl)
+            : WeightSettingResourceWrapper = impl
 }

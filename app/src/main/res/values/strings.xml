@@ -161,14 +161,21 @@
     <string name="do_not_show_again">Please do not show me this again.</string>
     <!-- endregion -->
 
-    <!-- TEMP -->
-    <string name="google">Google</string>
-    <string name="apple">Apple</string>
-    <string name="question_mark">\?</string>
+    <!-- region liquid unit settings -->
+    <string name="unit_settings_header">What is your preferred measurement?</string>
+    <string name="llama_content_description">picture of llama</string>
+    <!-- endregion -->
+
+    <!-- region weight settings -->
+    <string name="yes_please">YES PLEASE</string>
+    <string name="nope">NOPE</string>
+    <string name="liquid_drop_description">Image of liquid drop</string>
+    <string name="weight_change_goal_prompt">Would you like us to calculate a new goal based on your updated weight?</string>
+    <!-- endregion -->
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="preference_file_key" translatable="false">liquid-app-prefs</string>
-    <string name="unit_settings_header">What is your preferred measurement?</string>
-    <string name="llama_content_description">picture of llama</string>
+
+
 </resources>

@@ -4,6 +4,7 @@ import android.content.Context
 import com.tsquaredapplications.liquid.R
 import com.tsquaredapplications.liquid.setup.LiquidUnit
 import java.text.DecimalFormat
+import java.util.*
 import javax.inject.Inject
 
 class HomeResourceWrapperImpl
@@ -12,6 +13,11 @@ class HomeResourceWrapperImpl
         val progressFormat = context.getString(R.string.progress)
         val progressString = DecimalFormat("#.##").format(progress)
 
-        return String.format(progressFormat, progressString, goal, unit)
+        return String.format(
+            progressFormat,
+            progressString,
+            goal,
+            unit.name.toLowerCase(Locale.getDefault())
+        )
     }
 }

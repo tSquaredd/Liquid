@@ -12,6 +12,7 @@ import com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionFragment
 import com.tsquaredapplications.liquid.settings.SettingsFragment
 import com.tsquaredapplications.liquid.settings.goal.GoalSettingFragment
 import com.tsquaredapplications.liquid.settings.unit.LiquidUnitSettingFragment
+import com.tsquaredapplications.liquid.settings.weight.WeightSettingFragment
 import dagger.Subcomponent
 
 @ActivityScope
@@ -35,4 +36,5 @@ interface MainComponent {
     fun inject(selectDrinkFragment: SelectDrinkFragment)
     fun inject(drinkAmountFragment: DrinkAmountFragment)
     fun inject(liquidUnitSettingFragment: LiquidUnitSettingFragment)
+    fun inject(weightSettingFragment: WeightSettingFragment)
 }
