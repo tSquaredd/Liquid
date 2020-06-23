@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseFragment<T : ViewBinding> : Fragment() {
+abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
-    private var _binding: T? = null
+    private var _binding: VB? = null
     val binding get() = _binding!!
 
     override fun onCreateView(
@@ -26,5 +26,5 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
         _binding = null
     }
 
-    abstract fun setBinding(inflater: LayoutInflater, container: ViewGroup?): T
+    abstract fun setBinding(inflater: LayoutInflater, container: ViewGroup?): VB
 }

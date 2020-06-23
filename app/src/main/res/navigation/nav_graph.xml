@@ -143,8 +143,12 @@
     <fragment
         android:id="@+id/weightSettingFragment"
         android:name="com.tsquaredapplications.liquid.settings.weight.WeightSettingFragment"
-        android:label="fragment_weight_setting"
-        tools:layout="@layout/fragment_weight_setting" />
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_weight_setting">
+        <action
+            android:id="@+id/toGoalUpdatedFragment"
+            app:destination="@id/goalUpdatedFragment" />
+    </fragment>
     <fragment
         android:id="@+id/dailyGoalSettingFragment"
         android:name="com.tsquaredapplications.liquid.settings.goal.GoalSettingFragment"
@@ -153,11 +157,25 @@
     <fragment
         android:id="@+id/liquidUnitSettingFragment"
         android:name="com.tsquaredapplications.liquid.settings.unit.LiquidUnitSettingFragment"
-        android:label="fragment_liquid_unit_setting"
+        android:label="@string/settings"
         tools:layout="@layout/fragment_liquid_unit_setting" />
     <fragment
         android:id="@+id/notificationsSettingFragment"
         android:name="com.tsquaredapplications.liquid.settings.notifications.NotificationsSettingFragment"
-        android:label="fragment_notifications_setting"
+        android:label="@string/settings"
         tools:layout="@layout/fragment_notifications_setting" />
+    <fragment
+        android:id="@+id/goalUpdatedFragment"
+        android:name="com.tsquaredapplications.liquid.settings.weight.GoalUpdatedFragment"
+        android:label="@string/daily_goal"
+        tools:layout="@layout/fragment_goal_display">
+        <argument
+            android:name="goal"
+            app:argType="string" />
+        <action
+            android:id="@+id/toSettingsFragment"
+            app:destination="@id/settingsFragment"
+            app:popUpTo="@id/settingsFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
 </navigation>
