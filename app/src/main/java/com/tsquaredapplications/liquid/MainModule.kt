@@ -13,6 +13,8 @@ import com.tsquaredapplications.liquid.presets.edit.resources.EditPresetResource
 import com.tsquaredapplications.liquid.presets.edit.resources.EditPresetResourceWrapperImpl
 import com.tsquaredapplications.liquid.settings.goal.resources.GoalSettingResourceWrapper
 import com.tsquaredapplications.liquid.settings.goal.resources.GoalSettingResourceWrapperImpl
+import com.tsquaredapplications.liquid.settings.notifications.NotificationSettingsResourceWrapper
+import com.tsquaredapplications.liquid.settings.notifications.NotificationSettingsResourceWrapperImpl
 import com.tsquaredapplications.liquid.settings.resources.SettingsResourceWrapper
 import com.tsquaredapplications.liquid.settings.resources.SettingsResourceWrapperImpl
 import com.tsquaredapplications.liquid.settings.weight.WeightSettingResourceWrapper
@@ -58,4 +60,8 @@ class MainModule {
     @Provides
     fun provideWeightSettingResourceWrapper(impl: WeightSettingResourceWrapperImpl)
             : WeightSettingResourceWrapper = impl
+
+    @Provides
+    fun provideNotificationSettingsResourceWrapper(impl: NotificationSettingsResourceWrapperImpl)
+            : NotificationSettingsResourceWrapper = impl
 }

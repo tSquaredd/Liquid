@@ -4,6 +4,7 @@ import com.tsquaredapplications.liquid.common.BaseViewModel
 import com.tsquaredapplications.liquid.common.database.users.NotificationTime
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.common.database.users.UserManager
+import com.tsquaredapplications.liquid.common.notifications.NotificationManager
 import com.tsquaredapplications.liquid.settings.notifications.NotificationsSettingsState.EndTimeUpdated
 import com.tsquaredapplications.liquid.settings.notifications.NotificationsSettingsState.Finished
 import com.tsquaredapplications.liquid.settings.notifications.NotificationsSettingsState.Initialized
@@ -19,6 +20,7 @@ class NotificationsSettingsViewModel
 @Inject constructor(
     private val userInformation: UserInformation,
     private val userManager: UserManager,
+    private val notificationManager: NotificationManager,
     private val resourceWrapper: NotificationSettingsResourceWrapper
 ) : BaseViewModel<NotificationsSettingsState>() {
 
@@ -131,7 +133,10 @@ class NotificationsSettingsViewModel
             notifications = updatedNotificationsPreferences
         })
 
-        //TODO("Update actual notifications settings")
+        with(notificationManager) {
+            disableNotification()
+            enqueueNotifications(userInformation)
+        }
         state.value = Finished
     }
 }
