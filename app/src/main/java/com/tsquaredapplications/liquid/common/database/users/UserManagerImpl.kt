@@ -2,7 +2,12 @@ package com.tsquaredapplications.liquid.common.database.users
 
 import android.content.Context
 import com.tsquaredapplications.liquid.common.database.DAILY_GOAL
-import com.tsquaredapplications.liquid.common.database.NOTIFICATIONS
+import com.tsquaredapplications.liquid.common.database.NOTIFICATIONS_ENABLED
+import com.tsquaredapplications.liquid.common.database.NOTIFICATION_END_TIME_HOUR
+import com.tsquaredapplications.liquid.common.database.NOTIFICATION_END_TME_MIN
+import com.tsquaredapplications.liquid.common.database.NOTIFICATION_INTERVAL_MINS
+import com.tsquaredapplications.liquid.common.database.NOTIFICATION_START_TIME_HOUR
+import com.tsquaredapplications.liquid.common.database.NOTIFICATION_START_TIME_MIN
 import com.tsquaredapplications.liquid.common.database.PREFS_FILE
 import com.tsquaredapplications.liquid.common.database.SHOULD_SHOW_ALCOHOL_WARNING
 import com.tsquaredapplications.liquid.common.database.UNIT_PREFERENCE
@@ -19,7 +24,12 @@ class UserManagerImpl
             putInt(WEIGHT, userInformation.weight)
             putInt(DAILY_GOAL, userInformation.dailyGoal)
             putInt(UNIT_PREFERENCE, if (userInformation.unitPreference == LiquidUnit.OZ) 0 else 1)
-            putInt(NOTIFICATIONS, if (userInformation.notifications) 0 else 1)
+            putInt(NOTIFICATIONS_ENABLED, if (userInformation.notifications.enabled) 0 else 1)
+            putInt(NOTIFICATION_START_TIME_HOUR, userInformation.notifications.startTime.hour)
+            putInt(NOTIFICATION_START_TIME_MIN, userInformation.notifications.startTime.min)
+            putInt(NOTIFICATION_END_TIME_HOUR, userInformation.notifications.endTime.hour)
+            putInt(NOTIFICATION_END_TME_MIN, userInformation.notifications.endTime.min)
+            putInt(NOTIFICATION_INTERVAL_MINS, userInformation.notifications.intervalMins)
             commit()
         }
     }
@@ -36,11 +46,32 @@ class UserManagerImpl
         if (unitPreferenceInt == -1) return null
         val unitPreference = if (unitPreferenceInt == 0) LiquidUnit.OZ else LiquidUnit.ML
 
-        val notificationsInt = sharedPrefs.getInt(NOTIFICATIONS, -1)
+        val notificationsInt = sharedPrefs.getInt(NOTIFICATIONS_ENABLED, -1)
         if (notificationsInt == -1) return null
-        val notifications = notificationsInt == 0
+        val notificationsEnabled = notificationsInt == 0
 
-        return UserInformation(weight, unitPreference, dailyGoal, notifications)
+        val notificationStartTime = NotificationTime(
+            sharedPrefs.getInt(NOTIFICATION_START_TIME_HOUR, 9),
+            sharedPrefs.getInt(NOTIFICATION_START_TIME_MIN, 0)
+        )
+
+        val notificationEndTime = NotificationTime(
+            sharedPrefs.getInt(NOTIFICATION_END_TIME_HOUR, 21),
+            sharedPrefs.getInt(NOTIFICATION_END_TME_MIN, 0)
+        )
+
+        val notificationInterval = sharedPrefs.getInt(NOTIFICATION_INTERVAL_MINS, 120)
+        return UserInformation(
+            weight,
+            unitPreference,
+            dailyGoal,
+            NotificationsPreferences(
+                notificationsEnabled,
+                notificationStartTime,
+                notificationEndTime,
+                notificationInterval
+            )
+        )
     }
 
     override fun shouldShowAlcoholWarning(): Boolean {

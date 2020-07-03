@@ -39,7 +39,7 @@ class SettingsViewModel
         SettingsItem(
             Setting(
                 name = resourceWrapper.allowReminders,
-                value = if (userInformation.notifications) resourceWrapper.on else resourceWrapper.off,
+                value = if (userInformation.notifications.enabled) resourceWrapper.on else resourceWrapper.off,
                 settingType = SettingType.Notifications
             )
         ),

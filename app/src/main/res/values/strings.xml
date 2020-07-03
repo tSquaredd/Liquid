@@ -8,6 +8,8 @@
     <string name="go_back">Go Back</string>
     <string name="dismiss">Dismiss</string>
     <string name="warning">Warning!</string>
+    <string name="am">AM</string>
+    <string name="pm">PM</string>
     <!-- endregion -->
 
     <!-- region screen titles -->
@@ -177,6 +179,10 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="preference_file_key" translatable="false">liquid-app-prefs</string>
     <string name="question_mark">\?</string>
-
-
+    <string name="pug_content_description">Image of pug</string>
+    <string name="reminder_setup_header">When would you like reminders?</string>
+    <string name="to">to</string>
+    <string name="hours">Hours</string>
+    <string name="minutes">Minutes</string>
+    <string name="every">Every</string>
 </resources>
