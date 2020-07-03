@@ -18,6 +18,8 @@ import com.tsquaredapplications.liquid.common.database.types.RoomTypeRepository
 import com.tsquaredapplications.liquid.common.database.types.TypeRepository
 import com.tsquaredapplications.liquid.common.database.users.UserManager
 import com.tsquaredapplications.liquid.common.database.users.UserManagerImpl
+import com.tsquaredapplications.liquid.common.notifications.NotificationManager
+import com.tsquaredapplications.liquid.common.notifications.NotificationManagerImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -80,4 +82,10 @@ class AppModule(private val application: Application) {
     fun provideUserDatabaseManager(
         impl: UserManagerImpl
     ): UserManager = impl
+
+    @Provides
+    @Singleton
+    fun providesNotificationManager(
+        impl: NotificationManagerImpl
+    ): NotificationManager = impl
 }

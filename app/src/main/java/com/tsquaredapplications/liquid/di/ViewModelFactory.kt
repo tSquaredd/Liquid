@@ -12,6 +12,7 @@ import com.tsquaredapplications.liquid.presets.main.PresetsViewModel
 import com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionViewModel
 import com.tsquaredapplications.liquid.settings.SettingsViewModel
 import com.tsquaredapplications.liquid.settings.goal.GoalSettingViewModel
+import com.tsquaredapplications.liquid.settings.notifications.NotificationsSettingsViewModel
 import com.tsquaredapplications.liquid.settings.unit.LiquidUnitSettingViewModel
 import com.tsquaredapplications.liquid.settings.weight.WeightSettingViewModel
 import com.tsquaredapplications.liquid.setup.goal.GoalDisplayViewModel
@@ -118,5 +119,10 @@ class ViewModelFactory
         @IntoMap
         @ViewModelKey(WeightSettingViewModel::class)
         internal abstract fun bindWeightSettingViewModel(viewModel: WeightSettingViewModel): ViewModel
+
+        @Binds
+        @IntoMap
+        @ViewModelKey(NotificationsSettingsViewModel::class)
+        internal abstract fun bindNotificationSettingsViewModel(viewModel: NotificationsSettingsViewModel): ViewModel
     }
 }

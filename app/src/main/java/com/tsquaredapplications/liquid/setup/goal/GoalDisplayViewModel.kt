@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.common.database.users.UserManager
+import com.tsquaredapplications.liquid.common.notifications.NotificationManager
 import com.tsquaredapplications.liquid.setup.LiquidUnit
 import com.tsquaredapplications.liquid.setup.calculateDailyGoal
 import com.tsquaredapplications.liquid.setup.goal.GoalDisplayState.Initialized
@@ -12,7 +13,10 @@ import com.tsquaredapplications.liquid.setup.goal.GoalDisplayState.UserInformati
 import javax.inject.Inject
 
 class GoalDisplayViewModel
-@Inject constructor(private val userManager: UserManager) : ViewModel() {
+@Inject constructor(
+    private val userManager: UserManager,
+    private val notificationManager: NotificationManager
+) : ViewModel() {
 
     private val state = SingleEventLiveData<GoalDisplayState>()
     val stateLiveData: LiveData<GoalDisplayState>
@@ -33,6 +37,7 @@ class GoalDisplayViewModel
 
     fun onFinishClick() {
         userManager.setUser(userInformation)
+        notificationManager.initialSetup(userInformation)
         state.value = UserInformationSaved(userInformation)
     }
 }

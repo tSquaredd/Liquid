@@ -62,4 +62,16 @@
     <style name="ErrorDialogStyle" parent="Theme.MaterialComponents.Dialog.Alert">
         <item name="android:windowBackground">@drawable/rounded_dialog_background</item>
     </style>
+
+    <style name="TimePickerStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:buttonBarButtonStyle">@style/TimePickerButtonStyle</item>
+    </style>
+
+    <style name="TimePickerButtonStyle" parent="Widget.AppCompat.Button.ButtonBar.AlertDialog">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
 </resources>
