@@ -8,7 +8,7 @@ import androidx.room.Query
 @Dao
 interface IconDao {
     @Query("SELECT * FROM icon")
-    fun getAll(): LiveData<List<Icon>>
+    suspend fun getAll(): List<Icon>
 
     @Query("SELECT * FROM icon WHERE iconUid = :id")
     fun findById(id: Int): LiveData<Icon>

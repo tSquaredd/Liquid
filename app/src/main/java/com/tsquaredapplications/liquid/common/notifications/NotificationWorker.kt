@@ -12,6 +12,7 @@ import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.R
 import com.tsquaredapplications.liquid.common.database.AppDatabase
 import com.tsquaredapplications.liquid.common.database.entry.RoomEntryRepository
+import com.tsquaredapplications.liquid.common.database.goal.RoomGoalRepository
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.common.database.users.UserManagerImpl
 import com.tsquaredapplications.liquid.ext.getStartAndEndTimeForToday
@@ -25,11 +26,11 @@ class NotificationWorker
 ) : CoroutineWorker(context, workerParameters) {
 
     override suspend fun doWork(): Result {
-        val userInformation = UserManagerImpl(context).getUser()
-        val entryRepository = RoomEntryRepository(AppDatabase.getInstance(context).entryDao())
-        if (userInformation == null) {
-            return Result.failure()
-        }
+        val appDatabase = AppDatabase.getInstance(context)
+        val entryRepository = RoomEntryRepository(appDatabase.entryDao())
+        val goalRepository = RoomGoalRepository(appDatabase.goalDao())
+        val userInformation = UserManagerImpl(context, goalRepository).getUser()
+            ?: return Result.failure()
 
         val nowHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         val nowMinute = Calendar.getInstance().get(Calendar.MINUTE)

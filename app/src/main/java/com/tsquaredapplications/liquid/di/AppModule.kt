@@ -7,6 +7,9 @@ import com.tsquaredapplications.liquid.common.database.AppDatabase
 import com.tsquaredapplications.liquid.common.database.entry.EntryDao
 import com.tsquaredapplications.liquid.common.database.entry.EntryRepository
 import com.tsquaredapplications.liquid.common.database.entry.RoomEntryRepository
+import com.tsquaredapplications.liquid.common.database.goal.GoalDao
+import com.tsquaredapplications.liquid.common.database.goal.GoalRepository
+import com.tsquaredapplications.liquid.common.database.goal.RoomGoalRepository
 import com.tsquaredapplications.liquid.common.database.icons.IconDao
 import com.tsquaredapplications.liquid.common.database.icons.IconRepository
 import com.tsquaredapplications.liquid.common.database.icons.RoomIconRepository
@@ -88,4 +91,14 @@ class AppModule(private val application: Application) {
     fun providesNotificationManager(
         impl: NotificationManagerImpl
     ): NotificationManager = impl
+
+    @Provides
+    @Singleton
+    fun provideGoalDao(appDatabase: AppDatabase): GoalDao = appDatabase.goalDao()
+
+    @Provides
+    @Singleton
+    fun provideGoalRepository(
+        impl: RoomGoalRepository
+    ): GoalRepository = impl
 }

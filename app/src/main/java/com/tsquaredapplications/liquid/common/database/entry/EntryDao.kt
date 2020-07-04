@@ -7,7 +7,7 @@ import androidx.room.Query
 
 @Dao
 interface EntryDao {
-    @Query("SELECT * FROM entry")
+    @Query("SELECT * FROM entry ORDER BY timestamp DESC")
     suspend fun getAllEntries(): List<EntryDataWrapper>
 
     @Query("SELECT * FROM entry WHERE timestamp >= :from AND timestamp <= :to")

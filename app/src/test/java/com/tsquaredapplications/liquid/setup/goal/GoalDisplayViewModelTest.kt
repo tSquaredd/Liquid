@@ -1,9 +1,9 @@
 package com.tsquaredapplications.liquid.setup.goal
 
-import androidx.lifecycle.Observer
 import com.tsquaredapplications.liquid.common.BaseViewModelTest
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.common.database.users.UserManager
+import com.tsquaredapplications.liquid.common.notifications.NotificationManager
 import com.tsquaredapplications.liquid.ext.assertStateOrder
 import com.tsquaredapplications.liquid.setup.LiquidUnit
 import com.tsquaredapplications.liquid.setup.goal.GoalDisplayState.Initialized
@@ -11,7 +11,6 @@ import com.tsquaredapplications.liquid.setup.goal.GoalDisplayState.UserInformati
 import io.mockk.MockKAnnotations
 import io.mockk.clearMocks
 import io.mockk.every
-import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -23,15 +22,11 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-internal class GoalDisplayViewModelTest : BaseViewModelTest() {
+internal class GoalDisplayViewModelTest : BaseViewModelTest<GoalDisplayState>() {
 
-    @RelaxedMockK
-    lateinit var userManager: UserManager
+    private val userManager = mockk<UserManager>(relaxed = true)
+    private val notificationManager = mockk<NotificationManager>(relaxed = true)
 
-    @RelaxedMockK
-    lateinit var stateObserver: Observer<GoalDisplayState>
-
-    private val stateList = mutableListOf<GoalDisplayState>()
     lateinit var viewModel: GoalDisplayViewModel
 
     @BeforeAll
@@ -43,7 +38,7 @@ internal class GoalDisplayViewModelTest : BaseViewModelTest() {
     fun beforeEach() {
         clearMocks(stateObserver)
         stateList.clear()
-        viewModel = GoalDisplayViewModel(userManager).apply {
+        viewModel = GoalDisplayViewModel(userManager, notificationManager).apply {
             stateLiveData.observeForever(stateObserver)
         }
     }

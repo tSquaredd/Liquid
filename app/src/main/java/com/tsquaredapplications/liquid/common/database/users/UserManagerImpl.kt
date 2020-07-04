@@ -12,11 +12,19 @@ import com.tsquaredapplications.liquid.common.database.PREFS_FILE
 import com.tsquaredapplications.liquid.common.database.SHOULD_SHOW_ALCOHOL_WARNING
 import com.tsquaredapplications.liquid.common.database.UNIT_PREFERENCE
 import com.tsquaredapplications.liquid.common.database.WEIGHT
+import com.tsquaredapplications.liquid.common.database.goal.Goal
+import com.tsquaredapplications.liquid.common.database.goal.GoalRepository
 import com.tsquaredapplications.liquid.setup.LiquidUnit
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 class UserManagerImpl
-@Inject constructor(val context: Context) :
+@Inject constructor(
+    val context: Context,
+    private val goalRepository: GoalRepository
+) :
     UserManager {
     override fun setUser(userInformation: UserInformation) {
         val sharedPrefs = context.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE)
@@ -31,6 +39,15 @@ class UserManagerImpl
             putInt(NOTIFICATION_END_TME_MIN, userInformation.notifications.endTime.min)
             putInt(NOTIFICATION_INTERVAL_MINS, userInformation.notifications.intervalMins)
             commit()
+        }
+
+        GlobalScope.launch {
+            goalRepository.insert(
+                Goal(
+                    goalAmount = userInformation.dailyGoal,
+                    startTimeStamp = Calendar.getInstance().timeInMillis
+                )
+            )
         }
     }
 

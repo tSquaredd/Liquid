@@ -51,10 +51,6 @@ class PresetIconSelectionFragment : BaseFragment<FragmentPresetIconSelectionBind
                 onStateChange(it)
             })
         }
-
-        viewModel.getTypes().observe(viewLifecycleOwner, Observer {
-            itemAdapter.add(it)
-        })
     }
 
     private fun recyclerViewSetup() {
@@ -77,6 +73,7 @@ class PresetIconSelectionFragment : BaseFragment<FragmentPresetIconSelectionBind
     }
 
     private fun onInitialized(state: Initialized) {
+        itemAdapter.clear()
         itemAdapter.add(state.typeItems)
     }
 

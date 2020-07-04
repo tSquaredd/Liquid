@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.tsquaredapplications.liquid.add.amount.DrinkAmountViewModel
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkViewModel
+import com.tsquaredapplications.liquid.history.main.HistoryViewModel
 import com.tsquaredapplications.liquid.home.HomeViewModel
 import com.tsquaredapplications.liquid.presets.add.AddPresetViewModel
 import com.tsquaredapplications.liquid.presets.edit.EditPresetViewModel
@@ -124,5 +125,10 @@ class ViewModelFactory
         @IntoMap
         @ViewModelKey(NotificationsSettingsViewModel::class)
         internal abstract fun bindNotificationSettingsViewModel(viewModel: NotificationsSettingsViewModel): ViewModel
+
+        @Binds
+        @IntoMap
+        @ViewModelKey(HistoryViewModel::class)
+        internal abstract fun bindHistoryViewModel(viewModel: HistoryViewModel): ViewModel
     }
 }
