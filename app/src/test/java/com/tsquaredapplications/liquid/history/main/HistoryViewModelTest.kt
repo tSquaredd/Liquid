@@ -6,6 +6,7 @@ import com.tsquaredapplications.liquid.common.database.entry.EntryRepository
 import com.tsquaredapplications.liquid.common.database.goal.Goal
 import com.tsquaredapplications.liquid.common.database.goal.GoalRepository
 import com.tsquaredapplications.liquid.common.database.icons.IconRepository
+import com.tsquaredapplications.liquid.common.database.types.DrinkType
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.history.main.resources.HistoryResourceWrapper
 import com.tsquaredapplications.liquid.setup.LiquidUnit
@@ -52,7 +53,7 @@ internal class HistoryViewModelTest : BaseViewModelTest<HistoryState>() {
         val result = viewModel.buildHistoryDayItems(
             mutableListOf(),
             mutableListOf(Goal(1, 80, calendar.timeInMillis)),
-            mutableListOf()
+            mapOf()
         )
         assertTrue(result.isEmpty())
     }
@@ -63,17 +64,21 @@ internal class HistoryViewModelTest : BaseViewModelTest<HistoryState>() {
         val entryOne = mockk<EntryDataWrapper> {
             every { entry.amount } returns 10.0
             every { entry.timestamp } returns calendar.timeInMillis - 10000
+            every { preset } returns null
+            every { drinkType } returns DrinkType(1, "Water", 1.0, false, 1)
         }
 
         val entryTwo = mockk<EntryDataWrapper> {
             every { entry.amount } returns 15.0
             every { entry.timestamp } returns calendar.timeInMillis
+            every { preset } returns null
+            every { drinkType } returns DrinkType(1, "Water", 1.0, false, 1)
         }
         calendar.add(Calendar.DAY_OF_YEAR, -1)
         val result = viewModel.buildHistoryDayItems(
             mutableListOf(entryOne, entryTwo),
             mutableListOf(Goal(1, 80, calendar.timeInMillis)),
-            mutableListOf()
+            mapOf()
         )
         assertFalse(result.isEmpty())
         assertTrue(result.size == 1)
@@ -85,11 +90,15 @@ internal class HistoryViewModelTest : BaseViewModelTest<HistoryState>() {
         val entryOne = mockk<EntryDataWrapper> {
             every { entry.amount } returns 10.0
             every { entry.timestamp } returns calendar.timeInMillis - 10000
+            every { preset } returns null
+            every { drinkType } returns DrinkType(1, "Water", 1.0, false, 1)
         }
 
         val entryTwo = mockk<EntryDataWrapper> {
             every { entry.amount } returns 15.0
             every { entry.timestamp } returns calendar.timeInMillis
+            every { preset } returns null
+            every { drinkType } returns DrinkType(1, "Water", 1.0, false, 1)
         }
 
         val entryThree = mockk<EntryDataWrapper> {
@@ -97,13 +106,15 @@ internal class HistoryViewModelTest : BaseViewModelTest<HistoryState>() {
             val cal = Calendar.getInstance()
             cal.add(Calendar.DAY_OF_YEAR, -2)
             every { entry.timestamp } returns cal.timeInMillis
+            every { preset } returns null
+            every { drinkType } returns DrinkType(1, "Water", 1.0, false, 1)
         }
 
         calendar.add(Calendar.DAY_OF_YEAR, -1)
         val result = viewModel.buildHistoryDayItems(
             mutableListOf(entryOne, entryTwo, entryThree),
             mutableListOf(Goal(1, 80, calendar.timeInMillis)),
-            mutableListOf()
+            mapOf()
         )
         assertFalse(result.isEmpty())
         assertTrue(result.size == 2)
