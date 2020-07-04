@@ -198,6 +198,10 @@
     <string name="weight_change_goal_prompt">Would you like us to calculate a new goal based on your updated weight?</string>
     <!-- endregion -->
 
+    <!-- region history -->
+    <string name="history_empty_header">There is no drink history yet! start by adding your first drink!</string>
+    <!-- endregion -->
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="preference_file_key" translatable="false">liquid-app-prefs</string>

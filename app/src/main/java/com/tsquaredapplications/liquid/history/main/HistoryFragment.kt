@@ -14,6 +14,7 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentHistoryBinding
+import com.tsquaredapplications.liquid.ext.setAsVisible
 import com.tsquaredapplications.liquid.history.main.HistoryState.Initialized
 import javax.inject.Inject
 
@@ -55,8 +56,10 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
 
     private fun onInitialized(state: Initialized) {
         if (state.historyItems.isEmpty()) {
-            TODO("Show empty list")
+            binding.emptyHeader.setAsVisible()
+            binding.emptyImage.setAsVisible()
         } else {
+            binding.recyclerView.setAsVisible()
             itemAdapter.clear()
             itemAdapter.add(state.historyItems)
         }
