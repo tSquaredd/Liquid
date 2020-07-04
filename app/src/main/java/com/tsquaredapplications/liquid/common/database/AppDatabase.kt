@@ -8,6 +8,8 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.tsquaredapplications.liquid.R
 import com.tsquaredapplications.liquid.common.database.entry.Entry
 import com.tsquaredapplications.liquid.common.database.entry.EntryDao
+import com.tsquaredapplications.liquid.common.database.goal.Goal
+import com.tsquaredapplications.liquid.common.database.goal.GoalDao
 import com.tsquaredapplications.liquid.common.database.icons.Icon
 import com.tsquaredapplications.liquid.common.database.icons.IconDao
 import com.tsquaredapplications.liquid.common.database.presets.Preset
@@ -17,7 +19,7 @@ import com.tsquaredapplications.liquid.common.database.types.DrinkTypeDao
 import java.util.concurrent.Executors
 
 @Database(
-    entities = [DrinkType::class, Icon::class, Preset::class, Entry::class],
+    entities = [DrinkType::class, Icon::class, Preset::class, Entry::class, Goal::class],
     version = 1,
     exportSchema = false
 )
@@ -26,6 +28,7 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun iconDao(): IconDao
     abstract fun presetDao(): PresetDao
     abstract fun entryDao(): EntryDao
+    abstract fun goalDao(): GoalDao
 
     companion object {
         @Volatile

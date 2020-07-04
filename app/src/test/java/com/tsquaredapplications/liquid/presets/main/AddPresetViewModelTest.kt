@@ -1,6 +1,5 @@
 package com.tsquaredapplications.liquid.presets.main
 
-import androidx.lifecycle.Observer
 import com.tsquaredapplications.liquid.common.BaseViewModelTest
 import com.tsquaredapplications.liquid.common.database.icons.Icon
 import com.tsquaredapplications.liquid.common.database.presets.PresetRepository
@@ -36,7 +35,7 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-internal class AddPresetViewModelTest : BaseViewModelTest() {
+internal class AddPresetViewModelTest : BaseViewModelTest<AddPresetState>() {
 
     private val userInformation = mockk<UserInformation> {
         every { unitPreference } returns expectedUnitPreference
@@ -50,9 +49,6 @@ internal class AddPresetViewModelTest : BaseViewModelTest() {
     }
 
     private lateinit var viewModel: AddPresetViewModel
-
-    private var stateList = mutableListOf<AddPresetState>()
-    private val stateObserver = mockk<Observer<AddPresetState>>(relaxed = true)
 
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
 

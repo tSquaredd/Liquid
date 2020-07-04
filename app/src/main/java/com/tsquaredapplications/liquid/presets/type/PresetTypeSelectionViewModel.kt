@@ -15,10 +15,9 @@ class PresetTypeSelectionViewModel
 
     fun start() {
         viewModelScope.launch {
-            val typeItems = typeRepository.getAllTypes().map {
-                TypeItem(it)
+            val typeItems = typeRepository.getAllDrinkTypesWithIcons().map {
+                TypeItem(it.value)
             }
-
             state.value = Initialized(typeItems)
         }
     }

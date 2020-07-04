@@ -7,3 +7,5 @@ const val PRESET_ID = 102
 const val SETTINGS_ID = 200
 
 const val PRESET_SELECTION_ID = 300
+
+const val HISTORY_DAY_ID = 400

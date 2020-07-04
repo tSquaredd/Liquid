@@ -1,19 +1,15 @@
 package com.tsquaredapplications.liquid.common.database.entry
 
-import androidx.room.Embedded
-import androidx.room.Relation
+import android.os.Parcelable
+import com.tsquaredapplications.liquid.common.database.icons.Icon
 import com.tsquaredapplications.liquid.common.database.presets.Preset
 import com.tsquaredapplications.liquid.common.database.types.DrinkType
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 class EntryDataWrapper(
-    @Embedded val entry: Entry,
-    @Relation(
-        parentColumn = "drinkTypeUid",
-        entityColumn = "drinkTypeUid",
-        entity = DrinkType::class
-    )
+    val entry: Entry,
     val drinkType: DrinkType,
-    @Relation(parentColumn = "presetUid", entityColumn = "presetUid", entity = Preset::class)
-    val preset: Preset?
-) {
-}
+    val preset: Preset?,
+    val icon: Icon
+): Parcelable

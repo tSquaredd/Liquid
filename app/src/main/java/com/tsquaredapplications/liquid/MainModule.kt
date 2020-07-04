@@ -5,6 +5,8 @@ import com.tsquaredapplications.liquid.add.amount.DrinkAmountResourceWrapperImpl
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkResourceWrapper
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkResourceWrapperImpl
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
+import com.tsquaredapplications.liquid.history.main.resources.HistoryResourceWrapper
+import com.tsquaredapplications.liquid.history.main.resources.HistoryResourceWrapperImpl
 import com.tsquaredapplications.liquid.home.resources.HomeResourceWrapper
 import com.tsquaredapplications.liquid.home.resources.HomeResourceWrapperImpl
 import com.tsquaredapplications.liquid.presets.add.resources.AddPresetResourceWrapper
@@ -64,4 +66,8 @@ class MainModule {
     @Provides
     fun provideNotificationSettingsResourceWrapper(impl: NotificationSettingsResourceWrapperImpl)
             : NotificationSettingsResourceWrapper = impl
+
+    @Provides
+    fun provideHistoryResourceWrapper(impl: HistoryResourceWrapperImpl)
+            : HistoryResourceWrapper = impl
 }

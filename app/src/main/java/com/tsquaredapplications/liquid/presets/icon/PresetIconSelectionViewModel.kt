@@ -1,32 +1,35 @@
 package com.tsquaredapplications.liquid.presets.icon
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Transformations
-import androidx.lifecycle.ViewModel
-import com.tsquaredapplications.liquid.common.SingleEventLiveData
+import androidx.lifecycle.viewModelScope
+import com.tsquaredapplications.liquid.common.BaseViewModel
+import com.tsquaredapplications.liquid.common.database.icons.Icon
 import com.tsquaredapplications.liquid.common.database.icons.IconRepository
 import com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionState.IconSelected
+import com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionState.Initialized
 import com.tsquaredapplications.liquid.presets.icon.adapter.PresetIconItem
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PresetIconSelectionViewModel
 @Inject constructor(
     private val iconRepository: IconRepository
-) : ViewModel() {
+) : BaseViewModel<PresetIconSelectionState>() {
 
-    private val state = SingleEventLiveData<PresetIconSelectionState>()
-    val stateLiveData: LiveData<PresetIconSelectionState>
-        get() = state
-
-    fun getTypes(): LiveData<List<PresetIconItem>> {
-        return Transformations.map(iconRepository.getAllIcons()) {
-            it.map { icon ->
-                PresetIconItem(icon)
-            }
+    fun start() {
+        viewModelScope.launch {
+            state.value = Initialized(
+                iconRepository.getAllIcons().map {
+                    PresetIconItem(it.value)
+                })
         }
     }
 
     fun onItemClick(item: PresetIconItem) {
         state.value = IconSelected(item.iconModel)
     }
+}
+
+sealed class PresetIconSelectionState {
+    class Initialized(val typeItems: List<PresetIconItem>) : PresetIconSelectionState()
+    class IconSelected(val icon: Icon) : PresetIconSelectionState()
 }

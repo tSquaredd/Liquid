@@ -22,19 +22,15 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class UserInformationViewModelTest : BaseViewModelTest() {
+class UserInformationViewModelTest : BaseViewModelTest<UserInformationState>() {
 
     @MockK
     lateinit var resourceWrapper: UserInformationResourceWrapper
 
     @RelaxedMockK
-    lateinit var stateObserver: Observer<UserInformationState>
-
-    @RelaxedMockK
     lateinit var unitObserver: Observer<LiquidUnit>
 
     private lateinit var viewModel: UserInformationViewModel
-    private var stateSlot = slot<UserInformationState>()
     private var unitSlot = slot<LiquidUnit>()
 
 
@@ -47,7 +43,7 @@ class UserInformationViewModelTest : BaseViewModelTest() {
     @BeforeEach
     fun setupBeforeEach() {
         clearMocks(stateObserver, unitObserver)
-        stateSlot.clear()
+        stateList.clear()
         unitSlot.clear()
         viewModel = UserInformationViewModel(
             resourceWrapper
@@ -101,8 +97,8 @@ class UserInformationViewModelTest : BaseViewModelTest() {
         }
 
         private fun assertInvalidWeighScenario() {
-            verify(exactly = 1) { stateObserver.onChanged(capture(stateSlot)) }
-            val state = stateSlot.captured as UserInformationState.InvalidWeight
+            verify(exactly = 1) { stateObserver.onChanged(capture(stateList)) }
+            val state = stateList.first() as UserInformationState.InvalidWeight
             assertEquals(WEIGHT_ERROR_MESSAGE, state.errorMessage)
         }
 
@@ -111,8 +107,8 @@ class UserInformationViewModelTest : BaseViewModelTest() {
             viewModel.start()
             viewModel.onContinueClicked("185")
 
-            verify(exactly = 1) { stateObserver.onChanged(capture(stateSlot)) }
-            val state = stateSlot.captured as UserInformationState.Continue
+            verify(exactly = 1) { stateObserver.onChanged(capture(stateList)) }
+            val state = stateList.first() as UserInformationState.Continue
             assertEquals(185, state.weight)
             assertEquals(LiquidUnit.OZ, state.unitChoiceState)
         }

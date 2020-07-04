@@ -9,7 +9,7 @@ import androidx.room.Transaction
 interface DrinkTypeDao {
     @Transaction
     @Query("SELECT * FROM drinktype")
-    suspend fun getAll(): List<DrinkTypeAndIcon>
+    suspend fun getAll(): List<DrinkType>
 
     @Insert
     fun insertAll(drinkTypeList: List<DrinkType>)

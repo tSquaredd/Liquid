@@ -1,6 +1,5 @@
 package com.tsquaredapplications.liquid.home
 
-import androidx.lifecycle.Observer
 import com.tsquaredapplications.liquid.common.BaseViewModelTest
 import com.tsquaredapplications.liquid.common.database.entry.EntryRepository
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
@@ -13,7 +12,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.TestInstance
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-internal class HomeViewModelTest : BaseViewModelTest() {
+internal class HomeViewModelTest : BaseViewModelTest<HomeState>() {
 
 
     private val resourceWrapper = mockk<HomeResourceWrapper>()
@@ -24,9 +23,6 @@ internal class HomeViewModelTest : BaseViewModelTest() {
     }
 
     private val entryRepository = mockk<EntryRepository>()
-
-    private val stateObserver = mockk<Observer<HomeState>>(relaxed = true)
-    private val stateList = mutableListOf<HomeState>()
 
     private lateinit var viewModel: HomeViewModel
 

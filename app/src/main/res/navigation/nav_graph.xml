@@ -101,7 +101,7 @@
         tools:layout="@layout/fragment_preset_icon_selection" />
     <fragment
         android:id="@+id/historyFragment"
-        android:name="com.tsquaredapplications.liquid.HistoryFragment"
+        android:name="com.tsquaredapplications.liquid.history.main.HistoryFragment"
         android:label="@string/history"
         tools:layout="@layout/fragment_history">
         <action
@@ -110,7 +110,7 @@
     </fragment>
     <fragment
         android:id="@+id/dayHistoryFragment"
-        android:name="com.tsquaredapplications.liquid.DayHistoryFragment"
+        android:name="com.tsquaredapplications.liquid.history.day.DayHistoryFragment"
         android:label="May 1st"
         tools:layout="@layout/fragment_day_history">
         <action

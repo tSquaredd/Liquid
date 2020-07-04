@@ -17,9 +17,10 @@ class NotificationManagerImpl
     override fun enqueueNotifications(userInformation: UserInformation) {
         if (userInformation.notifications.enabled) {
             val notificationRequest = PeriodicWorkRequestBuilder<NotificationWorker>(
-                15,
+                userInformation.notifications.intervalMins.toLong(),
                 TimeUnit.MINUTES
-            ).build()
+            ).setInitialDelay(userInformation.notifications.intervalMins.toLong(), TimeUnit.MINUTES)
+                .build()
 
             WorkManager.getInstance(context)
                 .enqueueUniquePeriodicWork(

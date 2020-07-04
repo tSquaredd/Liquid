@@ -1,9 +1,11 @@
 package com.tsquaredapplications.liquid.common.database.icons
 
-import androidx.lifecycle.LiveData
 import javax.inject.Inject
 
 class RoomIconRepository
 @Inject constructor(private val iconDao: IconDao) : IconRepository {
-    override fun getAllIcons(): LiveData<List<Icon>> = iconDao.getAll()
+    override suspend fun getAllIcons(): Map<Int, Icon> {
+        val icons = iconDao.getAll()
+        return icons.map { it.iconUid to it }.toMap()
+    }
 }

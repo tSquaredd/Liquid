@@ -11,7 +11,7 @@ import com.tsquaredapplications.liquid.LiquidApplication
 import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.R
 import com.tsquaredapplications.liquid.common.database.AppDatabase
-import com.tsquaredapplications.liquid.common.database.entry.RoomEntryRepository
+import com.tsquaredapplications.liquid.common.database.goal.RoomGoalRepository
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.common.database.users.UserManagerImpl
 import com.tsquaredapplications.liquid.ext.getStartAndEndTimeForToday
@@ -25,11 +25,11 @@ class NotificationWorker
 ) : CoroutineWorker(context, workerParameters) {
 
     override suspend fun doWork(): Result {
-        val userInformation = UserManagerImpl(context).getUser()
-        val entryRepository = RoomEntryRepository(AppDatabase.getInstance(context).entryDao())
-        if (userInformation == null) {
-            return Result.failure()
-        }
+        val appDatabase = AppDatabase.getInstance(context)
+        val entryDao = appDatabase.entryDao()
+        val goalRepository = RoomGoalRepository(appDatabase.goalDao())
+        val userInformation = UserManagerImpl(context, goalRepository).getUser()
+            ?: return Result.failure()
 
         val nowHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         val nowMinute = Calendar.getInstance().get(Calendar.MINUTE)
@@ -43,8 +43,8 @@ class NotificationWorker
         ) {
             val todayTimeRange = getStartAndEndTimeForToday()
             val todayEntryTotal =
-                entryRepository.getAllInTimeRange(todayTimeRange.first, todayTimeRange.second)
-                    .map { it.entry.amount }.sum()
+                entryDao.getAllForTimeRange(todayTimeRange.first, todayTimeRange.second)
+                    .map { it.amount }.sum()
 
             if (todayEntryTotal < userInformation.dailyGoal) {
                 val intent = Intent(context, MainActivity::class.java).apply {
