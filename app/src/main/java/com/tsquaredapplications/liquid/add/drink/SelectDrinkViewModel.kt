@@ -36,8 +36,9 @@ class SelectDrinkViewModel
 
     private fun buildPresetItemsList() {
         viewModelScope.launch {
-            val presets = async { presetRepository.getAllPresets().map { PresetItem(it) } }
-            val types = async { typeRepository.getAllTypes().map { TypeItem(it) } }
+            val presets = async { presetRepository.getAllPresets().values.map { PresetItem(it) } }
+            val types =
+                async { typeRepository.getAllDrinkTypesWithIcons().values.map { TypeItem(it) } }
             onItemListsCreated(presets.await(), types.await())
         }
     }

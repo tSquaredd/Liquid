@@ -2,7 +2,6 @@ package com.tsquaredapplications.liquid.history.main
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.viewModelScope
-import com.tsquaredapplications.liquid.R
 import com.tsquaredapplications.liquid.common.BaseViewModel
 import com.tsquaredapplications.liquid.common.database.entry.EntryDataWrapper
 import com.tsquaredapplications.liquid.common.database.entry.EntryRepository
@@ -53,7 +52,7 @@ class HistoryViewModel
     fun buildHistoryDayItems(
         entries: MutableList<EntryDataWrapper>,
         goals: MutableList<Goal>,
-        icons: List<Icon>
+        icons: Map<Int, Icon>
     ): List<HistoryDayItem.Model> {
 
         val separatedEntries =
@@ -96,16 +95,14 @@ class HistoryViewModel
     private fun getEntriesAfter(
         timestamp: Long,
         entries: MutableList<EntryDataWrapper>,
-        icons: List<Icon>
+        icons: Map<Int, Icon>
     ): List<Pair<EntryDataWrapper, Icon>> {
         val entriesForDay = mutableListOf<Pair<EntryDataWrapper, Icon>>()
 
         entries.forEach { entryDataWrapper ->
-            val icon = icons.firstOrNull {
-                it.iconUid == entryDataWrapper.preset?.iconUid
-            } ?: icons.firstOrNull {
-                it.iconUid == entryDataWrapper.drinkType.iconUid
-            } ?: Icon(-1, R.drawable.drink_placeholder, -1)
+            val icon = icons[entryDataWrapper.preset?.iconUid
+                ?: entryDataWrapper.drinkType.iconUid]
+                ?: IconRepository.DEFAULT_ICON
 
             if (entryDataWrapper.entry.timestamp >= timestamp) {
                 entriesForDay.add(Pair(entryDataWrapper, icon))

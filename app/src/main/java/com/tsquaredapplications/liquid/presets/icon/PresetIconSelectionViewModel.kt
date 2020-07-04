@@ -15,11 +15,11 @@ class PresetIconSelectionViewModel
     private val iconRepository: IconRepository
 ) : BaseViewModel<PresetIconSelectionState>() {
 
-    fun getTypes() {
+    fun start() {
         viewModelScope.launch {
             state.value = Initialized(
                 iconRepository.getAllIcons().map {
-                    PresetIconItem(it)
+                    PresetIconItem(it.value)
                 })
         }
     }

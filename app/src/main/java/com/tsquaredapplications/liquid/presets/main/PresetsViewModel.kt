@@ -24,7 +24,7 @@ class PresetsViewModel
     fun getPresets() {
         viewModelScope.launch {
             val presets = presetRepository.getAllPresets()
-            onPresetsRetrieved(presets)
+            onPresetsRetrieved(presets.values.toList())
         }
     }
 

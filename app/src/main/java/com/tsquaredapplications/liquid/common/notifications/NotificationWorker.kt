@@ -11,7 +11,6 @@ import com.tsquaredapplications.liquid.LiquidApplication
 import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.R
 import com.tsquaredapplications.liquid.common.database.AppDatabase
-import com.tsquaredapplications.liquid.common.database.entry.RoomEntryRepository
 import com.tsquaredapplications.liquid.common.database.goal.RoomGoalRepository
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.common.database.users.UserManagerImpl
@@ -27,7 +26,7 @@ class NotificationWorker
 
     override suspend fun doWork(): Result {
         val appDatabase = AppDatabase.getInstance(context)
-        val entryRepository = RoomEntryRepository(appDatabase.entryDao())
+        val entryDao = appDatabase.entryDao()
         val goalRepository = RoomGoalRepository(appDatabase.goalDao())
         val userInformation = UserManagerImpl(context, goalRepository).getUser()
             ?: return Result.failure()
@@ -44,8 +43,8 @@ class NotificationWorker
         ) {
             val todayTimeRange = getStartAndEndTimeForToday()
             val todayEntryTotal =
-                entryRepository.getAllInTimeRange(todayTimeRange.first, todayTimeRange.second)
-                    .map { it.entry.amount }.sum()
+                entryDao.getAllForTimeRange(todayTimeRange.first, todayTimeRange.second)
+                    .map { it.amount }.sum()
 
             if (todayEntryTotal < userInformation.dailyGoal) {
                 val intent = Intent(context, MainActivity::class.java).apply {

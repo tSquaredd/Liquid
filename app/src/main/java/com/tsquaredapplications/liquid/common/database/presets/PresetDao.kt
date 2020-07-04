@@ -11,7 +11,7 @@ import androidx.room.Update
 interface PresetDao {
     @Transaction
     @Query("SELECT * FROM preset")
-    suspend fun getAllPresets(): List<PresetDataWrapper>
+    suspend fun getAllPresets(): List<Preset>
 
     @Transaction
     @Insert

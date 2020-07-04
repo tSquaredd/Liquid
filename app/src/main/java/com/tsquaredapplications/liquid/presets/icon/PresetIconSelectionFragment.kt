@@ -50,6 +50,8 @@ class PresetIconSelectionFragment : BaseFragment<FragmentPresetIconSelectionBind
             stateLiveData.observe(viewLifecycleOwner, Observer {
                 onStateChange(it)
             })
+
+            start()
         }
     }
 
