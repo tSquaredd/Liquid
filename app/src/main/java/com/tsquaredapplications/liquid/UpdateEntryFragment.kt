@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.tsquaredapplications.liquid.UpdateEntryFragmentDirections.Companion.toDayHistoryFragment
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentUpdateEntryBinding
-import com.tsquaredapplications.liquid.ext.navigate
 
 class UpdateEntryFragment : BaseFragment<FragmentUpdateEntryBinding>() {
 
@@ -18,11 +16,11 @@ class UpdateEntryFragment : BaseFragment<FragmentUpdateEntryBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.deleteButton.setOnClickListener {
-            navigate(toDayHistoryFragment())
+//            navigate(toDayHistoryFragment())
         }
 
         binding.updateButton.setOnClickListener {
-            navigate(toDayHistoryFragment())
+//            navigate(toDayHistoryFragment())
         }
     }
 }

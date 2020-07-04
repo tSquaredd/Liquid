@@ -116,6 +116,9 @@
         <action
             android:id="@+id/toUpdateEntryFragment"
             app:destination="@id/updateEntryFragment" />
+        <argument
+            android:name="entryDataWrappers"
+            app:argType="com.tsquaredapplications.liquid.common.database.entry.EntryDataWrapper[]" />
     </fragment>
     <fragment
         android:id="@+id/updateEntryFragment"

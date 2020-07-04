@@ -73,7 +73,7 @@ class HistoryViewModel
             val entriesForDay = getEntriesAfter(startTime.timeInMillis, entries, icons)
             if (entriesForDay.isNotEmpty()) {
                 val dateString = historyResourceWrapper.getDayDisplayName(startTime)
-                val progress = entriesForDay.map { it.first.entry.amount }.sum()
+                val progress = entriesForDay.map { it.entry.amount }.sum()
                 val progressString = buildProgressString(progress.toInt())
 
                 separatedEntries.add(
@@ -84,7 +84,7 @@ class HistoryViewModel
                     )
                 )
 
-                entries.removeAll(entriesForDay.map { it.first })
+                entries.removeAll(entriesForDay.map { it })
             }
             startTime.add(Calendar.DAY_OF_YEAR, -1)
         }
@@ -96,8 +96,8 @@ class HistoryViewModel
         timestamp: Long,
         entries: MutableList<EntryDataWrapper>,
         icons: Map<Int, Icon>
-    ): List<Pair<EntryDataWrapper, Icon>> {
-        val entriesForDay = mutableListOf<Pair<EntryDataWrapper, Icon>>()
+    ): List<EntryDataWrapper> {
+        val entriesForDay = mutableListOf<EntryDataWrapper>()
 
         entries.forEach { entryDataWrapper ->
             val icon = icons[entryDataWrapper.preset?.iconUid
@@ -105,7 +105,7 @@ class HistoryViewModel
                 ?: IconRepository.DEFAULT_ICON
 
             if (entryDataWrapper.entry.timestamp >= timestamp) {
-                entriesForDay.add(Pair(entryDataWrapper, icon))
+                entriesForDay.add(entryDataWrapper)
             }
         }
         return entriesForDay
