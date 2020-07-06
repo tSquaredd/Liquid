@@ -10,6 +10,7 @@ import com.mikepenz.fastadapter.binding.AbstractBindingItem
 import com.tsquaredapplications.liquid.common.adapter.HISTORY_DAY_ID
 import com.tsquaredapplications.liquid.common.database.entry.EntryDataWrapper
 import com.tsquaredapplications.liquid.databinding.HistoryItemBinding
+import com.tsquaredapplications.liquid.setup.LiquidUnit
 import kotlinx.android.parcel.Parcelize
 
 class HistoryDayItem(val model: Model) : AbstractBindingItem<HistoryItemBinding>() {
@@ -32,7 +33,7 @@ class HistoryDayItem(val model: Model) : AbstractBindingItem<HistoryItemBinding>
         itemAdapter.clear()
         val historyIconItems = model.entries.map {
             HistoryIconItem(
-                HistoryIconItem.Model(it.icon)
+                HistoryIconItem.Model(it, model.liquidUnit)
             )
         }
 
@@ -43,6 +44,7 @@ class HistoryDayItem(val model: Model) : AbstractBindingItem<HistoryItemBinding>
     class Model(
         val date: String,
         val entries: List<EntryDataWrapper>,
-        val progress: String
+        val progress: String,
+        val liquidUnit: LiquidUnit
     ) : Parcelable
 }

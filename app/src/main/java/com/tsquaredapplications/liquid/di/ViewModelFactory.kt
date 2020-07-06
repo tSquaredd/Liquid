@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.tsquaredapplications.liquid.add.amount.DrinkAmountViewModel
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkViewModel
+import com.tsquaredapplications.liquid.history.day.DayHistoryViewModel
+import com.tsquaredapplications.liquid.history.edit.UpdateEntryViewModel
 import com.tsquaredapplications.liquid.history.main.HistoryViewModel
 import com.tsquaredapplications.liquid.home.HomeViewModel
 import com.tsquaredapplications.liquid.presets.add.AddPresetViewModel
@@ -130,5 +132,15 @@ class ViewModelFactory
         @IntoMap
         @ViewModelKey(HistoryViewModel::class)
         internal abstract fun bindHistoryViewModel(viewModel: HistoryViewModel): ViewModel
+
+        @Binds
+        @IntoMap
+        @ViewModelKey(DayHistoryViewModel::class)
+        internal abstract fun bindDayHistoryViewModel(viewModeL: DayHistoryViewModel): ViewModel
+
+        @Binds
+        @IntoMap
+        @ViewModelKey(UpdateEntryViewModel::class)
+        internal abstract fun bindUpdateEntryViewModel(viewModel: UpdateEntryViewModel): ViewModel
     }
 }

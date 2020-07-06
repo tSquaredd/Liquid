@@ -1,9 +1,11 @@
 package com.tsquaredapplications.liquid.common.database.entry
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 
 @Dao
 interface EntryDao {
@@ -18,4 +20,10 @@ interface EntryDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(entries: List<Entry>)
+
+    @Update
+    suspend fun update(entry: Entry)
+
+    @Delete
+    suspend fun delete(entry: Entry)
 }

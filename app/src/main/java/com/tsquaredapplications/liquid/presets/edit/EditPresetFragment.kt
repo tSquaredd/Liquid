@@ -125,7 +125,7 @@ class EditPresetFragment : BaseFragment<FragmentEditPresetBinding>() {
 
     private fun onIconUpdated(state: IconUpdated) {
         GlideApp.with(binding.presetIcon)
-            .load(state.iconPath)
+            .load(state.iconResource)
             .fitCenter()
             .into(binding.presetIcon)
     }

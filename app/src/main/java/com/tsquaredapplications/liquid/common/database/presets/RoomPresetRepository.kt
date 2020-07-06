@@ -30,6 +30,10 @@ class RoomPresetRepository
         presetDao.insert(preset)
     }
 
+    override suspend fun insertAll(presets: List<Preset>) {
+        presetDao.insertAll(presets)
+    }
+
     override suspend fun delete(preset: Preset) {
         presetDao.delete(preset)
     }

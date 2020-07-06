@@ -5,6 +5,8 @@ import com.tsquaredapplications.liquid.add.amount.DrinkAmountResourceWrapperImpl
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkResourceWrapper
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkResourceWrapperImpl
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
+import com.tsquaredapplications.liquid.history.edit.resources.UpdateEntryResourceWrapper
+import com.tsquaredapplications.liquid.history.edit.resources.UpdateEntryResourceWrapperImpl
 import com.tsquaredapplications.liquid.history.main.resources.HistoryResourceWrapper
 import com.tsquaredapplications.liquid.history.main.resources.HistoryResourceWrapperImpl
 import com.tsquaredapplications.liquid.home.resources.HomeResourceWrapper
@@ -70,4 +72,8 @@ class MainModule {
     @Provides
     fun provideHistoryResourceWrapper(impl: HistoryResourceWrapperImpl)
             : HistoryResourceWrapper = impl
+
+    @Provides
+    fun provideUpdateEntryResourceWrapper(impl: UpdateEntryResourceWrapperImpl)
+            : UpdateEntryResourceWrapper = impl
 }

@@ -16,6 +16,8 @@ import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentHistoryBinding
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.ext.setAsVisible
+import com.tsquaredapplications.liquid.history.day.TimestampRange
+import com.tsquaredapplications.liquid.history.main.HistoryFragmentDirections.Companion.toDayHistoryFragment
 import com.tsquaredapplications.liquid.history.main.HistoryState.Initialized
 import javax.inject.Inject
 
@@ -73,7 +75,7 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
         }
 
         fastAdapter.onClickListener = { _, _, item, _ ->
-            navigate(HistoryFragmentDirections.toDayHistoryFragment(item.model.entries.toTypedArray()))
+            navigate(toDayHistoryFragment(TimestampRange(item.model.entries[0].entry.timestamp)))
             false
         }
     }

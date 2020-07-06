@@ -3,6 +3,8 @@ package com.tsquaredapplications.liquid
 import com.tsquaredapplications.liquid.add.amount.DrinkAmountFragment
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkFragment
 import com.tsquaredapplications.liquid.di.ActivityScope
+import com.tsquaredapplications.liquid.history.day.DayHistoryFragment
+import com.tsquaredapplications.liquid.history.edit.UpdateEntryFragment
 import com.tsquaredapplications.liquid.history.main.HistoryFragment
 import com.tsquaredapplications.liquid.home.HomeFragment
 import com.tsquaredapplications.liquid.presets.add.AddPresetFragment
@@ -41,4 +43,6 @@ interface MainComponent {
     fun inject(weightSettingFragment: WeightSettingFragment)
     fun inject(notificationsSettingFragment: NotificationsSettingFragment)
     fun inject(historyFragment: HistoryFragment)
+    fun inject(dayHistoryFragment: DayHistoryFragment)
+    fun inject(updateEntryFragment: UpdateEntryFragment)
 }

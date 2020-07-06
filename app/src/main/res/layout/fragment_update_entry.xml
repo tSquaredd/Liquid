@@ -2,28 +2,94 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UpdateEntryFragment">
+    tools:context=".presets.edit.EditPresetFragment">
 
-    <Button
-        android:id="@+id/deleteButton"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="32dp"
+        android:textAlignment="center"
+        android:textSize="36sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Water" />
+
+    <View
+        android:id="@+id/circularBackground"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:background="@drawable/type_background_with_border"
+        app:layout_constraintBottom_toTopOf="@id/amountSelectionTextLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/name" />
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="40dp"
+        android:contentDescription="@string/new_preset_icon_content_description"
+        app:layout_constraintBottom_toBottomOf="@id/circularBackground"
+        app:layout_constraintEnd_toEndOf="@id/circularBackground"
+        app:layout_constraintStart_toStartOf="@id/circularBackground"
+        app:layout_constraintTop_toTopOf="@id/circularBackground"
+        tools:src="@drawable/drink_placeholder" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/amountSelectionTextLayout"
+        style="@style/PrimaryTextInputLayout"
+        android:layout_width="124dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        app:errorIconDrawable="@drawable/text_field_error"
+        app:layout_constraintBottom_toTopOf="@id/deleteButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/circularBackground">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/amountSelectionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:textColor="@color/colorWhite" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/deleteButton"
+        style="@style/SecondaryButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="16dp"
         android:text="@string/delete"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/updateButton"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/updateButton"
-        android:layout_width="wrap_content"
+        style="@style/PrimaryButtonStyle"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
         android:text="@string/update"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@id/deleteButton" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
