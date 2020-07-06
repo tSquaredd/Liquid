@@ -7,8 +7,6 @@ import com.tsquaredapplications.liquid.common.database.entry.EntryDataWrapper
 import com.tsquaredapplications.liquid.common.database.entry.EntryRepository
 import com.tsquaredapplications.liquid.common.database.goal.Goal
 import com.tsquaredapplications.liquid.common.database.goal.GoalRepository
-import com.tsquaredapplications.liquid.common.database.icons.Icon
-import com.tsquaredapplications.liquid.common.database.icons.IconRepository
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.ext.getEndTimeForToday
 import com.tsquaredapplications.liquid.history.main.HistoryState.Initialized
@@ -23,7 +21,6 @@ class HistoryViewModel
     private val entryRepository: EntryRepository,
     private val goalRepository: GoalRepository,
     private val userInformation: UserInformation,
-    private val iconRepository: IconRepository,
     private val historyResourceWrapper: HistoryResourceWrapper
 ) : BaseViewModel<HistoryState>() {
 
@@ -31,13 +28,11 @@ class HistoryViewModel
         viewModelScope.launch {
             val entries = async { entryRepository.getAll() }
             val goals = async { goalRepository.getAll() }
-            val icons = async { iconRepository.getAllIcons() }
 
             val dateSeparatedEntries =
                 buildHistoryDayItems(
                     entries.await().toMutableList(),
-                    goals.await().toMutableList(),
-                    icons.await()
+                    goals.await().toMutableList()
                 )
 
             state.value = Initialized(
@@ -51,8 +46,7 @@ class HistoryViewModel
     @VisibleForTesting
     fun buildHistoryDayItems(
         entries: MutableList<EntryDataWrapper>,
-        goals: MutableList<Goal>,
-        icons: Map<Int, Icon>
+        goals: MutableList<Goal>
     ): List<HistoryDayItem.Model> {
 
         val separatedEntries =
@@ -70,21 +64,22 @@ class HistoryViewModel
                 goals.removeAt(0)
             }
 
-            val entriesForDay = getEntriesAfter(startTime.timeInMillis, entries, icons)
+            val entriesForDay = getEntriesAfter(startTime.timeInMillis, entries)
             if (entriesForDay.isNotEmpty()) {
                 val dateString = historyResourceWrapper.getDayDisplayName(startTime)
-                val progress = entriesForDay.map { it.first.entry.amount }.sum()
+                val progress = entriesForDay.map { it.entry.amount }.sum()
                 val progressString = buildProgressString(progress.toInt())
 
                 separatedEntries.add(
                     HistoryDayItem.Model(
                         dateString,
-                        entriesForDay,
-                        progressString
+                        entriesForDay.sortedBy { it.entry.timestamp },
+                        progressString,
+                        userInformation.unitPreference
                     )
                 )
 
-                entries.removeAll(entriesForDay.map { it.first })
+                entries.removeAll(entriesForDay.map { it })
             }
             startTime.add(Calendar.DAY_OF_YEAR, -1)
         }
@@ -94,25 +89,20 @@ class HistoryViewModel
 
     private fun getEntriesAfter(
         timestamp: Long,
-        entries: MutableList<EntryDataWrapper>,
-        icons: Map<Int, Icon>
-    ): List<Pair<EntryDataWrapper, Icon>> {
-        val entriesForDay = mutableListOf<Pair<EntryDataWrapper, Icon>>()
+        entries: MutableList<EntryDataWrapper>
+    ): List<EntryDataWrapper> {
+        val entriesForDay = mutableListOf<EntryDataWrapper>()
 
         entries.forEach { entryDataWrapper ->
-            val icon = icons[entryDataWrapper.preset?.iconUid
-                ?: entryDataWrapper.drinkType.iconUid]
-                ?: IconRepository.DEFAULT_ICON
-
             if (entryDataWrapper.entry.timestamp >= timestamp) {
-                entriesForDay.add(Pair(entryDataWrapper, icon))
+                entriesForDay.add(entryDataWrapper)
             }
         }
         return entriesForDay
     }
 
     private fun buildProgressString(progress: Int) =
-        "$progress ${userInformation.unitPreference.name.toLowerCase(Locale.getDefault())}/ " +
+        "$progress ${userInformation.unitPreference.name.toLowerCase(Locale.getDefault())} / " +
                 "${userInformation.dailyGoal} ${userInformation.unitPreference.name.toLowerCase(
                     Locale.getDefault()
                 )}"

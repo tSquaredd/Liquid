@@ -38,8 +38,7 @@ class NotificationWorker
                     nowMinute >= userInformation.notifications.startTime.min) &&
             (nowHour < userInformation.notifications.endTime.hour ||
                     nowHour == userInformation.notifications.endTime.hour &&
-                    nowMinute <= userInformation.notifications.endTime.min
-                    )
+                    nowMinute <= userInformation.notifications.endTime.min)
         ) {
             val todayTimeRange = getStartAndEndTimeForToday()
             val todayEntryTotal =
@@ -70,7 +69,7 @@ class NotificationWorker
 
     private fun buildContentString(progress: Int, userInformation: UserInformation): String {
         val format = context.getString(R.string.notification_content)
-        val goalPercentageComplete = progress / userInformation.dailyGoal
+        val goalPercentageComplete = (progress / userInformation.dailyGoal.toDouble() * 100).toInt()
         return String.format(format, goalPercentageComplete)
     }
 

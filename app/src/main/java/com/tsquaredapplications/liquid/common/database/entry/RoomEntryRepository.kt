@@ -52,4 +52,12 @@ class RoomEntryRepository
     override suspend fun insertAll(entries: List<Entry>) {
         entryDao.insertAll(entries)
     }
+
+    override suspend fun update(entry: Entry) {
+        entryDao.update(entry)
+    }
+
+    override suspend fun delete(entry: Entry) {
+        entryDao.delete(entry)
+    }
 }

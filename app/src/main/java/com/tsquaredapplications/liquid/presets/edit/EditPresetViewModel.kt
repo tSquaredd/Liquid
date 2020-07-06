@@ -11,12 +11,12 @@ import com.tsquaredapplications.liquid.common.database.presets.RoomPresetReposit
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.presets.edit.EditPresetState.AmountInvalid
 import com.tsquaredapplications.liquid.presets.edit.EditPresetState.Deleted
+import com.tsquaredapplications.liquid.presets.edit.EditPresetState.IconUpdated
 import com.tsquaredapplications.liquid.presets.edit.EditPresetState.Initialized
 import com.tsquaredapplications.liquid.presets.edit.EditPresetState.Updated
 import com.tsquaredapplications.liquid.presets.edit.resources.EditPresetResourceWrapper
 import com.tsquaredapplications.liquid.setup.LiquidUnit
 import com.tsquaredapplications.liquid.setup.convertMlToOz
-import com.tsquaredapplications.liquid.setup.convertOzToMl
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -33,14 +33,14 @@ class EditPresetViewModel
 
     lateinit var preset: Preset
     private lateinit var originalPreset: Preset
-    private var updatedAmountInOz: Double? = null
+    private var updatedAmount: Double? = null
     private var updatedName: String? = null
     private var updatedIcon: Icon? = null
 
     fun start(presetDataWrapper: PresetDataWrapper) {
         this.preset = presetDataWrapper.preset
         originalPreset = presetDataWrapper.preset.copy()
-        updatedAmountInOz = preset.sizeInOz
+        updatedAmount = preset.amount
         updatedName = preset.name
         updatedIcon = presetDataWrapper.icon
         state.value = Initialized(
@@ -60,7 +60,7 @@ class EditPresetViewModel
 
     fun presetIconSelected(icon: Icon) {
         this.updatedIcon = icon
-//        state.value = IconUpdated(icon.largeIconPath)
+        state.value = IconUpdated(icon.largeIconResource)
     }
 
     fun onAmountChanged(amountString: String) {
@@ -68,7 +68,7 @@ class EditPresetViewModel
         if (amountDouble != null && userInformation.unitPreference == LiquidUnit.ML) {
             amountDouble = convertMlToOz(amountDouble)
         }
-        updatedAmountInOz = amountDouble
+        updatedAmount = amountDouble
     }
 
     fun onNameChanged(name: String) {
@@ -78,7 +78,7 @@ class EditPresetViewModel
     fun updatePreset() {
         var allValidationsPassed = true
 
-        if (updatedAmountInOz == null) {
+        if (updatedAmount == null) {
             state.value = AmountInvalid(resourceWrapper.amountErrorMessage)
             allValidationsPassed = false
         }
@@ -92,15 +92,10 @@ class EditPresetViewModel
             viewModelScope.launch {
                 roomPresetRepository.update(preset.apply {
                     name = updatedName!!
-                    sizeInOz = if (userInformation.unitPreference == LiquidUnit.OZ) {
-                        updatedAmountInOz!!
-                    } else {
-                        convertOzToMl(updatedAmountInOz!!)
-                    }
+                    amount = updatedAmount!!
                     iconUid = updatedIcon?.iconUid ?: originalPreset.iconUid
                 })
             }
-
             state.value = Updated
         }
     }

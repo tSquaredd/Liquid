@@ -1,5 +1,6 @@
 package com.tsquaredapplications.liquid.history.main
 
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
@@ -8,10 +9,11 @@ import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 import com.tsquaredapplications.liquid.common.adapter.HISTORY_DAY_ID
 import com.tsquaredapplications.liquid.common.database.entry.EntryDataWrapper
-import com.tsquaredapplications.liquid.common.database.icons.Icon
 import com.tsquaredapplications.liquid.databinding.HistoryItemBinding
+import com.tsquaredapplications.liquid.setup.LiquidUnit
+import kotlinx.android.parcel.Parcelize
 
-class HistoryDayItem(private val model: Model) : AbstractBindingItem<HistoryItemBinding>() {
+class HistoryDayItem(val model: Model) : AbstractBindingItem<HistoryItemBinding>() {
     private val itemAdapter = ItemAdapter<HistoryIconItem>()
     private val fastAdapter = FastAdapter.with(itemAdapter)
 
@@ -31,17 +33,18 @@ class HistoryDayItem(private val model: Model) : AbstractBindingItem<HistoryItem
         itemAdapter.clear()
         val historyIconItems = model.entries.map {
             HistoryIconItem(
-                HistoryIconItem.Model(it.second)
+                HistoryIconItem.Model(it, model.liquidUnit)
             )
         }
 
         itemAdapter.add(historyIconItems)
-
     }
 
+    @Parcelize
     class Model(
         val date: String,
-        val entries: List<Pair<EntryDataWrapper, Icon>>,
-        val progress: String
-    )
+        val entries: List<EntryDataWrapper>,
+        val progress: String,
+        val liquidUnit: LiquidUnit
+    ) : Parcelable
 }

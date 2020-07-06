@@ -116,10 +116,13 @@
         <action
             android:id="@+id/toUpdateEntryFragment"
             app:destination="@id/updateEntryFragment" />
+        <argument
+            android:name="timeRange"
+            app:argType="com.tsquaredapplications.liquid.history.day.TimestampRange" />
     </fragment>
     <fragment
         android:id="@+id/updateEntryFragment"
-        android:name="com.tsquaredapplications.liquid.UpdateEntryFragment"
+        android:name="com.tsquaredapplications.liquid.history.edit.UpdateEntryFragment"
         android:label=""
         tools:layout="@layout/fragment_update_entry">
         <action
@@ -127,6 +130,9 @@
             app:destination="@id/dayHistoryFragment"
             app:popUpTo="@id/dayHistoryFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="entry"
+            app:argType="com.tsquaredapplications.liquid.common.database.entry.EntryDataWrapper" />
     </fragment>
     <fragment
         android:id="@+id/editPresetFragment"

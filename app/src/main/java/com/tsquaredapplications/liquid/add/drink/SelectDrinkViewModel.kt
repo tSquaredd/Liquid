@@ -51,7 +51,7 @@ class SelectDrinkViewModel
         viewModelScope.launch {
             entryRepository.insert(
                 Entry(
-                    amount = presetDataWrapper.preset.sizeInOz,
+                    amount = presetDataWrapper.preset.amount,
                     timestamp = Date().time,
                     drinkTypeUid = presetDataWrapper.drinkType.drinkTypeUid,
                     presetUid = presetDataWrapper.preset.presetUid

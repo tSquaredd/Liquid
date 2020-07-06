@@ -87,7 +87,7 @@ class AddPresetViewModel
                 presetRepository.insert(
                     Preset(
                         name = selectedName,
-                        sizeInOz = selectedAmount!!,
+                        amount = selectedAmount!!,
                         drinkTypeUid = selectedDrinkType!!.drinkTypeUid,
                         iconUid = selectedPresetIcon!!.iconUid
                     )
