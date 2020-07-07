@@ -15,6 +15,9 @@ interface EntryDao {
     @Query("SELECT * FROM entry WHERE timestamp >= :from AND timestamp <= :to")
     suspend fun getAllForTimeRange(from: Long, to: Long): List<Entry>
 
+    @Query("SELECT * FROM entry WHERE presetUid == :presetUid")
+    suspend fun getAllForPreset(presetUid: Int): List<Entry>
+
     @Insert
     suspend fun insert(entry: Entry)
 

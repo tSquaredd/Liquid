@@ -74,6 +74,8 @@ class DayHistoryFragment : BaseFragment<FragmentDayHistoryBinding>() {
     }
 
     private fun onInitialized(state: Initialized) {
+        (activity as MainActivity).supportActionBar?.title = state.screenTitle
+
         with(itemAdapter) {
             clear()
             add(state.historyIconModels)

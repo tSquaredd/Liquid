@@ -12,7 +12,8 @@ import javax.inject.Inject
 class DayHistoryViewModel
 @Inject constructor(
     private val entryRepository: EntryRepository,
-    private val userInformation: UserInformation
+    private val userInformation: UserInformation,
+    private val resourceWrapper: DayHistoryResourceWrapper
 ) :
     BaseViewModel<DayHistoryState>() {
 
@@ -20,13 +21,16 @@ class DayHistoryViewModel
         viewModelScope.launch {
             val entryDataWrappers =
                 entryRepository.getAllInTimeRange(timestampRange.startTime, timestampRange.endTime)
-            state.value = Initialized(entryDataWrappers.map {
-                HistoryIconItem(HistoryIconItem.Model(it, userInformation.unitPreference, true))
-            })
+            state.value = Initialized(
+                screenTitle = resourceWrapper.getScreenTitle(entryDataWrappers.first().entry.timestamp),
+                historyIconModels = entryDataWrappers.map {
+                    HistoryIconItem(HistoryIconItem.Model(it, userInformation.unitPreference, true))
+                })
         }
     }
 }
 
 sealed class DayHistoryState {
-    class Initialized(val historyIconModels: List<HistoryIconItem>) : DayHistoryState()
+    class Initialized(val screenTitle: String, val historyIconModels: List<HistoryIconItem>) :
+        DayHistoryState()
 }

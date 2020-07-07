@@ -1,6 +1,7 @@
 package com.tsquaredapplications.liquid.common.database.entry
 
 import com.tsquaredapplications.liquid.common.database.icons.IconRepository
+import com.tsquaredapplications.liquid.common.database.presets.Preset
 import com.tsquaredapplications.liquid.common.database.presets.PresetRepository
 import com.tsquaredapplications.liquid.common.database.types.TypeRepository
 import javax.inject.Inject
@@ -59,5 +60,13 @@ class RoomEntryRepository
 
     override suspend fun delete(entry: Entry) {
         entryDao.delete(entry)
+    }
+
+    override suspend fun presetRemoval(preset: Preset) {
+        val presetEntries = entryDao.getAllForPreset(preset.presetUid)
+        presetEntries.forEach {
+            it.presetUid = null
+        }
+        entryDao.insertAll(presetEntries)
     }
 }

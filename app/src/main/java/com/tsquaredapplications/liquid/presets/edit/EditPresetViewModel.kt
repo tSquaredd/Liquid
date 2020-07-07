@@ -4,10 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
+import com.tsquaredapplications.liquid.common.database.entry.EntryRepository
 import com.tsquaredapplications.liquid.common.database.icons.Icon
 import com.tsquaredapplications.liquid.common.database.presets.Preset
 import com.tsquaredapplications.liquid.common.database.presets.PresetDataWrapper
-import com.tsquaredapplications.liquid.common.database.presets.RoomPresetRepository
+import com.tsquaredapplications.liquid.common.database.presets.PresetRepository
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.presets.edit.EditPresetState.AmountInvalid
 import com.tsquaredapplications.liquid.presets.edit.EditPresetState.Deleted
@@ -17,13 +18,16 @@ import com.tsquaredapplications.liquid.presets.edit.EditPresetState.Updated
 import com.tsquaredapplications.liquid.presets.edit.resources.EditPresetResourceWrapper
 import com.tsquaredapplications.liquid.setup.LiquidUnit
 import com.tsquaredapplications.liquid.setup.convertMlToOz
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class EditPresetViewModel
 @Inject constructor(
     private val userInformation: UserInformation,
-    private val roomPresetRepository: RoomPresetRepository,
+    private val presetRepository: PresetRepository,
+    private val entryRepository: EntryRepository,
     private val resourceWrapper: EditPresetResourceWrapper
 ) : ViewModel() {
 
@@ -53,9 +57,11 @@ class EditPresetViewModel
 
     fun deletePreset() {
         viewModelScope.launch {
-            roomPresetRepository.delete(originalPreset)
+            val deferredDeletion = async { presetRepository.delete(originalPreset) }
+            val entryUpdates = async { entryRepository }
+            awaitAll(deferredDeletion, entryUpdates)
+            state.value = Deleted
         }
-        state.value = Deleted
     }
 
     fun presetIconSelected(icon: Icon) {
@@ -90,7 +96,7 @@ class EditPresetViewModel
 
         if (allValidationsPassed) {
             viewModelScope.launch {
-                roomPresetRepository.update(preset.apply {
+                presetRepository.update(preset.apply {
                     name = updatedName!!
                     amount = updatedAmount!!
                     iconUid = updatedIcon?.iconUid ?: originalPreset.iconUid
