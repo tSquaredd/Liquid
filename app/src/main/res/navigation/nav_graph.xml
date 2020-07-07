@@ -111,7 +111,6 @@
     <fragment
         android:id="@+id/dayHistoryFragment"
         android:name="com.tsquaredapplications.liquid.history.day.DayHistoryFragment"
-        android:label="May 1st"
         tools:layout="@layout/fragment_day_history">
         <action
             android:id="@+id/toUpdateEntryFragment"

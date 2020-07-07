@@ -13,5 +13,5 @@ class Entry(
     var amount: Double,
     val timestamp: Long,
     val drinkTypeUid: Int,
-    val presetUid: Int? = null
+    var presetUid: Int? = null
 ) : Parcelable
