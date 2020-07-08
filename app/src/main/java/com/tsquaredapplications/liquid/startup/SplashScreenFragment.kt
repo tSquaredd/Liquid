@@ -40,10 +40,14 @@ class SplashScreenFragment : BaseFragment<FragmentSplashScreenBinding>() {
             addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator?) {
                     when (val userInformation = userDbManager.getUser()) {
-                        null -> navigate(toLoginActivity())
+                        null -> {
+                            navigate(toLoginActivity())
+                            activity?.finish()
+                        }
                         else -> {
                             (activity as StartupActivity).saveUserInformation(userInformation)
                             navigate(toMainActivity())
+                            activity?.finish()
                         }
                     }
                 }

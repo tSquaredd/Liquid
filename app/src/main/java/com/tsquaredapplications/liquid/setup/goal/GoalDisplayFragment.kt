@@ -62,6 +62,7 @@ class GoalDisplayFragment : BaseFragment<FragmentGoalDisplayBinding>() {
     private fun onUserInformationSaved(userInformation: UserInformation) {
         (activity as SetupActivity).setUserInformation(userInformation)
         navigate(toMainActivity())
+        activity?.finish()
     }
 
     private fun displayGoal(goal: String) {
