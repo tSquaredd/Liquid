@@ -36,9 +36,8 @@
         <action
             android:id="@+id/toMainActivity"
             app:destination="@id/mainActivity"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/welcomeFragment"
-            app:popUpToInclusive="true" />
+            app:launchSingleTop="false"
+            app:popUpToInclusive="false" />
         <argument
             android:name="weight"
             android:defaultValue="200"
