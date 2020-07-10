@@ -13,7 +13,7 @@
     <string name="notification_channel">Hydration Reminders</string>
     <string name="notification_channel_description">Get reminders to hydrate when you are below your daily goal</string>
     <string name="notification_title">Hydration reminder</string>
-    <string name="notification_content">Your at %d%% of your daily goal</string>
+    <string name="notification_content">You\'re at %d%% of your daily goal</string>
     <string name="monday">Monday</string>
     <string name="tuesday">Tuesday</string>
     <string name="wednesday">Wednesday</string>
