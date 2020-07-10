@@ -59,6 +59,8 @@ class WeightSettingFragment : BaseFragment<FragmentWeightSettingBinding>() {
         viewModel.stateLiveData.observe(viewLifecycleOwner, Observer {
             onStateChanged(it)
         })
+
+        viewModel.start()
     }
 
     private fun onStateChanged(state: WeightSettingState?) {
@@ -72,7 +74,7 @@ class WeightSettingFragment : BaseFragment<FragmentWeightSettingBinding>() {
     }
 
     private fun onInitialized(state: Initialized) {
-        binding.weightSelectionEditText.setText(state.weight)
+        binding.weightSelectionEditText.setText(state.weight.toString())
     }
 
     private fun showGoalCalculationPrompt() {
