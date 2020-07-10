@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mikepenz.fastadapter.FastAdapter
@@ -20,6 +21,7 @@ import com.tsquaredapplications.liquid.ext.getEndTimeOfDayFor
 import com.tsquaredapplications.liquid.ext.getStartOfDayFor
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.history.day.DayHistoryState.Initialized
+import com.tsquaredapplications.liquid.history.day.DayHistoryState.NoEntriesForDay
 import com.tsquaredapplications.liquid.history.main.HistoryIconItem
 import kotlinx.android.parcel.Parcelize
 import javax.inject.Inject
@@ -61,8 +63,13 @@ class DayHistoryFragment : BaseFragment<FragmentDayHistoryBinding>() {
             layoutManager = GridLayoutManager(context, 3)
         }
 
-        fastAdapter.onClickListener = { _, _, item, _ ->
-            navigate(DayHistoryFragmentDirections.toUpdateEntryFragment(item.model.entryDataWrapper))
+        fastAdapter.onClickListener = { _, adapter, item, _ ->
+            navigate(
+                DayHistoryFragmentDirections.toUpdateEntryFragment(
+                    entry = item.model.entryDataWrapper,
+                    isOnlyEntryForDay = adapter.adapterItemCount == 1
+                )
+            )
             false
         }
     }
@@ -70,6 +77,7 @@ class DayHistoryFragment : BaseFragment<FragmentDayHistoryBinding>() {
     private fun onStateChanged(state: DayHistoryState?) {
         when (state) {
             is Initialized -> onInitialized(state)
+            is NoEntriesForDay -> findNavController().popBackStack()
         }
     }
 

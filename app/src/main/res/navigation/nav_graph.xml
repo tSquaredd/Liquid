@@ -132,6 +132,14 @@
         <argument
             android:name="entry"
             app:argType="com.tsquaredapplications.liquid.common.database.entry.EntryDataWrapper" />
+        <argument
+            android:name="isOnlyEntryForDay"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/toHistoryFragment"
+            app:destination="@id/historyFragment"
+            app:popUpTo="@id/historyFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/editPresetFragment"

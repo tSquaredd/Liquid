@@ -17,6 +17,7 @@ import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.GlideApp
 import com.tsquaredapplications.liquid.databinding.FragmentUpdateEntryBinding
 import com.tsquaredapplications.liquid.ext.keyboardHidingFocusChangeListener
+import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.history.edit.UpdateEntryState.EntryDeleted
 import com.tsquaredapplications.liquid.history.edit.UpdateEntryState.EntryUpdated
 import com.tsquaredapplications.liquid.history.edit.UpdateEntryState.Initialized
@@ -88,7 +89,11 @@ class UpdateEntryFragment : BaseFragment<FragmentUpdateEntryBinding>() {
     }
 
     private fun onEntryDeleted() {
-        findNavController().popBackStack()
+        if (args.isOnlyEntryForDay) {
+            navigate(UpdateEntryFragmentDirections.toHistoryFragment())
+        } else {
+            findNavController().popBackStack()
+        }
     }
 
     private fun onInvalidAmount(state: InvalidAmount) {
