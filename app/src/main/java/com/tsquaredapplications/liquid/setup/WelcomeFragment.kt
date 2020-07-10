@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.TextViewCompat
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentWelcomeBinding
 import com.tsquaredapplications.liquid.ext.navigate
@@ -28,5 +29,10 @@ class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>() {
         binding.getStartedButton.setOnClickListener {
             navigate(toUserInformationFragment())
         }
+
+        TextViewCompat.setAutoSizeTextTypeWithDefaults(
+            binding.welcomeText,
+            TextViewCompat.AUTO_SIZE_TEXT_TYPE_UNIFORM
+        )
     }
 }

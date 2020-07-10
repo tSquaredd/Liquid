@@ -124,8 +124,9 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/ozButton"
             style="@style/ChoiceButton"
-            android:layout_width="167dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="8dp"
             android:checkable="true"
@@ -138,10 +139,11 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/mlButton"
             style="@style/ChoiceButton"
-            android:layout_width="167dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="32dp"
             android:checkable="true"
             android:text="@string/ml"
             app:layout_constraintEnd_toEndOf="parent"
