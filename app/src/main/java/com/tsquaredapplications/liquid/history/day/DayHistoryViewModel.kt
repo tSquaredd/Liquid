@@ -5,6 +5,7 @@ import com.tsquaredapplications.liquid.common.BaseViewModel
 import com.tsquaredapplications.liquid.common.database.entry.EntryRepository
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.history.day.DayHistoryState.Initialized
+import com.tsquaredapplications.liquid.history.day.DayHistoryState.NoEntriesForDay
 import com.tsquaredapplications.liquid.history.main.HistoryIconItem
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -21,11 +22,22 @@ class DayHistoryViewModel
         viewModelScope.launch {
             val entryDataWrappers =
                 entryRepository.getAllInTimeRange(timestampRange.startTime, timestampRange.endTime)
-            state.value = Initialized(
-                screenTitle = resourceWrapper.getScreenTitle(entryDataWrappers.first().entry.timestamp),
-                historyIconModels = entryDataWrappers.map {
-                    HistoryIconItem(HistoryIconItem.Model(it, userInformation.unitPreference, true))
-                })
+
+            if (entryDataWrappers.isEmpty()) {
+                state.value = NoEntriesForDay
+            } else {
+                state.value = Initialized(
+                    screenTitle = resourceWrapper.getScreenTitle(entryDataWrappers.first().entry.timestamp),
+                    historyIconModels = entryDataWrappers.map {
+                        HistoryIconItem(
+                            HistoryIconItem.Model(
+                                it,
+                                userInformation.unitPreference,
+                                true
+                            )
+                        )
+                    })
+            }
         }
     }
 }
@@ -33,4 +45,6 @@ class DayHistoryViewModel
 sealed class DayHistoryState {
     class Initialized(val screenTitle: String, val historyIconModels: List<HistoryIconItem>) :
         DayHistoryState()
+
+    object NoEntriesForDay : DayHistoryState()
 }
