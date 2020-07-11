@@ -1,5 +1,6 @@
 package com.tsquaredapplications.liquid.add.amount
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.viewModelScope
 import com.tsquaredapplications.liquid.add.amount.DrinkAmountState.DrinkAdded
 import com.tsquaredapplications.liquid.add.amount.resources.DrinkAmountResourceWrapper
@@ -19,8 +20,11 @@ class DrinkAmountViewModel
     private val resourceWrapper: DrinkAmountResourceWrapper
 ) : BaseViewModel<DrinkAmountState>() {
 
-    private var calendar = Calendar.getInstance()
-    private var amount: Double? = null
+    @VisibleForTesting
+    var calendar: Calendar = Calendar.getInstance()
+
+    @VisibleForTesting
+    var amount: Double? = null
     lateinit var drinkType: DrinkType
 
     fun start(drinkType: DrinkType) {
@@ -32,6 +36,10 @@ class DrinkAmountViewModel
         calendar.set(Calendar.YEAR, year)
         calendar.set(Calendar.MONTH, monthOfYear)
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+    }
+
+    fun onAmountChanged(amountString: String) {
+        amount = amountString.toDoubleOrNull()
     }
 
     fun onAddClicked() {
@@ -51,10 +59,6 @@ class DrinkAmountViewModel
 
             state.value = DrinkAdded
         }
-    }
-
-    fun onAmountChanged(amountString: String) {
-        amount = amountString.toDoubleOrNull()
     }
 }
 
