@@ -1,6 +1,7 @@
 package com.tsquaredapplications.liquid.history.main
 
 import com.tsquaredapplications.liquid.common.BaseViewModelTest
+import com.tsquaredapplications.liquid.common.LiquidUnit
 import com.tsquaredapplications.liquid.common.database.entry.EntryDataWrapper
 import com.tsquaredapplications.liquid.common.database.entry.EntryRepository
 import com.tsquaredapplications.liquid.common.database.goal.Goal
@@ -9,7 +10,6 @@ import com.tsquaredapplications.liquid.common.database.icons.IconRepository
 import com.tsquaredapplications.liquid.common.database.types.DrinkType
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.history.main.resources.HistoryResourceWrapper
-import com.tsquaredapplications.liquid.setup.LiquidUnit
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -41,7 +41,6 @@ internal class HistoryViewModelTest : BaseViewModelTest<HistoryState>() {
             entryRepository,
             goalRepository,
             userInformation,
-            iconRepository,
             historyResourceWrapper
         )
     }
@@ -52,8 +51,7 @@ internal class HistoryViewModelTest : BaseViewModelTest<HistoryState>() {
         calendar.add(Calendar.DAY_OF_YEAR, -1)
         val result = viewModel.buildHistoryDayItems(
             mutableListOf(),
-            mutableListOf(Goal(1, 80, calendar.timeInMillis)),
-            mapOf()
+            mutableListOf(Goal(1, 80, calendar.timeInMillis))
         )
         assertTrue(result.isEmpty())
     }
@@ -77,8 +75,7 @@ internal class HistoryViewModelTest : BaseViewModelTest<HistoryState>() {
         calendar.add(Calendar.DAY_OF_YEAR, -1)
         val result = viewModel.buildHistoryDayItems(
             mutableListOf(entryOne, entryTwo),
-            mutableListOf(Goal(1, 80, calendar.timeInMillis)),
-            mapOf()
+            mutableListOf(Goal(1, 80, calendar.timeInMillis))
         )
         assertFalse(result.isEmpty())
         assertTrue(result.size == 1)
@@ -113,8 +110,7 @@ internal class HistoryViewModelTest : BaseViewModelTest<HistoryState>() {
         calendar.add(Calendar.DAY_OF_YEAR, -1)
         val result = viewModel.buildHistoryDayItems(
             mutableListOf(entryOne, entryTwo, entryThree),
-            mutableListOf(Goal(1, 80, calendar.timeInMillis)),
-            mapOf()
+            mutableListOf(Goal(1, 80, calendar.timeInMillis))
         )
         assertFalse(result.isEmpty())
         assertTrue(result.size == 2)

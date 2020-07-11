@@ -2,6 +2,7 @@ package com.tsquaredapplications.liquid.add.amount
 
 import androidx.lifecycle.viewModelScope
 import com.tsquaredapplications.liquid.add.amount.DrinkAmountState.DrinkAdded
+import com.tsquaredapplications.liquid.add.amount.resources.DrinkAmountResourceWrapper
 import com.tsquaredapplications.liquid.common.BaseViewModel
 import com.tsquaredapplications.liquid.common.database.entry.Entry
 import com.tsquaredapplications.liquid.common.database.entry.EntryRepository
@@ -55,4 +56,10 @@ class DrinkAmountViewModel
     fun onAmountChanged(amountString: String) {
         amount = amountString.toDoubleOrNull()
     }
+}
+
+sealed class DrinkAmountState {
+    class Initialized(val unitPreference: String, val today: Calendar) : DrinkAmountState()
+    class InvalidAmount(val errorMessage: String) : DrinkAmountState()
+    object DrinkAdded : DrinkAmountState()
 }

@@ -5,12 +5,12 @@ import android.view.ViewGroup
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
 import com.tsquaredapplications.liquid.R
 import com.tsquaredapplications.liquid.common.GlideApp
+import com.tsquaredapplications.liquid.common.LiquidUnit
 import com.tsquaredapplications.liquid.common.adapter.HISTORY_DAY_ID
 import com.tsquaredapplications.liquid.common.database.entry.EntryDataWrapper
 import com.tsquaredapplications.liquid.databinding.HistoryIconItemBinding
 import com.tsquaredapplications.liquid.ext.setAsVisible
 import com.tsquaredapplications.liquid.ext.toTwoDigitDecimalString
-import com.tsquaredapplications.liquid.setup.LiquidUnit
 import java.util.*
 
 class HistoryIconItem(val model: Model) : AbstractBindingItem<HistoryIconItemBinding>() {

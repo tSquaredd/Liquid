@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid.settings
+package com.tsquaredapplications.liquid.settings.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

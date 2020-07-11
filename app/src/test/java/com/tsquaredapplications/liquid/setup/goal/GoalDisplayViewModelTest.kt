@@ -1,11 +1,11 @@
 package com.tsquaredapplications.liquid.setup.goal
 
 import com.tsquaredapplications.liquid.common.BaseViewModelTest
+import com.tsquaredapplications.liquid.common.LiquidUnit
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.common.database.users.UserManager
 import com.tsquaredapplications.liquid.common.notifications.NotificationManager
 import com.tsquaredapplications.liquid.ext.assertStateOrder
-import com.tsquaredapplications.liquid.setup.LiquidUnit
 import com.tsquaredapplications.liquid.setup.goal.GoalDisplayState.Initialized
 import com.tsquaredapplications.liquid.setup.goal.GoalDisplayState.UserInformationSaved
 import io.mockk.MockKAnnotations

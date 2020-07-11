@@ -1,6 +1,6 @@
 package com.tsquaredapplications.liquid.add.drink
 
-import com.tsquaredapplications.liquid.setup.LiquidUnit
+import com.tsquaredapplications.liquid.common.LiquidUnit
 
 interface SelectDrinkResourceWrapper {
     fun getWarningCalculations(unit: LiquidUnit): String

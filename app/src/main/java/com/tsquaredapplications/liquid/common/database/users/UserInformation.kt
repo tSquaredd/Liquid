@@ -1,7 +1,7 @@
 package com.tsquaredapplications.liquid.common.database.users
 
 import android.os.Parcelable
-import com.tsquaredapplications.liquid.setup.LiquidUnit
+import com.tsquaredapplications.liquid.common.LiquidUnit
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

@@ -12,8 +12,8 @@ import com.tsquaredapplications.liquid.presets.edit.EditPresetFragment
 import com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionFragment
 import com.tsquaredapplications.liquid.presets.main.PresetsFragment
 import com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionFragment
-import com.tsquaredapplications.liquid.settings.SettingsFragment
 import com.tsquaredapplications.liquid.settings.goal.GoalSettingFragment
+import com.tsquaredapplications.liquid.settings.main.SettingsFragment
 import com.tsquaredapplications.liquid.settings.notifications.NotificationsSettingFragment
 import com.tsquaredapplications.liquid.settings.unit.LiquidUnitSettingFragment
 import com.tsquaredapplications.liquid.settings.weight.WeightSettingFragment

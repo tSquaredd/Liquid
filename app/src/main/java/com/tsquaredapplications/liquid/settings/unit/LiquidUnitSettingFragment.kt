@@ -11,12 +11,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.common.BaseFragment
+import com.tsquaredapplications.liquid.common.LiquidUnit
 import com.tsquaredapplications.liquid.databinding.FragmentLiquidUnitSettingBinding
 import com.tsquaredapplications.liquid.ext.setAsVisible
 import com.tsquaredapplications.liquid.settings.unit.LiquidUnitSettingState.Initialized
 import com.tsquaredapplications.liquid.settings.unit.LiquidUnitSettingState.OnUpdated
 import com.tsquaredapplications.liquid.settings.unit.LiquidUnitSettingState.UnitSelected
-import com.tsquaredapplications.liquid.setup.LiquidUnit
 import javax.inject.Inject
 
 class LiquidUnitSettingFragment : BaseFragment<FragmentLiquidUnitSettingBinding>() {

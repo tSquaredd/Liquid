@@ -1,6 +1,6 @@
 package com.tsquaredapplications.liquid.settings.unit
 
-import com.tsquaredapplications.liquid.setup.LiquidUnit
+import com.tsquaredapplications.liquid.common.LiquidUnit
 
 sealed class LiquidUnitSettingState {
     class Initialized(val unit: LiquidUnit) : LiquidUnitSettingState()

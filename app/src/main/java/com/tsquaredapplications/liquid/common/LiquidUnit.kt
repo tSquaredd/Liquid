@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid.setup
+package com.tsquaredapplications.liquid.common
 
 import kotlin.math.roundToInt
 

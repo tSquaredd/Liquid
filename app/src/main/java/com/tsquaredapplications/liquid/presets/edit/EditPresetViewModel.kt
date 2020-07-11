@@ -3,7 +3,9 @@ package com.tsquaredapplications.liquid.presets.edit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tsquaredapplications.liquid.common.LiquidUnit
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
+import com.tsquaredapplications.liquid.common.convertMlToOz
 import com.tsquaredapplications.liquid.common.database.entry.EntryRepository
 import com.tsquaredapplications.liquid.common.database.icons.Icon
 import com.tsquaredapplications.liquid.common.database.presets.Preset
@@ -16,8 +18,6 @@ import com.tsquaredapplications.liquid.presets.edit.EditPresetState.IconUpdated
 import com.tsquaredapplications.liquid.presets.edit.EditPresetState.Initialized
 import com.tsquaredapplications.liquid.presets.edit.EditPresetState.Updated
 import com.tsquaredapplications.liquid.presets.edit.resources.EditPresetResourceWrapper
-import com.tsquaredapplications.liquid.setup.LiquidUnit
-import com.tsquaredapplications.liquid.setup.convertMlToOz
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
@@ -72,7 +72,8 @@ class EditPresetViewModel
     fun onAmountChanged(amountString: String) {
         var amountDouble = amountString.toDoubleOrNull()
         if (amountDouble != null && userInformation.unitPreference == LiquidUnit.ML) {
-            amountDouble = convertMlToOz(amountDouble)
+            amountDouble =
+                convertMlToOz(amountDouble)
         }
         updatedAmount = amountDouble
     }

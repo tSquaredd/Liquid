@@ -1,7 +1,7 @@
 package com.tsquaredapplications.liquid
 
-import com.tsquaredapplications.liquid.add.amount.DrinkAmountResourceWrapper
-import com.tsquaredapplications.liquid.add.amount.DrinkAmountResourceWrapperImpl
+import com.tsquaredapplications.liquid.add.amount.resources.DrinkAmountResourceWrapper
+import com.tsquaredapplications.liquid.add.amount.resources.DrinkAmountResourceWrapperImpl
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkResourceWrapper
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkResourceWrapperImpl
 import com.tsquaredapplications.liquid.common.database.users.UserInformation

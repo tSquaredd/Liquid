@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid.settings
+package com.tsquaredapplications.liquid.settings.main
 
 import android.content.Context
 import android.os.Bundle
@@ -14,15 +14,15 @@ import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentSettingsBinding
 import com.tsquaredapplications.liquid.ext.navigate
-import com.tsquaredapplications.liquid.settings.SettingType.DailyGoal
-import com.tsquaredapplications.liquid.settings.SettingType.Notifications
-import com.tsquaredapplications.liquid.settings.SettingType.RateThisApp
-import com.tsquaredapplications.liquid.settings.SettingType.UnitPreference
-import com.tsquaredapplications.liquid.settings.SettingType.Weight
-import com.tsquaredapplications.liquid.settings.SettingsFragmentDirections.Companion.toDailyGoalSettingFragment
-import com.tsquaredapplications.liquid.settings.SettingsFragmentDirections.Companion.toLiquidUnitSettingFragment
-import com.tsquaredapplications.liquid.settings.SettingsFragmentDirections.Companion.toNotificationSettingFragment
-import com.tsquaredapplications.liquid.settings.SettingsFragmentDirections.Companion.toWeightSettingFragment
+import com.tsquaredapplications.liquid.settings.main.SettingType.DailyGoal
+import com.tsquaredapplications.liquid.settings.main.SettingType.Notifications
+import com.tsquaredapplications.liquid.settings.main.SettingType.RateThisApp
+import com.tsquaredapplications.liquid.settings.main.SettingType.UnitPreference
+import com.tsquaredapplications.liquid.settings.main.SettingType.Weight
+import com.tsquaredapplications.liquid.settings.main.SettingsFragmentDirections.Companion.toDailyGoalSettingFragment
+import com.tsquaredapplications.liquid.settings.main.SettingsFragmentDirections.Companion.toLiquidUnitSettingFragment
+import com.tsquaredapplications.liquid.settings.main.SettingsFragmentDirections.Companion.toNotificationSettingFragment
+import com.tsquaredapplications.liquid.settings.main.SettingsFragmentDirections.Companion.toWeightSettingFragment
 import javax.inject.Inject
 
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {

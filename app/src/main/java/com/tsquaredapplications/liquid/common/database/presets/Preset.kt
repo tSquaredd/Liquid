@@ -3,8 +3,8 @@ package com.tsquaredapplications.liquid.common.database.presets
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.tsquaredapplications.liquid.common.LiquidUnit
 import com.tsquaredapplications.liquid.ext.toTwoDigitDecimalString
-import com.tsquaredapplications.liquid.setup.LiquidUnit
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 

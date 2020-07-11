@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid.settings
+package com.tsquaredapplications.liquid.settings.main
 
 class Setting(val name: String, val value: String, val settingType: SettingType)
 

@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid.settings
+package com.tsquaredapplications.liquid.settings.main
 
 import androidx.lifecycle.ViewModel
 import com.tsquaredapplications.liquid.common.database.users.UserInformation

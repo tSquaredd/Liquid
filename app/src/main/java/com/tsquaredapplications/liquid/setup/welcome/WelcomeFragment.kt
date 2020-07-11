@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid.setup
+package com.tsquaredapplications.liquid.setup.welcome
 
 import android.content.Context
 import android.os.Bundle
@@ -9,7 +9,8 @@ import androidx.core.widget.TextViewCompat
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentWelcomeBinding
 import com.tsquaredapplications.liquid.ext.navigate
-import com.tsquaredapplications.liquid.setup.WelcomeFragmentDirections.Companion.toUserInformationFragment
+import com.tsquaredapplications.liquid.setup.SetupActivity
+import com.tsquaredapplications.liquid.setup.welcome.WelcomeFragmentDirections.Companion.toUserInformationFragment
 
 class WelcomeFragment : BaseFragment<FragmentWelcomeBinding>() {
 

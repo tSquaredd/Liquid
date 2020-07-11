@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid
+package com.tsquaredapplications.liquid.stats.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

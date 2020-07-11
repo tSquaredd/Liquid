@@ -13,7 +13,7 @@
         tools:layout="@layout/activity_main" />
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.tsquaredapplications.liquid.setup.WelcomeFragment"
+        android:name="com.tsquaredapplications.liquid.setup.welcome.WelcomeFragment"
         tools:layout="@layout/fragment_welcome">
         <action
             android:id="@+id/toUserInformationFragment"
@@ -44,6 +44,6 @@
             app:argType="integer" />
         <argument
             android:name="unitChoice"
-            app:argType="com.tsquaredapplications.liquid.setup.LiquidUnit" />
+            app:argType="com.tsquaredapplications.liquid.common.LiquidUnit" />
     </fragment>
 </navigation>

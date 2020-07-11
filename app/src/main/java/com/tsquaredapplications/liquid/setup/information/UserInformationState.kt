@@ -1,6 +1,6 @@
 package com.tsquaredapplications.liquid.setup.information
 
-import com.tsquaredapplications.liquid.setup.LiquidUnit
+import com.tsquaredapplications.liquid.common.LiquidUnit
 
 sealed class UserInformationState {
     class InvalidWeight(val errorMessage: String) : UserInformationState()

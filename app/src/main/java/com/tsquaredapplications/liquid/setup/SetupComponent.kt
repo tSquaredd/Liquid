@@ -3,6 +3,7 @@ package com.tsquaredapplications.liquid.setup
 import com.tsquaredapplications.liquid.di.ActivityScope
 import com.tsquaredapplications.liquid.setup.goal.GoalDisplayFragment
 import com.tsquaredapplications.liquid.setup.information.UserInformationFragment
+import com.tsquaredapplications.liquid.setup.welcome.WelcomeFragment
 import dagger.Subcomponent
 
 @ActivityScope

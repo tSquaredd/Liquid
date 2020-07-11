@@ -2,7 +2,7 @@ package com.tsquaredapplications.liquid
 
 import androidx.lifecycle.Observer
 import com.tsquaredapplications.liquid.common.BaseViewModelTest
-import com.tsquaredapplications.liquid.setup.LiquidUnit
+import com.tsquaredapplications.liquid.common.LiquidUnit
 import com.tsquaredapplications.liquid.setup.information.UserInformationState
 import com.tsquaredapplications.liquid.setup.information.UserInformationViewModel
 import com.tsquaredapplications.liquid.setup.information.resources.UserInformationResourceWrapper

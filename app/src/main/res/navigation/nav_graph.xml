@@ -16,12 +16,12 @@
     </fragment>
     <fragment
         android:id="@+id/statsFragment"
-        android:name="com.tsquaredapplications.liquid.StatsFragment"
+        android:name="com.tsquaredapplications.liquid.stats.main.StatsFragment"
         android:label="@string/stats"
         tools:layout="@layout/fragment_stats" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.tsquaredapplications.liquid.settings.SettingsFragment"
+        android:name="com.tsquaredapplications.liquid.settings.main.SettingsFragment"
         android:label="@string/settings"
         tools:layout="@layout/fragment_settings">
         <action

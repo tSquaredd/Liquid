@@ -1,11 +1,11 @@
 package com.tsquaredapplications.liquid.home
 
 import com.tsquaredapplications.liquid.common.BaseViewModelTest
+import com.tsquaredapplications.liquid.common.LiquidUnit
 import com.tsquaredapplications.liquid.common.database.entry.EntryRepository
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.home.model.HomeState
 import com.tsquaredapplications.liquid.home.resources.HomeResourceWrapper
-import com.tsquaredapplications.liquid.setup.LiquidUnit
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.BeforeEach
