@@ -245,6 +245,35 @@ internal class SelectDrinkViewModelTest : BaseCoroutineViewModelTest<SelectDrink
         }
     }
 
+    @Nested
+    @DisplayName("Given alcohol warning is dismissed")
+    inner class AlcoholWarningDismissed {
+
+        @BeforeEach
+        fun beforeEach() {
+            viewModel = SelectDrinkViewModel(
+                typeRepository,
+                presetRepositoryWithoutPresets,
+                entryRepository,
+                userManager,
+                userInformation,
+                resourceWrapper
+            )
+        }
+
+        @Test
+        fun `when user elects to not see warning again update set dont show warning`() {
+            viewModel.alcoholWarningDismissed(dontShowAlcoholWarningAgain = true)
+            verify { userManager.setDonNotShowAlcoholWarning() }
+        }
+
+        @Test
+        fun `when user does not elect to not see warning again do not update set dont show warning`() {
+            viewModel.alcoholWarningDismissed(dontShowAlcoholWarningAgain = false)
+            verify(exactly = 0) { userManager.setDonNotShowAlcoholWarning() }
+        }
+    }
+
     companion object {
         const val WARNING_CALCULATIONS = "WARNING_CALCULATIONS"
         const val SUGGESTION = "SUGGESTION"
