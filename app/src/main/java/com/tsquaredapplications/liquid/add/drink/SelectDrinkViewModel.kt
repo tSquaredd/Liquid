@@ -3,6 +3,7 @@ package com.tsquaredapplications.liquid.add.drink
 import androidx.lifecycle.viewModelScope
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkState.Initialized
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkState.PresetInserted
+import com.tsquaredapplications.liquid.add.drink.resources.SelectDrinkResourceWrapper
 import com.tsquaredapplications.liquid.common.BaseViewModel
 import com.tsquaredapplications.liquid.common.adapter.PresetItem
 import com.tsquaredapplications.liquid.common.adapter.TypeItem
@@ -31,10 +32,10 @@ class SelectDrinkViewModel
     BaseViewModel<SelectDrinkState>() {
 
     fun start() {
-        buildPresetItemsList()
+        buildDrinkList()
     }
 
-    private fun buildPresetItemsList() {
+    private fun buildDrinkList() {
         viewModelScope.launch {
             val presets = async { presetRepository.getAllPresets().values.map { PresetItem(it) } }
             val types =
@@ -63,7 +64,7 @@ class SelectDrinkViewModel
 
     private fun onPresetInserted(isAlcohol: Boolean) {
         state.value = PresetInserted(
-            userManager.shouldShowAlcoholWarning() && isAlcohol,
+            isAlcohol && userManager.shouldShowAlcoholWarning(),
             resourceWrapper.getWarningCalculations(userInformation.unitPreference),
             resourceWrapper.getSuggestion(userInformation.unitPreference)
         )
@@ -83,4 +84,22 @@ class SelectDrinkViewModel
             userManager.setDonNotShowAlcoholWarning()
         }
     }
+}
+
+sealed class SelectDrinkState {
+    class Initialized(val presets: List<PresetItem>, val drinkTypes: List<TypeItem>) :
+        SelectDrinkState()
+
+    class PresetInserted(
+        val showAlcoholWarning: Boolean,
+        val alcoholCalculations: String,
+        val alcoholSuggestion: String
+    ) : SelectDrinkState()
+
+    class DrinkTypeSelected(
+        val drinkTypeAndIcon: DrinkTypeAndIcon,
+        val showAlcoholWarning: Boolean,
+        val alcoholCalculations: String,
+        val alcoholSuggestion: String
+    ) : SelectDrinkState()
 }

@@ -1,4 +1,4 @@
-package com.tsquaredapplications.liquid.add.drink
+package com.tsquaredapplications.liquid.add.drink.resources
 
 import com.tsquaredapplications.liquid.common.LiquidUnit
 

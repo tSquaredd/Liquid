@@ -4,14 +4,38 @@ import com.tsquaredapplications.liquid.common.database.types.DrinkType
 import io.mockk.every
 import io.mockk.mockk
 
-fun mockDrinkTypeWater(): DrinkType = mockk {
-    every { drinkTypeUid } returns MOCK_WATER_UID
-    every { name } returns MOCK_WATER_NAME
-    every { hydration } returns MOCK_WATER_HYDRATION
-    every { isAlcohol } returns MOCK_WATER_IS_ALCOHOL
+fun mockWaterDrinkType(): DrinkType = mockk {
+    every { drinkTypeUid } returns MOCK_WATER_DRINK_TYPE_UID
+    every { name } returns MOCK_WATER_DRINK_TYPE_NAME
+    every { hydration } returns MOCK_WATER_DRINK_TYPE_HYDRATION
+    every { isAlcohol } returns MOCK_WATER_DRINK_TYPE_IS_ALCOHOL
 }
 
-const val MOCK_WATER_UID = 1
-const val MOCK_WATER_NAME = "Water"
-const val MOCK_WATER_HYDRATION = 1.0
-const val MOCK_WATER_IS_ALCOHOL = false
+fun mockBeerDrinkType(): DrinkType = mockk {
+    every { drinkTypeUid } returns MOCK_BEER_DRINK_TYPE_UID
+    every { name } returns MOCK_BEER_DRINK_TYPE_NAME
+    every { hydration } returns MOCK_BEER_DRINK_TYPE_HYDRATION
+    every { isAlcohol } returns MOCK_BEER_DRINK_TYPE_IS_ALCOHOL
+}
+
+fun mockTeaDrinkType(): DrinkType = mockk {
+    every { drinkTypeUid } returns MOCK_TEA_DRINK_TYPE_UID
+    every { name } returns MOCK_TEA_DRINK_TYPE_NAME
+    every { hydration } returns MOCK_TEA_DRINK_TYPE_HYDRATION
+    every { isAlcohol } returns MOCK_TEA_DRINK_TYPE_IS_ALCOHOL
+}
+
+const val MOCK_WATER_DRINK_TYPE_UID = 1
+const val MOCK_WATER_DRINK_TYPE_NAME = "Water"
+const val MOCK_WATER_DRINK_TYPE_HYDRATION = 1.0
+const val MOCK_WATER_DRINK_TYPE_IS_ALCOHOL = false
+
+const val MOCK_BEER_DRINK_TYPE_UID = 2
+const val MOCK_BEER_DRINK_TYPE_NAME = "Beer"
+const val MOCK_BEER_DRINK_TYPE_HYDRATION = -1.0
+const val MOCK_BEER_DRINK_TYPE_IS_ALCOHOL = true
+
+const val MOCK_TEA_DRINK_TYPE_UID = 3
+const val MOCK_TEA_DRINK_TYPE_NAME = "Tea"
+const val MOCK_TEA_DRINK_TYPE_HYDRATION = 1.0
+const val MOCK_TEA_DRINK_TYPE_IS_ALCOHOL = false

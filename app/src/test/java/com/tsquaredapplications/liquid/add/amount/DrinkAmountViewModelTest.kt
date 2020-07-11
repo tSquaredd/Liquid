@@ -1,53 +1,38 @@
 package com.tsquaredapplications.liquid.add.amount
 
 import com.tsquaredapplications.liquid.add.amount.resources.DrinkAmountResourceWrapper
-import com.tsquaredapplications.liquid.common.BaseViewModelTest
+import com.tsquaredapplications.liquid.common.BaseCoroutineViewModelTest
 import com.tsquaredapplications.liquid.common.database.entry.Entry
 import com.tsquaredapplications.liquid.ext.assertStateOrder
 import com.tsquaredapplications.liquid.test.util.mocks.MOCK_UNIT_PREF
-import com.tsquaredapplications.liquid.test.util.mocks.MOCK_WATER_UID
-import com.tsquaredapplications.liquid.test.util.mocks.mockDrinkTypeWater
+import com.tsquaredapplications.liquid.test.util.mocks.MOCK_WATER_DRINK_TYPE_UID
 import com.tsquaredapplications.liquid.test.util.mocks.mockEntryRepository
 import com.tsquaredapplications.liquid.test.util.mocks.mockUserInformation
+import com.tsquaredapplications.liquid.test.util.mocks.mockWaterDrinkType
 import io.mockk.clearMocks
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
 import io.mockk.verify
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.setMain
-import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.util.*
 
-internal class DrinkAmountViewModelTest : BaseViewModelTest<DrinkAmountState>() {
+internal class DrinkAmountViewModelTest : BaseCoroutineViewModelTest<DrinkAmountState>() {
 
-    @ExperimentalCoroutinesApi
-    private val testDispatcher = TestCoroutineDispatcher()
     lateinit var viewModel: DrinkAmountViewModel
 
     private val userInformation = mockUserInformation()
-    private val entryRepository = mockEntryRepository(3)
+    private val entryRepository = mockEntryRepository()
     private val drinkAmountResourceWrapper = mockk<DrinkAmountResourceWrapper> {
         every { amountErrorMessage } returns AMOUNT_ERROR_MESSAGE
     }
-    private val waterDrinkType = mockDrinkTypeWater()
-
-    @ExperimentalCoroutinesApi
-    @BeforeAll
-    fun beforeAll() {
-        Dispatchers.setMain(testDispatcher)
-    }
+    private val waterDrinkType = mockWaterDrinkType()
 
     @BeforeEach
     fun beforeEach() {
@@ -58,13 +43,6 @@ internal class DrinkAmountViewModelTest : BaseViewModelTest<DrinkAmountState>() 
             DrinkAmountViewModel(userInformation, entryRepository, drinkAmountResourceWrapper)
 
         viewModel.stateLiveData.observeForever(stateObserver)
-    }
-
-    @ExperimentalCoroutinesApi
-    @AfterAll
-    fun afterAll() {
-        Dispatchers.resetMain()
-        testDispatcher.cleanupTestCoroutines()
     }
 
     @Test
@@ -161,7 +139,7 @@ internal class DrinkAmountViewModelTest : BaseViewModelTest<DrinkAmountState>() 
         coVerify { entryRepository.insert(capture(entrySlot)) }
         with(entrySlot.captured) {
             assertEquals(16.0, amount)
-            assertEquals(MOCK_WATER_UID, drinkTypeUid)
+            assertEquals(MOCK_WATER_DRINK_TYPE_UID, drinkTypeUid)
         }
     }
 

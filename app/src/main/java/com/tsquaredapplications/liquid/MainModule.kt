@@ -2,8 +2,8 @@ package com.tsquaredapplications.liquid
 
 import com.tsquaredapplications.liquid.add.amount.resources.DrinkAmountResourceWrapper
 import com.tsquaredapplications.liquid.add.amount.resources.DrinkAmountResourceWrapperImpl
-import com.tsquaredapplications.liquid.add.drink.SelectDrinkResourceWrapper
-import com.tsquaredapplications.liquid.add.drink.SelectDrinkResourceWrapperImpl
+import com.tsquaredapplications.liquid.add.drink.resources.SelectDrinkResourceWrapper
+import com.tsquaredapplications.liquid.add.drink.resources.SelectDrinkResourceWrapperImpl
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.history.day.DayHistoryResourceWrapper
 import com.tsquaredapplications.liquid.history.day.DayHistoryResourceWrapperImpl
