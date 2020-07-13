@@ -15,8 +15,7 @@ class DayHistoryViewModel
     private val entryRepository: EntryRepository,
     private val userInformation: UserInformation,
     private val resourceWrapper: DayHistoryResourceWrapper
-) :
-    BaseViewModel<DayHistoryState>() {
+) : BaseViewModel<DayHistoryState>() {
 
     fun start(timestampRange: TimestampRange) {
         viewModelScope.launch {
