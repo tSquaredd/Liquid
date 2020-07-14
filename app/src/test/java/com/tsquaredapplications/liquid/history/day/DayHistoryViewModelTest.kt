@@ -73,7 +73,7 @@ internal class DayHistoryViewModelTest : BaseCoroutineViewModelTest<DayHistorySt
         @BeforeEach
         fun beforeEach() {
             viewModel = DayHistoryViewModel(
-                mockEntryRepository(withEntriesForTimeRange = false),
+                mockEntryRepository(withEntries = false),
                 userInformation,
                 resourceWrapper
             ).apply { stateLiveData.observeForever(stateObserver) }
@@ -94,7 +94,7 @@ internal class DayHistoryViewModelTest : BaseCoroutineViewModelTest<DayHistorySt
         @BeforeEach
         fun beforeEach() {
             viewModel = DayHistoryViewModel(
-                mockEntryRepository(withEntriesForTimeRange = true),
+                mockEntryRepository(withEntries = true),
                 userInformation,
                 resourceWrapper
             ).apply { stateLiveData.observeForever(stateObserver) }
@@ -114,30 +114,6 @@ internal class DayHistoryViewModelTest : BaseCoroutineViewModelTest<DayHistorySt
                     assertEquals(MOCK_UNIT_PREF, liquidUnit)
                     with(entryDataWrapper) {
                         with(entry) {
-                            assertEquals(WATER_ENTRY_UID, entryUid)
-                            assertEquals(WATER_ENTRY_AMOUNT, amount)
-                            assertEquals(WATER_ENTRY_TIMESTAMP, timestamp)
-                            assertEquals(MOCK_WATER_DRINK_TYPE_UID, drinkTypeUid)
-                        }
-                        with(drinkType) {
-                            assertEquals(MOCK_WATER_DRINK_TYPE_UID, drinkTypeUid)
-                            assertEquals(MOCK_WATER_DRINK_TYPE_HYDRATION, hydration)
-                            assertEquals(MOCK_WATER_DRINK_TYPE_IS_ALCOHOL, isAlcohol)
-                            assertEquals(MOCK_WATER_DRINK_TYPE_NAME, name)
-                        }
-                        with(icon) {
-                            assertEquals(MOCK_WATER_ICON_UID, iconUid)
-                            assertEquals(MOCK_WATER_ICON_RESOURCE, iconResource)
-                            assertEquals(MOCK_WATER_LARGE_ICON_RESOURCE, largeIconResource)
-                        }
-                    }
-                }
-
-                with(historyIconModels[1].model) {
-                    assertTrue(detailed)
-                    assertEquals(MOCK_UNIT_PREF, liquidUnit)
-                    with(entryDataWrapper) {
-                        with(entry) {
                             assertEquals(BEER_ENTRY_UID, entryUid)
                             assertEquals(BEER_ENTRY_AMOUNT, amount)
                             assertEquals(BEER_ENTRY_TIMESTAMP, timestamp)
@@ -153,6 +129,30 @@ internal class DayHistoryViewModelTest : BaseCoroutineViewModelTest<DayHistorySt
                             assertEquals(MOCK_BEER_ICON_UID, iconUid)
                             assertEquals(MOCK_BEER_ICON_RESOURCE, iconResource)
                             assertEquals(MOCK_BEER_LARGE_ICON_RESOURCE, largeIconResource)
+                        }
+                    }
+                }
+
+                with(historyIconModels[1].model) {
+                    assertTrue(detailed)
+                    assertEquals(MOCK_UNIT_PREF, liquidUnit)
+                    with(entryDataWrapper) {
+                        with(entry) {
+                            assertEquals(WATER_ENTRY_UID, entryUid)
+                            assertEquals(WATER_ENTRY_AMOUNT, amount)
+                            assertEquals(WATER_ENTRY_TIMESTAMP, timestamp)
+                            assertEquals(MOCK_WATER_DRINK_TYPE_UID, drinkTypeUid)
+                        }
+                        with(drinkType) {
+                            assertEquals(MOCK_WATER_DRINK_TYPE_UID, drinkTypeUid)
+                            assertEquals(MOCK_WATER_DRINK_TYPE_HYDRATION, hydration)
+                            assertEquals(MOCK_WATER_DRINK_TYPE_IS_ALCOHOL, isAlcohol)
+                            assertEquals(MOCK_WATER_DRINK_TYPE_NAME, name)
+                        }
+                        with(icon) {
+                            assertEquals(MOCK_WATER_ICON_UID, iconUid)
+                            assertEquals(MOCK_WATER_ICON_RESOURCE, iconResource)
+                            assertEquals(MOCK_WATER_LARGE_ICON_RESOURCE, largeIconResource)
                         }
                     }
                 }
