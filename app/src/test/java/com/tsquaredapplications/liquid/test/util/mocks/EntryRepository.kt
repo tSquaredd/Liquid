@@ -16,4 +16,8 @@ fun mockEntryRepository(withEntriesForTimeRange: Boolean = true): EntryRepositor
             any()
         )
     } returns if (withEntriesForTimeRange) entryList else emptyList()
+
+    coEvery { delete(any()) } returns Unit
+
+    coEvery { update(any()) } returns Unit
 }
