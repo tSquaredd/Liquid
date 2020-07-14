@@ -11,7 +11,6 @@ import com.tsquaredapplications.liquid.common.database.entry.EntryDataWrapper
 import com.tsquaredapplications.liquid.databinding.HistoryIconItemBinding
 import com.tsquaredapplications.liquid.ext.setAsVisible
 import com.tsquaredapplications.liquid.ext.toTwoDigitDecimalString
-import java.util.*
 
 class HistoryIconItem(val model: Model) : AbstractBindingItem<HistoryIconItemBinding>() {
     override val type: Int
@@ -32,8 +31,7 @@ class HistoryIconItem(val model: Model) : AbstractBindingItem<HistoryIconItemBin
 
             with(binding.amount) {
                 val amountString =
-                    "${model.entryDataWrapper.entry.amount.toTwoDigitDecimalString()} " +
-                            model.liquidUnit.name.toLowerCase(Locale.getDefault())
+                    "${model.entryDataWrapper.entry.amount.toTwoDigitDecimalString()} ${model.liquidUnit}"
                 text = amountString
                 setAsVisible()
             }

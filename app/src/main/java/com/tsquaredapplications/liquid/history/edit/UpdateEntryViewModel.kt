@@ -34,7 +34,7 @@ class UpdateEntryViewModel
             entryDataWrapper.preset?.name ?: entryDataWrapper.drinkType.name,
             entryDataWrapper.icon,
             selectedAmount.toString(),
-            userInformation.unitPreference.name.toLowerCase(Locale.getDefault())
+            userInformation.unitPreference.toString()
         )
     }
 

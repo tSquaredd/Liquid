@@ -26,7 +26,7 @@ class GoalSettingViewModel
 
     fun start() {
         state.value = Initialized(
-            userInformation.unitPreference.name,
+            userInformation.unitPreference.toString(),
             userInformation.dailyGoal.toString()
         )
     }

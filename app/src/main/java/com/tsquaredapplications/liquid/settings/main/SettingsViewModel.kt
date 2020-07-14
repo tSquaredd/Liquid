@@ -3,7 +3,6 @@ package com.tsquaredapplications.liquid.settings.main
 import androidx.lifecycle.ViewModel
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.settings.resources.SettingsResourceWrapper
-import java.util.*
 import javax.inject.Inject
 
 class SettingsViewModel
@@ -16,9 +15,7 @@ class SettingsViewModel
         SettingsItem(
             Setting(
                 name = resourceWrapper.dailyGoal,
-                value = "${userInformation.dailyGoal}${userInformation.unitPreference.name.toLowerCase(
-                    Locale.getDefault()
-                )}",
+                value = "${userInformation.dailyGoal}${userInformation.unitPreference}",
                 settingType = SettingType.DailyGoal
             )
         ),

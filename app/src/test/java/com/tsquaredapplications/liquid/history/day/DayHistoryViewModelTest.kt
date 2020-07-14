@@ -1,6 +1,7 @@
 package com.tsquaredapplications.liquid.history.day
 
 import com.tsquaredapplications.liquid.common.BaseCoroutineViewModelTest
+import com.tsquaredapplications.liquid.history.day.resources.DayHistoryResourceWrapper
 import com.tsquaredapplications.liquid.test.util.mocks.BEER_ENTRY_AMOUNT
 import com.tsquaredapplications.liquid.test.util.mocks.BEER_ENTRY_TIMESTAMP
 import com.tsquaredapplications.liquid.test.util.mocks.BEER_ENTRY_UID
@@ -106,6 +107,7 @@ internal class DayHistoryViewModelTest : BaseCoroutineViewModelTest<DayHistorySt
             verify(exactly = 1) { stateObserver.onChanged(capture(stateList)) }
             assertTrue(stateList.first() is DayHistoryState.Initialized)
             with(stateList.first() as DayHistoryState.Initialized) {
+                assertEquals(SCREEN_TITLE, screenTitle)
                 assertEquals(3, historyIconModels.size)
                 with(historyIconModels[0].model) {
                     assertTrue(detailed)

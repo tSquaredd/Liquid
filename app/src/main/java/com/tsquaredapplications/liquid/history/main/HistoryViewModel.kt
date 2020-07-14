@@ -102,10 +102,8 @@ class HistoryViewModel
     }
 
     private fun buildProgressString(progress: Int) =
-        "$progress ${userInformation.unitPreference.name.toLowerCase(Locale.getDefault())} / " +
-                "${userInformation.dailyGoal} ${userInformation.unitPreference.name.toLowerCase(
-                    Locale.getDefault()
-                )}"
+        "$progress ${userInformation.unitPreference} / " +
+                "${userInformation.dailyGoal} ${userInformation.unitPreference}"
 }
 
 sealed class HistoryState {

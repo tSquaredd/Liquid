@@ -9,7 +9,7 @@ fun mockWaterPreset() = mockk<Preset> {
     every { name } returns MOCK_WATER_PRESET_NAME
     every { amount } returns MOCK_WATER_PRESET_AMOUNT
     every { drinkTypeUid } returns MOCK_WATER_DRINK_TYPE_UID
-    every { iconUid } returns MOCK_WATER_ICON_UID
+    every { iconUid } returns MOCK_WATER_PRESET_ICON_UID
 }
 
 fun mockBeerPreset() = mockk<Preset> {
@@ -17,7 +17,7 @@ fun mockBeerPreset() = mockk<Preset> {
     every { name } returns MOCK_BEER_PRESET_NAME
     every { amount } returns MOCK_BEER_PRESET_AMOUNT
     every { drinkTypeUid } returns MOCK_BEER_DRINK_TYPE_UID
-    every { iconUid } returns MOCK_BEER_ICON_UID
+    every { iconUid } returns MOCK_BEER_PRESET_ICON_UID
 }
 
 fun mockTeaPreset() = mockk<Preset> {
@@ -25,7 +25,7 @@ fun mockTeaPreset() = mockk<Preset> {
     every { name } returns MOCK_TEA_PRESET_NAME
     every { amount } returns MOCK_TEA_PRESET_AMOUNT
     every { drinkTypeUid } returns MOCK_TEA_DRINK_TYPE_UID
-    every { iconUid } returns MOCK_TEA_ICON_UID
+    every { iconUid } returns MOCK_TEA_PRESET_ICON_UID
 }
 
 const val MOCK_WATER_PRESET_UID = 1

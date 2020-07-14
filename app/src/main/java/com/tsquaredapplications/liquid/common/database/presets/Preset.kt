@@ -6,7 +6,6 @@ import androidx.room.PrimaryKey
 import com.tsquaredapplications.liquid.common.LiquidUnit
 import com.tsquaredapplications.liquid.ext.toTwoDigitDecimalString
 import kotlinx.android.parcel.Parcelize
-import java.util.*
 
 @Parcelize
 @Entity
@@ -21,6 +20,6 @@ data class Preset(
 
     fun createAmountString(unitPreference: LiquidUnit): String {
         val sizeString = amount.toTwoDigitDecimalString()
-        return "$sizeString ${unitPreference.name.toLowerCase(Locale.getDefault())}"
+        return "$sizeString $unitPreference"
     }
 }

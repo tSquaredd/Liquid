@@ -55,7 +55,7 @@ internal class DrinkAmountViewModelTest : BaseCoroutineViewModelTest<DrinkAmount
         assertTrue(stateList.size == 1)
         assertTrue(stateList.first() is DrinkAmountState.Initialized)
         with(stateList.first() as DrinkAmountState.Initialized) {
-            assertEquals(MOCK_UNIT_PREF.name, unitPreference)
+            assertEquals(MOCK_UNIT_PREF.toString(), unitPreference)
         }
     }
 

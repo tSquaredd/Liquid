@@ -10,7 +10,6 @@ import com.tsquaredapplications.liquid.settings.weight.WeightSettingState.Enable
 import com.tsquaredapplications.liquid.settings.weight.WeightSettingState.GoalUpdated
 import com.tsquaredapplications.liquid.settings.weight.WeightSettingState.Initialized
 import com.tsquaredapplications.liquid.settings.weight.WeightSettingState.ShowGoalCalculationPrompt
-import java.util.*
 import javax.inject.Inject
 
 class WeightSettingViewModel
@@ -56,6 +55,6 @@ class WeightSettingViewModel
         })
 
         state.value =
-            GoalUpdated("$newGoal ${userInformation.unitPreference.name.toLowerCase(Locale.getDefault())}")
+            GoalUpdated("$newGoal ${userInformation.unitPreference}")
     }
 }

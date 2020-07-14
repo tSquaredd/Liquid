@@ -49,7 +49,7 @@ internal class GoalDisplayViewModelTest : BaseViewModelTest<GoalDisplayState>() 
 
         verify(exactly = 1) { stateObserver.onChanged(capture(stateList)) }
         val state = stateList.first() as Initialized
-        assertEquals("90 OZ", state.goal)
+        assertEquals("90 oz", state.goal)
     }
 
     @Nested

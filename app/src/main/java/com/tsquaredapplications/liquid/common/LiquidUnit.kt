@@ -1,9 +1,12 @@
 package com.tsquaredapplications.liquid.common
 
+import java.util.*
 import kotlin.math.roundToInt
 
 enum class LiquidUnit {
-    OZ, ML
+    OZ, ML;
+
+    override fun toString(): String = this.name.toLowerCase(Locale.getDefault())
 }
 
 fun calculateDailyGoal(unit: LiquidUnit, weight: Int) = if (unit == LiquidUnit.OZ) weight / 2

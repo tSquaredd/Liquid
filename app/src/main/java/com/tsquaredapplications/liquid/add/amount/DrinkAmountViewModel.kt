@@ -29,7 +29,8 @@ class DrinkAmountViewModel
 
     fun start(drinkType: DrinkType) {
         this.drinkType = drinkType
-        state.value = DrinkAmountState.Initialized(userInformation.unitPreference.name, calendar)
+        state.value =
+            DrinkAmountState.Initialized(userInformation.unitPreference.toString(), calendar)
     }
 
     fun onDateChanged(year: Int, monthOfYear: Int, dayOfMonth: Int) {

@@ -5,8 +5,8 @@ import com.tsquaredapplications.liquid.add.amount.resources.DrinkAmountResourceW
 import com.tsquaredapplications.liquid.add.drink.resources.SelectDrinkResourceWrapper
 import com.tsquaredapplications.liquid.add.drink.resources.SelectDrinkResourceWrapperImpl
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
-import com.tsquaredapplications.liquid.history.day.DayHistoryResourceWrapper
-import com.tsquaredapplications.liquid.history.day.DayHistoryResourceWrapperImpl
+import com.tsquaredapplications.liquid.history.day.resources.DayHistoryResourceWrapper
+import com.tsquaredapplications.liquid.history.day.resources.DayHistoryResourceWrapperImpl
 import com.tsquaredapplications.liquid.history.edit.resources.UpdateEntryResourceWrapper
 import com.tsquaredapplications.liquid.history.edit.resources.UpdateEntryResourceWrapperImpl
 import com.tsquaredapplications.liquid.history.main.resources.HistoryResourceWrapper
