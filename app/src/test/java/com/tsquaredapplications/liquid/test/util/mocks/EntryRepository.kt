@@ -8,11 +8,12 @@ import io.mockk.mockk
 fun mockEntryRepository(
     withEntries: Boolean = true,
     withAlcoholEntries: Boolean = true,
-    withNonAlcoholEntries: Boolean = true
+    withNonAlcoholEntries: Boolean = true,
+    allEntriesList: List<EntryDataWrapper> = emptyList()
 ): EntryRepository = mockk {
     coEvery { insert(any()) } returns Unit
 
-    val entryList = mutableListOf<EntryDataWrapper>().apply {
+    val timeRangeEntryList = mutableListOf<EntryDataWrapper>().apply {
         if (withEntries && withAlcoholEntries) add(mockBeerEntryDataWrapper())
         if (withEntries && withNonAlcoholEntries) {
             add(mockWaterEntryDataWrapper())
@@ -25,7 +26,9 @@ fun mockEntryRepository(
             any(),
             any()
         )
-    } returns entryList
+    } returns timeRangeEntryList
+
+    coEvery { getAll() } returns allEntriesList
 
     coEvery { delete(any()) } returns Unit
 

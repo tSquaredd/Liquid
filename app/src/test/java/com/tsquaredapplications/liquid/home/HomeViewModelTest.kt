@@ -7,14 +7,12 @@ import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.home.model.HomeState
 import com.tsquaredapplications.liquid.home.resources.HomeResourceWrapper
 import com.tsquaredapplications.liquid.test.util.mocks.mockEntryRepository
-import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 
@@ -34,12 +32,6 @@ internal class HomeViewModelTest : BaseCoroutineViewModelTest<HomeState>() {
 
     private lateinit var viewModel: HomeViewModel
     private lateinit var entryRepository: EntryRepository
-
-    @BeforeEach
-    fun beforeEach() {
-        clearMocks(stateObserver)
-        stateList.clear()
-    }
 
     @Test
     fun `when viewModel is started with no entries set state to Initialized with not isNegative`() {

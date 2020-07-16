@@ -3,6 +3,7 @@ package com.tsquaredapplications.liquid.common
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.tsquaredapplications.liquid.ext.InstantExecutorExtension
+import io.mockk.clearMocks
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -12,6 +13,7 @@ import kotlinx.coroutines.test.setMain
 import org.junit.Rule
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(InstantExecutorExtension::class)
@@ -32,6 +34,13 @@ abstract class BaseCoroutineViewModelTest<T> : BaseTest() {
         beforeAll()
     }
 
+    @BeforeEach
+    fun _beforeEach() {
+        clearMocks(stateObserver)
+        stateList.clear()
+        beforeEach()
+    }
+
     @ExperimentalCoroutinesApi
     @AfterAll
     fun _afterAll() {
@@ -41,5 +50,6 @@ abstract class BaseCoroutineViewModelTest<T> : BaseTest() {
     }
 
     open fun beforeAll() {}
+    open fun beforeEach() {}
     open fun afterAll() {}
 }

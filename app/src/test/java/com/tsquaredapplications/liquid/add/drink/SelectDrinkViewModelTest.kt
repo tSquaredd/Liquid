@@ -13,7 +13,6 @@ import com.tsquaredapplications.liquid.test.util.mocks.mockUserInformation
 import com.tsquaredapplications.liquid.test.util.mocks.mockUserManager
 import com.tsquaredapplications.liquid.test.util.mocks.mockWaterDrinkTypeAndIcon
 import com.tsquaredapplications.liquid.test.util.mocks.mockWaterPresetDataWrapper
-import io.mockk.clearMocks
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
@@ -44,11 +43,7 @@ internal class SelectDrinkViewModelTest : BaseCoroutineViewModelTest<SelectDrink
         every { getSuggestion(any()) } returns SUGGESTION
     }
 
-    @BeforeEach
-    fun beforeEach() {
-        clearMocks(stateObserver)
-        stateList.clear()
-
+    override fun beforeEach() {
         entryRepository = mockEntryRepository()
     }
 

@@ -35,11 +35,7 @@ class HistoryViewModel
                     goals.await().toMutableList()
                 )
 
-            state.value = Initialized(
-                dateSeparatedEntries.map { model ->
-                    HistoryDayItem(model)
-                }
-            )
+            state.value = Initialized(dateSeparatedEntries)
         }
     }
 
@@ -107,5 +103,5 @@ class HistoryViewModel
 }
 
 sealed class HistoryState {
-    class Initialized(val historyItems: List<HistoryDayItem>) : HistoryState()
+    class Initialized(val historyItems: List<HistoryDayItem.Model>) : HistoryState()
 }

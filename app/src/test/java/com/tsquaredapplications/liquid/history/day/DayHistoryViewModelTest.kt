@@ -35,7 +35,6 @@ import com.tsquaredapplications.liquid.test.util.mocks.WATER_ENTRY_TIMESTAMP
 import com.tsquaredapplications.liquid.test.util.mocks.WATER_ENTRY_UID
 import com.tsquaredapplications.liquid.test.util.mocks.mockEntryRepository
 import com.tsquaredapplications.liquid.test.util.mocks.mockUserInformation
-import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -58,12 +57,6 @@ internal class DayHistoryViewModelTest : BaseCoroutineViewModelTest<DayHistorySt
     }
     private val resourceWrapper = mockk<DayHistoryResourceWrapper> {
         every { getScreenTitle(any()) } returns SCREEN_TITLE
-    }
-
-    @BeforeEach
-    fun beforeEach() {
-        clearMocks(stateObserver)
-        stateList.clear()
     }
 
     @Nested

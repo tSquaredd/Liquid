@@ -9,7 +9,6 @@ import com.tsquaredapplications.liquid.test.util.mocks.MOCK_WATER_DRINK_TYPE_UID
 import com.tsquaredapplications.liquid.test.util.mocks.mockEntryRepository
 import com.tsquaredapplications.liquid.test.util.mocks.mockUserInformation
 import com.tsquaredapplications.liquid.test.util.mocks.mockWaterDrinkType
-import io.mockk.clearMocks
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
@@ -19,7 +18,6 @@ import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.util.*
 
@@ -34,11 +32,7 @@ internal class DrinkAmountViewModelTest : BaseCoroutineViewModelTest<DrinkAmount
     }
     private val waterDrinkType = mockWaterDrinkType()
 
-    @BeforeEach
-    fun beforeEach() {
-        clearMocks(stateObserver)
-        stateList.clear()
-
+    override fun beforeEach() {
         viewModel =
             DrinkAmountViewModel(userInformation, entryRepository, drinkAmountResourceWrapper)
 
