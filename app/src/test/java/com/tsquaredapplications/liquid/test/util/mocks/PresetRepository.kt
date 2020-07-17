@@ -15,4 +15,5 @@ fun mockPresetRepository(withPresets: Boolean): PresetRepository = mockk {
     }
 
     coEvery { getAllPresets() } returns presets
+    coEvery { insert(any()) } returns Unit
 }

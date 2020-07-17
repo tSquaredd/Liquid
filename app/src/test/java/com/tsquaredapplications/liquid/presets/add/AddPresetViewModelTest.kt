@@ -1,13 +1,10 @@
-package com.tsquaredapplications.liquid.presets.main
+package com.tsquaredapplications.liquid.presets.add
 
-import com.tsquaredapplications.liquid.common.BaseViewModelTest
-import com.tsquaredapplications.liquid.common.LiquidUnit
+import com.tsquaredapplications.liquid.common.BaseCoroutineViewModelTest
 import com.tsquaredapplications.liquid.common.database.icons.Icon
-import com.tsquaredapplications.liquid.common.database.presets.PresetRepository
+import com.tsquaredapplications.liquid.common.database.presets.Preset
 import com.tsquaredapplications.liquid.common.database.types.DrinkType
-import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.ext.assertStateOrder
-import com.tsquaredapplications.liquid.presets.add.AddPresetViewModel
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.DrinkTypeSelected
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.Initialized
@@ -17,54 +14,42 @@ import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidI
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidName
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.PresetIconSelected
 import com.tsquaredapplications.liquid.presets.add.resources.AddPresetResourceWrapper
+import com.tsquaredapplications.liquid.test.util.mocks.MOCK_UNIT_PREF
+import com.tsquaredapplications.liquid.test.util.mocks.MOCK_WATER_DRINK_TYPE_UID
+import com.tsquaredapplications.liquid.test.util.mocks.MOCK_WATER_PRESET_AMOUNT
+import com.tsquaredapplications.liquid.test.util.mocks.MOCK_WATER_PRESET_ICON_UID
+import com.tsquaredapplications.liquid.test.util.mocks.MOCK_WATER_PRESET_NAME
+import com.tsquaredapplications.liquid.test.util.mocks.mockPresetRepository
+import com.tsquaredapplications.liquid.test.util.mocks.mockUserInformation
+import com.tsquaredapplications.liquid.test.util.mocks.mockWaterDrinkType
+import com.tsquaredapplications.liquid.test.util.mocks.mockWaterPresetIcon
 import io.mockk.clearMocks
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.slot
 import io.mockk.verify
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.newSingleThreadContext
-import kotlinx.coroutines.test.resetMain
-import kotlinx.coroutines.test.setMain
-import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-internal class AddPresetViewModelTest : BaseViewModelTest<AddPresetState>() {
+internal class AddPresetViewModelTest : BaseCoroutineViewModelTest<AddPresetState>() {
 
-    private val userInformation = mockk<UserInformation> {
-        every { unitPreference } returns expectedUnitPreference
-    }
+    private lateinit var viewModel: AddPresetViewModel
 
-    private val presetRepository = mockk<PresetRepository>()
+    private val userInformation = mockUserInformation()
+    private val presetRepository = mockPresetRepository(true)
+
     private val resourceWrapper = mockk<AddPresetResourceWrapper> {
         every { nameErrorMessage } returns NAME_ERROR_MESSAGE
         every { typeErrorMessage } returns DRINK_TYPE_ERROR_MESSAGE
         every { amountErrorMessage } returns AMOUNT_ERROR_MESSAGE
     }
 
-    private lateinit var viewModel: AddPresetViewModel
-
-    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
-
-    @AfterAll
-    fun afterAll() {
-        Dispatchers.resetMain() // reset main dispatcher to the original Main dispatcher
-        mainThreadSurrogate.close()
-    }
-
-    @BeforeAll
-    fun beforeAll() {
-        Dispatchers.setMain(mainThreadSurrogate)
-    }
-
-    @BeforeEach
-    fun beforeEach() {
+    override fun beforeEach() {
         clearMocks(stateObserver)
         stateList = mutableListOf()
         viewModel =
@@ -82,7 +67,7 @@ internal class AddPresetViewModelTest : BaseViewModelTest<AddPresetState>() {
 
         verify(exactly = 1) { stateObserver.onChanged(capture(stateList)) }
         with(stateList.first() as Initialized) {
-            assertEquals(expectedUnitPreference, unit)
+            assertEquals(MOCK_UNIT_PREF, unit)
         }
     }
 
@@ -113,14 +98,8 @@ internal class AddPresetViewModelTest : BaseViewModelTest<AddPresetState>() {
     @Nested
     @DisplayName("Given Add Preset is clicked")
     inner class OnAddPresetClicked {
-        private val name = "Water Bottle"
-        private val drinkType = mockk<DrinkType> {
-            every { drinkTypeUid } returns DRINK_TYPE_UID
-        }
-        private val iconSelected = mockk<Icon> {
-            every { iconUid } returns ICON_UID
-        }
-        private val amount = 20.0
+        private val drinkType = mockWaterDrinkType()
+        private val iconSelected = mockWaterPresetIcon()
 
 
         @Test
@@ -128,7 +107,7 @@ internal class AddPresetViewModelTest : BaseViewModelTest<AddPresetState>() {
             mockInteractions(
                 drinkType = drinkType,
                 iconSelected = iconSelected,
-                amount = amount
+                amount = MOCK_WATER_PRESET_AMOUNT
             )
 
             viewModel.onAddClicked()
@@ -148,9 +127,9 @@ internal class AddPresetViewModelTest : BaseViewModelTest<AddPresetState>() {
         @Test
         fun `when drink type is not selected return invalid type state`() {
             mockInteractions(
-                name = name,
+                name = MOCK_WATER_PRESET_NAME,
                 iconSelected = iconSelected,
-                amount = amount
+                amount = MOCK_WATER_PRESET_AMOUNT
             )
 
             viewModel.onAddClicked()
@@ -169,9 +148,9 @@ internal class AddPresetViewModelTest : BaseViewModelTest<AddPresetState>() {
         @Test
         fun `when icon is not selected return invalid icon state`() {
             mockInteractions(
-                name = name,
+                name = MOCK_WATER_PRESET_NAME,
                 drinkType = drinkType,
-                amount = amount
+                amount = MOCK_WATER_PRESET_AMOUNT
             )
 
             viewModel.onAddClicked()
@@ -186,7 +165,7 @@ internal class AddPresetViewModelTest : BaseViewModelTest<AddPresetState>() {
         @Test
         fun `when amount is not selected return invalid amount state`() {
             mockInteractions(
-                name = name,
+                name = MOCK_WATER_PRESET_NAME,
                 drinkType = drinkType,
                 iconSelected = iconSelected
             )
@@ -218,6 +197,34 @@ internal class AddPresetViewModelTest : BaseViewModelTest<AddPresetState>() {
             )
         }
 
+        @Test
+        fun `when all validations pass insert preset and set state to PresetAdded`() {
+            mockInteractions(
+                name = MOCK_WATER_PRESET_NAME,
+                amount = MOCK_WATER_PRESET_AMOUNT,
+                drinkType = drinkType,
+                iconSelected = iconSelected
+            )
+
+            viewModel.onAddClicked()
+
+            val presetSlot = slot<Preset>()
+            coVerify(exactly = 1) { presetRepository.insert(capture(presetSlot)) }
+            with(presetSlot.captured) {
+                assertEquals(MOCK_WATER_PRESET_AMOUNT, amount)
+                assertEquals(MOCK_WATER_DRINK_TYPE_UID, drinkTypeUid)
+                assertEquals(MOCK_WATER_PRESET_ICON_UID, iconUid)
+                assertEquals(MOCK_WATER_PRESET_NAME, name)
+            }
+
+            verify(exactly = 3) { stateObserver.onChanged(capture(stateList)) }
+            stateList.assertStateOrder(
+                DrinkTypeSelected::class,
+                PresetIconSelected::class,
+                AddPresetState.PresetAdded::class
+            )
+        }
+
         private fun mockInteractions(
             name: String? = null,
             amount: Double? = null,
@@ -234,12 +241,8 @@ internal class AddPresetViewModelTest : BaseViewModelTest<AddPresetState>() {
     }
 
     companion object {
-        val expectedUnitPreference = LiquidUnit.ML
-
         const val NAME_ERROR_MESSAGE = "NAME_ERROR_MESSAGE"
         const val DRINK_TYPE_ERROR_MESSAGE = "DRINK_TYPE_ERROR_MESSAGE"
         const val AMOUNT_ERROR_MESSAGE = "AMOUNT_ERROR_MESSAGE"
-        const val DRINK_TYPE_UID = 1
-        const val ICON_UID = 2
     }
 }

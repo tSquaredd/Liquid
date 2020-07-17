@@ -1,12 +1,11 @@
 package com.tsquaredapplications.liquid.home
 
 import com.tsquaredapplications.liquid.common.BaseCoroutineViewModelTest
-import com.tsquaredapplications.liquid.common.LiquidUnit
 import com.tsquaredapplications.liquid.common.database.entry.EntryRepository
-import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.home.model.HomeState
 import com.tsquaredapplications.liquid.home.resources.HomeResourceWrapper
 import com.tsquaredapplications.liquid.test.util.mocks.mockEntryRepository
+import com.tsquaredapplications.liquid.test.util.mocks.mockUserInformation
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -24,11 +23,7 @@ internal class HomeViewModelTest : BaseCoroutineViewModelTest<HomeState>() {
         every { getGoalProgressText(any(), any(), any()) } returns GOAL_PROGRESS_TEXT
     }
 
-    private val userInformation = mockk<UserInformation> {
-        every { weight } returns WEIGHT
-        every { dailyGoal } returns GOAL
-        every { unitPreference } returns UNIT
-    }
+    private val userInformation = mockUserInformation()
 
     private lateinit var viewModel: HomeViewModel
     private lateinit var entryRepository: EntryRepository
@@ -86,8 +81,5 @@ internal class HomeViewModelTest : BaseCoroutineViewModelTest<HomeState>() {
 
     companion object {
         private const val GOAL_PROGRESS_TEXT = "GOAL_PROGRESS_TEXT"
-        private const val WEIGHT = 200
-        private const val GOAL = 100
-        private val UNIT = LiquidUnit.OZ
     }
 }
