@@ -29,8 +29,7 @@ fun mockEntryRepository(
     } returns timeRangeEntryList
 
     coEvery { getAll() } returns allEntriesList
-
     coEvery { delete(any()) } returns Unit
-
     coEvery { update(any()) } returns Unit
+    coEvery { presetRemoval(any()) } returns Unit
 }

@@ -1,11 +1,8 @@
 package com.tsquaredapplications.liquid.presets.edit
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
+import androidx.annotation.DrawableRes
 import androidx.lifecycle.viewModelScope
-import com.tsquaredapplications.liquid.common.LiquidUnit
-import com.tsquaredapplications.liquid.common.SingleEventLiveData
-import com.tsquaredapplications.liquid.common.convertMlToOz
+import com.tsquaredapplications.liquid.common.BaseViewModel
 import com.tsquaredapplications.liquid.common.database.entry.EntryRepository
 import com.tsquaredapplications.liquid.common.database.icons.Icon
 import com.tsquaredapplications.liquid.common.database.presets.Preset
@@ -29,13 +26,9 @@ class EditPresetViewModel
     private val presetRepository: PresetRepository,
     private val entryRepository: EntryRepository,
     private val resourceWrapper: EditPresetResourceWrapper
-) : ViewModel() {
+) : BaseViewModel<EditPresetState>() {
 
-    private val state = SingleEventLiveData<EditPresetState>()
-    val stateLiveData: LiveData<EditPresetState>
-        get() = state
-
-    lateinit var preset: Preset
+    private lateinit var preset: Preset
     private lateinit var originalPreset: Preset
     private var updatedAmount: Double? = null
     private var updatedName: String? = null
@@ -58,7 +51,7 @@ class EditPresetViewModel
     fun deletePreset() {
         viewModelScope.launch {
             val deferredDeletion = async { presetRepository.delete(originalPreset) }
-            val entryUpdates = async { entryRepository }
+            val entryUpdates = async { entryRepository.presetRemoval(originalPreset) }
             awaitAll(deferredDeletion, entryUpdates)
             state.value = Deleted
         }
@@ -70,12 +63,7 @@ class EditPresetViewModel
     }
 
     fun onAmountChanged(amountString: String) {
-        var amountDouble = amountString.toDoubleOrNull()
-        if (amountDouble != null && userInformation.unitPreference == LiquidUnit.ML) {
-            amountDouble =
-                convertMlToOz(amountDouble)
-        }
-        updatedAmount = amountDouble
+        updatedAmount = amountString.toDoubleOrNull()
     }
 
     fun onNameChanged(name: String) {
@@ -85,7 +73,7 @@ class EditPresetViewModel
     fun updatePreset() {
         var allValidationsPassed = true
 
-        if (updatedAmount == null) {
+        if (updatedAmount == null || updatedAmount == 0.0) {
             state.value = AmountInvalid(resourceWrapper.amountErrorMessage)
             allValidationsPassed = false
         }
@@ -106,4 +94,19 @@ class EditPresetViewModel
             state.value = Updated
         }
     }
+}
+
+sealed class EditPresetState {
+    class Initialized(
+        val name: String,
+        @DrawableRes val iconResource: Int,
+        val amountText: String,
+        val amountUnitHint: String
+    ) : EditPresetState()
+
+    class IconUpdated(@DrawableRes val iconResource: Int) : EditPresetState()
+    class AmountInvalid(val errorMessage: String) : EditPresetState()
+    class NameInvalid(val errorMessage: String) : EditPresetState()
+    object Updated : EditPresetState()
+    object Deleted : EditPresetState()
 }

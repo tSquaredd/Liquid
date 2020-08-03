@@ -18,6 +18,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.util.*
 
@@ -32,7 +33,8 @@ internal class DrinkAmountViewModelTest : BaseCoroutineViewModelTest<DrinkAmount
     }
     private val waterDrinkType = mockWaterDrinkType()
 
-    override fun beforeEach() {
+    @BeforeEach
+    fun beforeEach() {
         viewModel =
             DrinkAmountViewModel(userInformation, entryRepository, drinkAmountResourceWrapper)
 

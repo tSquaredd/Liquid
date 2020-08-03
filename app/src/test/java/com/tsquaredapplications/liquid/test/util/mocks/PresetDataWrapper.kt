@@ -6,18 +6,18 @@ import io.mockk.mockk
 
 fun mockWaterPresetDataWrapper(): PresetDataWrapper = mockk {
     every { preset } returns mockWaterPreset()
-    every { icon } returns mockWaterIcon()
+    every { icon } returns mockWaterPresetIcon()
     every { drinkType } returns mockWaterDrinkType()
 }
 
 fun mockBeerPresetDataWrapper(): PresetDataWrapper = mockk {
     every { preset } returns mockBeerPreset()
-    every { icon } returns mockBeerIcon()
+    every { icon } returns mockBeerPresetIcon()
     every { drinkType } returns mockBeerDrinkType()
 }
 
 fun mockTeaPresetDataWrapper(): PresetDataWrapper = mockk {
     every { preset } returns mockTeaPreset()
-    every { icon } returns mockTeaIcon()
+    every { icon } returns mockTeaPresetIcon()
     every { drinkType } returns mockTeaDrinkType()
 }

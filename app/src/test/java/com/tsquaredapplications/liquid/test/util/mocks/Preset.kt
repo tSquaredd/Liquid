@@ -5,12 +5,21 @@ import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
 
-fun mockWaterPreset() = mockk<Preset> {
+fun mockWaterPreset() = mockk<Preset>(relaxUnitFun = true) {
     every { presetUid } returns MOCK_WATER_PRESET_UID
     every { name } returns MOCK_WATER_PRESET_NAME
     every { amount } returns MOCK_WATER_PRESET_AMOUNT
     every { drinkTypeUid } returns MOCK_WATER_DRINK_TYPE_UID
     every { iconUid } returns MOCK_WATER_PRESET_ICON_UID
+    every { createAmountString(any()) } returns MOCK_WATER_PRESET_AMOUNT_STRING
+    every { copy() } returns mockk {
+        every { presetUid } returns MOCK_WATER_PRESET_UID
+        every { name } returns MOCK_WATER_PRESET_NAME
+        every { amount } returns MOCK_WATER_PRESET_AMOUNT
+        every { drinkTypeUid } returns MOCK_WATER_DRINK_TYPE_UID
+        every { iconUid } returns MOCK_WATER_PRESET_ICON_UID
+        every { createAmountString(any()) } returns MOCK_WATER_PRESET_AMOUNT_STRING
+    }
 }
 
 fun Preset.assertWaterPreset() {
@@ -27,6 +36,15 @@ fun mockBeerPreset() = mockk<Preset> {
     every { amount } returns MOCK_BEER_PRESET_AMOUNT
     every { drinkTypeUid } returns MOCK_BEER_DRINK_TYPE_UID
     every { iconUid } returns MOCK_BEER_PRESET_ICON_UID
+    every { createAmountString(any()) } returns MOCK_BEER_PRESET_AMOUNT_STRING
+    every { copy() } returns mockk {
+        every { presetUid } returns MOCK_BEER_PRESET_UID
+        every { name } returns MOCK_BEER_PRESET_NAME
+        every { amount } returns MOCK_BEER_PRESET_AMOUNT
+        every { drinkTypeUid } returns MOCK_BEER_DRINK_TYPE_UID
+        every { iconUid } returns MOCK_BEER_PRESET_ICON_UID
+        every { createAmountString(any()) } returns MOCK_BEER_PRESET_AMOUNT_STRING
+    }
 }
 
 fun Preset.assertBeerPreset() {
@@ -43,6 +61,15 @@ fun mockTeaPreset() = mockk<Preset> {
     every { amount } returns MOCK_TEA_PRESET_AMOUNT
     every { drinkTypeUid } returns MOCK_TEA_DRINK_TYPE_UID
     every { iconUid } returns MOCK_TEA_PRESET_ICON_UID
+    every { createAmountString(any()) } returns MOCK_TEA_PRESET_AMOUNT_STRING
+    every { copy() } returns mockk {
+        every { presetUid } returns MOCK_TEA_PRESET_UID
+        every { name } returns MOCK_TEA_PRESET_NAME
+        every { amount } returns MOCK_TEA_PRESET_AMOUNT
+        every { drinkTypeUid } returns MOCK_TEA_DRINK_TYPE_UID
+        every { iconUid } returns MOCK_TEA_PRESET_ICON_UID
+        every { createAmountString(any()) } returns MOCK_TEA_PRESET_AMOUNT_STRING
+    }
 }
 
 fun Preset.assertTeaPreset() {
@@ -56,11 +83,14 @@ fun Preset.assertTeaPreset() {
 const val MOCK_WATER_PRESET_UID = 1
 const val MOCK_WATER_PRESET_NAME = "WATER_PRESET"
 const val MOCK_WATER_PRESET_AMOUNT = 40.0
+const val MOCK_WATER_PRESET_AMOUNT_STRING = "MOCK_WATER_PRESET_AMOUNT_STRING"
 
 const val MOCK_BEER_PRESET_UID = 2
 const val MOCK_BEER_PRESET_NAME = "BEER_PRESET"
 const val MOCK_BEER_PRESET_AMOUNT = 16.0
+const val MOCK_BEER_PRESET_AMOUNT_STRING = "MOCK_BEER_PRESET_AMOUNT_STRING"
 
 const val MOCK_TEA_PRESET_UID = 3
 const val MOCK_TEA_PRESET_NAME = "TEA_PRESET"
 const val MOCK_TEA_PRESET_AMOUNT = 12.0
+const val MOCK_TEA_PRESET_AMOUNT_STRING = "MOCK_TEA_PRESET_AMOUNT_STRING"

@@ -37,6 +37,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -50,7 +51,8 @@ internal class UpdateEntryViewModelTest : BaseCoroutineViewModelTest<UpdateEntry
         every { invalidAmountErrorMessage } returns INVALID_AMOUNT_ERROR_MESSAGE
     }
 
-    override fun beforeEach() {
+    @BeforeEach
+    fun beforeEach() {
         entryRepository = mockEntryRepository()
 
         viewModel = UpdateEntryViewModel(entryRepository, userInformation, resourceWrapper).apply {

@@ -43,7 +43,8 @@ internal class SelectDrinkViewModelTest : BaseCoroutineViewModelTest<SelectDrink
         every { getSuggestion(any()) } returns SUGGESTION
     }
 
-    override fun beforeEach() {
+    @BeforeEach
+    fun beforeEach() {
         entryRepository = mockEntryRepository()
     }
 

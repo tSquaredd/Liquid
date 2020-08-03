@@ -5,7 +5,7 @@ import com.tsquaredapplications.liquid.common.database.presets.PresetRepository
 import io.mockk.coEvery
 import io.mockk.mockk
 
-fun mockPresetRepository(withPresets: Boolean): PresetRepository = mockk {
+fun mockPresetRepository(withPresets: Boolean): PresetRepository = mockk(relaxUnitFun = true) {
     val presets = mutableMapOf<Int, PresetDataWrapper>().apply {
         if (withPresets) {
             put(MOCK_WATER_PRESET_UID, mockWaterPresetDataWrapper())
@@ -15,5 +15,4 @@ fun mockPresetRepository(withPresets: Boolean): PresetRepository = mockk {
     }
 
     coEvery { getAllPresets() } returns presets
-    coEvery { insert(any()) } returns Unit
 }

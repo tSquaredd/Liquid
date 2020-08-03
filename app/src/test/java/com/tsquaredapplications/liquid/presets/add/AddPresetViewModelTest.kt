@@ -30,6 +30,7 @@ import io.mockk.mockk
 import io.mockk.slot
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -49,7 +50,8 @@ internal class AddPresetViewModelTest : BaseCoroutineViewModelTest<AddPresetStat
         every { amountErrorMessage } returns AMOUNT_ERROR_MESSAGE
     }
 
-    override fun beforeEach() {
+    @BeforeEach
+    fun beforeEach() {
         clearMocks(stateObserver)
         stateList = mutableListOf()
         viewModel =

@@ -16,4 +16,8 @@ class RoomGoalRepository
         }
         goalDao.insert(goal)
     }
+
+    override suspend fun insertAll(goals: List<Goal>) {
+        goalDao.insertAll(goals)
+    }
 }

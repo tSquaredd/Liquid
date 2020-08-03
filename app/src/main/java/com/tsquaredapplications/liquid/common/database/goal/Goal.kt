@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 class Goal(
     @PrimaryKey(autoGenerate = true)
     val goalUid: Int = 0,
-    val goalAmount: Int,
+    var goalAmount: Int,
     val startTimeStamp: Long
 )
