@@ -37,7 +37,7 @@ class GoalSettingViewModel
 
     fun update() {
         goal?.let {
-            userManager.setUser(userInformation.apply { dailyGoal = it })
+            userManager.updateGoal(it)
             state.value = Finished
         } ?: run { state.value = InvalidAmount(resourceWrapper.amountErrorMessage) }
     }

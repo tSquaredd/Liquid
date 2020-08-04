@@ -3,8 +3,10 @@ package com.tsquaredapplications.liquid.common
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.tsquaredapplications.liquid.ext.InstantExecutorExtension
+import io.mockk.clearMocks
 import io.mockk.mockk
 import org.junit.Rule
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(InstantExecutorExtension::class)
@@ -14,4 +16,10 @@ open class BaseViewModelTest<T> : BaseTest() {
 
     var stateList = mutableListOf<T>()
     val stateObserver = mockk<Observer<T>>(relaxed = true)
+
+    @BeforeEach
+    fun reset() {
+        clearMocks(stateObserver)
+        stateList.clear()
+    }
 }

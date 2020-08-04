@@ -103,4 +103,21 @@ class UserManagerImpl
             commit()
         }
     }
+
+    override fun updateGoal(goal: Int) {
+        val sharedPrefs = context.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE)
+        with(sharedPrefs.edit()) {
+            putInt(DAILY_GOAL, goal)
+            commit()
+        }
+
+        GlobalScope.launch {
+            goalRepository.insert(
+                Goal(
+                    goalAmount = goal,
+                    startTimeStamp = Calendar.getInstance().timeInMillis
+                )
+            )
+        }
+    }
 }
