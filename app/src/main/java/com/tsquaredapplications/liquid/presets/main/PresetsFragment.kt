@@ -18,8 +18,9 @@ import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.ext.setAsGone
 import com.tsquaredapplications.liquid.ext.setAsVisible
 import com.tsquaredapplications.liquid.presets.add.adapter.DetailedPresetItem
-import com.tsquaredapplications.liquid.presets.main.PresetState.Initialized
 import com.tsquaredapplications.liquid.presets.main.PresetState.Refresh
+import com.tsquaredapplications.liquid.presets.main.PresetState.ShowPlaceholder
+import com.tsquaredapplications.liquid.presets.main.PresetState.ShowPresets
 import com.tsquaredapplications.liquid.presets.main.PresetsFragmentDirections.Companion.toAddPresetFragment
 import com.tsquaredapplications.liquid.presets.main.PresetsFragmentDirections.Companion.toEditPresetFragment
 import javax.inject.Inject
@@ -50,7 +51,7 @@ class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
             onStateChange(it)
         })
 
-        viewModel.getPresets()
+        viewModel.start()
     }
 
     override fun onAttach(context: Context) {
@@ -93,19 +94,11 @@ class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
         binding.progressBar.setAsGone()
     }
 
-
     private fun onStateChange(state: PresetState) {
         when (state) {
-            is Initialized -> onInitializedState(state.detailedPresets)
+            is ShowPlaceholder -> showPlaceholder()
+            is ShowPresets -> showPresets(state.detailedPresets)
             is Refresh -> onRefreshedState(state.detailedPresets)
-        }
-    }
-
-    private fun onInitializedState(detailedPresets: List<DetailedPresetItem>) {
-        if (detailedPresets.isEmpty()) {
-            showPlaceholder()
-        } else {
-            showPresets(detailedPresets)
         }
     }
 
