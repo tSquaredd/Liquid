@@ -111,8 +111,8 @@ class NotificationsSettingFragment : BaseFragment<FragmentNotificationsSettingBi
             viewModel.allowRemindersChanged(isChecked)
         }
 
-        setHourIntervals(state.hourIntervalOptions)
-        setMinIntervals(state.minsIntervalOptions)
+        setHourIntervals(state.hourInterval)
+        setMinIntervals(state.minuteInterval)
 
         if (state.enabled) {
             binding.mask.setAsGone()
@@ -136,27 +136,27 @@ class NotificationsSettingFragment : BaseFragment<FragmentNotificationsSettingBi
     }
 
     private fun onUpdateIntervalOptions(state: UpdateIntervalOptions) {
-        setHourIntervals(state.hourIntervalOptions)
-        setMinIntervals(state.minsIntervalOptions)
+        setHourIntervals(state.hourInterval)
+        setMinIntervals(state.minuteInterval)
     }
 
-    private fun setHourIntervals(hourIntervalOptions: Pair<Int, Int>) {
+    private fun setHourIntervals(hourInterval: HourInterval) {
         with(binding.hourNumberPicker) {
             minValue = 1
-            maxValue = hourIntervalOptions.first
-            value = hourIntervalOptions.second
+            maxValue = hourInterval.maxInterval
+            value = hourInterval.currentSelection
             setOnValueChangedListener { _, _, hours ->
                 viewModel.selectedHourIntervalChanged(hours)
             }
         }
     }
 
-    private fun setMinIntervals(minsIntervalOptions: Pair<Array<String>, Int>) {
+    private fun setMinIntervals(minuteInterval: MinuteInterval) {
         with(binding.minuteNumberPicker) {
             minValue = 0
             maxValue = 1
-            displayedValues = minsIntervalOptions.first
-            value = if (minsIntervalOptions.second == 0) 0 else 1
+            displayedValues = minuteInterval.options
+            value = minuteInterval.currentSelectionIndex
             setOnValueChangedListener { _, _, index ->
                 viewModel.selectedMinuteIntervalChanged(displayedValues[index].toInt())
             }

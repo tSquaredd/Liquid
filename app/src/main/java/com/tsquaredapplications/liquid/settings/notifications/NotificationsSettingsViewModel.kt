@@ -33,7 +33,7 @@ class NotificationsSettingsViewModel
             buildTimeString(updatedNotificationsPreferences.startTime),
             updatedNotificationsPreferences.endTime,
             buildTimeString(updatedNotificationsPreferences.endTime),
-            buildHourIntervalList(),
+            buildHourInterval(),
             buildMinIntervalList()
         )
     }
@@ -50,14 +50,15 @@ class NotificationsSettingsViewModel
         return "$hourString:$minuteString $meridiem"
     }
 
-    private fun buildHourIntervalList(): Pair<Int, Int> {
-        val maxInterval =
-            updatedNotificationsPreferences.endTime.hour - updatedNotificationsPreferences.startTime.hour
-        return maxInterval to updatedNotificationsPreferences.intervalMins / 60
-    }
+    private fun buildHourInterval() = HourInterval(
+        maxInterval = updatedNotificationsPreferences.endTime.hour - updatedNotificationsPreferences.startTime.hour,
+        currentSelection = updatedNotificationsPreferences.intervalMins / 60
+    )
 
-    private fun buildMinIntervalList() =
-        arrayOf("00", "30") to updatedNotificationsPreferences.intervalMins % 60
+    private fun buildMinIntervalList() = MinuteInterval(
+        options = arrayOf("00", "30"),
+        currentSelectionIndex = if (updatedNotificationsPreferences.intervalMins % 60 == 0) 0 else 1
+    )
 
     fun onStartTimeChanged(hour: Int, min: Int) {
         state.value =
@@ -117,7 +118,7 @@ class NotificationsSettingsViewModel
     }
 
     private fun updateIntervals() {
-        state.value = UpdateIntervalOptions(buildHourIntervalList(), buildMinIntervalList())
+        state.value = UpdateIntervalOptions(buildHourInterval(), buildMinIntervalList())
     }
 
     private fun determineUpdateButtonStatus() {
@@ -141,6 +142,9 @@ class NotificationsSettingsViewModel
     }
 }
 
+class HourInterval(val maxInterval: Int, val currentSelection: Int)
+class MinuteInterval(val options: Array<String>, val currentSelectionIndex: Int)
+
 sealed class NotificationsSettingsState {
     class Initialized(
         val enabled: Boolean,
@@ -148,15 +152,15 @@ sealed class NotificationsSettingsState {
         val startTimeString: String,
         val endTime: NotificationTime,
         val endTimeString: String,
-        val hourIntervalOptions: Pair<Int, Int>,
-        val minsIntervalOptions: Pair<Array<String>, Int>
+        val hourInterval: HourInterval,
+        val minuteInterval: MinuteInterval
     ) : NotificationsSettingsState()
 
     class StartTimeUpdated(val timeString: String) : NotificationsSettingsState()
     class EndTimeUpdated(val timeString: String) : NotificationsSettingsState()
     class UpdateIntervalOptions(
-        val hourIntervalOptions: Pair<Int, Int>,
-        val minsIntervalOptions: Pair<Array<String>, Int>
+        val hourInterval: HourInterval,
+        val minuteInterval: MinuteInterval
     ) : NotificationsSettingsState()
 
     object NotificationsEnabled : NotificationsSettingsState()
