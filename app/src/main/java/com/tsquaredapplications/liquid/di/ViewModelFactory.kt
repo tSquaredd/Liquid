@@ -13,8 +13,8 @@ import com.tsquaredapplications.liquid.presets.edit.EditPresetViewModel
 import com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionViewModel
 import com.tsquaredapplications.liquid.presets.main.PresetsViewModel
 import com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionViewModel
-import com.tsquaredapplications.liquid.settings.SettingsViewModel
 import com.tsquaredapplications.liquid.settings.goal.GoalSettingViewModel
+import com.tsquaredapplications.liquid.settings.main.SettingsViewModel
 import com.tsquaredapplications.liquid.settings.notifications.NotificationsSettingsViewModel
 import com.tsquaredapplications.liquid.settings.unit.LiquidUnitSettingViewModel
 import com.tsquaredapplications.liquid.settings.weight.WeightSettingViewModel

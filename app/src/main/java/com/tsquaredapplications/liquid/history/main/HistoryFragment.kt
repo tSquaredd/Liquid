@@ -64,7 +64,7 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
         } else {
             binding.recyclerView.setAsVisible()
             itemAdapter.clear()
-            itemAdapter.add(state.historyItems)
+            itemAdapter.add(state.historyItems.map { HistoryDayItem(it) })
         }
     }
 

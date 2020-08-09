@@ -12,10 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.textfield.TextInputEditText
 import com.tsquaredapplications.liquid.R
 import com.tsquaredapplications.liquid.common.BaseFragment
+import com.tsquaredapplications.liquid.common.LiquidUnit
 import com.tsquaredapplications.liquid.databinding.FragmentUserInformationBinding
 import com.tsquaredapplications.liquid.ext.hideKeyboardFrom
 import com.tsquaredapplications.liquid.ext.navigate
-import com.tsquaredapplications.liquid.setup.LiquidUnit
 import com.tsquaredapplications.liquid.setup.SetupActivity
 import com.tsquaredapplications.liquid.setup.information.UserInformationFragmentDirections.Companion.toDailyGoalDisplayFragment
 import javax.inject.Inject

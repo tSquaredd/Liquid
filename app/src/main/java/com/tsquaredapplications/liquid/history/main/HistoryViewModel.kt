@@ -35,11 +35,7 @@ class HistoryViewModel
                     goals.await().toMutableList()
                 )
 
-            state.value = Initialized(
-                dateSeparatedEntries.map { model ->
-                    HistoryDayItem(model)
-                }
-            )
+            state.value = Initialized(dateSeparatedEntries)
         }
     }
 
@@ -102,12 +98,10 @@ class HistoryViewModel
     }
 
     private fun buildProgressString(progress: Int) =
-        "$progress ${userInformation.unitPreference.name.toLowerCase(Locale.getDefault())} / " +
-                "${userInformation.dailyGoal} ${userInformation.unitPreference.name.toLowerCase(
-                    Locale.getDefault()
-                )}"
+        "$progress ${userInformation.unitPreference} / " +
+                "${userInformation.dailyGoal} ${userInformation.unitPreference}"
 }
 
 sealed class HistoryState {
-    class Initialized(val historyItems: List<HistoryDayItem>) : HistoryState()
+    class Initialized(val historyItems: List<HistoryDayItem.Model>) : HistoryState()
 }

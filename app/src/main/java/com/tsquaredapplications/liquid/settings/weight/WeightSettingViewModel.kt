@@ -1,6 +1,8 @@
 package com.tsquaredapplications.liquid.settings.weight
 
 import com.tsquaredapplications.liquid.common.BaseViewModel
+import com.tsquaredapplications.liquid.common.LiquidUnit
+import com.tsquaredapplications.liquid.common.convertOzToMl
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.common.database.users.UserManager
 import com.tsquaredapplications.liquid.settings.weight.WeightSettingState.DisableUpdateButton
@@ -8,9 +10,6 @@ import com.tsquaredapplications.liquid.settings.weight.WeightSettingState.Enable
 import com.tsquaredapplications.liquid.settings.weight.WeightSettingState.GoalUpdated
 import com.tsquaredapplications.liquid.settings.weight.WeightSettingState.Initialized
 import com.tsquaredapplications.liquid.settings.weight.WeightSettingState.ShowGoalCalculationPrompt
-import com.tsquaredapplications.liquid.setup.LiquidUnit
-import com.tsquaredapplications.liquid.setup.convertOzToMl
-import java.util.*
 import javax.inject.Inject
 
 class WeightSettingViewModel
@@ -47,7 +46,8 @@ class WeightSettingViewModel
         val newGoal = if (userInformation.unitPreference == LiquidUnit.OZ) {
             userInformation.weight / 2
         } else {
-            convertOzToMl(userInformation.weight / 2.0).toInt()
+            convertOzToMl(userInformation.weight / 2.0)
+                .toInt()
         }
 
         userManager.setUser(userInformation.apply {
@@ -55,6 +55,6 @@ class WeightSettingViewModel
         })
 
         state.value =
-            GoalUpdated("$newGoal ${userInformation.unitPreference.name.toLowerCase(Locale.getDefault())}")
+            GoalUpdated("$newGoal ${userInformation.unitPreference}")
     }
 }

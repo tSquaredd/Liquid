@@ -1,7 +1,9 @@
 package com.tsquaredapplications.liquid.add.amount
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.viewModelScope
 import com.tsquaredapplications.liquid.add.amount.DrinkAmountState.DrinkAdded
+import com.tsquaredapplications.liquid.add.amount.resources.DrinkAmountResourceWrapper
 import com.tsquaredapplications.liquid.common.BaseViewModel
 import com.tsquaredapplications.liquid.common.database.entry.Entry
 import com.tsquaredapplications.liquid.common.database.entry.EntryRepository
@@ -18,19 +20,27 @@ class DrinkAmountViewModel
     private val resourceWrapper: DrinkAmountResourceWrapper
 ) : BaseViewModel<DrinkAmountState>() {
 
-    private var calendar = Calendar.getInstance()
-    private var amount: Double? = null
+    @VisibleForTesting
+    var calendar: Calendar = Calendar.getInstance()
+
+    @VisibleForTesting
+    var amount: Double? = null
     lateinit var drinkType: DrinkType
 
     fun start(drinkType: DrinkType) {
         this.drinkType = drinkType
-        state.value = DrinkAmountState.Initialized(userInformation.unitPreference.name, calendar)
+        state.value =
+            DrinkAmountState.Initialized(userInformation.unitPreference.toString(), calendar)
     }
 
     fun onDateChanged(year: Int, monthOfYear: Int, dayOfMonth: Int) {
         calendar.set(Calendar.YEAR, year)
         calendar.set(Calendar.MONTH, monthOfYear)
         calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+    }
+
+    fun onAmountChanged(amountString: String) {
+        amount = amountString.toDoubleOrNull()
     }
 
     fun onAddClicked() {
@@ -51,8 +61,10 @@ class DrinkAmountViewModel
             state.value = DrinkAdded
         }
     }
+}
 
-    fun onAmountChanged(amountString: String) {
-        amount = amountString.toDoubleOrNull()
-    }
+sealed class DrinkAmountState {
+    class Initialized(val unitPreference: String, val today: Calendar) : DrinkAmountState()
+    class InvalidAmount(val errorMessage: String) : DrinkAmountState()
+    object DrinkAdded : DrinkAmountState()
 }

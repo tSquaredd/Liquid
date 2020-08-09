@@ -2,9 +2,8 @@ package com.tsquaredapplications.liquid.home.resources
 
 import android.content.Context
 import com.tsquaredapplications.liquid.R
+import com.tsquaredapplications.liquid.common.LiquidUnit
 import com.tsquaredapplications.liquid.ext.toTwoDigitDecimalString
-import com.tsquaredapplications.liquid.setup.LiquidUnit
-import java.util.*
 import javax.inject.Inject
 
 class HomeResourceWrapperImpl
@@ -17,7 +16,7 @@ class HomeResourceWrapperImpl
             progressFormat,
             progressString,
             goal,
-            unit.name.toLowerCase(Locale.getDefault())
+            unit.name
         )
     }
 }

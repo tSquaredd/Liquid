@@ -12,7 +12,6 @@ import com.tsquaredapplications.liquid.history.edit.UpdateEntryState.Initialized
 import com.tsquaredapplications.liquid.history.edit.UpdateEntryState.InvalidAmount
 import com.tsquaredapplications.liquid.history.edit.resources.UpdateEntryResourceWrapper
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
 
 class UpdateEntryViewModel
@@ -20,8 +19,7 @@ class UpdateEntryViewModel
     private val entryRepository: EntryRepository,
     private val userInformation: UserInformation,
     private val resourceWrapper: UpdateEntryResourceWrapper
-) :
-    BaseViewModel<UpdateEntryState>() {
+) : BaseViewModel<UpdateEntryState>() {
 
     private lateinit var entryDataWrapper: EntryDataWrapper
     private var selectedAmount: Double? = 0.0
@@ -34,7 +32,7 @@ class UpdateEntryViewModel
             entryDataWrapper.preset?.name ?: entryDataWrapper.drinkType.name,
             entryDataWrapper.icon,
             selectedAmount.toString(),
-            userInformation.unitPreference.name.toLowerCase(Locale.getDefault())
+            userInformation.unitPreference.toString()
         )
     }
 

@@ -7,10 +7,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.mikepenz.fastadapter.binding.AbstractBindingItem
+import com.tsquaredapplications.liquid.common.LiquidUnit
 import com.tsquaredapplications.liquid.common.adapter.HISTORY_DAY_ID
 import com.tsquaredapplications.liquid.common.database.entry.EntryDataWrapper
 import com.tsquaredapplications.liquid.databinding.HistoryItemBinding
-import com.tsquaredapplications.liquid.setup.LiquidUnit
 import kotlinx.android.parcel.Parcelize
 
 class HistoryDayItem(val model: Model) : AbstractBindingItem<HistoryItemBinding>() {

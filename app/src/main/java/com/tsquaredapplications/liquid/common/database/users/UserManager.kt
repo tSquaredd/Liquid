@@ -5,4 +5,5 @@ interface UserManager {
     fun getUser(): UserInformation?
     fun shouldShowAlcoholWarning(): Boolean
     fun setDonNotShowAlcoholWarning()
+    fun updateGoal(goal: Int)
 }

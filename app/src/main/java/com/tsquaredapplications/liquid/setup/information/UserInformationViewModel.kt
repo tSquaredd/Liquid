@@ -2,8 +2,8 @@ package com.tsquaredapplications.liquid.setup.information
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import com.tsquaredapplications.liquid.common.LiquidUnit
 import com.tsquaredapplications.liquid.common.SingleEventLiveData
-import com.tsquaredapplications.liquid.setup.LiquidUnit
 import com.tsquaredapplications.liquid.setup.information.resources.UserInformationResourceWrapper
 import javax.inject.Inject
 

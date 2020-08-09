@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".setup.WelcomeFragment">
+    tools:context=".setup.welcome.WelcomeFragment">
 
     <ImageView
         android:id="@+id/logo"
@@ -25,7 +25,6 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:autoSizeTextType="uniform"
         android:text="@string/welcome_message"
         android:textColor="#DEDEDE"
         android:textSize="36sp"

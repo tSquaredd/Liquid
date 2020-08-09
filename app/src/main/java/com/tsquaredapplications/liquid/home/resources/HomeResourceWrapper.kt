@@ -1,6 +1,6 @@
 package com.tsquaredapplications.liquid.home.resources
 
-import com.tsquaredapplications.liquid.setup.LiquidUnit
+import com.tsquaredapplications.liquid.common.LiquidUnit
 
 interface HomeResourceWrapper {
 

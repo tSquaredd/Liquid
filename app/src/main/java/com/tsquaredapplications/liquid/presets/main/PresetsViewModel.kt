@@ -8,6 +8,8 @@ import com.tsquaredapplications.liquid.common.database.presets.PresetDataWrapper
 import com.tsquaredapplications.liquid.common.database.presets.PresetRepository
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.presets.add.adapter.DetailedPresetItem
+import com.tsquaredapplications.liquid.presets.main.PresetState.ShowPlaceholder
+import com.tsquaredapplications.liquid.presets.main.PresetState.ShowPresets
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,7 +23,7 @@ class PresetsViewModel
     val stateLiveData: LiveData<PresetState>
         get() = state
 
-    fun getPresets() {
+    fun start() {
         viewModelScope.launch {
             val presets = presetRepository.getAllPresets()
             onPresetsRetrieved(presets.values.toList())
@@ -29,8 +31,12 @@ class PresetsViewModel
     }
 
     private fun onPresetsRetrieved(presets: List<PresetDataWrapper>) {
-        state.value = PresetState.Initialized(presets.map {
-            DetailedPresetItem(it, it.preset.createAmountString(userInformation.unitPreference))
-        })
+        if (presets.isEmpty()) {
+            state.value = ShowPlaceholder
+        } else {
+            state.value = ShowPresets(presets.map {
+                DetailedPresetItem(it, it.preset.createAmountString(userInformation.unitPreference))
+            })
+        }
     }
 }

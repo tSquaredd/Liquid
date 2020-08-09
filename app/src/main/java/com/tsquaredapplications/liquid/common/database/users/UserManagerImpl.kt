@@ -1,6 +1,7 @@
 package com.tsquaredapplications.liquid.common.database.users
 
 import android.content.Context
+import com.tsquaredapplications.liquid.common.LiquidUnit
 import com.tsquaredapplications.liquid.common.database.DAILY_GOAL
 import com.tsquaredapplications.liquid.common.database.NOTIFICATIONS_ENABLED
 import com.tsquaredapplications.liquid.common.database.NOTIFICATION_END_TIME_HOUR
@@ -14,7 +15,6 @@ import com.tsquaredapplications.liquid.common.database.UNIT_PREFERENCE
 import com.tsquaredapplications.liquid.common.database.WEIGHT
 import com.tsquaredapplications.liquid.common.database.goal.Goal
 import com.tsquaredapplications.liquid.common.database.goal.GoalRepository
-import com.tsquaredapplications.liquid.setup.LiquidUnit
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
@@ -101,6 +101,23 @@ class UserManagerImpl
         with(sharedPrefs.edit()) {
             putBoolean(SHOULD_SHOW_ALCOHOL_WARNING, false)
             commit()
+        }
+    }
+
+    override fun updateGoal(goal: Int) {
+        val sharedPrefs = context.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE)
+        with(sharedPrefs.edit()) {
+            putInt(DAILY_GOAL, goal)
+            commit()
+        }
+
+        GlobalScope.launch {
+            goalRepository.insert(
+                Goal(
+                    goalAmount = goal,
+                    startTimeStamp = Calendar.getInstance().timeInMillis
+                )
+            )
         }
     }
 }

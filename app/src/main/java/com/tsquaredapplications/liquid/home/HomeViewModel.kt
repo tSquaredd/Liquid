@@ -28,8 +28,7 @@ class HomeViewModel
         updateProgress()
     }
 
-    @VisibleForTesting
-    fun updateProgress() {
+    private fun updateProgress() {
         viewModelScope.launch {
             val (startTime, endTime) = getStartAndEndTimeForToday()
             val todayEntries = entryRepository.getAllInTimeRange(from = startTime, to = endTime)

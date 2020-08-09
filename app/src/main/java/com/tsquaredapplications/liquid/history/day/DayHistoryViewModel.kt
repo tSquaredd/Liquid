@@ -6,6 +6,7 @@ import com.tsquaredapplications.liquid.common.database.entry.EntryRepository
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.history.day.DayHistoryState.Initialized
 import com.tsquaredapplications.liquid.history.day.DayHistoryState.NoEntriesForDay
+import com.tsquaredapplications.liquid.history.day.resources.DayHistoryResourceWrapper
 import com.tsquaredapplications.liquid.history.main.HistoryIconItem
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -15,8 +16,7 @@ class DayHistoryViewModel
     private val entryRepository: EntryRepository,
     private val userInformation: UserInformation,
     private val resourceWrapper: DayHistoryResourceWrapper
-) :
-    BaseViewModel<DayHistoryState>() {
+) : BaseViewModel<DayHistoryState>() {
 
     fun start(timestampRange: TimestampRange) {
         viewModelScope.launch {
