@@ -97,7 +97,7 @@
     <fragment
         android:id="@+id/presetIconSelectionFragment"
         android:name="com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionFragment"
-        android:label="@string/presets"
+        android:label="@string/choose_an_icon"
         tools:layout="@layout/fragment_preset_icon_selection" />
     <fragment
         android:id="@+id/historyFragment"

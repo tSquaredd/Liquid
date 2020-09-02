@@ -18,6 +18,7 @@
             android:layout_marginTop="48dp"
             android:layout_marginEnd="48dp"
             android:layout_marginBottom="48dp"
+            android:alpha=".60"
             android:text="@string/no_presets_header"
             android:textAlignment="center"
             android:textColor="@color/colorWhite"
@@ -43,7 +44,8 @@
             android:id="@+id/drinkTypeRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp" />
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="16dp" />
 
     </LinearLayout>
 

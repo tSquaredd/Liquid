@@ -9,8 +9,9 @@ enum class LiquidUnit {
     override fun toString(): String = this.name.toLowerCase(Locale.getDefault())
 }
 
-fun calculateDailyGoal(unit: LiquidUnit, weight: Int) = if (unit == LiquidUnit.OZ) weight / 2
-else ((weight / 2) * 29.5375).roundToInt()
+fun calculateDailyGoal(unit: LiquidUnit, weight: Int) =
+    if (unit == LiquidUnit.OZ) (weight / 2.0).roundToInt()
+    else ((weight / 2) * 29.5375).roundToInt()
 
 fun convertOzToMl(oz: Double) = oz * 29.5375
 

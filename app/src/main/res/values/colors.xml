@@ -14,4 +14,6 @@
 
     <color name="textInputLine">#1B5096</color>
     <color name="dividerLine">#1B5096</color>
+
+    <color name="errorRed">#EC3232</color>
 </resources>

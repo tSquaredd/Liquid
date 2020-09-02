@@ -40,6 +40,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
         android:hint="@string/lbs"
+        app:boxStrokeErrorColor="@color/errorRed"
         app:errorIconDrawable="@drawable/text_field_error"
         app:layout_constraintBottom_toTopOf="@id/updateButton"
         app:layout_constraintEnd_toEndOf="parent"

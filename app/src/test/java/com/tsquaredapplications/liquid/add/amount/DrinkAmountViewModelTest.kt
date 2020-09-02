@@ -1,5 +1,6 @@
 package com.tsquaredapplications.liquid.add.amount
 
+import com.tsquaredapplications.liquid.add.amount.DrinkAmountState.UpdateDateString
 import com.tsquaredapplications.liquid.add.amount.resources.DrinkAmountResourceWrapper
 import com.tsquaredapplications.liquid.common.BaseCoroutineViewModelTest
 import com.tsquaredapplications.liquid.common.database.entry.Entry
@@ -30,6 +31,7 @@ internal class DrinkAmountViewModelTest : BaseCoroutineViewModelTest<DrinkAmount
     private val entryRepository = mockEntryRepository()
     private val drinkAmountResourceWrapper = mockk<DrinkAmountResourceWrapper> {
         every { amountErrorMessage } returns AMOUNT_ERROR_MESSAGE
+        every { getMonthDisplayName(any()) } returns MONTH_DISPLAY_NAME
     }
     private val waterDrinkType = mockWaterDrinkType()
 
@@ -56,16 +58,19 @@ internal class DrinkAmountViewModelTest : BaseCoroutineViewModelTest<DrinkAmount
     }
 
     @Test
-    fun `when date is changed it is updated in view model`() {
+    fun `given date is changed, then update date in viewModel and send UpdateDateString state`() {
         val year = 3000
         val month = 1
         val day = 13
 
-        viewModel.onDateChanged(year, month, day)
+        viewModel.onDateSet(null, year, month, day)
 
         assertEquals(year, viewModel.calendar.get(Calendar.YEAR))
         assertEquals(month, viewModel.calendar.get(Calendar.MONTH))
         assertEquals(day, viewModel.calendar.get(Calendar.DAY_OF_MONTH))
+
+        verify(exactly = 1) { stateObserver.onChanged(capture(stateList)) }
+        stateList.assertStateOrder(UpdateDateString::class)
     }
 
     @Test
@@ -140,6 +145,7 @@ internal class DrinkAmountViewModelTest : BaseCoroutineViewModelTest<DrinkAmount
     }
 
     companion object {
-        const val AMOUNT_ERROR_MESSAGE = "AMOUNT_ERROR_MESSAGE"
+        private const val AMOUNT_ERROR_MESSAGE = "AMOUNT_ERROR_MESSAGE"
+        private const val MONTH_DISPLAY_NAME = "MONTH_DISPLAY_NAME"
     }
 }

@@ -6,7 +6,7 @@
 
     <stroke
         android:width="6dp"
-        android:color="#EC3232" />
+        android:color="@color/errorRed" />
     <size
         android:width="70dp"
         android:height="70dp" />

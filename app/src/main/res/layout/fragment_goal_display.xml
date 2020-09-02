@@ -6,6 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".setup.goal.GoalDisplayFragment">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="#DEDEDE">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/daily_goal"
+            android:textColor="#DEDEDE" />
+
+    </androidx.appcompat.widget.Toolbar>
+
     <TextView
         android:id="@+id/goalHeader"
         android:layout_width="wrap_content"
@@ -17,7 +36,7 @@
         app:layout_constraintBottom_toTopOf="@id/liquidIcon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:layout_constraintVertical_chainStyle="packed"
         tools:ignore="SpUsage" />
 
