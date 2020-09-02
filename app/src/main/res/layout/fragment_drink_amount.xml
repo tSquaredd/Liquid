@@ -10,29 +10,35 @@
         android:id="@+id/drinkTypeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="32dp"
         android:textColor="@color/colorWhite"
         android:textSize="36dp"
-        app:layout_constraintBottom_toBottomOf="@id/circularBackground"
-        app:layout_constraintEnd_toStartOf="@id/circularBackground"
+        app:layout_constraintBottom_toTopOf="@id/circularBackground"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/circularBackground"
+        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpUsage"
         tools:text="Iced Tea" />
 
     <View
         android:id="@+id/circularBackground"
-        android:layout_width="175dp"
-        android:layout_height="175dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/type_background"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/type_background_with_border"
+        app:layout_constraintBottom_toTopOf="@id/amountSelectionTextLayout"
+        app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/drinkTypeName"
+        app:layout_constraintHeight_max="280dp"
+
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/drinkTypeName"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintWidth_max="280dp" />
 
     <ImageView
         android:id="@+id/presetIcon"
@@ -46,37 +52,46 @@
         app:layout_constraintStart_toStartOf="@id/circularBackground"
         app:layout_constraintTop_toTopOf="@id/circularBackground" />
 
-    <DatePicker
-        android:id="@+id/datePicker"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:calendarViewShown="false"
-        android:datePickerMode="spinner"
-        app:layout_constraintBottom_toTopOf="@id/amountSelectionTextLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/circularBackground" />
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/amountSelectionTextLayout"
         style="@style/PrimaryTextInputLayout"
         android:layout_width="124dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
+        app:boxStrokeErrorColor="@color/errorRed"
         app:errorIconDrawable="@drawable/text_field_error"
-        app:layout_constraintBottom_toTopOf="@id/addButton"
+        app:layout_constraintBottom_toTopOf="@id/dateSelectionTextLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/datePicker">
+        tools:hint="@string/oz">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/amountSelectionEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:textColor="@color/colorWhite" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/dateSelectionTextLayout"
+        style="@style/PrimaryTextInputLayout"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        app:boxStrokeErrorColor="@color/errorRed"
+        app:errorIconDrawable="@drawable/text_field_error"
+        app:layout_constraintBottom_toTopOf="@id/addButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:hint="July 1 2020">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dateSelectedEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_calendar_30"
             android:inputType="numberDecimal"
             android:textColor="@color/colorWhite" />
 

@@ -50,6 +50,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
+        app:boxStrokeErrorColor="@color/errorRed"
         app:errorIconDrawable="@drawable/text_field_error"
         app:layout_constraintBottom_toTopOf="@id/deleteButton"
         app:layout_constraintEnd_toEndOf="parent"

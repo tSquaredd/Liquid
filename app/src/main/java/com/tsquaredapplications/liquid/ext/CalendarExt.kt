@@ -4,6 +4,15 @@ import android.content.Context
 import com.tsquaredapplications.liquid.R
 import java.util.*
 
+val Calendar.year
+    get() = get(Calendar.YEAR)
+
+val Calendar.month
+    get() = get(Calendar.MONTH)
+
+val Calendar.day
+    get() = get(Calendar.DAY_OF_MONTH)
+
 fun getStartAndEndTimeForToday(): Pair<Long, Long> {
     with(Calendar.getInstance()) {
         set(Calendar.HOUR_OF_DAY, 0)
