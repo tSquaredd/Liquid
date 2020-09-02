@@ -131,6 +131,10 @@
     <string name="drink_type_icon_content_description">Drink Type Icon</string>
     <!-- endregion -->
 
+    <!-- region preset icon selection -->
+    <string name="choose_an_icon">Choose an Icon</string>
+    <!-- endregion -->
+
     <!-- region edit preset -->
     <string name="delete_preset_warning">Are you sure you want to delete your preset? You cannot undo this process!</string>
     <string name="delete_preset_failure">Uh-oh! Something went wrong with deleting your preset. Please try again.</string>
