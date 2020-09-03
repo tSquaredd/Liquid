@@ -8,7 +8,7 @@ import com.tsquaredapplications.liquid.common.database.entry.EntryRepository
 import com.tsquaredapplications.liquid.common.database.goal.Goal
 import com.tsquaredapplications.liquid.common.database.goal.GoalRepository
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
-import com.tsquaredapplications.liquid.ext.getEndTimeForToday
+import com.tsquaredapplications.liquid.ext.getStartTimeForToday
 import com.tsquaredapplications.liquid.history.main.HistoryState.Initialized
 import com.tsquaredapplications.liquid.history.main.resources.HistoryResourceWrapper
 import kotlinx.coroutines.async
@@ -49,7 +49,7 @@ class HistoryViewModel
             mutableListOf<HistoryDayItem.Model>()
 
         val startTime = Calendar.getInstance()
-        startTime.timeInMillis = getEndTimeForToday()
+        startTime.timeInMillis = getStartTimeForToday()
 
         var currentGoal = goals.first()
         goals.removeAt(0)

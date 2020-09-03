@@ -31,12 +31,12 @@ fun getStartAndEndTimeForToday(): Pair<Long, Long> {
     }
 }
 
-fun getEndTimeForToday(): Long =
+fun getStartTimeForToday(): Long =
     Calendar.getInstance().apply {
-        set(Calendar.HOUR_OF_DAY, 23)
-        set(Calendar.MINUTE, 59)
-        set(Calendar.SECOND, 59)
-        set(Calendar.MILLISECOND, 999)
+        set(Calendar.HOUR_OF_DAY, 0)
+        set(Calendar.MINUTE, 0)
+        set(Calendar.SECOND, 1)
+        set(Calendar.MILLISECOND, 1)
     }.timeInMillis
 
 fun getStartOfDayFor(timestamp: Long) =
@@ -59,13 +59,13 @@ fun getEndTimeOfDayFor(timestamp: Long) =
 
 fun Calendar.getDayDisplayName(context: Context): String {
     return when (get(Calendar.DAY_OF_WEEK)) {
-        1 -> context.getString(R.string.monday)
-        2 -> context.getString(R.string.tuesday)
-        3 -> context.getString(R.string.wednesday)
-        4 -> context.getString(R.string.thursday)
-        5 -> context.getString(R.string.friday)
-        6 -> context.getString(R.string.saturday)
-        7 -> context.getString(R.string.sunday)
+        1 -> context.getString(R.string.sunday)
+        2 -> context.getString(R.string.monday)
+        3 -> context.getString(R.string.tuesday)
+        4 -> context.getString(R.string.wednesday)
+        5 -> context.getString(R.string.thursday)
+        6 -> context.getString(R.string.friday)
+        7 -> context.getString(R.string.saturday)
         else -> ""
     }
 }
