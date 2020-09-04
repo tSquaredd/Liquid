@@ -88,7 +88,6 @@ class AppModule(private val application: Application) {
     ): UserManager = impl
 
     @Provides
-    @Singleton
     fun provideUserInformation(userManager: UserManager): UserInformation = userManager.getUser()
 
     @Provides
