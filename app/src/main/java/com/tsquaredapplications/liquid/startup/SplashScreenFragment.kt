@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class SplashScreenFragment : BaseFragment<FragmentSplashScreenBinding>() {
     @Inject
-    lateinit var userDbManager: UserManager
+    lateinit var userManager: UserManager
 
     override fun setBinding(
         inflater: LayoutInflater,
@@ -39,14 +39,13 @@ class SplashScreenFragment : BaseFragment<FragmentSplashScreenBinding>() {
             }
             addListener(object : AnimatorListenerAdapter() {
                 override fun onAnimationEnd(animation: Animator?) {
-                    when (val userInformation = userDbManager.getUser()) {
-                        null -> {
-                            navigate(toLoginActivity())
+                    when (userManager.isUserSet()) {
+                        true -> {
+                            navigate(toMainActivity())
                             activity?.finish()
                         }
-                        else -> {
-                            (activity as StartupActivity).saveUserInformation(userInformation)
-                            navigate(toMainActivity())
+                        false -> {
+                            navigate(toLoginActivity())
                             activity?.finish()
                         }
                     }
