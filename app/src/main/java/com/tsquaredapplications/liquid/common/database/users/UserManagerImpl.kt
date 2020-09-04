@@ -51,20 +51,16 @@ class UserManagerImpl
         }
     }
 
-    override fun getUser(): UserInformation? {
+    override fun getUser(): UserInformation {
         val sharedPrefs = context.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE)
         val weight = sharedPrefs.getInt(WEIGHT, -1)
-        if (weight == -1) return null
 
         val dailyGoal = sharedPrefs.getInt(DAILY_GOAL, -1)
-        if (dailyGoal == -1) return null
 
         val unitPreferenceInt = sharedPrefs.getInt(UNIT_PREFERENCE, -1)
-        if (unitPreferenceInt == -1) return null
         val unitPreference = if (unitPreferenceInt == 0) LiquidUnit.OZ else LiquidUnit.ML
 
         val notificationsInt = sharedPrefs.getInt(NOTIFICATIONS_ENABLED, -1)
-        if (notificationsInt == -1) return null
         val notificationsEnabled = notificationsInt == 0
 
         val notificationStartTime = NotificationTime(
@@ -119,5 +115,10 @@ class UserManagerImpl
                 )
             )
         }
+    }
+
+    override fun isUserSet(): Boolean {
+        val sharedPrefs = context.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE)
+        return sharedPrefs.getInt(WEIGHT, -1) != -1
     }
 }

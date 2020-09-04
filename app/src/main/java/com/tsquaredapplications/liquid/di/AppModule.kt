@@ -19,6 +19,7 @@ import com.tsquaredapplications.liquid.common.database.presets.RoomPresetReposit
 import com.tsquaredapplications.liquid.common.database.types.DrinkTypeDao
 import com.tsquaredapplications.liquid.common.database.types.RoomTypeRepository
 import com.tsquaredapplications.liquid.common.database.types.TypeRepository
+import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.common.database.users.UserManager
 import com.tsquaredapplications.liquid.common.database.users.UserManagerImpl
 import com.tsquaredapplications.liquid.common.notifications.NotificationManager
@@ -85,6 +86,10 @@ class AppModule(private val application: Application) {
     fun provideUserDatabaseManager(
         impl: UserManagerImpl
     ): UserManager = impl
+
+    @Provides
+    @Singleton
+    fun provideUserInformation(userManager: UserManager): UserInformation = userManager.getUser()
 
     @Provides
     @Singleton

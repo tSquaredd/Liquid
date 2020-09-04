@@ -4,7 +4,6 @@ import com.tsquaredapplications.liquid.add.amount.resources.DrinkAmountResourceW
 import com.tsquaredapplications.liquid.add.amount.resources.DrinkAmountResourceWrapperImpl
 import com.tsquaredapplications.liquid.add.drink.resources.SelectDrinkResourceWrapper
 import com.tsquaredapplications.liquid.add.drink.resources.SelectDrinkResourceWrapperImpl
-import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.history.day.resources.DayHistoryResourceWrapper
 import com.tsquaredapplications.liquid.history.day.resources.DayHistoryResourceWrapperImpl
 import com.tsquaredapplications.liquid.history.edit.resources.UpdateEntryResourceWrapper
@@ -30,11 +29,6 @@ import dagger.Provides
 
 @Module(subcomponents = [MainComponent::class])
 class MainModule {
-
-    lateinit var userInformation: UserInformation
-
-    @Provides
-    fun provideUserInformation(): UserInformation = userInformation
 
     @Provides
     fun provideHomeResourceWrapper(impl: HomeResourceWrapperImpl): HomeResourceWrapper = impl
