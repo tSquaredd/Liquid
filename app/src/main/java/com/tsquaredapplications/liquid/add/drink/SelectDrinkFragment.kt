@@ -14,6 +14,7 @@ import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
 import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkFragmentDirections.Companion.toDrinkAmountFragment
+import com.tsquaredapplications.liquid.add.drink.SelectDrinkFragmentDirections.Companion.toHomeFragment
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkState.DrinkTypeSelected
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkState.Initialized
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkState.PresetInserted
@@ -114,7 +115,7 @@ class SelectDrinkFragment : BaseFragment<FragmentSelectDrinkBinding>() {
                 }
             ).show(parentFragmentManager, null)
         } else {
-            findNavController().popBackStack()
+            navigate(toHomeFragment(true))
         }
     }
 
