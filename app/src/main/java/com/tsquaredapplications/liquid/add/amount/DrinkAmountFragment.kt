@@ -119,6 +119,6 @@ class DrinkAmountFragment : BaseFragment<FragmentDrinkAmountBinding>() {
     }
 
     private fun onDrinkAdded() {
-        navigate(toHomeFragment())
+        navigate(toHomeFragment(true))
     }
 }
