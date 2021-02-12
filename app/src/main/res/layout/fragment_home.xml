@@ -6,65 +6,80 @@
     android:layout_height="match_parent"
     tools:context=".home.HomeFragment">
 
-    <TextView
-        android:id="@+id/headerTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:text="@string/your_progress"
-        android:textAlignment="center"
-        android:textColor="@color/colorWhite"
-        android:textSize="36dp"
-        app:layout_constraintBottom_toTopOf="@id/progressImage"
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/CircularDeterminateProgressBar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="64dp"
+        android:indeterminateDuration="1000"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        tools:ignore="SpUsage" />
-
-    <ImageView
-        android:id="@+id/progressImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:contentDescription="@string/accessibility_logo_description"
-        android:src="@drawable/liquid_icon_xlarge"
-        app:layout_constraintBottom_toTopOf="@id/progressTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headerTextView" />
-
-    <ImageView
-        android:id="@+id/negativeHydrationImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/negative_hydration_image_content_description"
-        android:src="@drawable/thirsty_fish"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/progressTextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headerTextView" />
+        tools:progress="65" />
 
     <TextView
-        android:id="@+id/progressTextView"
-        android:layout_width="match_parent"
+        android:id="@+id/progressText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:textAlignment="center"
-        android:textColor="@color/colorWhite"
-        android:textSize="36dp"
-        app:layout_constraintBottom_toTopOf="@id/addDrinkButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/progressImage"
+        android:textSize="60dp"
+        app:layout_constraintBottom_toBottomOf="@id/progressBar"
+        app:layout_constraintEnd_toEndOf="@id/progressBar"
+        app:layout_constraintStart_toStartOf="@id/progressBar"
+        app:layout_constraintTop_toTopOf="@id/progressBar"
         tools:ignore="SpUsage"
-        tools:text="0 of 75 oz" />
+        tools:text="24%" />
+
+    <TextView
+        android:id="@+id/hydratingAmount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/hydrating"
+        android:textSize="36dp"
+        app:layout_constraintEnd_toStartOf="@id/dehydratingAmount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/progressBar"
+        tools:text="36"
+        tools:ignore="SpUsage" />
+
+    <TextView
+        android:id="@+id/dehydratingAmount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/dehydrating"
+        android:textSize="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/hydratingAmount"
+        app:layout_constraintTop_toBottomOf="@id/progressBar"
+        tools:text="16"
+        tools:ignore="SpUsage" />
+
+    <TextView
+        android:id="@+id/hydratingText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@id/hydratingAmount"
+        app:layout_constraintStart_toStartOf="@id/hydratingAmount"
+        app:layout_constraintTop_toBottomOf="@id/hydratingAmount"
+        tools:text="Hydrating Oz's" />
+
+    <TextView
+        android:id="@+id/dehydratingText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@id/dehydratingAmount"
+        app:layout_constraintStart_toStartOf="@id/dehydratingAmount"
+        app:layout_constraintTop_toBottomOf="@id/dehydratingAmount"
+        tools:text="Dehydrating Oz's" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/addDrinkButton"

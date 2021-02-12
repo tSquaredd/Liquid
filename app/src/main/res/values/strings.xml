@@ -2,6 +2,8 @@
     <!-- region common -->
     <string name="oz">oz</string>
     <string name="ml">ml</string>
+    <string name="ozs">oz\'s</string>
+    <string name="mls">ml\'s</string>
     <string name="got_it">GOT IT!</string>
     <string name="delete">Delete</string>
     <string name="update">Update</string>
@@ -108,6 +110,8 @@
     <!-- region home screen -->
     <string name="your_progress">Your Progress</string>
     <string name="progress">%s of %d %s</string>
+    <string name="hydrating_text">Hydrating %s</string>
+    <string name="dehydrating_text">Dehydrating %s</string>
     <string name="negative_hydration_image_content_description">Negative hydration image</string>
     <!-- endregion-->
 

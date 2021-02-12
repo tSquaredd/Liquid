@@ -12,7 +12,7 @@ interface EntryDao {
     @Query("SELECT * FROM entry ORDER BY timestamp DESC")
     suspend fun getAllEntries(): List<Entry>
 
-    @Query("SELECT * FROM entry WHERE timestamp >= :from AND timestamp <= :to")
+    @Query("SELECT * FROM entry WHERE timestamp >= :from AND timestamp <= :to ORDER BY timestamp ASC")
     suspend fun getAllForTimeRange(from: Long, to: Long): List<Entry>
 
     @Query("SELECT * FROM entry WHERE presetUid == :presetUid")
