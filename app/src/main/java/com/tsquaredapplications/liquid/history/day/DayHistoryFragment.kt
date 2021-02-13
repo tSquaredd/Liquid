@@ -1,6 +1,5 @@
 package com.tsquaredapplications.liquid.history.day
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.LayoutInflater
@@ -23,9 +22,11 @@ import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.history.day.DayHistoryState.Initialized
 import com.tsquaredapplications.liquid.history.day.DayHistoryState.NoEntriesForDay
 import com.tsquaredapplications.liquid.history.main.HistoryIconItem
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.parcel.Parcelize
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class DayHistoryFragment : BaseFragment<FragmentDayHistoryBinding>() {
 
     @Inject
@@ -41,11 +42,6 @@ class DayHistoryFragment : BaseFragment<FragmentDayHistoryBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentDayHistoryBinding = FragmentDayHistoryBinding.inflate(inflater, container, false)
-
-    override fun onAttach(context: Context) {
-        (activity as MainActivity).mainComponent.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerViewSetup()

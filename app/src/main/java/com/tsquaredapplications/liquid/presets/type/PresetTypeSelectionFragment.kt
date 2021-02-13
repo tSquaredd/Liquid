@@ -1,6 +1,5 @@
 package com.tsquaredapplications.liquid.presets.type
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,15 +11,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.adapter.TypeItem
 import com.tsquaredapplications.liquid.databinding.FragmentPresetTypeSelectionBinding
 import com.tsquaredapplications.liquid.presets.add.AddPresetFragment.Companion.DRINK_TYPE_SELECTION_KEY
 import com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionState.Initialized
 import com.tsquaredapplications.liquid.presets.type.PresetTypeSelectionState.TypeSelected
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class PresetTypeSelectionFragment : BaseFragment<FragmentPresetTypeSelectionBinding>() {
 
     @Inject
@@ -36,11 +36,6 @@ class PresetTypeSelectionFragment : BaseFragment<FragmentPresetTypeSelectionBind
         container: ViewGroup?
     ): FragmentPresetTypeSelectionBinding =
         FragmentPresetTypeSelectionBinding.inflate(inflater, container, false)
-
-    override fun onAttach(context: Context) {
-        (activity as MainActivity).mainComponent.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

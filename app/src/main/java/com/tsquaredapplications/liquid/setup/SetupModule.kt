@@ -6,8 +6,11 @@ import com.tsquaredapplications.liquid.setup.information.resources.UserInformati
 import com.tsquaredapplications.liquid.setup.information.resources.UserInformationResourceWrapperImpl
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
-@Module(subcomponents = [SetupComponent::class])
+@Module
+@InstallIn(SingletonComponent::class)
 class SetupModule {
 
     @Provides

@@ -1,6 +1,5 @@
 package com.tsquaredapplications.liquid.add.drink
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkFragmentDirections.Companion.toDrinkAmountFragment
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkFragmentDirections.Companion.toHomeFragment
 import com.tsquaredapplications.liquid.add.drink.SelectDrinkState.DrinkTypeSelected
@@ -26,8 +24,10 @@ import com.tsquaredapplications.liquid.databinding.FragmentSelectDrinkBinding
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.ext.setAsGone
 import com.tsquaredapplications.liquid.ext.setAsVisible
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class SelectDrinkFragment : BaseFragment<FragmentSelectDrinkBinding>() {
 
     @Inject
@@ -44,11 +44,6 @@ class SelectDrinkFragment : BaseFragment<FragmentSelectDrinkBinding>() {
         container: ViewGroup?
     ): FragmentSelectDrinkBinding =
         FragmentSelectDrinkBinding.inflate(inflater, container, false)
-
-    override fun onAttach(context: Context) {
-        (activity as MainActivity).mainComponent.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -1,7 +1,6 @@
 package com.tsquaredapplications.liquid.settings.notifications
 
 import android.app.TimePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.R
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentNotificationsSettingBinding
@@ -25,8 +23,10 @@ import com.tsquaredapplications.liquid.settings.notifications.NotificationsSetti
 import com.tsquaredapplications.liquid.settings.notifications.NotificationsSettingsState.UpdateButtonDisabled
 import com.tsquaredapplications.liquid.settings.notifications.NotificationsSettingsState.UpdateButtonEnabled
 import com.tsquaredapplications.liquid.settings.notifications.NotificationsSettingsState.UpdateIntervalOptions
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class NotificationsSettingFragment : BaseFragment<FragmentNotificationsSettingBinding>() {
 
     @Inject
@@ -39,11 +39,6 @@ class NotificationsSettingFragment : BaseFragment<FragmentNotificationsSettingBi
         container: ViewGroup?
     ): FragmentNotificationsSettingBinding =
         FragmentNotificationsSettingBinding.inflate(inflater, container, false)
-
-    override fun onAttach(context: Context) {
-        (activity as MainActivity).mainComponent.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

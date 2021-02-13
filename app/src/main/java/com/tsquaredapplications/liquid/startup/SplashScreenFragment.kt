@@ -3,7 +3,6 @@ package com.tsquaredapplications.liquid.startup
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.tsquaredapplications.liquid.common.BaseFragment
@@ -12,8 +11,10 @@ import com.tsquaredapplications.liquid.databinding.FragmentSplashScreenBinding
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.startup.SplashScreenFragmentDirections.Companion.toLoginActivity
 import com.tsquaredapplications.liquid.startup.SplashScreenFragmentDirections.Companion.toMainActivity
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class SplashScreenFragment : BaseFragment<FragmentSplashScreenBinding>() {
     @Inject
     lateinit var userManager: UserManager
@@ -22,11 +23,6 @@ class SplashScreenFragment : BaseFragment<FragmentSplashScreenBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentSplashScreenBinding = FragmentSplashScreenBinding.inflate(inflater, container, false)
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as StartupActivity).startupComponent.inject(this)
-    }
 
     override fun onStart() {
         super.onStart()

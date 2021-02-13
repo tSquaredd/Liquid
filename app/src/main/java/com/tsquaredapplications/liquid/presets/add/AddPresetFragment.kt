@@ -1,6 +1,5 @@
 package com.tsquaredapplications.liquid.presets.add
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.R
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.GlideApp
@@ -31,8 +29,10 @@ import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.InvalidN
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.PresetAdded
 import com.tsquaredapplications.liquid.presets.add.model.AddPresetState.PresetIconSelected
 import com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionFragment.Companion.PRESET_ICON_SELECTION_KEY
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
 
     @Inject
@@ -103,11 +103,6 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
         }
 
         viewModel.start()
-    }
-
-    override fun onAttach(context: Context) {
-        (activity as MainActivity).mainComponent.inject(this)
-        super.onAttach(context)
     }
 
     private fun onStateChange(state: AddPresetState) {

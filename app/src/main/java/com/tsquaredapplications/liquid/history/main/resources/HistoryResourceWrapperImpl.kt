@@ -4,11 +4,13 @@ import android.content.Context
 import com.tsquaredapplications.liquid.ext.getDayDisplayName
 import com.tsquaredapplications.liquid.ext.getDayDisplayNumber
 import com.tsquaredapplications.liquid.ext.getMonthDisplayName
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.*
 import javax.inject.Inject
 
 class HistoryResourceWrapperImpl
-@Inject constructor(private val context: Context) : HistoryResourceWrapper {
+@Inject constructor(
+    @ApplicationContext private val context: Context) : HistoryResourceWrapper {
     override fun getDayDisplayName(calendar: Calendar): String {
         val dayName = calendar.getDayDisplayName(context)
         val dayNumber = calendar.getDayDisplayNumber()

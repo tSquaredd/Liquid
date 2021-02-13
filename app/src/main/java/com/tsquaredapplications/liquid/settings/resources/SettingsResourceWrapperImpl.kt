@@ -2,10 +2,12 @@ package com.tsquaredapplications.liquid.settings.resources
 
 import android.content.Context
 import com.tsquaredapplications.liquid.R
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class SettingsResourceWrapperImpl
-@Inject constructor(val context: Context) : SettingsResourceWrapper {
+@Inject constructor(
+    @ApplicationContext val context: Context) : SettingsResourceWrapper {
     override val dailyGoal: String
         get() = context.getString(R.string.daily_goal)
 

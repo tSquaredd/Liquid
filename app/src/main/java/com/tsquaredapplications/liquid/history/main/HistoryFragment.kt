@@ -1,6 +1,5 @@
 package com.tsquaredapplications.liquid.history.main
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentHistoryBinding
 import com.tsquaredapplications.liquid.ext.navigate
@@ -19,8 +17,10 @@ import com.tsquaredapplications.liquid.ext.setAsVisible
 import com.tsquaredapplications.liquid.history.day.TimestampRange
 import com.tsquaredapplications.liquid.history.main.HistoryFragmentDirections.Companion.toDayHistoryFragment
 import com.tsquaredapplications.liquid.history.main.HistoryState.Initialized
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
 
     @Inject
@@ -35,11 +35,6 @@ class HistoryFragment : BaseFragment<FragmentHistoryBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentHistoryBinding = FragmentHistoryBinding.inflate(inflater, container, false)
-
-    override fun onAttach(context: Context) {
-        (activity as MainActivity).mainComponent.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         recyclerViewSetup()

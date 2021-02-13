@@ -1,6 +1,5 @@
 package com.tsquaredapplications.liquid.presets.icon
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,14 +11,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentPresetIconSelectionBinding
 import com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionState.IconSelected
 import com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionState.Initialized
 import com.tsquaredapplications.liquid.presets.icon.adapter.PresetIconItem
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class PresetIconSelectionFragment : BaseFragment<FragmentPresetIconSelectionBinding>() {
 
     @Inject
@@ -35,11 +35,6 @@ class PresetIconSelectionFragment : BaseFragment<FragmentPresetIconSelectionBind
         container: ViewGroup?
     ): FragmentPresetIconSelectionBinding =
         FragmentPresetIconSelectionBinding.inflate(inflater, container, false)
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as MainActivity).mainComponent.inject(this)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -5,19 +5,10 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
-import com.tsquaredapplications.liquid.di.AppComponent
-import com.tsquaredapplications.liquid.di.AppModule
-import com.tsquaredapplications.liquid.di.DaggerAppComponent
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class LiquidApplication : Application() {
-
-    val mainModule = MainModule()
-
-    val appComponent: AppComponent = DaggerAppComponent.builder()
-        .appModule(AppModule(this))
-        .mainModule(mainModule)
-        .build()
-
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()

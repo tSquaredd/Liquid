@@ -1,6 +1,5 @@
 package com.tsquaredapplications.liquid.presets.edit
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.R
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.DoubleConfirmDialog
@@ -27,8 +25,10 @@ import com.tsquaredapplications.liquid.presets.edit.EditPresetState.Initialized
 import com.tsquaredapplications.liquid.presets.edit.EditPresetState.NameInvalid
 import com.tsquaredapplications.liquid.presets.edit.EditPresetState.Updated
 import com.tsquaredapplications.liquid.presets.icon.PresetIconSelectionFragment.Companion.PRESET_ICON_SELECTION_KEY
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class EditPresetFragment : BaseFragment<FragmentEditPresetBinding>() {
 
     @Inject
@@ -41,11 +41,6 @@ class EditPresetFragment : BaseFragment<FragmentEditPresetBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentEditPresetBinding = FragmentEditPresetBinding.inflate(inflater, container, false)
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as MainActivity).mainComponent.inject(this)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

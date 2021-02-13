@@ -1,6 +1,5 @@
 package com.tsquaredapplications.liquid.presets.main
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentPresetsBinding
 import com.tsquaredapplications.liquid.ext.navigate
@@ -23,8 +21,10 @@ import com.tsquaredapplications.liquid.presets.main.PresetState.ShowPlaceholder
 import com.tsquaredapplications.liquid.presets.main.PresetState.ShowPresets
 import com.tsquaredapplications.liquid.presets.main.PresetsFragmentDirections.Companion.toAddPresetFragment
 import com.tsquaredapplications.liquid.presets.main.PresetsFragmentDirections.Companion.toEditPresetFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
 
     @Inject
@@ -52,11 +52,6 @@ class PresetsFragment : BaseFragment<FragmentPresetsBinding>() {
         })
 
         viewModel.start()
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as MainActivity).mainComponent.inject(this)
     }
 
     private fun recyclerViewSetup() {

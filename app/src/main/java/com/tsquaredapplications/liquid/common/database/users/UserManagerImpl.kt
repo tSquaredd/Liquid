@@ -15,6 +15,7 @@ import com.tsquaredapplications.liquid.common.database.UNIT_PREFERENCE
 import com.tsquaredapplications.liquid.common.database.WEIGHT
 import com.tsquaredapplications.liquid.common.database.goal.Goal
 import com.tsquaredapplications.liquid.common.database.goal.GoalRepository
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
@@ -22,7 +23,7 @@ import javax.inject.Inject
 
 class UserManagerImpl
 @Inject constructor(
-    val context: Context,
+    @ApplicationContext val context: Context,
     private val goalRepository: GoalRepository
 ) :
     UserManager {

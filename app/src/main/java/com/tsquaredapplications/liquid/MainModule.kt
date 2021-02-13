@@ -26,8 +26,11 @@ import com.tsquaredapplications.liquid.settings.weight.WeightSettingResourceWrap
 import com.tsquaredapplications.liquid.settings.weight.WeightSettingResourceWrapperImpl
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
-@Module(subcomponents = [MainComponent::class])
+@Module
+@InstallIn(SingletonComponent::class)
 class MainModule {
 
     @Provides
