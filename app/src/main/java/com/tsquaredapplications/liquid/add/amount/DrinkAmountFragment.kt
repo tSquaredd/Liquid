@@ -26,8 +26,10 @@ import com.tsquaredapplications.liquid.ext.keyboardHidingFocusChangeListener
 import com.tsquaredapplications.liquid.ext.month
 import com.tsquaredapplications.liquid.ext.navigate
 import com.tsquaredapplications.liquid.ext.year
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class DrinkAmountFragment : BaseFragment<FragmentDrinkAmountBinding>() {
 
     @Inject
@@ -40,11 +42,6 @@ class DrinkAmountFragment : BaseFragment<FragmentDrinkAmountBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentDrinkAmountBinding = FragmentDrinkAmountBinding.inflate(inflater, container, false)
-
-    override fun onAttach(context: Context) {
-        (activity as MainActivity).mainComponent.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.addButton.setOnClickListener {

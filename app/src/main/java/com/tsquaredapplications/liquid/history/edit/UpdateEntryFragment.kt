@@ -1,6 +1,5 @@
 package com.tsquaredapplications.liquid.history.edit
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.R
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.GlideApp
@@ -22,8 +20,10 @@ import com.tsquaredapplications.liquid.history.edit.UpdateEntryState.EntryDelete
 import com.tsquaredapplications.liquid.history.edit.UpdateEntryState.EntryUpdated
 import com.tsquaredapplications.liquid.history.edit.UpdateEntryState.Initialized
 import com.tsquaredapplications.liquid.history.edit.UpdateEntryState.InvalidAmount
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class UpdateEntryFragment : BaseFragment<FragmentUpdateEntryBinding>() {
 
     @Inject
@@ -36,11 +36,6 @@ class UpdateEntryFragment : BaseFragment<FragmentUpdateEntryBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentUpdateEntryBinding = FragmentUpdateEntryBinding.inflate(inflater, container, false)
-
-    override fun onAttach(context: Context) {
-        (activity as MainActivity).mainComponent.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.deleteButton.setOnClickListener {

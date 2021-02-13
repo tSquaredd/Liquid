@@ -1,6 +1,5 @@
 package com.tsquaredapplications.liquid.setup.goal
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,8 +16,10 @@ import com.tsquaredapplications.liquid.setup.SetupActivity
 import com.tsquaredapplications.liquid.setup.goal.GoalDisplayFragmentDirections.Companion.toMainActivity
 import com.tsquaredapplications.liquid.setup.goal.GoalDisplayState.Initialized
 import com.tsquaredapplications.liquid.setup.goal.GoalDisplayState.UserInformationSaved
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class GoalDisplayFragment : BaseFragment<FragmentGoalDisplayBinding>() {
 
     @Inject
@@ -32,11 +33,6 @@ class GoalDisplayFragment : BaseFragment<FragmentGoalDisplayBinding>() {
         container: ViewGroup?
     ): FragmentGoalDisplayBinding =
         FragmentGoalDisplayBinding.inflate(inflater, container, false)
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as SetupActivity).setupComponent.inject(this)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

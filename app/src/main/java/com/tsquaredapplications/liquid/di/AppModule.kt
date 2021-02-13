@@ -1,8 +1,6 @@
 package com.tsquaredapplications.liquid.di
 
-import android.app.Application
 import android.content.Context
-import com.google.firebase.FirebaseApp
 import com.tsquaredapplications.liquid.common.database.AppDatabase
 import com.tsquaredapplications.liquid.common.database.entry.EntryDao
 import com.tsquaredapplications.liquid.common.database.entry.EntryRepository
@@ -26,28 +24,19 @@ import com.tsquaredapplications.liquid.common.notifications.NotificationManager
 import com.tsquaredapplications.liquid.common.notifications.NotificationManagerImpl
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Module
-class AppModule(private val application: Application) {
+@InstallIn(SingletonComponent::class)
+class AppModule {
 
     @Provides
     @Singleton
-    fun providesContext(): Context = application
-
-    @Provides
-    @Singleton
-    fun providesApplication(): Application = application
-
-    @Provides
-    @Singleton
-    fun providesFirebaseApp(): FirebaseApp {
-        return FirebaseApp.initializeApp(application)!!
-    }
-
-    @Provides
-    @Singleton
-    fun provideAppDatabase(): AppDatabase = AppDatabase.getInstance(application)
+    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase =
+        AppDatabase.getInstance(context)
 
     @Provides
     @Singleton

@@ -23,6 +23,8 @@ import com.tsquaredapplications.liquid.setup.information.UserInformationViewMode
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.IntoMap
 import javax.inject.Inject
 import javax.inject.Provider
@@ -47,6 +49,7 @@ class ViewModelFactory
     internal annotation class ViewModelKey(val value: KClass<out ViewModel>)
 
     @Module
+    @InstallIn(SingletonComponent::class)
     abstract class ViewModelModule {
 
         @Binds

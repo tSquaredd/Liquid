@@ -1,6 +1,5 @@
 package com.tsquaredapplications.liquid.settings.main
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.adapters.ItemAdapter
-import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentSettingsBinding
 import com.tsquaredapplications.liquid.ext.navigate
@@ -23,8 +21,10 @@ import com.tsquaredapplications.liquid.settings.main.SettingsFragmentDirections.
 import com.tsquaredapplications.liquid.settings.main.SettingsFragmentDirections.Companion.toLiquidUnitSettingFragment
 import com.tsquaredapplications.liquid.settings.main.SettingsFragmentDirections.Companion.toNotificationSettingFragment
 import com.tsquaredapplications.liquid.settings.main.SettingsFragmentDirections.Companion.toWeightSettingFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
 
     @Inject
@@ -39,11 +39,6 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
         inflater: LayoutInflater,
         container: ViewGroup?
     ): FragmentSettingsBinding = FragmentSettingsBinding.inflate(inflater, container, false)
-
-    override fun onAttach(context: Context) {
-        (activity as MainActivity).mainComponent.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

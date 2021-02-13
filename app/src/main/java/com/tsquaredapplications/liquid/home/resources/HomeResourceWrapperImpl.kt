@@ -4,11 +4,12 @@ import android.content.Context
 import com.tsquaredapplications.liquid.R
 import com.tsquaredapplications.liquid.common.LiquidUnit
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class HomeResourceWrapperImpl
 @Inject constructor(
-    val context: Context,
+    @ApplicationContext val context: Context,
     val userInformation: UserInformation
 ) : HomeResourceWrapper {
 

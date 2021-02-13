@@ -1,6 +1,5 @@
 package com.tsquaredapplications.liquid.settings.unit
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.common.LiquidUnit
 import com.tsquaredapplications.liquid.databinding.FragmentLiquidUnitSettingBinding
@@ -17,8 +15,10 @@ import com.tsquaredapplications.liquid.ext.setAsVisible
 import com.tsquaredapplications.liquid.settings.unit.LiquidUnitSettingState.Initialized
 import com.tsquaredapplications.liquid.settings.unit.LiquidUnitSettingState.OnUpdated
 import com.tsquaredapplications.liquid.settings.unit.LiquidUnitSettingState.UnitSelected
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class LiquidUnitSettingFragment : BaseFragment<FragmentLiquidUnitSettingBinding>() {
 
     @Inject
@@ -31,11 +31,6 @@ class LiquidUnitSettingFragment : BaseFragment<FragmentLiquidUnitSettingBinding>
         container: ViewGroup?
     ): FragmentLiquidUnitSettingBinding =
         FragmentLiquidUnitSettingBinding.inflate(inflater, container, false)
-
-    override fun onAttach(context: Context) {
-        (activity as MainActivity).mainComponent.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

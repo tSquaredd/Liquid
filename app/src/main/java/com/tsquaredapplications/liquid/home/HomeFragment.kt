@@ -21,8 +21,10 @@ import com.tsquaredapplications.liquid.home.HomeFragmentDirections.Companion.toS
 import com.tsquaredapplications.liquid.home.HomeViewModel.HomeState.Initialize
 import com.tsquaredapplications.liquid.home.HomeViewModel.HomeState.SetProgress
 import com.tsquaredapplications.liquid.home.HomeViewModel.HomeState.UpdateProgress
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
     @Inject
@@ -48,10 +50,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>() {
         viewModel.start(args.animateProgress)
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as MainActivity).mainComponent.inject(this)
-    }
 
     private fun onStateChange(state: HomeViewModel.HomeState) {
         when (state) {

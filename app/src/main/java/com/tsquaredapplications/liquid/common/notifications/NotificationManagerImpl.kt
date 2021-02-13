@@ -7,12 +7,13 @@ import androidx.work.WorkManager
 import com.tsquaredapplications.liquid.common.database.ONBOARDING_NOTIFICATION_SETUP_PERFORMED
 import com.tsquaredapplications.liquid.common.database.PREFS_FILE
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class NotificationManagerImpl
 @Inject constructor(
-    private val context: Context
+    @ApplicationContext private val context: Context
 ) : NotificationManager {
     override fun enqueueNotifications(userInformation: UserInformation) {
         if (userInformation.notifications.enabled) {

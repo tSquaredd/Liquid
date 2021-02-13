@@ -1,6 +1,5 @@
 package com.tsquaredapplications.liquid.setup.information
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +15,11 @@ import com.tsquaredapplications.liquid.common.LiquidUnit
 import com.tsquaredapplications.liquid.databinding.FragmentUserInformationBinding
 import com.tsquaredapplications.liquid.ext.hideKeyboardFrom
 import com.tsquaredapplications.liquid.ext.navigate
-import com.tsquaredapplications.liquid.setup.SetupActivity
 import com.tsquaredapplications.liquid.setup.information.UserInformationFragmentDirections.Companion.toDailyGoalDisplayFragment
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class UserInformationFragment : BaseFragment<FragmentUserInformationBinding>() {
 
     @Inject
@@ -32,11 +32,6 @@ class UserInformationFragment : BaseFragment<FragmentUserInformationBinding>() {
         container: ViewGroup?
     ): FragmentUserInformationBinding =
         FragmentUserInformationBinding.inflate(inflater, container, false)
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (activity as SetupActivity).setupComponent.inject(this)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -1,6 +1,5 @@
 package com.tsquaredapplications.liquid.settings.goal
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,15 +9,16 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.common.BaseFragment
 import com.tsquaredapplications.liquid.databinding.FragmentGoalSettingBinding
 import com.tsquaredapplications.liquid.ext.keyboardHidingFocusChangeListener
 import com.tsquaredapplications.liquid.settings.goal.GoalSettingState.Finished
 import com.tsquaredapplications.liquid.settings.goal.GoalSettingState.Initialized
 import com.tsquaredapplications.liquid.settings.goal.GoalSettingState.InvalidAmount
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class GoalSettingFragment : BaseFragment<FragmentGoalSettingBinding>() {
 
     @Inject
@@ -31,11 +31,6 @@ class GoalSettingFragment : BaseFragment<FragmentGoalSettingBinding>() {
         container: ViewGroup?
     ): FragmentGoalSettingBinding =
         FragmentGoalSettingBinding.inflate(inflater, container, false)
-
-    override fun onAttach(context: Context) {
-        (activity as MainActivity).mainComponent.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

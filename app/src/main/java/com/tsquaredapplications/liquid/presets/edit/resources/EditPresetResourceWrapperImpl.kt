@@ -2,10 +2,12 @@ package com.tsquaredapplications.liquid.presets.edit.resources
 
 import android.content.Context
 import com.tsquaredapplications.liquid.R
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 class EditPresetResourceWrapperImpl
-@Inject constructor(val context: Context) : EditPresetResourceWrapper {
+@Inject constructor(
+    @ApplicationContext private val context: Context) : EditPresetResourceWrapper {
     override val amountErrorMessage: String
         get() = context.getString(R.string.amount_error_message)
 

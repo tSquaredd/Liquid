@@ -15,12 +15,13 @@ import com.tsquaredapplications.liquid.common.database.goal.RoomGoalRepository
 import com.tsquaredapplications.liquid.common.database.users.UserInformation
 import com.tsquaredapplications.liquid.common.database.users.UserManagerImpl
 import com.tsquaredapplications.liquid.ext.getStartAndEndTimeForToday
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.util.*
 import javax.inject.Inject
 
 class NotificationWorker
 @Inject constructor(
-    private val context: Context,
+    @ApplicationContext private val context: Context,
     workerParameters: WorkerParameters
 ) : CoroutineWorker(context, workerParameters) {
 
