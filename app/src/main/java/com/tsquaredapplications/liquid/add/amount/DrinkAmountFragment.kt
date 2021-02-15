@@ -1,17 +1,17 @@
 package com.tsquaredapplications.liquid.add.amount
 
 import android.app.DatePickerDialog
-import android.content.Context
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
-import com.tsquaredapplications.liquid.MainActivity
 import com.tsquaredapplications.liquid.R
 import com.tsquaredapplications.liquid.add.amount.DrinkAmountFragmentDirections.Companion.toHomeFragment
 import com.tsquaredapplications.liquid.add.amount.DrinkAmountState.DrinkAdded
@@ -43,7 +43,15 @@ class DrinkAmountFragment : BaseFragment<FragmentDrinkAmountBinding>() {
         container: ViewGroup?
     ): FragmentDrinkAmountBinding = FragmentDrinkAmountBinding.inflate(inflater, container, false)
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition =
+            TransitionInflater.from(context).inflateTransition(R.transition.shared_image)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        ViewCompat.setTransitionName(binding.drinkIcon, DRINK_ICON_TRANSITION_NAME)
+
         binding.addButton.setOnClickListener {
             viewModel.onAddClicked()
         }
@@ -101,10 +109,10 @@ class DrinkAmountFragment : BaseFragment<FragmentDrinkAmountBinding>() {
             }
         }
 
-        GlideApp.with(binding.presetIcon.context)
+        GlideApp.with(binding.drinkIcon.context)
             .load(args.drinkType.icon.largeIconResource)
             .placeholder(R.drawable.drink_type_placeholder_large)
-            .into(binding.presetIcon)
+            .into(binding.drinkIcon)
     }
 
     private fun onInvalidAmount(state: InvalidAmount) {
@@ -117,5 +125,9 @@ class DrinkAmountFragment : BaseFragment<FragmentDrinkAmountBinding>() {
 
     private fun onDrinkAdded() {
         navigate(toHomeFragment(true))
+    }
+
+    companion object {
+        const val DRINK_ICON_TRANSITION_NAME = "drink_image"
     }
 }

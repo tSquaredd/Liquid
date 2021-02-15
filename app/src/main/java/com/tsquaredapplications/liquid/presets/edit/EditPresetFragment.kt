@@ -53,7 +53,7 @@ class EditPresetFragment : BaseFragment<FragmentEditPresetBinding>() {
             ).show(parentFragmentManager, null)
         }
 
-        binding.presetIcon.setOnClickListener { navigate(toPresetIconSelectionFragment()) }
+        binding.drinkIcon.setOnClickListener { navigate(toPresetIconSelectionFragment()) }
 
         binding.amountSelectionEditText.addTextChangedListener {
             it?.let {
@@ -112,17 +112,17 @@ class EditPresetFragment : BaseFragment<FragmentEditPresetBinding>() {
             it.insert(0, state.name)
         }
 
-        GlideApp.with(binding.presetIcon)
+        GlideApp.with(binding.drinkIcon)
             .load(state.iconResource)
             .fitCenter()
-            .into(binding.presetIcon)
+            .into(binding.drinkIcon)
     }
 
     private fun onIconUpdated(state: IconUpdated) {
-        GlideApp.with(binding.presetIcon)
+        GlideApp.with(binding.drinkIcon)
             .load(state.iconResource)
             .fitCenter()
-            .into(binding.presetIcon)
+            .into(binding.drinkIcon)
     }
 
     private fun onAmountInvalid(errorMessage: String) {

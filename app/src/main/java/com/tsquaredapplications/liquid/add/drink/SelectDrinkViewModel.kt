@@ -31,16 +31,27 @@ class SelectDrinkViewModel
 ) :
     BaseViewModel<SelectDrinkState>() {
 
+    private val presets = mutableListOf<PresetItem>()
+    private val types = mutableListOf<TypeItem>()
+
     fun start() {
         buildDrinkList()
     }
 
     private fun buildDrinkList() {
-        viewModelScope.launch {
-            val presets = async { presetRepository.getAllPresets().values.map { PresetItem(it) } }
-            val types =
-                async { typeRepository.getAllDrinkTypesWithIcons().values.map { TypeItem(it) } }
-            onItemListsCreated(presets.await(), types.await())
+        if (types.isEmpty()) {
+            viewModelScope.launch {
+                val deferredPresets =
+                    async { presetRepository.getAllPresets().values.map { PresetItem(it) } }
+                val deferredTypes =
+                    async { typeRepository.getAllDrinkTypesWithIcons().values.map { TypeItem(it) } }
+
+                presets.addAll(deferredPresets.await())
+                types.addAll(deferredTypes.await())
+                onItemListsCreated(presets, types)
+            }
+        } else {
+            onItemListsCreated(presets, types)
         }
     }
 

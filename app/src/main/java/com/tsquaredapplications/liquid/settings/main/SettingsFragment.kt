@@ -58,7 +58,10 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding>() {
             }
             false
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
         with(itemAdapter) {
             clear()
             add(viewModel.getSettingsItems())
