@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context=".add.amount.DrinkAmountFragment">
 
     <TextView
@@ -41,12 +42,13 @@
         app:layout_constraintWidth_max="280dp" />
 
     <ImageView
-        android:id="@+id/presetIcon"
+        android:id="@+id/drinkIcon"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="40dp"
         android:contentDescription="@string/new_preset_icon_content_description"
         android:src="@drawable/drink_type_placeholder_large"
+        android:transitionName="test"
         app:layout_constraintBottom_toBottomOf="@id/circularBackground"
         app:layout_constraintEnd_toEndOf="@id/circularBackground"
         app:layout_constraintStart_toStartOf="@id/circularBackground"

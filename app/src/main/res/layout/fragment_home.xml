@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context=".home.HomeFragment">
 
     <ProgressBar
@@ -41,8 +42,8 @@
         app:layout_constraintEnd_toStartOf="@id/dehydratingAmount"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/progressBar"
-        tools:text="36"
-        tools:ignore="SpUsage" />
+        tools:ignore="SpUsage"
+        tools:text="36" />
 
     <TextView
         android:id="@+id/dehydratingAmount"
@@ -54,8 +55,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/hydratingAmount"
         app:layout_constraintTop_toBottomOf="@id/progressBar"
-        tools:text="16"
-        tools:ignore="SpUsage" />
+        tools:ignore="SpUsage"
+        tools:text="16" />
 
     <TextView
         android:id="@+id/hydratingText"

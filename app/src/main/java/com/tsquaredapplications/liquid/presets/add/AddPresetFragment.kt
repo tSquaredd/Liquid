@@ -48,7 +48,7 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.presetIcon.setOnClickListener {
+        binding.drinkIcon.setOnClickListener {
             navigate(toAddPresetIconSelectionFragment())
         }
 
@@ -127,10 +127,10 @@ class AddPresetFragment : BaseFragment<FragmentAddPresetBinding>() {
     }
 
     private fun onPresetIconSelected(state: PresetIconSelected) {
-        GlideApp.with(binding.presetIcon.context)
+        GlideApp.with(binding.drinkIcon.context)
             .load(state.icon.largeIconResource)
             .fitCenter()
-            .into(binding.presetIcon)
+            .into(binding.drinkIcon)
 
         binding.circularBackground.setBackgroundResource(R.drawable.type_background_with_border)
     }

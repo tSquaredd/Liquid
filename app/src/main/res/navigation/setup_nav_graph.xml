@@ -17,7 +17,11 @@
         tools:layout="@layout/fragment_welcome">
         <action
             android:id="@+id/toUserInformationFragment"
-            app:destination="@id/userInformationFragment" />
+            app:destination="@id/userInformationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/stay"
+            app:popEnterAnim="@anim/stay"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/userInformationFragment"
@@ -26,7 +30,11 @@
         tools:layout="@layout/fragment_user_information">
         <action
             android:id="@+id/toDailyGoalDisplayFragment"
-            app:destination="@id/dailyGoalDisplayFragment" />
+            app:destination="@id/dailyGoalDisplayFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/stay"
+            app:popEnterAnim="@anim/stay"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/dailyGoalDisplayFragment"
@@ -36,7 +44,10 @@
         <action
             android:id="@+id/toMainActivity"
             app:destination="@id/mainActivity"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/stay"
             app:launchSingleTop="false"
+            app:popEnterAnim="@anim/stay"
             app:popUpToInclusive="false" />
         <argument
             android:name="weight"

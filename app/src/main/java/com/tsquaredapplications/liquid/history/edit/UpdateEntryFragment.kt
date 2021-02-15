@@ -85,7 +85,7 @@ class UpdateEntryFragment : BaseFragment<FragmentUpdateEntryBinding>() {
 
     private fun onEntryDeleted() {
         if (args.isOnlyEntryForDay) {
-            navigate(UpdateEntryFragmentDirections.toHistoryFragment())
+            findNavController().popBackStack(R.id.historyFragment, false)
         } else {
             findNavController().popBackStack()
         }
