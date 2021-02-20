@@ -5,7 +5,7 @@ import com.tsquaredapplications.liquid.settings.resources.SettingsResourceWrappe
 import com.tsquaredapplications.liquid.test.util.mocks.MOCK_DAILY_GOAL
 import com.tsquaredapplications.liquid.test.util.mocks.MOCK_UNIT_PREF
 import com.tsquaredapplications.liquid.test.util.mocks.MOCK_WEIGHT
-import com.tsquaredapplications.liquid.test.util.mocks.mockUserInformation
+import com.tsquaredapplications.liquid.test.util.mocks.mockUserManager
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -16,7 +16,7 @@ internal class SettingsViewModelTest : BaseTest() {
 
     lateinit var viewModel: SettingsViewModel
 
-    private val userInformation = mockUserInformation()
+    private val userManager = mockUserManager()
     private val resourceWrapper = mockk<SettingsResourceWrapper> {
         every { dailyGoal } returns DAILY_GOAL
         every { weight } returns WEIGHT
@@ -27,10 +27,9 @@ internal class SettingsViewModelTest : BaseTest() {
         every { on } returns ON
     }
 
-
     @BeforeEach
     fun beforeEach() {
-        viewModel = SettingsViewModel(userInformation, resourceWrapper)
+        viewModel = SettingsViewModel(userManager, resourceWrapper)
     }
 
     @Test

@@ -1,13 +1,13 @@
 package com.tsquaredapplications.liquid.settings.main
 
 import androidx.lifecycle.ViewModel
-import com.tsquaredapplications.liquid.common.database.users.UserInformation
+import com.tsquaredapplications.liquid.common.database.users.UserManager
 import com.tsquaredapplications.liquid.settings.resources.SettingsResourceWrapper
 import javax.inject.Inject
 
 class SettingsViewModel
 @Inject constructor(
-    private val userInformation: UserInformation,
+    private val userManager: UserManager,
     private val resourceWrapper: SettingsResourceWrapper
 ) : ViewModel() {
 
@@ -15,28 +15,28 @@ class SettingsViewModel
         SettingsItem(
             Setting(
                 name = resourceWrapper.dailyGoal,
-                value = "${userInformation.dailyGoal}${userInformation.unitPreference}",
+                value = "${userManager.getUser().dailyGoal}${userManager.getUser().unitPreference}",
                 settingType = SettingType.DailyGoal
             )
         ),
         SettingsItem(
             Setting(
                 name = resourceWrapper.weight,
-                value = "${userInformation.weight} ${resourceWrapper.lbs}",
+                value = "${userManager.getUser().weight} ${resourceWrapper.lbs}",
                 settingType = SettingType.Weight
             )
         ),
         SettingsItem(
             Setting(
                 name = resourceWrapper.preferredMeasurement,
-                value = "${userInformation.unitPreference}",
+                value = "${userManager.getUser().unitPreference}",
                 settingType = SettingType.UnitPreference
             )
         ),
         SettingsItem(
             Setting(
                 name = resourceWrapper.allowReminders,
-                value = if (userInformation.notifications.enabled) resourceWrapper.on else resourceWrapper.off,
+                value = if (userManager.getUser().notifications.enabled) resourceWrapper.on else resourceWrapper.off,
                 settingType = SettingType.Notifications
             )
         ),
