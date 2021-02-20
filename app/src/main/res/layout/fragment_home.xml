@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="@id/progressBar"
         app:layout_constraintTop_toTopOf="@id/progressBar"
         tools:ignore="SpUsage"
-        tools:text="24%" />
+        tools:text="65%" />
 
     <TextView
         android:id="@+id/hydratingAmount"
