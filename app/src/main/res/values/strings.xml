@@ -1,11 +1,27 @@
 <resources>
-    <string name="app_name">Liquid</string>
-
-    <string name="home_icon_content_desc">Home icon</string>
-    <string name="home">Home</string>
-    <string name="history">History</string>
-    <string name="presets">Presets</string>
-    <string name="stats">Stats</string>
-    <string name="settings">Settings</string>
     <string name="add">Add</string>
+    <string name="app_name">Liquid</string>
+    <string name="history">History</string>
+    <string name="home">Home</string>
+    <string name="home_icon_content_desc">Home icon</string>
+    <string name="presets">Presets</string>
+    <string name="settings">Settings</string>
+    <string name="stats">Stats</string>
+
+    <string name="drink_type_beer">Beer</string>
+    <string name="drink_type_coffee">Coffee</string>
+    <string name="drink_type_energy">Energy</string>
+    <string name="drink_type_hot_tea">Tea</string>
+    <string name="drink_type_juice">Juice</string>
+    <string name="drink_type_iced_tea">Iced Tea</string>
+    <string name="drink_type_milk">Milk</string>
+    <string name="drink_type_smoothie">Smoothie</string>
+    <string name="drink_type_soda">Soda</string>
+    <string name="drink_type_spirit">Spirit</string>
+    <string name="drink_type_sports">Sports</string>
+    <string name="drink_type_water">Water</string>
+    <string name="drink_type_wine">Wine</string>
+
+    <string name="add_presets_prompt">add your most frequently consumed beverages in presets!</string>
+
 </resources>
