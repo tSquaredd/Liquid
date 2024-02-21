@@ -19,14 +19,15 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import dev.tsquaredapps.liquid.ui.theme.coral
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(navigateToAddDrink: () -> Unit, modifier: Modifier = Modifier) {
     val viewModel: HomeViewModel = hiltViewModel()
     val state by viewModel.entryLiveData.observeAsState()
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
                 containerColor = coral,
-                onClick = viewModel::onAddClicked) {
+                onClick = navigateToAddDrink
+            ) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = null)
             }
         }

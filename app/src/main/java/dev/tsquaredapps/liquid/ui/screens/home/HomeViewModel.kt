@@ -16,9 +16,4 @@ class HomeViewModel @Inject constructor(
 
     val entryLiveData = entryRepository.getAllFlow().asLiveData()
 
-    fun onAddClicked() {
-        viewModelScope.launch(Dispatchers.IO) {
-            entryRepository.addEntry()
-        }
-    }
 }

@@ -32,7 +32,8 @@ import dev.tsquaredapps.liquid.ui.theme.coral
 @Composable
 fun LiquidNavigationRail(
     selectedDestination: String,
-    navigateToTopLevelDestination: (LiquidTopLevelDestination) -> Unit
+    navigateToTopLevelDestination: (LiquidTopLevelDestination) -> Unit,
+    navigateToAddDrink: () -> Unit
 ) {
     NavigationRail(
         modifier = Modifier.fillMaxHeight()
@@ -69,7 +70,7 @@ fun LiquidNavigationRail(
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             FloatingActionButton(
-                onClick = { /*TODO*/ },
+                onClick = navigateToAddDrink,
                 modifier = Modifier.padding(top = 8.dp, bottom = 32.dp),
                 containerColor = coral
             ) {

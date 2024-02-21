@@ -46,6 +46,9 @@ fun LiquidApp(
                 navigateToTopLevelDestination = { destination ->
                     navigationActions.navigateTo(destination)
                 },
+                navigateToAddDrink = {
+                    navController.navigate(LiquidRoute.ADD_DRINK)
+                }
             )
         }
         Column(

@@ -10,6 +10,7 @@ object LiquidRoute {
     const val PRESETS = "Presets"
     const val STATS = "Stats"
     const val SETTINGS = "Settings"
+    const val ADD_DRINK = "Add_Drink"
 }
 
 data class LiquidTopLevelDestination(
