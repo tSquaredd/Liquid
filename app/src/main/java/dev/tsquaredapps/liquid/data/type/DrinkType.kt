@@ -1,15 +1,20 @@
 package dev.tsquaredapps.liquid.data.type
 
+import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import dev.tsquaredapps.liquid.R
+import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.Serializable
 
+@Serializable
+@Parcelize
 sealed class DrinkType(
     val id: Int,
     val hydrationValue: Float,
     @StringRes val nameRes: Int,
     @DrawableRes val drawableRes: Int
-) {
+): Parcelable {
     data object Water : DrinkType(
         id = 0,
         hydrationValue = 1f,

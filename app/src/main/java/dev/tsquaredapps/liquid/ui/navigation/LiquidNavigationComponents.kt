@@ -5,14 +5,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationRail
@@ -31,9 +29,9 @@ import dev.tsquaredapps.liquid.ui.theme.coral
 
 @Composable
 fun LiquidNavigationRail(
-    selectedDestination: String,
-    navigateToTopLevelDestination: (LiquidTopLevelDestination) -> Unit,
-    navigateToAddDrink: () -> Unit
+    topLevelDestinationRoute: String,
+    onDestinationSelected: (LiquidTopLevelDestination) -> Unit,
+    onAddDrinkClicked: () -> Unit
 ) {
     NavigationRail(
         modifier = Modifier.fillMaxHeight()
@@ -45,11 +43,11 @@ fun LiquidNavigationRail(
         ) {
             TOP_LEVEL_DESTINATIONS.forEach { destination ->
                 val selected by remember {
-                    mutableStateOf(selectedDestination == destination.route)
+                    mutableStateOf(topLevelDestinationRoute == destination.route)
                 }
                 NavigationRailItem(
                     selected = selected,
-                    onClick = { navigateToTopLevelDestination(destination) },
+                    onClick = { onDestinationSelected(destination) },
                     icon = {
                         Image(
                             painter = painterResource(
@@ -70,7 +68,7 @@ fun LiquidNavigationRail(
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
             FloatingActionButton(
-                onClick = navigateToAddDrink,
+                onClick = onAddDrinkClicked,
                 modifier = Modifier.padding(top = 8.dp, bottom = 32.dp),
                 containerColor = coral
             ) {
@@ -86,19 +84,19 @@ fun LiquidNavigationRail(
 
 @Composable
 fun LiquidNavigationBar(
-    selectedDestination: String,
-    navigateToTopLevelDestination: (LiquidTopLevelDestination) -> Unit
+    topLevelDestinationRoute: String,
+    onDestinationSelected: (LiquidTopLevelDestination) -> Unit
 ) {
     NavigationBar {
         TOP_LEVEL_DESTINATIONS.forEach { destination ->
-            val selected by remember(selectedDestination) {
-                mutableStateOf(destination.route == selectedDestination)
+            val selected by remember(topLevelDestinationRoute) {
+                mutableStateOf(destination.route == topLevelDestinationRoute)
             }
 
             NavigationBarItem(
                 selected = selected,
                 onClick = {
-                    navigateToTopLevelDestination(destination)
+                    onDestinationSelected(destination)
                 },
                 icon = {
                     Image(
