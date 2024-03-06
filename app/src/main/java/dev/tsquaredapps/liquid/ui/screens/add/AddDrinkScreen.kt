@@ -2,6 +2,7 @@ package dev.tsquaredapps.liquid.ui.screens.add
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
@@ -29,12 +30,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import dev.tsquaredapps.liquid.R
 import dev.tsquaredapps.liquid.data.type.DrinkType
 import dev.tsquaredapps.liquid.ui.theme.h20
 
 @Composable
-fun AddDrinkScreen(modifier: Modifier = Modifier) {
+fun AddDrinkScreen(
+    navigateToAmountSelection: (type: DrinkType) -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: AddDrinkViewModel = hiltViewModel()
+) {
     Surface {
         Column(
             modifier = modifier
@@ -46,7 +52,7 @@ fun AddDrinkScreen(modifier: Modifier = Modifier) {
             PresetsSection(modifier = Modifier.padding(30.dp))
             HorizontalDivider(modifier = Modifier.padding(horizontal = 20.dp))
             Spacer(modifier = Modifier.height(30.dp))
-            DrinkTypesSection()
+            DrinkTypesSection(onDrinkTypeSelected = viewModel::onDrinkTypeSelected)
         }
     }
 }
@@ -63,7 +69,10 @@ private fun PresetsSection(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun DrinkTypesSection(modifier: Modifier = Modifier) {
+private fun DrinkTypesSection(
+    onDrinkTypeSelected: (type: DrinkType) -> Unit,
+    modifier: Modifier = Modifier
+) {
     LazyVerticalGrid(
         modifier = modifier,
         columns = GridCells.Adaptive(125.dp),
@@ -72,15 +81,22 @@ private fun DrinkTypesSection(modifier: Modifier = Modifier) {
     ) {
         DrinkType.values().forEach { drinkType ->
             item {
-                DrinkTypeItem(type = drinkType)
+                DrinkTypeItem(type = drinkType, onDrinkTypeSelected = onDrinkTypeSelected)
             }
         }
     }
 }
 
 @Composable
-private fun DrinkTypeItem(type: DrinkType, modifier: Modifier = Modifier) {
-    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+private fun DrinkTypeItem(
+    type: DrinkType,
+    onDrinkTypeSelected: (type: DrinkType) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    Column(
+        modifier = modifier.clickable { onDrinkTypeSelected(type) },
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Box(
             modifier = Modifier
                 .size(90.dp)
